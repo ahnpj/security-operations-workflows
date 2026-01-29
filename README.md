@@ -18,6 +18,7 @@ In this repository:
 
 Each folder therefore represents a practical execution of a specific security operations workflow, with documentation that captures both the technical steps and the analyst reasoning behind them.
 
+---
 
 ## Purpose of This Repository
 
@@ -270,3 +271,4 @@ For full incident scenarios with full reporting and MITRE mapping, refer to the 
 
 
 ---
+
