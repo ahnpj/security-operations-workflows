@@ -18,7 +18,6 @@ In this repository:
 
 Each folder therefore represents a practical execution of a specific security operations workflow, with documentation that captures both the technical steps and the analyst reasoning behind them.
 
----
 
 ## Purpose of This Repository
 
@@ -268,5 +267,6 @@ Some workflows are intentionally extended over time with:
 This mirrors how real security teams refine procedures as threats evolve and tooling improves, and it highlights an ongoing commitment to operational growth.
 
 For full incident scenarios with full reporting and MITRE mapping, refer to the separate **Incident Response & Investigations** repository. This repository focuses on **how analysts actually work between alerts and incidents**, which is where most SOC time is spent.
+
 
 ---
