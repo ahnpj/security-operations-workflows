@@ -1,278 +1,201 @@
-# Security Operations Workflows — Practical Blue Team Execution
+## Security Operations Workflows
 
-This repository contains hands-on execution examples of common security operations workflows that reflect how blue team analysts and security engineers actually perform focused, task-driven analysis during monitoring, triage, detection development, and response preparation. Rather than presenting only final conclusions, each workflow captures the **process, decision points, and technical execution** required to reach those conclusions.
+This repository contains **hands-on security operations workflows** modeled after real SOC and blue-team execution. Each workflow captures how a common operational task is performed end-to-end — including the commands, pivots, validation logic, and analyst reasoning used to reach defensible conclusions.
 
-These writeups are intentionally structured to resemble internal SOC runbooks and analyst playbooks, where the goal is not only to solve a problem once, but to establish a **repeatable operational method** that can be reused, refined, and automated over time.
+Workflows are organized into category folders based on **primary operational domain** (endpoint triage, SIEM detections, network traffic analysis, identity and access, automation/log processing, and vulnerability management). Each workflow folder is self-contained and designed to be read like an internal runbook execution: *what you did, why you did it, what you saw, and what it means*.
 
-Each workflow is written as a structured execution guide, showing how tools, commands, and analysis steps fit together to accomplish a defined security objective.
+These writeups emphasize evidence-based validation, repeatable analyst processes, and practical execution patterns — not just tool features.
 
-While this repository focuses on repeatable operational workflows, full end-to-end incident investigations — including investigation walkthroughs, incident summaries, MITRE ATT&CK mappings, artifact analysis, and detection and hardening recommendations — are documented in the separate `incident-response-and-investigations` repository, which captures complete incident response lifecycles from alert intake through remediation.
+> 👉 For **guidance on how workflows are grouped by operational domain and how to navigate the repository**, start with the **[Start Here: How to Navigate This Repository](#start-here-how-to-navigate-this-repository)** section below.
 
----
+> 👉 To **understand how category folders are defined and what types of workflows belong in each**, see **[How This Repository Is Organized](#how-this-repository-is-organized)** and **[Category Folders and Current Workflows](#category-folders-and-current-workflows)** sections below
 
-### How to Read This Repository
-
-In this repository:
-
-- **Workflows** refer to common security operations tasks (such as endpoint triage, network traffic analysis, log parsing, or access validation).
-- **Executions** refer to the hands-on performance of those tasks using real tools, commands, and data sources.
-- **Writeups** document how each task was performed, what decisions were made during analysis, and how results were interpreted in an operational context.
-
-Each folder therefore represents a practical execution of a specific security operations workflow, with documentation that captures both the technical steps and the analyst reasoning behind them.
+> 👉 For **details on how individual workflow folders are structured, including standard files and documentation flow**, see **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**, **[How These Workflows Are Designed](#how-these-workflows-are-designed)** and **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)** sections below.
 
 ---
 
-### Purpose of This Repository
+### Start Here: How to Navigate This Repository
+👉 **Browse by category folders**  
+At the top level of this repository, you’ll see folders organized by **primary operational domain** (for example: endpoint triage, SIEM detections, network traffic analysis, identity and access). Start by choosing the category that best matches the type of task you want to practice or reference.
 
-This repository exists to demonstrate practical blue‑team execution skills across common security operations domains. The focus is on **how security tasks are performed**, not simply what tools are used.
+👉 **Each subfolder is one complete workflow execution**  
+Inside each category, every workflow folder is a **self-contained operational task** documented end-to-end, including the execution steps and supporting notes.
 
-Each workflow is built around a specific operational objective, such as validating endpoint state, analyzing suspicious network traffic, improving log quality for detection, or confirming access control behavior. These are the kinds of targeted tasks that SOC analysts and security engineers perform daily while investigating alerts, supporting detections, or validating defensive controls.
+👉 **Follow the workflow execution first**  
+Begin with `workflow-execution.md` inside a workflow folder to see the step-by-step command execution, pivots, and validation logic.
 
-Many of these workflows are the **building blocks of incident investigations**, but here they are practiced and documented as **standalone operational skills**.
+👉 **Use analyst notes to understand decisions**  
+Read `analyst-notes.md` to see assumptions, interpretation, edge cases, and why certain pivots or checks matter in real investigations.
 
-The scope of this repository includes workflows that support:
+👉 **Reference tool usage notes for syntax and patterns**  
+Use `tool-usage-notes.md` as a reusable reference for command syntax, flags, parsing patterns, and “gotchas” you’ll want handy during real triage.
 
-- Endpoint triage and host inspection, where the goal is to rapidly collect and validate system state information such as processes, services, user sessions, and configuration artifacts to determine whether a host may be compromised or misconfigured. This mirrors real incident response triage, where quick validation of host health is critical before deeper forensic analysis.
-- Network traffic capture and protocol analysis, where packet-level data is used to understand communication patterns, detect anomalies, and reconstruct application-layer behavior during investigations. These workflows demonstrate how analysts move from raw packets to meaningful session-level conclusions.
-- SIEM detections and log normalization workflows, where logs are parsed, enriched, and queried to improve detection accuracy and investigative visibility. These tasks are essential for reducing false positives and ensuring that alerts are based on reliable, well-structured data.
-- Identity and access management validation, where authentication behavior, permissions, and group memberships are tested to ensure access controls are functioning as expected. These workflows reflect how analysts validate whether identity systems are enforcing policy correctly.
-- Detection automation and log processing, where scripting and programming are used to transform raw data into structured, searchable, and detection-ready formats. This supports scalable detection engineering and threat hunting.
-- Vulnerability and exposure analysis, where asset data and vulnerability findings are examined to support prioritization and remediation decisions. These workflows focus on turning vulnerability data into actionable security decisions.
+👉 **Check automation design notes when present**  
+Some workflows include `automation-design-notes.md` to show how the workflow can be translated into repeatable scripts, parsing logic, or detection automation.
 
-These workflows are intentionally scoped and focused. They reflect the reality that most security work consists of isolated investigative and validation tasks, not only full incident response cases.
-
----
-
-### Repository Structure and Organization
-
-This repository contains hands-on implementations of common security operations workflows, grouped by security function rather than by individual threat scenarios. Each top-level category represents a common area of responsibility within SOC and security engineering teams, such as endpoint triage, network traffic analysis, SIEM operations, identity and access validation, and detection automation.
-
-Within each category, individual executions focus on specific investigative or validation tasks, such as inspecting host state, reconstructing network sessions, normalizing log data for detection, or testing authentication and permission behavior. These tasks are the kinds of targeted activities analysts perform routinely while responding to alerts, validating detections, or preparing defensive controls.
-
-This structure reflects how real security work is often carried out: as a series of focused, repeatable operational tasks that may later contribute to larger investigations, rather than as isolated, end-to-end incident scenarios.
-
-```
-<workflow-category>/
-└── <task-implementation>/
-    ├── README.md
-    ├── workflow-execution.md
-    ├── analyst-notes.md
-    ├── tool-usage-notes.md
-    ├── automation-design-notes.md   (only for automation-focused tasks)
-    └── images/
-```
-
-Within each category, individual executions use a tool-first naming convention, followed by the primary operational focus (for example, `wireshark-traffic-analysis` or `splunk-log-parsing`), while the workflow writeups themselves emphasize analytical process and operational reasoning. This makes the technologies being demonstrated easy to identify at a glance, while the workflow documentation itself emphasizes analytical process and operational reasoning rather than tool features.
-
-### What Each File Is For
-
-Each hands-on implementation in this repository is documented using multiple files, separated by purpose to reflect how security teams typically organize operational knowledge and investigation notes.
-
-* **README.md**
-  Describes the operational objective, the security context in which the task would occur, what skills are being exercised, and how the activity maps to real SOC or security engineering responsibilities.
-
-* **workflow-execution.md**
-  Documents the step-by-step technical execution of the task, including commands, queries, filters, scripts, screenshots, and validation steps. This serves as the reproducible record of what actions were performed and in what sequence.
-
-* **analyst-notes.md**
-  Captures analytical reasoning and operational takeaways, such as why specific approaches were chosen, how results should be interpreted, potential detection and monitoring implications, and areas where false positives or blind spots may exist.
-
-* **tool-usage-notes.md**
-  Focuses on practical tool behavior and syntax, including command options, filter logic, field definitions, and usage nuances that are useful when applying the same tools in other investigations or operational tasks.
-
-* **automation-design-notes.md** (when present)
-  Used in tasks that involve scripting or data processing to document parsing strategies, logic flow, and design considerations related to scaling, maintainability, or future integration into detection pipelines.
-
-This structure reflects how many security teams separate procedural execution, tool reference, and analytical interpretation when documenting operational processes, making techniques easier to review, reuse, and extend over time.
-
-The current structure includes:
-
-- Endpoint Triage and Host Analysis, which contains workflows focused on collecting and validating host-level artifacts such as processes, services, memory usage, disk usage, and user activity across Linux and Windows systems. These workflows support rapid compromise assessment and system health validation.
-- Network Traffic Analysis, which contains workflows that use packet capture tools and protocol analyzers to inspect, filter, and reconstruct network communications. These workflows demonstrate how analysts move from packets to meaningful communication context.
-- SIEM Detections and Log Analysis, which contains workflows centered on searching, parsing, and validating logs within SIEM platforms to support detection engineering and incident response.
-- Identity and Access Management, which contains workflows for validating authentication flows, permissions, and directory service behavior to ensure identity systems are enforcing policy correctly.
-- Detection Automation and Log Processing, which contains workflows where scripting and programming are used to automate parsing, enrichment, and detection preparation tasks.
-- Vulnerability Management & Exposure Analysis, which contains workflows related to identifying, prioritizing, and contextualizing vulnerabilities and asset exposure to support remediation planning.
+👉 **Use this repository as execution-based learning**  
+These workflows are designed to be read like **SOC runbook executions**, showing not just *what* to run, but *how* an analyst validates results and avoids false conclusions.
 
 ---
 
-## Workflow Categories in This Repo
+### How This Repository Is Organized
+This repository is organized into **category folders**, which are the top-level folders you see at the top when browsing the repository.
 
-Each category represents a core SOC or security operations workstream and groups together workflows that address similar types of security questions, data sources, and investigative objectives. This structure reflects how responsibilities are commonly divided across SOC, detection engineering, and security engineering functions, and it makes it easier to locate workflows relevant to specific operational tasks.
+Each category represents a major security operations domain used to group related workflows. Workflows are placed into a category based on **what the analyst is primarily doing** (the operational job-to-be-done), not solely by which tools appear in the workflow.
 
-### Endpoint Triage & Host Analysis (`endpoint-triage-and-host-analysis` folder)
+Each workflow lives in its own folder inside a category and includes the documentation, notes, and supporting evidence needed to understand and repeat the task.
 
-This category contains documented executions and supporting notes for host-based workflows focused on quickly assessing system state and identifying signs of compromise or misconfiguration on Windows and Linux endpoints. The goal of these workflows is to support rapid triage during alert investigations, where analysts must determine whether a host is behaving abnormally and what follow-up actions are required.
-
-Workflows in this category demonstrate how analysts collect and interpret endpoint artifacts such as running processes, services, scheduled tasks, startup entries, network connections, and filesystem changes using native operating system tools and command-line interfaces. These procedures mirror the early stages of incident response, where fast validation of host integrity is critical before escalating to deeper forensic analysis or containment actions.
-
-Typical skills demonstrated include structured host inspection, command-line investigation techniques, identification of suspicious persistence mechanisms, validation of system configuration, and prioritization of investigative leads based on observed host behavior.
-
-Typical skills demonstrated:
-
-* Process and service inspection
-* File system triage
-* Command-line investigation
-* Initial response actions
-
-
-### Network Monitoring & Traffic Analysis (`network-monitoring-and-traffic-analysis` folder)
-
-This category contains documented executions and supporting notes focused on analyzing network communications using packet capture tools and protocol analyzers. These workflows are designed to support investigations where network behavior is the primary source of evidence, such as suspected command-and-control traffic, suspicious outbound connections, or anomalous protocol usage.
-
-Workflows in this category demonstrate how analysts capture traffic, apply display and capture filters, dissect protocol fields, and reconstruct sessions to understand application-layer behavior. Rather than relying only on summary metadata, these procedures show how to validate exactly what data is being transmitted and how systems are interacting over the network.
-
-Typical skills demonstrated include packet filtering strategies, protocol-level analysis, session reconstruction, identification of abnormal communication patterns, and correlation of network activity with host-based findings during investigations.
-
-Typical skills demonstrated:
-
-* Packet capture techniques
-* Protocol analysis
-* Filtering and traffic isolation
-* Baseline vs abnormal behavior
-
-
-### SIEM Detections & Log Analysis (`siem-detections-and-log-analysis` folder)
-
-This category contains documented executions and supporting notes centered on working with centralized log data inside SIEM platforms to support detection engineering, alert validation, and investigative searches. These workflows focus on transforming raw log data into actionable security signals and ensuring that detections are based on reliable, well-parsed events.
-
-Workflows in this category demonstrate how analysts inspect log sources, validate field extractions, normalize event formats, and build or refine search queries to identify suspicious behavior. These tasks are critical for reducing false positives, improving detection coverage, and supporting consistent investigation across different data sources.
-
-Typical skills demonstrated include log parsing validation, query construction, correlation logic, field extraction techniques, investigation-driven search refinement, and evaluation of detection effectiveness based on real data patterns.
-
-Typical skills demonstrated:
-
-* Query construction
-* Field extraction and normalization
-* Log correlation
-* VPN and authentication monitoring
-
-
-### Identity & Access Management (IAM) (`identity-and-access-management` folder)
-
-This category contains documented executions and supporting notes focused on validating authentication behavior, account permissions, and access control enforcement within identity systems such as Active Directory and related authentication services. These workflows support investigations where identity abuse, privilege escalation, or misconfigured access controls are suspected.
-
-Workflows in this category demonstrate how analysts review authentication events, inspect group memberships, validate permission assignments, and test access behavior to confirm whether identity controls are operating as intended. These procedures help identify both malicious activity and configuration weaknesses that could be exploited by attackers.
-
-Typical skills demonstrated include authentication log analysis, permission and group membership validation, investigation of suspicious login patterns, assessment of privilege boundaries, and verification of identity-related security controls.
-
-Typical skills demonstrated:
-
-* Active Directory structure and objects
-* Group and user management
-* Security control validation
-* Identity-related investigation artifacts
-
-
-### Detection Automation & Log Processing (`detection-automation-and-log-analysis` folder)
-
-This category contains documented executions and supporting notes where scripting and programming are used to automate data processing tasks that support detection engineering and large-scale analysis. These workflows demonstrate how raw or unstructured data can be transformed into structured formats suitable for ingestion into SIEM platforms or detection pipelines.
-
-Workflows in this category demonstrate how analysts write scripts to parse logs, extract relevant fields, normalize event structures, and prepare datasets for detection logic or hunting activities. This reflects real-world scenarios where manual analysis does not scale and automation is required to maintain consistent visibility across large volumes of data.
-
-Typical skills demonstrated include scripting for data transformation, structured log parsing, automation of repetitive analysis tasks, preparation of detection-ready datasets, and integration of custom data sources into monitoring workflows.
-
-Typical skills demonstrated:
-
-* Log parsing and normalization
-* Pattern detection in code
-* Alert-style logic development
-* Data processing pipelines
-* Python-based detection and reporting scripts
-
-
-### Vulnerability Management & Exposure Analysis (`vulnerability-management-and-exposure-analysis` folder)
-
-This category is currently under active development and will be expanded with documented executions and supporting notes focused on practical vulnerability management operations. Planned additions include workflows for analyzing vulnerability scan outputs, correlating findings with asset context, validating exploitability, and prioritizing remediation based on operational risk rather than severity scores alone.
-
-Future documented executions and supporting notes will also explore how vulnerability data can be integrated with detection and monitoring systems to improve visibility into exposed services and misconfigurations, as well as how vulnerability trends can be tracked over time to support security posture assessments.
-
-This section is intended to reflect how vulnerability management functions in real environments, where continuous assessment, validation, and prioritization are required rather than one-time scan reviews.
+#### Category Folders (Top-Level Directories)
+| Category Folder | Workflow Focus | What You Will Find Inside |
+|---|---|---|
+| **endpoint-triage-and-host-analysis/** | Endpoint triage and host investigation workflows focused on validating host state and suspicious behavior using native tools. | Workflows for Windows and Linux host triage: process/service inspection, filesystem artifact checks, network exposure validation, and quick health/persistence checks. |
+| **siem-detections-and-log-analysis/** | SIEM-centered workflows for parsing, normalizing, and analyzing telemetry for investigations and detections. | Workflows for SPL-driven investigations, field extraction and normalization, ingestion corrections, and detection-ready data shaping (including VPN remote-access anomaly analysis). |
+| **network-monitoring-and-traffic-analysis/** | Network monitoring workflows focused on packet capture, filtering, and protocol-level analysis. | Workflows for bounded packet capture with tcpdump and deeper PCAP analysis in Wireshark (filtering, session reconstruction, evidence extraction). |
+| **identity-and-access-management/** | Identity and access management workflows focused on directory operations and permission validation. | Workflows for Active Directory user/group administration, delegation, OU management, and access control validation using standard enterprise tooling. |
+| **detection-automation-and-log-processing/** | Automation and log-processing workflows focused on turning raw telemetry into repeatable detection logic. | Workflows for Python-based parsing/analysis, transforming logs into structured signals, and prototyping behavior-based detections. |
+| **vulnerability-management-and-exposure-analysis/** | Vulnerability management workflows focused on exposure analysis, prioritization, and remediation tracking. | Category scaffold for future workflows (currently no workflow folders in this category). |
 
 ---
 
-## Workflow Writeup Format
+### How Workflows Are Structured & Organized
+Workflows are organized using a two-level hierarchy:
 
-Each workflow (the operational task being performed) is documented using a consistent writeup structure designed to mirror professional operational runbooks and internal investigation notes.
+1. **Category folders** — group related tasks by primary operational domain  
+2. **Workflow folders** — each individual operational task lives in its own folder inside a category
 
-The writeups are intended to show not only what commands were executed, but why each step was performed and how results were interpreted.
+Each workflow folder is self-contained and represents **one complete execution writeup**.
 
-Each writeup includes:
-
-- Analyst intent and operational focus, which explains the security problem being addressed and the reasoning behind the workflow design, providing context for the technical steps that follow.
-- Environment and execution context, which describes the operating system, data sources, and assumptions required to perform the workflow correctly, ensuring that results can be reproduced and understood.
-- Step-by-step execution, which documents each analytical action in sequence, including commands, tool usage, and decision points, reflecting how an analyst would work through the task in real time.
-- Results and interpretation, which explains what the observed data means and how it supports or refutes investigative hypotheses.
-- Operational and defensive takeaways, which connect technical findings to detection improvements, response strategies, or control validation, linking analysis to defensive outcomes.
-- Reuse notes, which describe how the workflow could be adapted for future investigations, detections, or automation, supporting continuous improvement.
-
-This structure ensures that workflows demonstrate both technical proficiency and analytical reasoning, which are equally important in security operations roles.
+**Naming convention:** workflow folders use a **tool-first naming convention** followed by the operational focus (for example: `powershell-windows-endpoint-triage-and-system-inspection`, `tcpdump-targeted-packet-capture-and-filtering`, or `splunk-vpn-remote-access-anomaly-detection`). This makes it easy to scan the repo and immediately understand both the platform/tool and the task.
 
 ---
 
+### How These Workflows Are Designed
+This repository is **task-first**, not tool-documentation-first.
 
-## Tools, Platforms, and Technologies Demonstrated
+You will find:
 
-The workflow executions in this repository use a range of industry-standard tools and platforms commonly found in enterprise environments.
+- Step-by-step operational executions (`workflow-execution.md`) with commands and pivots
+- Analyst reasoning and interpretation notes (`analyst-notes.md`)
+- Tool/reference notes you can reuse in future work (`tool-usage-notes.md`)
+- Supporting screenshots and evidence (`images/`)
+- Where relevant, design notes for turning the workflow into automation (`automation-design-notes.md`)
 
-These include:
-
-- Linux command-line utilities and Bash scripting, used for endpoint triage, system inspection, and operational scripting to quickly assess host state.
-- Windows command-line tools and PowerShell, used for process inspection, service validation, network checks, and host artifact collection in Windows environments.
-- tcpdump and Wireshark, used for targeted packet capture, protocol analysis, and session reconstruction during network investigations.
-- Splunk, used for log ingestion, parsing, detection logic, field extraction, and investigative searches within a SIEM platform.
-- Active Directory and IAM concepts, used for authentication testing, group membership validation, and access control verification.
-- Python, used for log parsing, detection automation, and structured data processing to support scalable analysis workflows.
-
-The emphasis is not on listing tools, but on demonstrating how these tools are applied within realistic operational workflows to answer security questions.
+The goal is to capture what a capable SOC analyst would record while executing a runbook: what was checked, why it was checked, how results were validated, and what conclusions can (and cannot) be drawn from the evidence.
 
 ---
 
-## Relevance to SOC Analyst and Security Engineering Roles
+### Standard Files in Each Workflow Folder
+While not every workflow requires every file, workflow folders typically include the following supporting documents:
 
-Modern blue team operations rely heavily on repeatable analytical processes rather than isolated ad-hoc investigations.
+| File / Folder | Purpose | Contents and Focus |
+|---|---|---|
+| **Workflow README** (`README.md`) | Quick orientation for the workflow. | Defines the operational purpose, scope, assumptions, tooling, and what the workflow is meant to demonstrate. |
+| **Workflow Execution** (`workflow-execution.md`) | Step-by-step hands-on execution. | The actual command flow and analyst pivots, including what to run, what to look for, and how to validate results. |
+| **Analyst Notes** (`analyst-notes.md`) | Reasoning, interpretation, and edge cases. | Why specific checks are performed, how to avoid common mistakes, and how to interpret ambiguous outputs. |
+| **Tool Usage Notes** (`tool-usage-notes.md`) | Reusable tool reference. | Flags, syntax patterns, parsing tips, and operational “gotchas” you can apply across multiple scenarios. |
+| **Automation Design Notes** (`automation-design-notes.md`) | Turning execution into repeatable automation (when present). | Notes on parsing logic, data structures, detection logic shaping, and how to operationalize the workflow with scripts or scheduled jobs. |
+| **Screenshots and Supporting Evidence** (`images/`) | Visual validation artifacts. | Screenshots referenced throughout the workflow execution and notes to support the documented conclusions. |
 
-The workflows documented here align closely with responsibilities such as:
-
-- Investigating alerts and validating suspicious behavior through targeted data collection and analysis.
-- Improving detection quality by refining log parsing, normalization, and enrichment processes.
-- Validating access controls and authentication mechanisms to reduce identity-based attack risk.
-- Supporting incident response with rapid host and network artifact collection.
-- Preparing automation pipelines for detection engineering and threat hunting.
-
-By documenting these workflows in detail, this repository demonstrates readiness for roles that require both technical execution and investigative reasoning, including SOC analyst, detection engineer, and junior security engineer positions.
-
-
----
-
-## How This Repo Fits Into the Overall Portfolio
-
-This repository is part of a larger, multi-repo portfolio that separates skills by **security function**:
-
-* **Portfolio Hub Repo** — High-level overview and navigation
-* **Security Operations Workflows (this repo)** — Skill-focused operational labs
-* **Incident Response & Investigations Repo** — Full incident investigations and supporting reports
-* **Playbooks & Runbooks Repo** — Repeatable response and triage procedures
+Together, these files separate **execution**, **reasoning**, and **reference material** into clear, reviewable components while keeping everything tied to the same operational task.
 
 ---
 
-## Ongoing Development and Iteration
+### Category Folders and Current Workflows
+#### ▶️ Endpoint Triage and Host Analysis Workflows  
+`endpoint-triage-and-host-analysis/`
 
-This repository reflects continuous skill development and iterative improvement.
+Current workflows:
 
-Some workflows are intentionally extended over time with:
+- **Linux Endpoint Triage and Script-Based Validation Logic Using Bash — Operational Execution**  
+  Live host enumeration, filesystem inspection, shell environment awareness, and basic automation using Bash. Tools: Linux (Ubuntu), Bash shell, native command-line utilities, SSH-based access.  
+  Folder: `endpoint-triage-and-host-analysis/bash-linux-endpoint-triage-and-validation-scripting/`
 
-- More advanced detection logic as understanding of attack patterns improves.
-- Additional data sources to increase investigative coverage.
-- Improved automation and scripting to reduce manual effort.
-- Expanded defensive recommendations to strengthen prevention and detection.
+- **Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell — Operational Execution**  
+  Filesystem inspection, process enumeration, network correlation, and targeted containment using native Windows CLI tools. Tools: Windows CMD, PowerShell, native Windows system utilities.  
+  Folder: `endpoint-triage-and-host-analysis/cmd-windows-process-and-network-triage/`
 
-This mirrors how real security teams refine procedures as threats evolve and tooling improves, and it highlights an ongoing commitment to operational growth.
+- **Windows Endpoint Triage and System Inspection Using PowerShell — Operational Execution**  
+  Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell. Tools: Windows PowerShell, native Windows telemetry and services.  
+  Folder: `endpoint-triage-and-host-analysis/powershell-windows-endpoint-triage-and-system-inspection/`
 
-For full incident scenarios with full reporting and MITRE mapping, refer to the separate **Incident Response & Investigations** repository. This repository focuses on **how analysts actually work between alerts and incidents**, which is where most SOC time is spent.
+#### ▶️ SIEM Detections and Log Analysis Workflows  
+`siem-detections-and-log-analysis/`
 
+Current workflows:
+
+- **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk — Operational Execution**  
+  Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry. Tools: Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`).  
+  Folder: `siem-detections-and-log-analysis/splunk-log-parsing-and-field-extraction/`
+
+- **VPN Authentication and Remote Access Anomaly Analysis Using Splunk — Operational Execution**  
+  Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry. Tools: Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`.  
+  Folder: `siem-detections-and-log-analysis/splunk-vpn-remote-access-anomaly-detection/`
+
+#### ▶️ Network Monitoring and Traffic Analysis Workflows  
+`network-monitoring-and-traffic-analysis/`
+
+Current workflows:
+
+- **Targeted Packet Capture and Traffic Filtering Using tcpdump — Operational Execution**  
+  Interface validation, bounded packet capture, protocol filtering, and offline analysis preparation. Tools: Linux, tcpdump, native networking utilities.  
+  Folder: `network-monitoring-and-traffic-analysis/tcpdump-targeted-packet-capture-and-filtering/`
+
+- **Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark — Operational Execution**  
+  Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures. Tools: Wireshark, stored PCAP and PCAPNG capture files.  
+  Folder: `network-monitoring-and-traffic-analysis/wireshark-traffic-analysis-and-session-reconstruction/`
+
+#### ▶️ Identity and Access Management Workflows  
+`identity-and-access-management/`
+
+Current workflows:
+
+- **Identity and Access Management Operations Using Active Directory — Operational Execution**  
+  User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory. Tools: Windows Server, Active Directory Domain Services, Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).  
+  Folder: `identity-and-access-management/active-directory-iam-operations-and-permission-validation/`
+
+#### ▶️ Detection Automation and Log Processing Workflows  
+`detection-automation-and-log-processing/`
+
+Current workflows:
+
+- **Log Parsing and Threat Detection Automation Using Python — Operational Execution**  
+  Behavior-based detection logic prototyping from raw security telemetry across multiple environments. Tools: Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.  
+  Folder: `detection-automation-and-log-processing/python-log-parsing-and-threat-detection/`
+
+#### ▶️ Vulnerability Management and Exposure Analysis Workflows  
+`vulnerability-management-and-exposure-analysis/`
+
+Current workflows:
+
+- *(No workflow folders in this category yet — planned for future additions.)*
 
 ---
 
+### Overlap Between Categories
 
+Overlap between operational domains is expected and intentional.
 
+A single workflow may touch:
+
+- Endpoint artifacts
+- Identity context
+- Network indicators
+- SIEM queries and field extraction
+
+Rather than duplicating workflows across multiple categories, each workflow is grouped by the **primary operational job-to-be-done**, while the workflow documentation can include supporting context from other domains where it is necessary to validate results.
+
+---
+
+### Relationship to Investigations and Case Work
+
+This repository documents **how common SOC tasks are executed**.
+
+Case-based incident writeups (full incident narratives, timelines, and findings) are maintained separately in the investigations repository so that this repo can remain focused on reusable operational execution patterns.
+
+Where relevant, workflows can be used as building blocks inside investigations to demonstrate how repeatable operational procedures translate into real investigative decisions.
+
+---
+
+### Ongoing Development
+
+Workflows may be expanded over time as additional tools, validation steps, and automation approaches are added. Updates are intended to reflect iterative improvement, similar to how real SOC runbooks mature through repeated use and post-incident learning.
