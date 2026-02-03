@@ -8,7 +8,7 @@ Each workflow is written as a structured execution guide, showing how tools, com
 
 While this repository focuses on repeatable operational workflows, full end-to-end incident investigations — including investigation walkthroughs, incident summaries, MITRE ATT&CK mappings, artifact analysis, and detection and hardening recommendations — are documented in the separate `incident-response-and-investigations` repository, which captures complete incident response lifecycles from alert intake through remediation.
 
-## How to Read This Repository
+### How to Read This Repository
 
 In this repository:
 
@@ -20,7 +20,7 @@ Each folder therefore represents a practical execution of a specific security op
 
 ---
 
-## Purpose of This Repository
+### Purpose of This Repository
 
 This repository exists to demonstrate practical blue‑team execution skills across common security operations domains. The focus is on **how security tasks are performed**, not simply what tools are used.
 
@@ -41,7 +41,7 @@ These workflows are intentionally scoped and focused. They reflect the reality t
 
 ---
 
-## Repository Structure and Organization
+### Repository Structure and Organization
 
 This repository contains hands-on implementations of common security operations workflows, grouped by security function rather than by individual threat scenarios. Each top-level category represents a common area of responsibility within SOC and security engineering teams, such as endpoint triage, network traffic analysis, SIEM operations, identity and access validation, and detection automation.
 
@@ -271,4 +271,5 @@ For full incident scenarios with full reporting and MITRE mapping, refer to the 
 
 
 ---
+
 
