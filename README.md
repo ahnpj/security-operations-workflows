@@ -8,6 +8,8 @@ Each workflow is written as a structured execution guide, showing how tools, com
 
 While this repository focuses on repeatable operational workflows, full end-to-end incident investigations — including investigation walkthroughs, incident summaries, MITRE ATT&CK mappings, artifact analysis, and detection and hardening recommendations — are documented in the separate `incident-response-and-investigations` repository, which captures complete incident response lifecycles from alert intake through remediation.
 
+---
+
 ### How to Read This Repository
 
 In this repository:
@@ -271,5 +273,6 @@ For full incident scenarios with full reporting and MITRE mapping, refer to the 
 
 
 ---
+
 
 
