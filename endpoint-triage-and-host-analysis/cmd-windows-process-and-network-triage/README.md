@@ -71,7 +71,6 @@ The execution focuses on manual and scripted inspection of Windows host telemetr
 | **Primary Platforms / Services** | Windows operating system inspection tools and host-based telemetry collection utilities |
 | **Operational Focus** | Validate Windows host integrity and identify indicators of compromise using native command-line triage techniques |
 
----
 
 #### Data Sources, Evidence, and Analysis Techniques
 
@@ -112,3 +111,4 @@ Even environments with centralized monitoring rely on host-level inspection to c
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical Windows endpoint triage methodology, native command-line investigation techniques, and professional workflow documentation aligned with real operational SOC environments.
+
