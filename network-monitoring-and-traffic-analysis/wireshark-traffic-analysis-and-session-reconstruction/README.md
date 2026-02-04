@@ -71,7 +71,6 @@ The execution focuses on inspection and reconstruction of captured network traff
 | **Primary Platforms / Services** | Network capture analysis tools, protocol inspection utilities, and session reconstruction features |
 | **Operational Focus** | Analyze captured network communications and reconstruct sessions to validate traffic behavior and identify suspicious activity |
 
-
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -111,5 +110,6 @@ Even environments with automated network monitoring rely on manual packet inspec
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical packet inspection methodology, session reconstruction techniques, and professional workflow documentation aligned with real operational SOC and network security environments.
+
 
 
