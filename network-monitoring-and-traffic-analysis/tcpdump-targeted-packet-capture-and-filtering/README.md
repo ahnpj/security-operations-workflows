@@ -71,7 +71,6 @@ The execution focuses on targeted network traffic capture and packet-level inspe
 | **Primary Platforms / Services** | Network interface capture points, protocol inspection tools, and packet-level telemetry analysis utilities |
 | **Operational Focus** | Capture and analyze targeted network communications to validate traffic behavior and identify suspicious activity |
 
----
 
 #### Data Sources, Evidence, and Analysis Techniques
 
@@ -112,3 +111,4 @@ Even environments with centralized network monitoring rely on targeted packet ca
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical packet capture methodology, targeted network traffic analysis techniques, and professional workflow documentation aligned with real operational SOC and network security environments.
+
