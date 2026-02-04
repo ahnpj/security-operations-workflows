@@ -71,8 +71,6 @@ The execution focuses on automated and manual inspection of Linux host telemetry
 | **Primary Platforms / Services** | Linux operating system inspection tools and host-based telemetry collection utilities |
 | **Operational Focus** | Validate Linux host integrity and identify indicators of compromise using automated triage scripting and manual validation techniques |
 
----
-
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -112,3 +110,4 @@ Even environments with centralized monitoring rely on host-level inspection to c
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical endpoint triage methodology, Linux host validation techniques, and professional workflow documentation aligned with real operational SOC environments.
+
