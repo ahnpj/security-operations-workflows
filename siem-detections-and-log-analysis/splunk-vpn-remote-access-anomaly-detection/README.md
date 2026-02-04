@@ -1,170 +1,113 @@
-# VPN Authentication and Remote Access Anomaly Analysis Using Splunk — Operational Execution
+# VPN Authentication and Remote Access Anomaly Analysis Using Splunk
 
-**Category:** SIEM Investigations & Access Monitoring  
-**Operational Focus:** Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry  
-**Primary Tools & Platforms:** Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`
+**Category:** SIEM Detections and Log Analysis  
+**Primary Operational Focus:** Authentication behavior analysis, VPN activity validation, and anomaly detection using SIEM telemetry  
+**Operational Objectives Demonstrated:** Authentication Pattern Analysis, Geographic and Behavioral Anomaly Detection, Credential Misuse Identification, Alert Validation  
+**Primary Data Sources:** VPN authentication logs, user login telemetry, geographic access metadata, and session activity records
 
-This directory contains a complete, operationally structured record of an investigation-style analysis of VPN authentication and session telemetry using Splunk. The directory contains execution writeups, SPL queries, screenshots, and supporting analysis that demonstrate how analysts identify abnormal remote access behavior using aggregated log data.
-
-The goal of the execution is not to respond to a confirmed breach, but to practice how analysts establish behavioral baselines, identify outliers, and surface accounts or sources that warrant deeper investigation before escalation.
-
-At a practical level, the execution reflects how SOC analysts evaluate remote access infrastructure:
-
-- First, raw JSON telemetry is validated and normalized so that fields can be queried consistently.  
-- Next, access patterns are grouped by identity and geography to establish baseline behavior.  
-- Then, authentication failures are isolated to identify possible brute-force or credential misuse.  
-- Session lifecycle events are analyzed to identify abnormal termination behavior.  
-- Aggregation is used to highlight high-risk users and source IP addresses for escalation.
-
-Throughout this execution, I focused on analyst-driven exploration rather than alert-driven response. This reinforced how detection engineering often begins with manual pattern discovery before formal thresholds and alerts are created.
+> **Terminology used:**  
+> **Workflows** refer to common security operations tasks (such as authentication anomaly detection or VPN activity validation).  
+> **Executions** refer to the hands-on performance of those tasks using SIEM queries, telemetry analysis, and authentication behavior inspection.  
+> **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
 ---
 
-## How to Read This Folder
+### Overview
 
-This folder separates SPL execution from analytical interpretation and investigative reasoning, similar to how SOC teams document hunts and anomaly investigations.
+This execution documents the practical performance of VPN authentication analysis and anomaly detection using Splunk to identify suspicious login activity and validate remote access behavior. The objective is to detect abnormal authentication patterns, identify potential credential misuse, and validate remote access telemetry to support investigative triage and detection engineering workflows.
 
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to investigative tasks such as access anomaly detection and authentication validation.  
-> - **Executions** refer to hands-on analysis using SPL queries and structured field extraction.  
-> - **Writeups** document analytical decisions, investigative pivots, and interpretation of results.
+The execution focuses on analyzing VPN authentication events, identifying abnormal login frequency, reviewing geographic and source access anomalies, and correlating authentication telemetry to validate suspicious remote access activity. Emphasis is placed on how authentication anomaly detection supports alert validation, insider threat detection, credential compromise identification, and investigative scoping within operational security environments.
 
-- All queries and investigative pivots are recorded in **`workflow-execution.md`**.  
-- This `README.md` explains investigative goals, methodology, and relevance to access monitoring.  
-- Supporting files capture analytical observations and SPL reference material.
+> 👉 **Follow the execution walkthrough first**  
+Begin with `workflow-execution.md` inside this folder to see how VPN authentication telemetry was analyzed, suspicious login behavior was identified, and anomaly detection was validated step by step using Splunk queries.
 
----
+> 👉 **Review analytical reasoning and detection engineering decision-making**  
+Move to `analyst-notes.md` to understand why specific authentication analysis techniques were selected, how login anomalies were evaluated, and how results influence investigative escalation or detection tuning decisions.
 
-## What This Execution Is Specifically Doing
+> 👉 **Review tooling and query reference details**  
+See `tool-usage-notes.md` to understand Splunk authentication query construction, anomaly detection techniques, and behavior analysis methods used during execution.
 
-This execution models how analysts evaluate VPN telemetry to identify misuse of remote access services.
-
-First, JSON-formatted VPN logs are validated using `spath` to extract nested fields such as usernames, source IP addresses, countries, states, transport protocols, ports, and session outcomes. This ensures that all later aggregation steps operate on structured attributes rather than raw message text.
-
-Next, events are aggregated by user and country to identify accounts generating sessions across multiple geographic regions. This establishes baseline access behavior and highlights users whose access patterns deviate from expected travel or corporate geography profiles.
-
-After that, authentication failures are isolated and grouped by user and source IP address. This allows identification of repeated failures against specific accounts or from specific sources, which may indicate brute-force attempts, credential stuffing, or unstable client configurations.
-
-Then, access events are filtered to only United States traffic and grouped by state-level metadata. This provides more granular geographic baselining and supports detection of unusual regional access patterns that may not appear suspicious at the country level.
-
-Following that, session termination events over encrypted protocols are isolated by filtering on action types and transport ports. Grouping these events by source IP reveals systems that frequently tear down encrypted sessions, which may indicate scanning behavior, unstable tunnels, or misuse of VPN infrastructure.
-
-Finally, overall session outcomes are aggregated across the entire dataset to establish distribution baselines for accepted, failed, and terminated sessions. These distributions support future threshold tuning and alert severity calibration.
-
-Each step mirrors how analysts move from broad distribution analysis into targeted investigative pivots.
+> 👉 **See what each execution file contains in full detail**  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 ---
 
-## Why These Tasks Matter in SOC Operations
+### How to Navigate This Execution
 
-VPN infrastructure represents a primary ingress point into enterprise networks. Compromised credentials and remote access abuse are common precursors to lateral movement and data exfiltration.
+Documentation is separated into focused components to reflect how authentication anomaly detection and VPN activity validation tasks are documented within detection engineering and SOC operational environments.
 
-SOC teams analyze VPN telemetry to detect:
+If you want to follow the execution step by step, start with:
 
-- credential compromise,  
-- unauthorized geographic access,  
-- automated authentication attempts, and  
-- misuse of encrypted tunnels.
-
-However, these detections are only effective if:
-
-- fields are reliably extracted,  
-- baselines are understood, and  
-- aggregation logic reflects realistic attacker behavior.
-
-This workflow reinforces how simple statistical aggregation can surface meaningful security signals when logs are properly structured.
+**`workflow-execution.md`**
 
 ---
 
-## Environment, Operating System, and Tooling
+### Repository Structure & Supporting Documents
 
-### Execution Environment
+All execution outputs are separated into focused documents to reflect operational SIEM authentication analysis and detection engineering documentation practices.
 
-All analysis was performed in a controlled Splunk environment using simulated VPN logs designed to reflect realistic authentication and session telemetry.
-
-### Data Format
-
-Logs were stored in JSON format, requiring explicit field extraction using `spath` before aggregation and filtering.
-
-### Tools Used
-
-The execution relied on:
-
-- Splunk Enterprise search interface  
-- SPL aggregation commands such as `stats`, `sort`, and `search`  
-- JSON parsing using `spath`
-
-No enrichment feeds, identity providers, or endpoint telemetry were used in this workflow.
+| File / Folder | Purpose | Contents and Focus |
+|-------------|--------|--------------------|
+| `workflow-execution.md` | Structured authentication anomaly detection execution showing how VPN login activity is analyzed and validated to identify suspicious remote access behavior. | Documents authentication telemetry analysis workflows, anomaly detection query construction, geographic and behavioral pattern validation, login correlation techniques, and verification of suspicious authentication indicators. Emphasizes repeatable authentication analysis methodology and investigative traceability. |
+| `images/` | Visual evidence supporting authentication anomaly detection and investigation outcomes. | Contains screenshots of authentication query results, login behavior visualizations, anomaly detection validation views, and telemetry inspection checkpoints supporting analytical conclusions. |
+| `README.md` | Execution overview and operational summary. | Provides structured explanation of authentication anomaly detection objectives, VPN monitoring context, and detection engineering relevance aligned with SOC SIEM monitoring documentation practices. |
+| `analyst-notes.md` | Analytical reasoning and authentication anomaly detection insights derived from execution. | Documents anomaly detection strategy selection, interpretation of suspicious login patterns, investigative escalation considerations, and how authentication telemetry supports credential misuse detection. |
+| `tool-usage-notes.md` | Technical implementation reference for Splunk authentication analysis and anomaly detection queries. | Covers SPL query construction for authentication telemetry, anomaly detection filtering techniques, login correlation methods, and best practices for analyzing VPN authentication behavior in Splunk environments. |
+| `automation-design-notes.md` *(when present)* | Scalable authentication anomaly detection and monitoring pipeline planning. | Documents architectural considerations for integrating authentication anomaly detection workflows into automated alerting systems, detection tuning processes, or credential monitoring pipelines. |
 
 ---
 
-## Data Sources and Evidence Types
+### Environment, Data Sources, and Tools
 
-Evidence analyzed included:
+The execution focuses on analysis of VPN authentication telemetry within Splunk environments to support credential monitoring and remote access validation workflows.
 
-- VPN authentication attempts  
-- VPN session lifecycle events  
-- geolocation metadata embedded in connection records  
-- source IP addresses and transport-layer details
+#### Environment and Execution Scope (At a Glance)
 
-These are the same telemetry categories used by enterprises to monitor remote workforce access.
+| Area | Details |
+|--------|---------|
+| **Environment Type** | SIEM authentication monitoring and anomaly detection analysis environment |
+| **Processed Assets** | VPN authentication telemetry, login session records, and remote access metadata |
+| **Execution Platform** | Splunk SIEM search and analysis interface |
+| **Primary Platforms / Services** | VPN authentication logging infrastructure, centralized SIEM ingestion pipelines, and remote access monitoring telemetry |
+| **Operational Focus** | Identify suspicious remote access behavior and validate authentication anomalies using SIEM telemetry analysis |
 
----
+#### Data Sources, Evidence, and Analysis Techniques
 
-## Operational Relevance to SOC and Detection Engineering Workflows
+| Area | Details |
+|--------|---------|
+| **Primary Telemetry Sources** | VPN authentication logs containing user login activity, source IP addresses, geographic access metadata, login timestamps, session outcomes, and authentication context |
+| **Authentication Pattern Analysis Techniques** | Review of login frequency, session duration, and authentication success and failure patterns to identify abnormal user behavior |
+| **Geographic Anomaly Detection** | Evaluation of login source locations and geographic access patterns to identify suspicious remote access attempts or impossible travel indicators |
+| **Login Correlation Techniques** | Correlation of authentication events across users, devices, and network sources to identify repeated suspicious access attempts or credential misuse indicators |
+| **Behavioral Anomaly Detection** | Evaluation of user authentication patterns compared to baseline login behavior to identify anomalous activity or unusual access timing |
+| **Splunk Processing Techniques** | SPL query construction, authentication telemetry aggregation, anomaly detection filtering, and login correlation workflows designed to support repeatable authentication analysis |
+| **Threat Detection Heuristics** | Behavioral evaluation of remote access patterns, source network anomalies, login frequency spikes, and credential misuse indicators consistent with compromise or policy violations |
+| **Operational Workflow Context** | Demonstrates VPN authentication analysis procedures used by SOC analysts and detection engineers to validate suspicious remote access alerts and investigate credential compromise indicators |
 
-This execution represents the exploratory analysis phase that precedes formal detection rule development.
-
-In real SOC environments, analysts perform similar investigations when:
-
-- onboarding new VPN platforms,  
-- responding to account compromise alerts, or  
-- validating unusual access reports from users or IT staff.
-
-Detection engineers use the results of these analyses to:
-
-- design anomaly detection thresholds,  
-- define correlation rules across identity and network telemetry, and  
-- prioritize which behaviors should trigger alerts versus informational dashboards.
-
-The same aggregation patterns demonstrated here often become:
-
-- scheduled searches,  
-- risk scoring inputs, and  
-- identity-based alerting logic.
-
-Without this validation step, detection logic may be built on assumptions that do not match real traffic patterns, leading to alert fatigue or missed intrusions.
+The execution demonstrates how authentication anomaly detection supports scalable credential monitoring and improves reliability of SIEM-based threat detection and investigative workflows.
 
 ---
 
-## Files and Documentation Structure
+### Intended Use
 
-This execution is documented using multiple files to mirror how SOC teams separate investigation timelines, analytical reasoning, and query reference material.
-
-### `README.md`
-
-Provides investigative scope, analytical objectives, and operational relevance.
-
-### `workflow-execution.md`
-
-Contains the full SPL query sequence, screenshots, aggregation outputs, and validation steps demonstrating each investigative pivot.
-
-### `analyst-notes.md`
-
-Documents hypotheses, interpretation of anomalies, and considerations for escalation or additional telemetry correlation.
-
-### `tool-usage-notes.md`
-
-Provides SPL reference material and explanations of query techniques used for field extraction and aggregation.
-
-### `images/`
-
-Contains screenshots validating query outputs and anomaly detection results.
+The documented execution demonstrates VPN authentication anomaly detection, login behavior analysis, and credential misuse investigation techniques using Splunk. It reflects how security operations teams perform authentication monitoring to support alert validation, credential compromise detection, and remote access investigation workflows.
 
 ---
 
-## Skill Demonstration Context
+### Relevance to Security Operations
 
-This execution demonstrates SOC-relevant investigation skills including JSON field extraction, authentication anomaly detection, geographic baselining, session lifecycle analysis, and iterative investigative pivoting using SPL.
+Credential misuse and unauthorized remote access remain primary attack vectors across enterprise environments.
 
-These techniques directly support monitoring of remote access infrastructure and early detection of credential misuse.
+The execution demonstrates how authentication anomaly detection enables analysts to:
+
+- Identify suspicious remote access activity and login anomalies  
+- Detect potential credential compromise or misuse  
+- Support investigative scoping and escalation decision-making  
+- Improve detection tuning and credential monitoring reliability  
+
+Even environments with mature remote access monitoring require behavioral authentication analysis to identify subtle credential misuse and advanced threat activity.
+
+---
+
+If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical SIEM-based authentication anomaly detection methodology, credential monitoring techniques, and professional workflow documentation aligned with real operational detection engineering and SOC environments.
+
