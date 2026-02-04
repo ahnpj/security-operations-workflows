@@ -71,8 +71,6 @@ The execution focuses on automated transformation of authentication telemetry in
 | **Primary Platforms / Services** | Local log processing environment, Python scripting environment, and detection preparation workflows |
 | **Operational Focus** | Convert raw authentication telemetry into structured datasets suitable for SIEM ingestion and monitoring |
 
----
-
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -111,3 +109,4 @@ Even well-instrumented logging environments require normalization and enrichment
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate detection engineering automation, telemetry normalization methodology, and professional workflow documentation aligned with real operational SOC environments.
+
