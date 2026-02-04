@@ -71,7 +71,6 @@ The execution focuses on automated and manual inspection of Windows host telemet
 | **Primary Platforms / Services** | Windows operating system inspection tools and PowerShell-based host telemetry collection utilities |
 | **Operational Focus** | Validate Windows host integrity and identify indicators of compromise using automated and manual PowerShell triage techniques |
 
----
 
 #### Data Sources, Evidence, and Analysis Techniques
 
@@ -115,4 +114,5 @@ PowerShell provides enhanced visibility and automation capabilities compared to 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical Windows endpoint triage methodology, PowerShell-based investigative scripting techniques, and professional workflow documentation aligned with real operational SOC environments.
 
 More complex investigations and response workflows are documented separately in the **incident-response-and-investigations** repository. This execution focuses on host triage and evidence correlation fundamentals that support those deeper response efforts.
+
 
