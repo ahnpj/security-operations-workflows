@@ -60,12 +60,12 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- **Wireshark Traffic Filtering, Protocol Analysis, and Session Reconstruction**  
-  (`wireshark-traffic-filtering-protocol-analysis-and-session-reconstruction`)  
+- **Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark**  
+  (`wireshark-traffic-analysis-and-session-reconstruction`)  
   Focuses on isolating suspicious traffic using display filters, dissecting protocol fields, and reconstructing full sessions to understand application-layer behavior and communication intent.
 
-- **tcpdump Targeted Packet Capture and Flow Analysis**  
-  (`tcpdump-targeted-packet-capture-and-flow-analysis`)  
+- **Targeted Packet Capture and Traffic Filtering Using tcpdump**  
+  (`tcpdump-targeted-packet-capture-and-filtering`)  
   Demonstrates collecting focused packet captures from specific interfaces, hosts, or ports and analyzing resulting traffic to identify anomalous connections or suspicious communication patterns.
 
 Additional workflow executions will be added as monitoring coverage expands across protocols, services, and network architectures.
@@ -128,3 +128,4 @@ Workflows in this category are continuously expanded as network architectures, c
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production security environments, network infrastructures change frequently, new services are deployed, and adversaries adapt communication strategies, requiring continuous updates to monitoring and analysis workflows.
 
 The focus is on building a growing library of reusable network monitoring and traffic inspection techniques rather than static one-time demonstrations.
+
