@@ -57,16 +57,16 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- **PowerShell Endpoint Triage and System Inspection**  
+- **Windows Endpoint Triage and System Inspection Using PowerShell**  
   (`powershell-endpoint-triage-and-system-inspection`)  
   Focuses on collecting and validating host state on Windows systems using native PowerShell commands. Tasks include inspecting running processes, services, network connections, user sessions, and configuration artifacts to assess suspicious behavior or policy violations.
 
-- **CMD Windows Process and Network Triage**  
+- **Process and Network Triage Using Windows CLI (CMD) + PowerShell**  
   (`cmd-windows-process-and-network-triage`)  
   Uses standard Windows command-line utilities to inspect processes, services, and network activity without PowerShell. Demonstrates effective host validation techniques in restricted or limited-access environments.
 
-- **Bash Linux Endpoint Triage and System Inspection**  
-  (`bash-linux-endpoint-triage-and-system-inspection`)  
+- **Linux Endpoint Triage and Script-Based Validation Logic Using Bash**  
+  (`bash-linux-endpoint-triage-and-validation-scripting`)  
   Demonstrates host-based triage on Linux systems using native shell utilities. Tasks include reviewing running processes, scheduled jobs, active network connections, file system artifacts, and user activity to validate system integrity and detect anomalies.
 
 Additional workflow executions will be added as endpoint triage techniques expand across operating systems, tooling, and detection support use cases.
@@ -129,3 +129,4 @@ Workflows in this category are continuously expanded as new triage techniques, o
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production security environments, triage procedures evolve as telemetry sources, operating systems, and detection strategies change.
 
 The focus is on building a growing library of reusable endpoint validation and host analysis techniques rather than static one-time demonstrations.
+
