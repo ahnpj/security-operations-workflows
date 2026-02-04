@@ -41,7 +41,7 @@ Although these workflows support investigations, they are organized here when th
 
 ---
 
-## Operational Context and Purpose
+### Operational Context and Purpose
 
 Automation and log processing workflows typically occur when manual analysis no longer scales or when detection systems require reliable, standardized telemetry.
 
@@ -125,3 +125,4 @@ Some workflow directories may appear iterative or incomplete. This reflects acti
 The focus is on building a growing, reusable library of automation and log processing techniques rather than static one-time scripts.
 
 ---
+
