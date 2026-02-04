@@ -71,8 +71,6 @@ The execution focuses on validation of authentication behavior and permission en
 | **Primary Platforms / Services** | Windows Active Directory domain services and authentication logging infrastructure |
 | **Operational Focus** | Validate identity authentication behavior, permission boundaries, and access path exposure within Active Directory environments |
 
----
-
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -112,3 +110,4 @@ Even environments with mature identity monitoring require manual validation work
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical identity validation methodology, Active Directory access control analysis, and professional workflow documentation aligned with real operational IAM and SOC environments.
+
