@@ -2,7 +2,13 @@
 
 (`detection-automation-and-log-processing/README.md`)
 
-This category contains hands-on execution examples and supporting documentation for security operations tasks focused on automating data processing, preparing logs for detection, and building repeatable analysis pipelines. The goal of these writeups is to demonstrate how analysts and detection engineers transform raw or inconsistent telemetry into structured, searchable, and detection-ready data using scripting and repeatable logic.
+This folder contains hands-on execution examples and supporting documentation for security operations tasks focused on automating data processing, preparing logs for detection, and building repeatable analysis pipelines. The goal of these writeups is to demonstrate how analysts and detection engineers transform raw or inconsistent telemetry into structured, searchable, and detection-ready data using scripting and repeatable logic.
+
+> 👉 **Each folder represents one complete practical execution of a common workflow**  
+Every subfolder here is a **fully self-contained practical execution**. Each one documents a single practical execution of a common Security Analyst workflow from step-by-steps taken, tools/platforms used, and additional analyst notes.
+
+> 👉 **Follow the workflow execution first**  
+Begin with `workflow-execution.md` inside an investigation folder to see how step-by-step technical execution of the task, including scripts, commands, parsing logic, validation checks, and output examples.
 
 Rather than presenting abstract automation concepts, each folder documents practical execution of specific data processing and detection preparation activities, including the scripts used, the reasoning behind each parsing and transformation step, and how outputs are validated in an operational context. The emphasis is on operational process and analyst decision-making, similar to what would be captured in internal detection engineering runbooks or data pipeline design notes.
 
@@ -118,3 +124,4 @@ Each practical execution of detection automation or log processing tasks is docu
 
 - **`automation-design-notes.md`** (when present)  
   Used to document higher-level pipeline design, scalability considerations, error handling strategies, and how processing logic could be integrated into production detection systems or SIEM ingestion pipelines.
+
