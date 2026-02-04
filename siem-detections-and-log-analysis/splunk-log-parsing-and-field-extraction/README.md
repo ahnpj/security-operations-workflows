@@ -1,171 +1,115 @@
-# Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk — Operational Execution
+# Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk
 
-**Category:** SIEM Operations & Detection Engineering  
-**Operational Focus:** Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry  
-**Primary Tools & Platforms:** Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`)
+**Category:** SIEM Detections and Log Analysis  
+**Primary Operational Focus:** Log parsing validation, field extraction verification, and telemetry normalization for detection reliability  
+**Operational Objectives Demonstrated:** Field Extraction Validation, Log Normalization Verification, Detection Data Quality Assessment, Search Optimization  
+**Primary Data Sources:** Raw log events, parsed event datasets, and normalized telemetry fields within Splunk
 
-This directory contains a complete, operationally structured record of a Splunk ingestion and parsing execution focused on transforming raw, machine-generated logs into detection-ready security events. The directory contains the execution writeups, configuration changes, scripts, screenshots, and supporting analysis that together demonstrate how analysts and detection engineers shape telemetry before it is trusted for monitoring and alerting.
-
-The goal of the execution is not to build detection searches, but to ensure that logs are correctly ingested, safely stored, and consistently structured so that downstream detections, dashboards, and investigations operate on accurate and compliant data.
-
-At a practical level, the execution reflects how SOC and detection teams onboard new telemetry sources:
-
-- First, scripted log sources are ingested as recurring data inputs.  
-- Next, event boundaries are corrected so each real-world action becomes a single searchable event.  
-- Then, multi-line entries are preserved to maintain full investigative context.  
-- Sensitive values are masked during ingestion to reduce compliance exposure.  
-- Finally, structured fields are extracted and indexed so detection logic can rely on stable attributes rather than raw text searches.
-
-Throughout this execution, I focused on understanding how Splunk’s parsing pipeline operates across configuration layers rather than relying on automatic field extraction. This reinforced how ingestion quality directly determines detection reliability.
+> **Terminology used:**  
+> **Workflows** refer to common security operations tasks (such as log parsing validation or detection data preparation).  
+> **Executions** refer to the hands-on performance of those tasks using SIEM queries, field inspection, and telemetry analysis.  
+> **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
 ---
 
-## How to Read This Folder
+### Overview
 
-This folder separates ingestion and parsing execution from analytical interpretation and configuration reference material, similar to how SOC teams maintain telemetry onboarding documentation alongside detection development workflows.
+This execution documents the practical performance of log parsing validation and field extraction verification using Splunk to ensure telemetry is structured and normalized for reliable detection and investigative analysis. The objective is to confirm that raw log events are correctly parsed, that relevant fields are consistently extracted, and that normalized telemetry supports accurate alerting and monitoring workflows.
 
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
-> - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
-> - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
+The execution focuses on reviewing raw event structures, validating extracted fields, testing parsing logic, and verifying consistency across log sources. Emphasis is placed on how field extraction accuracy directly impacts detection reliability, search efficiency, and investigative pivoting within operational security environments.
 
-- All configuration and validation steps are recorded in **`workflow-execution.md`**.  
-- This `README.md` explains ingestion goals and how configuration choices affect detection reliability.  
-- Supporting files capture configuration reference material and analyst reasoning separately from execution timelines.
+> 👉 **Follow the execution walkthrough first**  
+Begin with `workflow-execution.md` inside this folder to see how raw log events were analyzed, field extractions were validated, and telemetry normalization was verified step by step using Splunk queries.
 
----
+> 👉 **Review analytical reasoning and detection engineering decision-making**  
+Move to `analyst-notes.md` to understand why specific parsing validation techniques were selected, how field extraction accuracy was evaluated, and how results influence detection development and tuning decisions.
 
-## What This Execution Is Specifically Doing
+> 👉 **Review tooling and query reference details**  
+See `tool-usage-notes.md` to understand Splunk query techniques, field extraction validation methods, and parsing verification procedures used during execution.
 
-This execution models how analysts prepare new log sources for security monitoring by correcting ingestion and parsing problems before any detection logic is written.
-
-First, scripted log generators are staged and ingested using `inputs.conf` so that new data sources are consistently collected and indexed. This simulates onboarding of applications, security appliances, or custom services that do not have native Splunk add-ons.
-
-Next, event boundary behavior is corrected using parsing rules in `props.conf` so that each logical activity is indexed as a single event. Without this correction, multiple VPN connection messages may collapse into one event, breaking time-based detection logic and inflating false negatives.
-
-After that, multi-line authentication logs are preserved using proper merge and break logic so that authentication attempts are not split across multiple indexed events. This ensures that usernames, timestamps, and failure reasons remain correlated in a single record.
-
-Then, ingestion-time masking is implemented using regex-based transforms so that sensitive values such as credit card numbers are replaced before indexing. This allows logs to remain useful for investigations while preventing sensitive data from being searchable or retained in raw indexes.
-
-Finally, structured fields are extracted using regular expressions defined in `transforms.conf`, and selected fields are indexed using `fields.conf` so that detection searches can pivot efficiently on usernames, servers, IP addresses, and action types without relying on slow string matching.
-
-Each configuration change is validated through Splunk searches to confirm that parsing behavior produces clean, consistent, and searchable events suitable for operational monitoring.
+> 👉 **See what each execution file contains in full detail**  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 ---
 
-## Why These Tasks Matter in Detection Engineering and SOC Operations
+### How to Navigate This Execution
 
-Detection logic is only as reliable as the telemetry it operates on. If parsing is incorrect, detections may silently fail or produce misleading signals.
+Documentation is separated into focused components to reflect how log parsing validation and telemetry normalization tasks are documented within detection engineering and SOC operational environments.
 
-This execution reinforces that:
+If you want to follow the execution step by step, start with:
 
-- Incorrect event breaking leads to missed detections and distorted baselines.  
-- Missing fields force analysts to rely on fragile keyword searches.  
-- Unmasked sensitive data introduces legal and compliance risk without improving security visibility.  
-- Poor ingestion design creates downstream detection engineering debt that is difficult to correct later.
-
-SOC teams regularly troubleshoot alerts that appear “broken” when the real issue is ingestion and parsing configuration rather than detection logic itself.
-
-By validating telemetry structure first, detection engineers can confidently build correlation rules, anomaly detection, and dashboards that reflect real operational behavior rather than ingestion artifacts.
+**`workflow-execution.md`**
 
 ---
 
-## Environment, Operating System, and Tooling
+### Repository Structure & Supporting Documents
 
-### Execution Environment
+All execution outputs are separated into focused documents to reflect operational SIEM parsing validation and detection engineering documentation practices.
 
-All work was performed on a Linux system hosting a local Splunk Enterprise instance. The environment simulates scenarios where analysts directly manage ingestion pipelines during onboarding or troubleshooting of new data sources.
-
-### Operating System and Access
-
-Configuration changes were performed via terminal access with administrative privileges, and Splunk services were restarted to apply parsing configuration updates.
-
-### Splunk Components Used
-
-The execution relied on:
-
-- `inputs.conf` to define scripted and file-based data inputs  
-- `props.conf` to control event breaking, line merging, and masking logic  
-- `transforms.conf` to perform regex-based field extraction and replacement  
-- `fields.conf` to define indexed field behavior  
-- Splunk Web search interface to validate parsing results
-
-No vendor-provided add-ons or field extraction apps were used.
+| File / Folder | Purpose | Contents and Focus |
+|-------------|--------|--------------------|
+| `workflow-execution.md` | Structured parsing validation execution showing how raw log telemetry is inspected and normalized to support reliable detection and investigation workflows. | Documents raw event inspection procedures, field extraction verification workflows, parsing logic validation, normalization consistency testing, and verification of detection-relevant telemetry attributes. Emphasizes repeatable parsing validation methodology and investigative accuracy. |
+| `images/` | Visual evidence supporting parsing validation and telemetry inspection outcomes. | Contains screenshots of raw event views, field extraction results, parsing configuration validation, and telemetry normalization checkpoints supporting analytical conclusions. |
+| `README.md` | Execution overview and operational summary. | Provides structured explanation of parsing validation objectives, telemetry normalization context, and detection engineering relevance aligned with SOC SIEM monitoring documentation practices. |
+| `analyst-notes.md` | Analytical reasoning and detection engineering insights derived from parsing validation execution. | Documents parsing strategy selection, interpretation of extraction accuracy, investigative escalation considerations, and how telemetry normalization supports reliable detection and threat investigation. |
+| `tool-usage-notes.md` | Technical implementation reference for Splunk parsing validation and query analysis. | Covers SPL query techniques, field extraction configuration validation, event parsing methodologies, and best practices for validating telemetry quality in Splunk environments. |
+| `automation-design-notes.md` *(when present)* | Scalable telemetry normalization and detection data pipeline planning. | Documents architectural considerations for integrating parsing validation workflows into automated SIEM ingestion pipelines, detection validation systems, or telemetry enrichment workflows. |
 
 ---
 
-## Data Sources and Evidence Types
+### Environment, Data Sources, and Tools
 
-The execution worked with multiple synthetic but realistic datasets, including:
+The execution focuses on validation of log parsing and telemetry normalization within Splunk environments to support detection engineering and investigative workflows.
 
-- VPN connection and session logs requiring event boundary correction  
-- Authentication logs requiring multi-line preservation  
-- Transaction-style logs containing sensitive values requiring masking
+#### Environment and Execution Scope (At a Glance)
 
-Evidence artifacts included:
-
-- indexed Splunk events after parsing  
-- configuration files controlling parsing behavior  
-- validation search results confirming field extraction success
-
-These are the same data types and validation steps used during real telemetry onboarding.
+| Area | Details |
+|--------|---------|
+| **Environment Type** | SIEM telemetry validation and log parsing analysis environment |
+| **Processed Assets** | Structured and unstructured log telemetry ingested into Splunk |
+| **Execution Platform** | Splunk SIEM search and analysis interface |
+| **Primary Platforms / Services** | Centralized log ingestion pipelines, field extraction configurations, and normalized telemetry indexing infrastructure |
+| **Operational Focus** | Validate log parsing accuracy and ensure telemetry normalization supports reliable detection and monitoring |
 
 ---
 
-## Operational Relevance to SOC and Detection Engineering Workflows
+#### Data Sources, Evidence, and Analysis Techniques
 
-This execution represents the telemetry engineering stage that precedes all effective detection and investigation workflows.
+| Area | Details |
+|--------|---------|
+| **Primary Telemetry Sources** | Raw log events containing structured and unstructured telemetry attributes, including authentication activity, system events, network telemetry, and application logging data |
+| **Field Extraction Validation Techniques** | Inspection of parsed fields to confirm accurate extraction of timestamps, user identifiers, source addresses, event outcomes, and detection-relevant attributes |
+| **Log Normalization Verification** | Evaluation of field naming consistency, data formatting, and event structure alignment to ensure telemetry supports standardized detection queries |
+| **Parsing Logic Testing** | Validation of extraction rules, regex patterns, and event segmentation logic used to transform raw logs into searchable structured data |
+| **Search Optimization Techniques** | Use of Splunk queries to verify index consistency, field availability, and event classification accuracy across multiple data sources |
+| **Threat Detection Heuristics** | Evaluation of field completeness and parsing accuracy to ensure detection logic can reliably identify suspicious behavior or anomalous activity patterns |
+| **Splunk Processing Techniques** | SPL query construction, raw event inspection, field metadata analysis, and parsing validation workflows designed to support repeatable telemetry verification |
+| **Operational Workflow Context** | Demonstrates parsing validation procedures used by detection engineers and SOC analysts to ensure log telemetry supports accurate alerting and investigative triage workflows |
 
-In real SOC environments, similar parsing work is performed when:
-
-- new security tools are deployed,  
-- application teams begin sending logs, or  
-- ingestion pipelines are migrated between platforms.
-
-Detection engineers rely on structured, consistent fields to implement:
-
-- correlation searches,  
-- behavioral detections, and  
-- anomaly models.
-
-SOC analysts rely on clean event boundaries and preserved context to perform:
-
-- authentication investigations,  
-- incident scoping, and  
-- root cause analysis.
-
-Failures at the ingestion layer propagate downstream into detection blind spots, alert fatigue, and unreliable dashboards. This workflow reinforces why parsing engineering is a core security function rather than a purely administrative task.
+The execution demonstrates how telemetry normalization validation supports scalable detection engineering and improves reliability of SIEM monitoring and threat investigation workflows.
 
 ---
 
-## Files and Documentation Structure
+### Intended Use
 
-This execution is documented using multiple files to reflect how security teams separate ingestion configuration, operational validation, and analytical reasoning.
-
-### `README.md`
-
-Provides high-level context explaining ingestion goals, parsing scope, and operational relevance.
-
-### `workflow-execution.md`
-
-Contains the complete configuration walkthrough, including edits to Splunk configuration files, service restarts, and validation searches confirming correct parsing behavior.
-
-### `analyst-notes.md`
-
-Documents parsing design rationale, potential pitfalls, and considerations for production environments such as index volume and field cardinality.
-
-### `tool-usage-notes.md`
-
-Provides focused reference material on Splunk parsing configuration syntax, stanza behavior, and regex techniques used during ingestion.
-
-### `images/`
-
-Contains screenshots validating successful parsing, field extraction, and masking behavior in Splunk searches.
+The documented execution demonstrates SIEM parsing validation, field extraction verification, and telemetry normalization techniques using Splunk. It reflects how detection engineering and SOC teams validate telemetry quality to support monitoring, alerting, and investigative workflows.
 
 ---
 
-## Skill Demonstration Context
+### Relevance to Security Operations
 
-This execution demonstrates SIEM ingestion and detection engineering fundamentals including scripted data onboarding, event boundary correction, multi-line preservation, sensitive data handling, and structured field extraction.
+Detection accuracy and investigative reliability depend heavily on telemetry quality and field extraction consistency.
 
-These skills directly support reliable detection development, SOC investigation workflows, and regulatory compliance requirements in enterprise environments.
+The execution demonstrates how parsing validation enables analysts to:
+
+- Confirm telemetry supports reliable detection logic  
+- Identify parsing gaps or normalization inconsistencies  
+- Improve search efficiency and monitoring accuracy  
+- Support scalable detection engineering and investigative workflows  
+
+Even environments with mature logging pipelines require ongoing parsing validation to maintain reliable detection and investigative capability.
+
+---
+
+If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical SIEM parsing validation methodology, telemetry normalization verification, and professional workflow documentation aligned with real operational detection engineering and SOC environments.
+
