@@ -2,11 +2,11 @@
 
 (`endpoint-analysis-and-triage/README.md`)
 
-This folder contains workflow executions and supporting documentation focused on **validating host state, investigating suspicious behavior, and collecting system artifacts during endpoint-focused security operations**. These workflows simulate how SOC analysts and security engineers perform targeted host-level validation using repeatable, tool-driven methods.
+This folder contains workflow executions where the **primary focus is validating host state, investigating suspicious behavior, and collecting system artifacts during endpoint-focused security operations**. These workflows simulate how SOC analysts and security engineers perform targeted host-level validation using repeatable, tool-driven methods.
 
-Rather than presenting abstract techniques, each folder documents practical execution of specific endpoint triage tasks, including commands used, analyst reasoning behind each step, and interpretation of results within an investigative context. The emphasis is on operational execution and analyst decision-making, similar to internal SOC runbooks and analyst working notes.
+Rather than presenting abstract techniques, each folder documents practical execution of specific endpoint triage tasks, including the commands used, the reasoning behind each step, and how results are interpreted in an investigative context. The emphasis is on operational execution and analyst decision-making, similar to what would be captured in internal SOC runbooks and analyst working notes.
 
-Each folder uses a tool-first naming convention followed by the primary operational focus (for example, `powershell-endpoint-triage-and-system-inspection` or `bash-linux-endpoint-triage-and-system-inspection`). This allows quick identification of technologies being used while keeping documentation centered on investigative workflow and analytical reasoning rather than tool functionality.
+Each folder uses a tool-first naming convention followed by the primary operational focus (for example, `powershell-endpoint-triage-and-system-inspection` or `bash-linux-endpoint-triage-and-system-inspection`). This allows quick identification of technologies being used while documentation itself emphasizes analytical workflow and investigative reasoning rather than tool features.
 
 > 👉 **Each folder represents one complete workflow execution**  
 Every subfolder here is a **fully self-contained operational execution scenario** documenting how endpoint triage or host validation tasks are performed from initial objective through execution and interpretation.
@@ -21,51 +21,45 @@ Begin with `workflow-execution.md` inside a workflow folder to see how commands,
 
 ---
 
-### Terminology Used in This Category
+### How Workflows Are Categorized
 
-- **Workflows** refer to common security operations tasks such as endpoint triage, system validation, or artifact collection.
-- **Executions** refer to hands-on performance of those tasks using real tools, commands, and datasets.
-- **Writeups** document how tasks were performed and how results were interpreted from an investigative perspective.
+Workflows are grouped here when **host validation, endpoint triage, and system artifact inspection are the primary operational objectives**, rather than alert triage or full incident reconstruction.
+
+Although these activities frequently support investigations and incident response, they are categorized separately because their primary purpose is rapid host-level validation and system health assessment before deeper investigative or containment actions occur.
+
+Workflows in this category typically focus on:
+
+- **Process and service inspection**, reviewing running processes, parent-child relationships, and service states to identify suspicious execution patterns or unauthorized persistence mechanisms.
+
+- **File system and artifact triage**, examining directories, binaries, scripts, scheduled tasks, and configuration files to detect abnormal changes or potential malware placement.
+
+- **Command-line and shell-based investigation**, using native operating system utilities and scripting to collect system state without relying on heavyweight forensic tooling.
+
+- **Initial response validation actions**, confirming whether indicators of compromise are isolated to a single system or suggest broader environmental exposure.
+
+Although these workflows support investigations, they are organized here when the **core work involves validating host integrity and collecting system artifacts rather than reconstructing a full incident.**
 
 ---
 
 ### Operational Context and Purpose
 
-Endpoint triage and host analysis are typically performed early during alert investigation or incident scoping, when analysts must quickly determine whether a system shows signs of compromise, misconfiguration, or policy violations.
+Endpoint triage and host analysis workflows typically occur early during alert investigation or incident scoping, when analysts must quickly determine whether a system shows signs of compromise, misconfiguration, or policy violations.
 
-At this stage, the objective is not full forensic reconstruction but rapid validation of system health and behavior. Analysts focus on identifying suspicious execution patterns, persistence mechanisms, unauthorized configuration changes, or indicators suggesting broader environmental exposure.
+At this stage of security operations, the objective is not to perform full forensic reconstruction but to rapidly validate host health and behavior. Analysts focus on identifying suspicious execution patterns, persistence mechanisms, unauthorized configuration changes, or indicators suggesting broader environmental exposure.
 
-The workflow executions in this category reflect this reality by focusing on targeted host-level validation tasks that help determine whether deeper investigation, containment, or escalation is required.
-
----
-
-### Scope of Workflows in This Category
-
-Workflow executions in this category focus on host-level investigation and validation across both Windows and Linux environments. These tasks typically occur during alert triage or early incident scoping when analysts need to rapidly assess system integrity and operational risk.
-
-Common objectives demonstrated in these workflows include:
-
-- **Process and service inspection**, reviewing running processes, parent-child relationships, and service states to identify suspicious execution behavior or unauthorized persistence mechanisms.
-
-- **File system and artifact triage**, examining directories, binaries, scripts, scheduled tasks, and configuration files to detect abnormal modifications or potential malware placement.
-
-- **Command-line and shell-based investigation**, leveraging native operating system tools and scripting techniques to collect system state without relying on heavyweight forensic tooling.
-
-- **Initial response validation activities**, confirming whether indicators of compromise are isolated to a single system or suggest broader environmental exposure.
-
-These tasks reflect routine endpoint validation activities performed by SOC analysts and security engineers while responding to alerts, supporting detections, or verifying defensive control effectiveness.
+The execution examples in this category reflect real SOC and security engineering tasks where targeted host-level validation determines whether escalation, containment, or deeper investigative analysis is required.
 
 ---
 
 ### What’s in This Folder
 
-Each workflow execution is contained in its **own dedicated folder** and represents **one complete operational endpoint triage scenario**, including execution walkthroughs, analytical reasoning, tooling references, and validation outcomes.
+Each workflow execution is contained in its **own dedicated folder** and represents **one complete operational endpoint triage scenario**, including execution walkthroughs, analytical reasoning, validation outcomes, and tooling references.
 
 Current workflow executions include:
 
 - **PowerShell Endpoint Triage and System Inspection**  
   (`powershell-endpoint-triage-and-system-inspection`)  
-  Collects and validates Windows host state using native PowerShell commands. Tasks include inspecting running processes, services, network connections, user sessions, and configuration artifacts to determine whether suspicious activity or policy violations exist.
+  Focuses on collecting and validating host state on Windows systems using native PowerShell commands. Tasks include inspecting running processes, services, network connections, user sessions, and configuration artifacts to assess suspicious behavior or policy violations.
 
 - **CMD Windows Process and Network Triage**  
   (`cmd-windows-process-and-network-triage`)  
@@ -73,44 +67,44 @@ Current workflow executions include:
 
 - **Bash Linux Endpoint Triage and System Inspection**  
   (`bash-linux-endpoint-triage-and-system-inspection`)  
-  Performs host triage on Linux systems using native shell utilities. Tasks include reviewing running processes, scheduled jobs, network connections, file system artifacts, and user activity to validate system integrity and detect anomalies.
+  Demonstrates host-based triage on Linux systems using native shell utilities. Tasks include reviewing running processes, scheduled jobs, active network connections, file system artifacts, and user activity to validate system integrity and detect anomalies.
 
-Additional workflow executions may be added as endpoint triage techniques expand across operating systems, tooling, and detection support use cases.
+Additional workflow executions will be added as endpoint triage techniques expand across operating systems, tooling, and detection support use cases.
 
 ---
 
 ### Workflow Documentation Structure
 
-Each workflow execution is fully self-contained and uses documentation aligned with how endpoint triage procedures are documented in operational SOC environments.
+Each workflow execution is fully self-contained and uses documentation aligned with how endpoint triage and host validation tasks are performed in operational SOC environments.
 
 | File / Folder | Purpose | Contents and Focus |
 |-------------|-------------|--------------------|
-| **`workflow-execution.md`** | Operational execution walkthrough | Step-by-step endpoint triage execution including commands, queries, filters, scripts, screenshots, and validation checkpoints |
-| **`README.md`** | Workflow context and operational objective | Describes the security objective, investigative context, skills exercised, and relationship to real SOC or security engineering responsibilities |
-| **`analyst-notes.md`** | Analytical reasoning and operational insights | Documents why specific investigative approaches were selected, how results should be interpreted, detection and monitoring implications, and potential blind spots or false positives |
-| **`tool-usage-notes.md`** | Tool reference and command documentation | Explains command options, filter logic, field definitions, syntax nuances, and practical usage considerations applicable to similar investigations |
-| **`automation-design-notes.md`** *(when present)* | Automation and scalability planning | Documents scripting logic, parsing strategies, pipeline design considerations, and planning for reuse or integration into detection automation workflows |
-| **`images/` or `screenshots/`** | Validation and evidence artifacts | Contains command outputs, system views, dataset validation results, and visual confirmation supporting workflow execution |
+| **`workflow-execution.md`** | Operational execution walkthrough | Step-by-step endpoint triage workflow showing commands, tool usage, investigative pivots, and validation checkpoints |
+| **`README.md`** | Workflow context and operational objective | Describes the host validation or triage objective, workflow scope, and how the execution supports detection and investigation workflows |
+| **`analyst-notes.md`** | Analytical reasoning and operational considerations | Documents why specific triage approaches were selected and how collected host data supports investigative conclusions |
+| **`tool-usage-notes.md`** | Command and tool reference documentation | Explains command syntax, filter logic, system utilities, and operational usage patterns relevant to similar host investigations |
+| **`automation-design-notes.md`** *(when present)* | Automation and scalability planning | Documents scripting approaches, triage automation strategies, and design considerations for scaling or integrating host inspection into detection workflows |
+| **`images/` or `screenshots/`** | Validation and evidence artifacts | Contains command outputs, system snapshots, artifact validation results, and visual confirmation of investigative findings |
 
-Together, these files separate **execution methodology**, **analytical reasoning**, **tool reference**, and **automation planning** into clearly reviewable components while remaining tied to the same operational workflow.
+Together, these files separate **endpoint triage execution**, **analytical reasoning**, **tool reference**, and **automation planning** into clearly reviewable components while remaining tied to the same operational workflow.
 
 ---
 
 ### How These Workflow Executions Are Designed
 
-This category is **execution-focused**, emphasizing repeatable investigative procedures rather than theoretical instruction.
+This category is **execution-focused**, not theoretical.
 
 You will find:
 
 - Realistic endpoint triage execution walkthroughs
 - Command-line and scripting-based host inspection techniques
-- Validation checkpoints and investigative interpretation of results
-- Detection support and defensive insights derived from host validation
-- Operational decision-making explaining why specific triage approaches are used
+- Validation checkpoints and investigative interpretation of system artifacts
+- Detection support and monitoring improvements tied to host validation outcomes
+- Operational decision-making behind triage methodology and investigative pivots
 
-Each workflow demonstrates not only how host validation tasks are performed, but why those tasks are critical for rapid alert triage, investigation scoping, and incident response readiness.
+Each workflow demonstrates not just how host validation is performed, but why specific triage strategies are critical for rapid alert response, investigation scoping, and incident readiness.
 
-Documentation is intentionally structured to resemble internal SOC procedural runbooks and analyst field notes rather than tutorial-style content.
+Documentation is intentionally structured to resemble internal SOC triage procedures and analyst runbooks rather than tutorial-style instruction.
 
 ---
 
@@ -118,21 +112,20 @@ Documentation is intentionally structured to resemble internal SOC procedural ru
 
 Endpoint triage workflows directly support investigations but do not represent complete incident case studies on their own.
 
-In operational environments, host validation tasks documented here are frequently performed during broader response efforts, including malware confirmation, persistence validation, lateral movement artifact detection, and configuration drift verification.
+In operational environments, host validation tasks documented here are frequently performed during broader response efforts, including malware confirmation, persistence validation, lateral movement artifact identification, and configuration drift verification.
 
-Full investigative case studies — including alert context, timeline reconstruction, MITRE ATT&CK mapping, root cause analysis, artifact correlation, and remediation planning — are documented separately in the:
+Full incident lifecycle investigations — including alert context, timeline reconstruction, MITRE ATT&CK mapping, artifact correlation, root cause analysis, and remediation planning — are documented separately in the:
 
 `incident-response-and-investigations` repository
 
-This separation reflects how professional SOC teams distinguish between reusable operational procedures and complete incident case reporting.
+This separation reflects how professional security teams distinguish between triage procedures and full investigative case documentation.
 
 ---
 
 ### Ongoing Development
 
-Workflow executions in this category are continuously expanded as new triage techniques, operating system artifacts, tooling approaches, and detection validation methods are explored.
+Workflows in this category are continuously expanded as new triage techniques, operating system artifacts, tooling approaches, and detection validation methods are explored.
 
-Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In professional security operations environments, triage procedures evolve as telemetry sources, operating systems, and detection strategies change.
+Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production security environments, triage procedures evolve as telemetry sources, operating systems, and detection strategies change.
 
-The focus is on building a growing library of reusable endpoint validation techniques rather than static, one-time demonstrations.
-
+The focus is on building a growing library of reusable endpoint validation and host analysis techniques rather than static one-time demonstrations.
