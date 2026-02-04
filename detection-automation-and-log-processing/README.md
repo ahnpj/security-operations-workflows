@@ -83,7 +83,7 @@ Together, these files separate **automation execution**, **analytical reasoning*
 
 ---
 
-## How These Execution Writeups Are Designed
+### How These Execution Writeups Are Designed
 
 This category is **execution-focused**, not theoretical.
 
@@ -116,7 +116,7 @@ This separation reflects how professional security teams distinguish between det
 
 ---
 
-## Ongoing Development
+### Ongoing Development
 
 Workflows in this category are continuously expanded as new telemetry sources, parsing requirements, and detection engineering challenges emerge.
 
@@ -125,6 +125,7 @@ Some workflow directories may appear iterative or incomplete. This reflects acti
 The focus is on building a growing, reusable library of automation and log processing techniques rather than static one-time scripts.
 
 ---
+
 
 
 
