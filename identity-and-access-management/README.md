@@ -59,7 +59,7 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- **Active Directory Identity and Access Management (IAM) Operations, Authentication, and Permission Validation**  
+- **Identity and Access Management (IAM) Operations, Authentication, and Permission Validation Using Active Directory**  
   (`active-directory-iam-operations-and-permission-validation`)  
   Focuses on validating user authentication events, group memberships, and effective permissions within an Active Directory environment. Tasks include reviewing logon activity, inspecting group assignments, and testing access to protected resources to identify excessive privileges or configuration weaknesses.
 
@@ -123,3 +123,4 @@ Workflows in this category are continuously expanded as authentication technolog
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production environments, identity systems are frequently reconfigured, integrated with new services, and targeted by evolving attack techniques, requiring ongoing validation and monitoring.
 
 The focus is on building a growing library of reusable identity validation and access control testing techniques rather than static one-time demonstrations.
+
