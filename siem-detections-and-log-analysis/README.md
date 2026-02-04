@@ -1,12 +1,19 @@
-# SIEM Detections & Log Analysis — Operational Execution and Analyst Notes
+# SIEM Detections & Log Analysis
 
 (`siem-detections-and-log-analysis/README.md`)
 
-This category contains hands-on execution examples and supporting documentation for security operations tasks focused on log analysis and detection engineering within SIEM platforms. The goal of these writeups is to demonstrate how analysts validate log quality, build and refine detection logic, and investigate suspicious activity using structured, query-driven analysis.
+This folder contains workflow executions where the **primary focus is validating log quality, developing and refining detection logic, and investigating suspicious activity using SIEM platforms**. These workflows simulate how SOC analysts and detection engineers analyze telemetry, construct queries, and validate alerts using structured, log-driven analysis.
 
-Rather than presenting abstract detection concepts, each folder documents the practical execution of specific SIEM-focused workflows, including the searches performed, the reasoning behind query construction, and how results are evaluated in an investigative context. The emphasis is on operational process and analyst decision-making, similar to what would be captured in internal SOC detection runbooks and investigation working notes.
+Rather than presenting abstract detection concepts, each folder documents practical execution of SIEM-focused workflows, including searches performed, analyst reasoning behind query construction, and interpretation of results within an investigative context. The emphasis is on operational execution and analyst decision-making, similar to internal SOC detection runbooks and investigation working notes.
 
-Each folder also uses a tool-first naming convention, followed by the primary operational focus (for example, splunk-log-parsing or splunk-vpn-anomaly-analysis). This makes it easy to see which technologies are being used at a glance, while the documentation itself emphasizes analytical process and investigative decision-making rather than tool features.
+Each folder uses a tool-first naming convention followed by the primary operational focus (for example, `splunk-log-parsing` or `splunk-vpn-anomaly-analysis`). This allows quick identification of technologies being used while documentation itself emphasizes investigative workflow and analytical reasoning rather than SIEM tool functionality alone.
+
+> 👉 **Each folder represents one complete workflow execution**  
+Every subfolder here is a **fully self-contained operational execution scenario**. Each one documents how a specific detection validation or log analysis task is performed from initial objective through validation and operational interpretation.
+
+> 👉 **Follow the workflow execution first**  
+Begin with `workflow-execution.md` inside a workflow folder to see how logs were analyzed, detection queries were built, and suspicious activity was validated step by step using SIEM search techniques and investigative methodology.
+
 
 > **Terminology used in this category:**  
 > **Workflows** refer to common security operations tasks (such as traffic filtering or session reconstruction).  
@@ -15,104 +22,107 @@ Each folder also uses a tool-first naming convention, followed by the primary op
 
 ---
 
-## Operational Context and Purpose
+### How Workflows Are Categorized
 
-SIEM-based investigations and detections are central to day-to-day SOC operations, where analysts rely on log data to identify, validate, and respond to suspicious activity across the environment.
+Workflows are grouped here when **log analysis, detection validation, and SIEM query development are the primary operational objectives**, rather than alert triage or full incident reconstruction.
 
-At this stage of security operations, the objective is to determine whether observed events represent benign behavior, misconfigurations, or indicators of malicious activity. Analysts must also assess whether detections are firing accurately, whether logs are being parsed correctly, and whether additional telemetry is needed to improve visibility.
+Although these activities frequently support investigations and incident response, they are categorized separately because their primary purpose is validating telemetry quality, refining detection logic, and improving alert reliability before deeper investigative or containment actions occur.
 
-The execution examples in this category reflect this reality by focusing on targeted log validation and detection development tasks that help ensure alerts are meaningful, actionable, and supported by reliable data.
+Workflows in this category typically focus on:
 
----
+- **Log parsing and field validation**, examining raw events to confirm important attributes are extracted and normalized correctly for use in searches and detections.
 
-## Scope of Workflows in This Category
+- **Detection logic development and refinement**, constructing, testing, and tuning queries to reduce false positives while maintaining coverage of suspicious or malicious behavior.
 
-The execution writeups in this category focus on log-based investigation and detection validation across common enterprise telemetry sources. These activities typically occur during alert triage, detection tuning, or proactive monitoring, when analysts need to verify whether logs support reliable security conclusions.
+- **Behavioral pattern analysis**, reviewing event sequences and correlations to distinguish expected operational activity from anomalous or risky behavior.
 
-Common objectives demonstrated in these workflows include:
+- **Alert validation and investigation support**, analyzing triggered detections using deeper queries to determine whether escalation or response actions are warranted.
 
-- **Log parsing and field validation**, where raw events are examined to confirm that important attributes are being extracted and normalized correctly for use in searches and detections.
-
-- **Detection logic development and refinement**, where queries are constructed, tested, and adjusted to reduce false positives while preserving coverage of suspicious behavior.
-
-- **Behavioral pattern analysis**, where event sequences and correlations are reviewed to distinguish expected operational activity from anomalous or risky behavior.
-
-- **Alert validation and investigation support**, where triggered detections are investigated using deeper queries to determine whether escalation or response actions are warranted.
-
-These tasks reflect the type of focused SIEM analysis SOC analysts and detection engineers routinely perform to maintain effective monitoring and response capabilities.
+Although these workflows support investigations, they are organized here when the **core work involves validating telemetry and detection logic rather than reconstructing complete incident timelines.**
 
 ---
 
-## How These Execution Writeups Are Structured
+### Operational Context and Purpose
 
-Each execution writeup (`workflow-execution.md`) documents a specific operational objective and the technical steps used to carry it out during traffic monitoring or packet analysis activities. The documentation is structured to resemble procedural runbooks rather than academic protocol walkthroughs.
+SIEM detection development and log analysis workflows typically occur during alert investigation, detection tuning, proactive monitoring, or telemetry validation.
 
-Typical sections include:
+At this stage of security operations, the objective is to determine whether observed events represent benign activity, misconfiguration, or indicators of malicious behavior. Analysts also evaluate whether detection rules are functioning accurately, whether logs are parsed correctly, and whether additional telemetry is required to improve visibility.
 
-- **Operational intent and focus**, which explains the network-related security question being addressed and why the analysis is being performed.
-
-- **Environment and execution context**, which describes the network topology, capture points, and traffic sources required to reproduce the analysis steps correctly.
-
-- **Step-by-step execution**, which captures capture filters, display filters, tool commands, and inspection steps in the order an analyst would realistically perform them.
-
-- **Results and interpretation**, which explains what the observed traffic indicates and how it supports investigative conclusions.
-
-- **Operational and defensive takeaways**, which connect traffic analysis findings to detection improvements, network control adjustments, or monitoring strategies.
-
-This structure emphasizes methodical traffic inspection and evidence-driven interpretation rather than isolated tool usage.
+The execution examples in this category reflect real SOC and detection engineering tasks where targeted log validation and query development ensure alerts are meaningful, actionable, and supported by reliable data.
 
 ---
 
-## Ongoing Development and Iteration
+### What’s in This Folder
 
-The examples in this category represent hands-on practice executions of SIEM-based detection and investigation tasks, documented as detection logic and log understanding are built, tested, and refined over time.
+Each workflow execution is contained in its **own dedicated folder** and represents **one complete operational SIEM detection or log analysis scenario**, including execution walkthroughs, analytical reasoning, validation outcomes, and tooling references.
 
-Some directories may appear incomplete or in progress. This reflects active iteration and expansion of coverage rather than abandoned content. In professional SOC environments, detection rules and investigative methods are continuously tuned as new threats, data sources, and false positive patterns are discovered.
+Current workflow executions include:
 
-The focus is on building a growing set of reliable detection techniques and investigative workflows rather than producing static, one-time examples.
+- **Splunk Log Parsing and Field Validation**  
+  (`splunk-log-parsing`)  
+  Focuses on inspecting raw log events, validating field extractions, and confirming normalization is adequate for reliable detection and investigation. Tasks include reviewing event structures, testing extraction logic, and verifying consistency across data sources.
 
----
+- **Splunk VPN Anomaly Analysis**  
+  (`splunk-vpn-anomaly-analysis`)  
+  Examines authentication and VPN activity to identify abnormal login behavior, geographic anomalies, and unusual access patterns that may indicate compromised credentials or unauthorized access attempts.
 
-## Relationship to Full Incident Investigations
-
-The practical execution of SIEM detection and log analysis tasks in this category is designed to support and complement larger investigations, but they are not complete end-to-end incident case studies on their own.
-
-In practice, SIEM workflows such as those documented here are often used to validate alerts, identify affected systems or users, and provide initial scoping information before deeper host- or network-based analysis occurs.
-
-Full investigative case studies — including timeline reconstruction, artifact analysis, MITRE ATT&CK mapping, root cause determination, and remediation planning — are documented separately in the dedicated `incident-response-and-investigations` repository, which focuses on complete incident lifecycles rather than individual detection or validation procedures.
-
-This separation mirrors how professional SOC teams distinguish between detection engineering workflows and formal incident reporting.
+Additional workflow executions will be added as monitoring coverage expands across telemetry sources, detection strategies, and investigation use cases.
 
 ---
 
-## Current Workflow Executions in This Category
+### Workflow Documentation Structure
 
-The following executions of SIEM-focused security operations tasks currently exist in this category and demonstrate different approaches to detection validation and log-driven investigation:
+Each workflow execution is fully self-contained and uses documentation aligned with how SIEM detection validation and log analysis tasks are performed in operational SOC environments.
 
-- **Splunk Log Parsing and Field Validation** (`splunk-log-parsing`)
-Focuses on inspecting raw log events, validating field extractions, and ensuring normalization is adequate for reliable detection and investigation. Tasks include reviewing event structures, testing extraction logic, and confirming consistency across data sources.
+| File / Folder | Purpose | Contents and Focus |
+|-------------|-------------|--------------------|
+| **`workflow-execution.md`** | Operational execution walkthrough | Step-by-step SIEM analysis workflow showing queries, filters, investigative pivots, and validation checkpoints |
+| **`README.md`** | Workflow context and operational objective | Describes the detection or log validation objective, workflow scope, and how the execution supports detection and investigation workflows |
+| **`analyst-notes.md`** | Analytical reasoning and operational considerations | Documents why specific detection or analysis approaches were selected and how log patterns support investigative conclusions |
+| **`tool-usage-notes.md`** | Tool and query reference documentation | Explains SIEM query syntax, search optimization techniques, field usage, and analysis strategies applicable to similar detection workflows |
+| **`automation-design-notes.md`** *(when present)* | Automation and scalability planning | Documents scripted data extraction, parsing strategies, and design considerations for integrating log analysis into automated detection pipelines |
+| **`images/` or `screenshots/`** | Validation and evidence artifacts | Contains search results, event visualizations, field extraction validation, and visual confirmation of detection analysis findings |
 
-- **Splunk VPN Anomaly Analysis** (`splunk-vpn-anomaly-analysis`)
-Examines authentication and VPN activity to identify abnormal login behavior, geographic anomalies, and unusual access patterns that may indicate compromised credentials or unauthorized access attempts.
+Together, these files separate **SIEM detection execution**, **analytical reasoning**, **tool reference**, and **automation planning** into clearly reviewable components while remaining tied to the same operational workflow.
 
-Each execution example emphasizes practical detection validation and investigative techniques that can be applied during alert triage, monitoring, and detection development.
 ---
 
-## Documentation Files Included in Each Execution
+### How These Workflow Executions Are Designed
 
-Each practical execution of SIEM-based tasks is documented using multiple files, separated by purpose to reflect how security teams typically organize operational knowledge and detection engineering notes.
+This category is **execution-focused**, not theoretical.
 
-- **`README.md`**  
-  Describes the detection or investigation objective, the operational context in which the task would occur, what skills are being exercised, and how the activity maps to real SOC or detection engineering responsibilities.
+You will find:
 
-- **`workflow-execution.md`**  
-  Documents the step-by-step analytical execution of the task, including queries, filters, field validation, screenshots, and investigative pivots. This serves as the reproducible record of how the detection or investigation was performed.
+- Realistic SIEM detection development and investigation walkthroughs
+- Query construction and telemetry validation techniques
+- Validation checkpoints and investigative interpretation of log behavior
+- Detection support and monitoring improvements tied to log analysis outcomes
+- Operational decision-making behind detection tuning and investigative pivots
 
-- **`analyst-notes.md`**  
-  Captures analytical reasoning and operational takeaways, such as detection limitations, false positive considerations, logging gaps, and ideas for improving monitoring coverage.
+Each workflow demonstrates not just how SIEM detections are developed and validated, but why reliable telemetry and well-tuned detection logic are critical for effective alert triage, threat detection, and monitoring coverage.
 
-- **`tool-usage-notes.md`**  
-  Focuses on SIEM-specific query behavior, search optimizations, field usage, and syntax details that are useful when applying similar techniques in other detections or investigations.
+Documentation is intentionally structured to resemble internal SOC detection engineering procedures and analyst runbooks rather than tutorial-style instruction.
 
-- **`automation-design-notes.md`** (when present)  
-  Used in workflows that involve exporting or processing log data for downstream automation, documenting parsing strategies and design considerations for integration into detection pipelines.
+---
+
+### Relationship to Full Incident Investigations
+
+SIEM detection workflows directly support investigations but do not represent complete incident case studies on their own.
+
+In operational environments, log validation and detection tuning tasks documented here are frequently performed during broader response efforts, including alert validation, incident scoping, user or host identification, and detection coverage improvement.
+
+Full incident lifecycle investigations — including alert context, timeline reconstruction, MITRE ATT&CK mapping, artifact correlation, root cause analysis, and remediation planning — are documented separately in the:
+
+`incident-response-and-investigations` repository
+
+This separation reflects how professional security teams distinguish between detection engineering workflows and full investigative case documentation.
+
+---
+
+### Ongoing Development
+
+Workflows in this category are continuously expanded as telemetry sources, detection strategies, threat techniques, and monitoring requirements evolve.
+
+Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production SOC environments, detection rules and investigative techniques are constantly tuned as new threats, data sources, and false positive patterns emerge.
+
+The focus is on building a growing library of reusable detection validation and log analysis techniques rather than static one-time demonstrations.
