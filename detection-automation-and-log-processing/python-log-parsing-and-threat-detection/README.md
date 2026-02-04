@@ -4,6 +4,10 @@
 **Operational Focus:** Behavior-based detection logic prototyping from raw security telemetry across multiple environments  
 **Primary Tools & Platforms:** Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets
 
+---
+
+### Overview
+
 This directory contains a complete, operationally structured record of a detection automation execution in which raw telemetry from multiple environments is parsed and analyzed using small Python scripts. The directory contains the execution writeups, scripts, screenshots, and supporting analysis that together show how detection logic can be validated directly from source logs before being translated into production monitoring systems.
 
 The goal of the execution is not to generate “alerts” in a product UI, but to validate—directly from raw telemetry—that specific attacker behaviors are observable, measurable, and defensible enough to later translate into production detections such as SIEM searches, cloud-native detection rules, or automated enrichment pipelines.
@@ -21,7 +25,7 @@ Throughout this execution, I intentionally wrote and reviewed each parser from s
 
 ---
 
-## How to Read This Folder
+### How to Read This Folder
 
 This folder is organized to separate operational execution from analytical reasoning and technical reference material, similar to how SOC teams separate investigation notes from automation playbooks and internal documentation.
 
@@ -36,7 +40,7 @@ This folder is organized to separate operational execution from analytical reaso
 
 ---
 
-## What This Execution Is Specifically Doing
+### What This Execution Is Specifically Doing
 
 This execution simulates how an analyst or detection engineer would validate potential detection ideas by working directly with raw telemetry before building any production alerting logic.
 
@@ -56,7 +60,7 @@ Overall, the execution demonstrates how raw telemetry can be converted into beha
 
 ---
 
-## Why These Tasks Matter in Detection Engineering and SOC Operations
+### Why These Tasks Matter in Detection Engineering and SOC Operations
 
 Detection rules and alerts are only useful if they are based on behaviors that are consistently visible in telemetry and separable from normal operational activity.
 
@@ -68,19 +72,19 @@ By validating detection logic directly against telemetry, detection rules become
 
 ---
 
-## Environment, Operating System, and Tooling
+### Environment, Operating System, and Tooling
 
-### Execution Environment
+#### Execution Environment
 
 All analysis was performed inside Google Cloud Shell, which provides a browser-based Linux virtual machine. This environment simulates situations where analysts must work in restricted or temporary systems without installing additional tools.
 
 The environment provided a Linux shell with no persistent storage between sessions, which required scripts and datasets to be recreated after reconnecting. External Python libraries could not be installed, enforcing reliance on the Python standard library only. These constraints mirror investigation environments such as response jump boxes, forensic sandboxes, or cloud-hosted analysis instances.
 
-### Operating System and Shell
+#### Operating System and Shell
 
 The operating system was a Linux distribution provided by Google Cloud Shell, with Bash used as the default shell environment. All file creation, script execution, and troubleshooting occurred through the command line.
 
-### Programming Language and Libraries
+#### Programming Language and Libraries
 
 All scripts were written in Python using only standard library modules, including regular expressions for plaintext parsing, CSV readers for structured authentication data, JSON parsing for CloudTrail records, and collection utilities for grouping and counting events.
 
@@ -88,29 +92,29 @@ No external packages or detection platforms were used, keeping the parsing logic
 
 ---
 
-## Telemetry and Data Sources Used
+### Telemetry and Data Sources Used
 
 All datasets were intentionally small and synthetic, but structured to reflect real log formats and realistic attacker behaviors.
 
-### Web Server Logs
+#### Web Server Logs
 
 Apache-style access logs contained both normal browsing requests and repeated requests to administrative paths that generated 404 responses, allowing detection logic to identify scanning and enumeration patterns.
 
-### Linux Authentication Logs
+#### Linux Authentication Logs
 
 Linux `auth.log` entries simulated multiple failed SSH login attempts from the same external source, followed by a successful login from a different IP address, enabling grouping logic to identify brute-force behavior.
 
-### Windows Authentication Events (CSV)
+#### Windows Authentication Events (CSV)
 
 Windows authentication events were represented in CSV format with both failed and successful logon events, allowing Event ID filtering and grouping by account and source IP.
 
-### AWS CloudTrail Logs
+#### AWS CloudTrail Logs
 
 CloudTrail JSON records included normal API activity as well as actions that modify permissions or logging, allowing detection logic to flag potentially dangerous administrative behavior.
 
 ---
 
-## Operational Relevance to SOC and Detection Engineering Workflows
+### Operational Relevance to SOC and Detection Engineering Workflows
 
 This execution reflects how SOC analysts and detection engineers validate potential detection ideas directly against raw telemetry before implementing them in production monitoring systems.
 
@@ -127,31 +131,31 @@ Overall, this execution demonstrates how detection ideas move from hypothesis to
 
 ---
 
-## Files and Documentation Structure
+### Files and Documentation Structure
 
 This execution is documented using multiple files to reflect how security teams separate hands-on detection validation, analytical reasoning, and technical reference material when developing and testing detection logic from raw telemetry.
 
-### `README.md`
+#### `README.md`
 
 Provides high-level context for the detection automation workflow, explains what behaviors are being evaluated, and describes how this execution supports SOC analysis and detection engineering objectives.
 
-### `workflow-execution.md`
+#### `workflow-execution.md`
 
 Contains the complete step-by-step walkthrough of dataset preparation, Python script development, parsing logic, grouping operations, troubleshooting, and interpretation of output. This file represents the full operational execution timeline and preserves how detection ideas were validated directly from raw logs.
 
-### `analyst-notes.md`
+#### `analyst-notes.md`
 
 Documents analytical reasoning about which behaviors are considered suspicious, why certain aggregation pivots were chosen, and what limitations exist in the datasets. This file mirrors how analysts record investigative thinking during detection prototyping and threat hunting.
 
-### `tool-usage-notes.md`
+#### `tool-usage-notes.md`
 
 Provides technical reference material for Python parsing techniques, regular expressions, file handling, and aggregation logic used throughout the execution. This supports reuse of scripting patterns in future detection automation workflows.
 
-### `automation-design-notes.md`
+#### `automation-design-notes.md`
 
 Explores how the validated behavioral signals could be implemented as SIEM searches, correlation rules, or automated enrichment pipelines. This file bridges manual analysis and scalable detection engineering.
 
-### `images/`
+#### `images/`
 
 Contains screenshots validating script execution and aggregation results, providing visual confirmation that detection logic was tested against real datasets.
 
@@ -159,8 +163,9 @@ Contains screenshots validating script execution and aggregation results, provid
 
 ---
 
-## Skill Demonstration Context
+### Skill Demonstration Context
 
 This execution demonstrates practical SOC and detection engineering skills, including multi-format log parsing, behavior-based detection thinking, operational pivot design, scripting for detection prototyping, and structured security documentation.
 
 Full end-to-end incident investigations are documented separately in the **incident-response-and-investigations** repository. This execution focuses on detection validation and telemetry analysis rather than case-based incident handling.
+
