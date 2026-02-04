@@ -59,7 +59,7 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 Current workflow executions include:
 
 - **Python Log Parsing and Field Extraction for Detection Queries**  
-  (`python-log-parsing-and-field-extraction`)  
+  (`python-log-parsing-and-threat-detection`)  
   Demonstrates parsing raw log datasets, extracting structured fields using regex and scripting logic, validating extracted attributes, and preparing datasets for SIEM ingestion, detection queries, and investigative searches.
 
 Additional workflow executions will be added as automation coverage expands across different telemetry sources and detection engineering use cases.
@@ -125,5 +125,6 @@ Some workflow directories may appear iterative or incomplete. This reflects acti
 The focus is on building a growing, reusable library of automation and log processing techniques rather than static one-time scripts.
 
 ---
+
 
 
