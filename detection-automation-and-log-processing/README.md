@@ -1,4 +1,4 @@
-# Detection Automation and Log Processing — Operational Execution and Analyst Notes
+# Detection Automation and Log Processing
 
 (`detection-automation-and-log-processing/README.md`)
 
@@ -125,4 +125,5 @@ Some workflow directories may appear iterative or incomplete. This reflects acti
 The focus is on building a growing, reusable library of automation and log processing techniques rather than static one-time scripts.
 
 ---
+
 
