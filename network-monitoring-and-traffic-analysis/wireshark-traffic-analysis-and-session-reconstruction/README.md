@@ -1,152 +1,115 @@
-# Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark — Operational Execution
+# Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark
 
-**Category:** Network Traffic Analysis  
-**Operational Focus:** Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures  
-**Primary Tools & Platforms:** Wireshark, stored PCAP and PCAPNG capture files
+**Category:** Network Monitoring and Traffic Analysis  
+**Primary Operational Focus:** Traffic filtering, protocol-level inspection, and session reconstruction for network communication analysis  
+**Operational Objectives Demonstrated:** Traffic Isolation, Protocol Behavior Inspection, Session Reconstruction, Suspicious Communication Identification  
+**Primary Data Sources:** Packet capture datasets, filtered traffic streams, and reconstructed protocol sessions derived from network packet analysis
 
-This directory contains a complete, operationally structured record of packet analysis performed using Wireshark on stored capture files. The directory contains the execution writeups, screenshots, and extracted artifacts that together demonstrate how analysts move from raw packet data to protocol-level understanding and session reconstruction.
-
-The goal of the execution is not to perform live traffic interception, but to practice how captured network evidence is interpreted after collection, which is how packet analysis is most often performed during investigations.
-
-At a practical level, the execution reflects how analysts examine packet data:
-
-- First, capture files are loaded and interface context is reviewed.  
-- Next, individual packets are dissected across OSI layers to understand protocol behavior.  
-- Then, filters and conversation tracking are used to isolate sessions.  
-- Finally, transferred objects and full streams are reconstructed for validation.
-
-Throughout this execution, I intentionally focused on understanding how decoded fields map to raw bytes and how session context emerges from individual packets. This reinforced how protocol analysis supports both security investigations and troubleshooting.
+> **Terminology used:**  
+> **Workflows** refer to common security operations tasks (such as traffic filtering or session reconstruction).  
+> **Executions** refer to the hands-on performance of those tasks using packet analysis tools and real network traffic data.  
+> **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
 ---
 
-## How to Read This Folder
+### Overview
 
-This folder separates packet analysis execution from supporting protocol reference material.
+This execution documents the practical performance of network traffic inspection and session reconstruction using Wireshark to analyze captured packet data and validate communication behavior. The objective is to isolate suspicious traffic, inspect protocol activity, and reconstruct communication sessions to understand application-layer interactions and potential threat activity.
 
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to tasks such as session reconstruction and protocol validation.  
-> - **Executions** refer to hands-on packet inspection using protocol analyzers.  
-> - **Writeups** document analysis steps and interpretation decisions.
+The execution focuses on applying display filters to isolate relevant packet streams, analyzing protocol headers and payload metadata, and reconstructing full communication sessions to interpret network behavior. Emphasis is placed on how interactive packet analysis supports alert validation, threat investigation, and behavioral analysis within operational security environments.
 
-- Detailed packet analysis steps are in **`workflow-execution.md`**.  
-- This `README.md` explains analytical goals and methodology.  
-- Supporting files provide protocol and tool usage references.
+> 👉 **Follow the execution walkthrough first**  
+Begin with `workflow-execution.md` inside this folder to see how packet captures were filtered, analyzed, and reconstructed step by step using Wireshark inspection and analysis tools.
 
----
+> 👉 **Review analytical reasoning and investigative decision-making**  
+Move to `analyst-notes.md` to understand why specific filtering techniques were selected, how communication indicators were evaluated, and how results influence investigative escalation or containment decisions.
 
-## What This Execution Is Specifically Doing
+> 👉 **Review tooling and protocol analysis reference details**  
+See `tool-usage-notes.md` to understand Wireshark filtering syntax, session reconstruction methods, and packet inspection techniques used during execution.
 
-This execution demonstrates how to interpret packet captures using Wireshark in a structured and repeatable way.
-
-First, capture files are opened and file properties are reviewed to confirm capture context and integrity metadata.
-
-Next, representative packets are selected and dissected across OSI layers, with attention paid to how Ethernet, IP, TCP, and application protocols are represented in both decoded fields and raw bytes.
-
-Then, filtering techniques are applied to isolate relevant conversations using display filters, conversation filters, and stream-following features.
-
-After isolating sessions, full request and response content is reconstructed using TCP stream reassembly to view application-layer transactions.
-
-Finally, transferred objects are extracted and hashed to validate integrity and support downstream analysis.
-
-These steps reflect how analysts reconstruct communication behavior from packet-level evidence.
+> 👉 **See what each execution file contains in full detail**  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 ---
 
-## Why These Tasks Matter in Network Security Operations
+### How to Navigate This Execution
 
-Packet captures provide the most detailed view of network behavior, but they are only useful if analysts can interpret them correctly.
+Documentation is separated into focused components to reflect how packet analysis and communication reconstruction tasks are documented within SOC and network security operational environments.
 
-SOC analysts and incident responders rely on packet analysis to:
+If you want to follow the execution step by step, start with:
 
-- validate IDS alerts,  
-- confirm malware command-and-control behavior, and  
-- reconstruct attacker activity during breaches.
-
-Understanding protocol behavior across OSI layers is critical for accurate interpretation and defensible reporting.
+**`workflow-execution.md`**
 
 ---
 
-## Environment, Operating System, and Tooling
+### Repository Structure & Supporting Documents
 
-### Execution Environment
+All execution outputs are separated into focused documents to reflect operational packet analysis and investigative network inspection documentation practices.
 
-All analysis was performed using offline capture files rather than live traffic interception. This reflects typical investigation workflows where packet evidence is collected elsewhere and analyzed later.
-
-### Operating System and Interface
-
-Wireshark was used in a desktop environment with full GUI support for protocol visualization and stream reconstruction.
-
-### Tooling Used
-
-The execution relied exclusively on Wireshark’s native features including:
-
-- packet dissection panes,  
-- display filters,  
-- conversation tracking, and  
-- object extraction tools.
-
-No external protocol decoding tools were required.
+| File / Folder | Purpose | Contents and Focus |
+|-------------|--------|--------------------|
+| `workflow-execution.md` | Structured packet analysis execution showing how captured network traffic is filtered, inspected, and reconstructed to validate communication behavior. | Documents display filter construction, protocol inspection workflows, session reconstruction procedures, packet stream analysis, and verification of network activity patterns. Emphasizes investigative precision and repeatable analysis methodology. |
+| `images/` | Visual evidence supporting traffic inspection and session reconstruction outcomes. | Contains screenshots of filtered packet streams, protocol inspection views, reconstructed session outputs, and validation checkpoints supporting analytical conclusions. |
+| `README.md` | Execution overview and operational summary. | Provides structured explanation of packet analysis objectives, communication inspection context, and network investigation relevance aligned with SOC monitoring documentation practices. |
+| `analyst-notes.md` | Analytical reasoning and packet inspection insights derived from execution. | Documents filtering strategy selection, interpretation of suspicious communication patterns, investigative escalation considerations, and how reconstructed sessions support threat detection and investigative scoping. |
+| `tool-usage-notes.md` | Technical implementation reference for Wireshark traffic inspection and session reconstruction. | Covers display filter syntax, protocol inspection methodology, stream reconstruction techniques, and best practices for performing interactive packet analysis using Wireshark. |
+| `automation-design-notes.md` *(when present)* | Scalable packet inspection and monitoring workflow planning. | Documents architectural considerations for integrating packet inspection workflows into monitoring pipelines, detection validation processes, or traffic analysis automation systems. |
 
 ---
 
-## Data Sources and Evidence Types
+### Environment, Data Sources, and Tools
 
-Evidence analyzed during the execution included:
+The execution focuses on inspection and reconstruction of captured network traffic to support communication validation and investigative workflows.
 
-- PCAP and PCAPNG packet capture files,  
-- reconstructed TCP streams, and  
-- extracted application-layer objects.
+#### Environment and Execution Scope (At a Glance)
 
-These artifacts represent the same data types used in real incident investigations.
-
----
-
-## Operational Relevance to SOC and Detection Engineering Workflows
-
-This execution reflects how SOC analysts and incident responders analyze packet captures to confirm attacker behavior, validate IDS alerts, and reconstruct network sessions during investigations.
-
-Packet analysis is commonly used to verify malware command-and-control activity, data exfiltration attempts, unauthorized service exposure, and exploitation attempts that are not fully visible in higher-level logs.
-
-The techniques demonstrated here mirror how analysts isolate conversations, reconstruct full application-layer sessions, and extract transferred objects to validate whether suspicious activity represents benign misconfiguration or active compromise.
-
-From a detection engineering perspective, packet analysis is frequently used to validate detection signatures and anomaly models. Detection engineers often review packet-level evidence to confirm that alerts correspond to meaningful protocol behavior rather than benign noise.
-
-This execution also supports forensic workflows where analysts reconstruct timelines of attacker activity using network evidence collected from sensors, firewalls, or endpoint capture tools.
-
-Overall, this workflow demonstrates how packet-level visibility supports confirmation of intrusion activity and refinement of network-based detection strategies.
-
+| Area | Details |
+|--------|---------|
+| **Environment Type** | Network traffic analysis and packet inspection environment |
+| **Processed Assets** | Packet capture datasets containing network communication telemetry |
+| **Execution Platform** | Wireshark packet analysis application |
+| **Primary Platforms / Services** | Network capture analysis tools, protocol inspection utilities, and session reconstruction features |
+| **Operational Focus** | Analyze captured network communications and reconstruct sessions to validate traffic behavior and identify suspicious activity |
 
 ---
 
-## Files and Documentation Structure
+#### Data Sources, Evidence, and Analysis Techniques
 
-This execution is documented using multiple files to reflect how packet analysis workflows are separated into evidence review, analytical reasoning, and protocol reference material in network forensic investigations.
+| Area | Details |
+|--------|---------|
+| **Primary Telemetry Sources** | Packet capture datasets including protocol headers, payload metadata, communication stream sequencing, and session-level telemetry |
+| **Traffic Filtering Techniques** | Application of Wireshark display filters to isolate specific hosts, protocols, services, or suspicious traffic patterns |
+| **Protocol Inspection Techniques** | Examination of protocol headers, field attributes, and payload metadata to interpret communication behavior and application interactions |
+| **Session Reconstruction Techniques** | Reassembly of packet streams to analyze full communication conversations, transferred data, or command sequences between systems |
+| **Behavioral Traffic Analysis** | Evaluation of communication patterns, session frequency, payload characteristics, and protocol usage to identify anomalous or unauthorized network activity |
+| **Wireshark Processing Techniques** | Interactive packet filtering, stream following, protocol decoding, and metadata inspection designed to support investigative precision and repeatable traffic analysis |
+| **Threat Detection Heuristics** | Behavioral evaluation of communication sessions, external connection attempts, protocol misuse, and anomalous data transfer patterns to identify indicators consistent with compromise or policy violations |
+| **Operational Workflow Context** | Demonstrates packet inspection and session reconstruction procedures used by SOC analysts and network security teams to investigate alerts, validate suspicious communication, and scope potential network-based threats |
 
-### `README.md`
-
-Provides analytical scope, explains what types of protocol behavior are being examined, and describes how packet analysis supports SOC and incident response workflows.
-
-### `workflow-execution.md`
-
-Contains step-by-step packet dissection procedures, applied display filters, conversation isolation, session reconstruction steps, and object extraction activities. This file documents how raw packets were translated into interpretable communication behavior.
-
-### `analyst-notes.md`
-
-Documents interpretation of protocol behavior, identification of suspicious patterns, and conclusions about session activity that would inform escalation or containment decisions.
-
-### `tool-usage-notes.md`
-
-Provides technical reference material for Wireshark features including display filters, stream following, protocol panes, and object extraction functionality.
-
-### `images/`
-
-Contains screenshots validating protocol dissection, reconstructed sessions, and extracted artifacts to support reproducibility and review.
-
+The execution demonstrates how interactive packet inspection supports scalable network validation and improves reliability of investigative traffic analysis workflows.
 
 ---
 
-## Skill Demonstration Context
+### Intended Use
 
-This execution demonstrates practical network forensic analysis skills including protocol dissection, session reconstruction, evidence extraction, and structured investigative documentation.
+The documented execution demonstrates packet filtering, protocol inspection, and session reconstruction techniques using Wireshark. It reflects how security operations teams perform detailed communication analysis to support alert validation, threat investigation, and network behavior interpretation.
 
-Evidence collection using tcpdump is demonstrated separately in the targeted capture execution within this category.
+---
+
+### Relevance to Security Operations
+
+Interactive packet inspection remains a critical capability for network threat investigation and alert validation.
+
+The execution demonstrates how packet analysis enables analysts to:
+
+- Validate network communication legitimacy and protocol behavior  
+- Reconstruct communication sessions to understand attacker or application activity  
+- Identify suspicious or unauthorized data transfer patterns  
+- Support investigative scoping and containment decision-making  
+
+Even environments with automated network monitoring rely on manual packet inspection to validate alerts and analyze communication behavior at protocol-level detail.
+
+---
+
+If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical packet inspection methodology, session reconstruction techniques, and professional workflow documentation aligned with real operational SOC and network security environments.
+
