@@ -1,8 +1,9 @@
-# Log Parsing and Threat Detection Automation Using Python — Operational Execution
+# Log Parsing and Threat Detection Automation Using Python
 
-**Category:** Detection Automation & Log Processing  
-**Operational Focus:** Behavior-based detection logic prototyping from raw security telemetry across multiple environments  
-**Primary Tools & Platforms:** Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets
+**Category:** Detection Automation and Log Processing  
+**Primary Operational Focus:** Log parsing, field extraction, and detection dataset preparation  
+**Operational Objectives Demonstrated:** Telemetry Normalization, Detection Preparation, Data Quality Validation, Threat Pattern Identification  
+**Primary Data Sources:** Raw authentication log datasets and structured parsed output datasets
 
 ---
 
@@ -168,4 +169,5 @@ Contains screenshots validating script execution and aggregation results, provid
 This execution demonstrates practical SOC and detection engineering skills, including multi-format log parsing, behavior-based detection thinking, operational pivot design, scripting for detection prototyping, and structured security documentation.
 
 Full end-to-end incident investigations are documented separately in the **incident-response-and-investigations** repository. This execution focuses on detection validation and telemetry analysis rather than case-based incident handling.
+
 
