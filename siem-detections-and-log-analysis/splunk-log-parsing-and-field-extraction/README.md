@@ -71,7 +71,6 @@ The execution focuses on validation of log parsing and telemetry normalization w
 | **Primary Platforms / Services** | Centralized log ingestion pipelines, field extraction configurations, and normalized telemetry indexing infrastructure |
 | **Operational Focus** | Validate log parsing accuracy and ensure telemetry normalization supports reliable detection and monitoring |
 
----
 
 #### Data Sources, Evidence, and Analysis Techniques
 
@@ -112,4 +111,5 @@ Even environments with mature logging pipelines require ongoing parsing validati
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical SIEM parsing validation methodology, telemetry normalization verification, and professional workflow documentation aligned with real operational detection engineering and SOC environments.
+
 
