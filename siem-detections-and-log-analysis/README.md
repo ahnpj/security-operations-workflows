@@ -58,12 +58,12 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- **Splunk Log Parsing and Field Validation**  
-  (`splunk-log-parsing`)  
+- **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk**  
+  (`splunk-log-parsing-and-field-extraction`)  
   Focuses on inspecting raw log events, validating field extractions, and confirming normalization is adequate for reliable detection and investigation. Tasks include reviewing event structures, testing extraction logic, and verifying consistency across data sources.
 
-- **Splunk VPN Anomaly Analysis**  
-  (`splunk-vpn-anomaly-analysis`)  
+- **VPN Authentication and Remote Access Anomaly Analysis Using Splunk**  
+  (`splunk-vpn-remote-access-anomaly-detection`)  
   Examines authentication and VPN activity to identify abnormal login behavior, geographic anomalies, and unusual access patterns that may indicate compromised credentials or unauthorized access attempts.
 
 Additional workflow executions will be added as monitoring coverage expands across telemetry sources, detection strategies, and investigation use cases.
@@ -126,3 +126,4 @@ Workflows in this category are continuously expanded as telemetry sources, detec
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production SOC environments, detection rules and investigative techniques are constantly tuned as new threats, data sources, and false positive patterns emerge.
 
 The focus is on building a growing library of reusable detection validation and log analysis techniques rather than static one-time demonstrations.
+
