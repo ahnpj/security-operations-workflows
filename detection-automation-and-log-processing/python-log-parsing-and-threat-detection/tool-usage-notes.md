@@ -1,23 +1,23 @@
 # Tool Usage Notes — Python-Based Log Parsing and Threat Detection Validation
 
+This document explains the tools, platforms, and data sources used to validate detection logic directly from raw logs using Python. The goal is not to replace SIEM tooling, but to demonstrate how analysts and detection engineers verify that suspicious behavior is observable and measurable before translating logic into production detections.
+
+All tooling in this execution is intentionally limited to Python standard libraries and native Linux utilities. This mirrors real-world situations where analysts must work in constrained environments, validate telemetry outside centralized platforms, or rapidly prototype detection logic during investigations and threat hunting.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational security tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to the hands-on performance of those tasks using real tools, commands, and datasets.  
 > - **Writeups** document how tasks were performed, what decisions were made, and how results were interpreted in an operational context.
 
-This document explains the tools, platforms, and data sources used to validate detection logic directly from raw logs using Python. The goal is not to replace SIEM tooling, but to demonstrate how analysts and detection engineers verify that suspicious behavior is observable and measurable before translating logic into production detections.
-
-All tooling in this execution is intentionally limited to Python standard libraries and native Linux utilities. This mirrors real-world situations where analysts must work in constrained environments, validate telemetry outside centralized platforms, or rapidly prototype detection logic during investigations and threat hunting.
-
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Google Cloud Shell (Linux Environment)
+#### ▶ Google Cloud Shell (Linux Environment)
 
-**Purpose:** Provide a temporary Linux environment for scripting, file handling, and command-line execution without requiring local software installation.  
-**How It Was Used:** All datasets, Python scripts, and execution outputs were stored and accessed within the Cloud Shell filesystem. Scripts were executed directly from the terminal using the system Python interpreter.  
-**Operational Relevance:** Reflects real scenarios where analysts work on jump hosts, cloud workstations, or restricted investigation environments that limit tool installation.
+- **Purpose:** Provide a temporary Linux environment for scripting, file handling, and command-line execution without requiring local software installation.
+- **How It Was Used:** All datasets, Python scripts, and execution outputs were stored and accessed within the Cloud Shell filesystem. Scripts were executed directly from the terminal using the system Python interpreter.
+- **Operational Relevance:** Reflects real scenarios where analysts work on jump hosts, cloud workstations, or restricted investigation environments that limit tool installation.
 
 Capabilities leveraged during this execution include:
 - Bash shell access for file navigation and script execution
@@ -26,9 +26,9 @@ Capabilities leveraged during this execution include:
 
 ---
 
-## Programming Language and Runtime
+### Programming Language and Runtime
 
-### Python 3
+#### ▶ Python 3
 
 ```bash
 python3 <script_name>.py
@@ -47,35 +47,29 @@ Scripts were executed repeatedly while adjusting regex patterns, field extractio
 
 ---
 
-## Data Sources and Telemetry Formats
+### Data Sources and Telemetry Formats
 
 This execution intentionally uses multiple log formats to reflect the heterogeneity of telemetry encountered in real SOC environments.
 
-### Apache HTTP Access Logs
+#### ▶ Apache HTTP Access Logs
 
 **Format:** Plain-text, space-delimited web server logs  
 **Security Use Case:** Detection of reconnaissance, scanning behavior, and abnormal request volume  
 **Parsing Approach:** Regex-based extraction of source IP addresses followed by frequency aggregation
 
----
-
-### Linux Authentication Logs (`auth.log`)
+#### ▶ Linux Authentication Logs (`auth.log`)
 
 **Format:** Plain-text system authentication records  
 **Security Use Case:** Detection of brute-force SSH login attempts  
 **Parsing Approach:** Regex-based IP extraction and event counting
 
----
-
-### Windows Event Logs (CSV Export)
+#### ▶ Windows Event Logs (CSV Export)
 
 **Format:** CSV exported from Windows Security logs  
 **Security Use Case:** Detection of failed logon attempts (Event ID 4625) grouped by account and source IP  
 **Parsing Approach:** Field-based filtering using column headers via dictionary access
 
----
-
-### AWS CloudTrail Logs
+#### ▶ AWS CloudTrail Logs
 
 **Format:** JSON-formatted API event records  
 **Security Use Case:** Detection of privilege escalation and logging tampering attempts in cloud environments  
@@ -83,11 +77,11 @@ This execution intentionally uses multiple log formats to reflect the heterogene
 
 ---
 
-## Python Libraries and Parsing Techniques
+### Python Libraries and Parsing Techniques
 
 Only standard-library modules were used to ensure portability and realism.
 
-### `re` — Regular Expressions
+#### ▶ `re` — Regular Expressions
 
 ```python
 import re
@@ -99,9 +93,7 @@ import re
 
 Compiled regex patterns were reused to improve readability and performance when scanning large files.
 
----
-
-### `csv` — Structured CSV Parsing
+#### ▶ `csv` — Structured CSV Parsing
 
 ```python
 import csv
@@ -112,9 +104,7 @@ reader = csv.DictReader(file_handle)
 **Usage:** Extract Windows authentication fields such as event IDs, usernames, and IP addresses.  
 **Operational Context:** Field-based access ensures scripts remain stable if column ordering changes, similar to schema-based log ingestion.
 
----
-
-### `json` — Structured JSON Parsing
+#### ▶ `json` — Structured JSON Parsing
 
 ```python
 import json
@@ -125,9 +115,7 @@ events = json.load(file_handle)
 **Usage:** Extract CloudTrail event attributes and IAM identity details.  
 **Operational Context:** Mirrors how cloud SIEM connectors parse API telemetry into searchable fields.
 
----
-
-### `collections.Counter`
+#### ▶ `collections.Counter`
 
 ```python
 from collections import Counter
@@ -137,9 +125,7 @@ from collections import Counter
 **Usage:** Identify dominant sources of activity and repeated authentication failures.  
 **Operational Context:** Mirrors `stats count by` and aggregation operations used in SIEM detection logic.
 
----
-
-### `collections.defaultdict`
+#### ▶ `collections.defaultdict`
 
 ```python
 from collections import defaultdict
@@ -151,9 +137,9 @@ from collections import defaultdict
 
 ---
 
-## Defensive Parsing and Error Handling
+### Defensive Parsing and Error Handling
 
-### Safe Dictionary Access
+#### ▶ Safe Dictionary Access
 
 ```python
 event.get("userIdentity", {}).get("userName", "UNKNOWN")
@@ -167,9 +153,9 @@ Defensive parsing ensures investigations are not blocked by imperfect telemetry.
 
 ---
 
-## Behavioral Classification Logic
+### Behavioral Classification Logic
 
-### High-Risk API Action Sets
+#### ▶ High-Risk API Action Sets
 
 ```python
 risky_actions = {"AttachUserPolicy", "DeleteTrail", "PutUserPolicy"}
@@ -183,9 +169,9 @@ This approach aligns with MITRE ATT&CK techniques related to cloud persistence a
 
 ---
 
-## Output Interpretation and Validation
+### Output Interpretation and Validation
 
-### Terminal-Based Review
+#### ▶ Terminal-Based Review
 
 **Purpose:** Validate aggregation output immediately after script execution.  
 **Usage:** Review counts, groupings, and flagged behaviors to confirm parsing accuracy.  
@@ -195,7 +181,7 @@ Outputs could be exported to CSV or JSON for ingestion into SIEM platforms if op
 
 ---
 
-## Production and Automation Considerations
+### Production and Automation Considerations
 
 While Python scripting is effective for validation and investigation, scalable monitoring requires centralized platforms.
 
@@ -214,7 +200,7 @@ Once validated, detection logic should be migrated into scalable monitoring pipe
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Google Cloud Shell (Linux-based analysis environment)  
 - **Operating System:** Linux  
@@ -225,3 +211,4 @@ Once validated, detection logic should be migrated into scalable monitoring pipe
 - **Analysis Method:** Behavioral aggregation, frequency analysis, and identity-based grouping
 
 These tools collectively support end-to-end validation of detection concepts directly from raw security telemetry.
+
