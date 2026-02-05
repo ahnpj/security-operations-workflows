@@ -1,9 +1,9 @@
 # Log Parsing and Threat Detection Automation Using Python
 
-**Category:** Detection Automation and Log Processing  
-**Primary Operational Focus:** Log parsing, field extraction, and detection dataset preparation  
-**Operational Objectives Demonstrated:** Telemetry Normalization, Detection Preparation, Data Quality Validation, Threat Pattern Identification  
-**Primary Data Sources:** Raw authentication log datasets and structured parsed output datasets
+- **Category:** Detection Automation and Log Processing  
+- **Primary Operational Focus:** Log parsing, field extraction, and detection dataset preparation  
+- **Operational Objectives Demonstrated:** Telemetry Normalization, Detection Preparation, Data Quality Validation, Threat Pattern Identification  
+- **Primary Data Sources:** Raw authentication log datasets and structured parsed output datasets
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as log normalization or detection preparation).  
@@ -109,4 +109,5 @@ Even well-instrumented logging environments require normalization and enrichment
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate detection engineering automation, telemetry normalization methodology, and professional workflow documentation aligned with real operational SOC environments.
+
 
