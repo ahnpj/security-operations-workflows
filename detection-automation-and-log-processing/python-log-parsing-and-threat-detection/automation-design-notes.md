@@ -1,17 +1,17 @@
 # Automation Design Notes — Python-Based Log Parsing and Threat Detection Signals
 
+This document explores how the behaviors validated during the Python log-parsing execution could be translated into scalable detection logic and automated enrichment workflows in production environments. The goal is not to design a single monolithic alert, but to identify which behavioral signals are strong enough to operationalize, what data dependencies they require, and how they would realistically be implemented across SIEM, SOAR, and detection engineering pipelines.
+
+Rather than treating automation as a replacement for analyst reasoning, this design focuses on preserving the same investigative pivots demonstrated in the execution and encoding them into repeatable, auditable, and monitorable detection components.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational security tasks such as log onboarding, behavioral validation, and signal interpretation.  
 > - **Executions** refer to the hands-on parsing and aggregation of telemetry using custom Python scripts and raw data sources.  
 > - **Writeups** document how detection-relevant behaviors were identified, validated, and reasoned about in an investigative context.
 
-This document explores how the behaviors validated during the Python log-parsing execution could be translated into scalable detection logic and automated enrichment workflows in production environments. The goal is not to design a single monolithic alert, but to identify which behavioral signals are strong enough to operationalize, what data dependencies they require, and how they would realistically be implemented across SIEM, SOAR, and detection engineering pipelines.
-
-Rather than treating automation as a replacement for analyst reasoning, this design focuses on preserving the same investigative pivots demonstrated in the execution and encoding them into repeatable, auditable, and monitorable detection components.
-
 ---
 
-## From Manual Aggregation to Detection Signals
+### From Manual Aggregation to Detection Signals
 
 During the execution, raw logs were parsed and aggregated using Python dictionaries and counters in order to answer investigative questions such as:
 
@@ -24,9 +24,9 @@ In production detection systems, these same questions are expressed using time-w
 
 ---
 
-## Candidate Detection Patterns Identified
+### Candidate Detection Patterns Identified
 
-### High-Volume Requests from Single Source
+#### ▶ High-Volume Requests from Single Source
 
 **Observed Behavior:** Certain IP addresses generated disproportionately high numbers of web requests.  
 **Detection Translation:**
@@ -37,9 +37,7 @@ In production detection systems, these same questions are expressed using time-w
 
 **Operational Use Case:** Detection of scanning activity, scraping, brute-force attempts, or bot traffic.
 
----
-
-### Repeated Authentication Failures
+#### ▶ Repeated Authentication Failures
 
 **Observed Behavior:** Multiple failed login attempts grouped by source IP and target account.  
 **Detection Translation:**
@@ -50,9 +48,7 @@ In production detection systems, these same questions are expressed using time-w
 
 **Operational Use Case:** Credential stuffing, brute-force attempts, or compromised password reuse.
 
----
-
-### Identity-Based Cloud Activity Clustering
+#### ▶ Identity-Based Cloud Activity Clustering
 
 **Observed Behavior:** Specific cloud identities performing repeated sensitive actions.  
 **Detection Translation:**
@@ -63,9 +59,7 @@ In production detection systems, these same questions are expressed using time-w
 
 **Operational Use Case:** Compromised service accounts, insider misuse, or automation abuse.
 
----
-
-### Resource Access Concentration
+#### ▶ Resource Access Concentration
 
 **Observed Behavior:** Requests repeatedly targeting the same resources or endpoints.  
 **Detection Translation:**
@@ -77,9 +71,9 @@ In production detection systems, these same questions are expressed using time-w
 
 ---
 
-## Detection Engineering Implementation Options
+### Detection Engineering Implementation Options
 
-### SIEM-Based Search and Correlation Rules
+#### ▶ SIEM-Based Search and Correlation Rules
 
 For organizations using SIEM platforms:
 
@@ -100,9 +94,7 @@ Detection lifecycle:
 3. Deploy rule in low-severity monitoring mode.
 4. Adjust false positive rate before escalation.
 
----
-
-### Streaming and Near-Real-Time Detection
+#### ▶ Streaming and Near-Real-Time Detection
 
 For environments using streaming pipelines:
 
@@ -116,9 +108,7 @@ For environments using streaming pipelines:
 
 Streaming detection is especially relevant for high-volume web and API telemetry.
 
----
-
-### SOAR and Automated Enrichment
+#### ▶ SOAR and Automated Enrichment
 
 Automation is most effective when focused on enrichment rather than immediate response.
 
@@ -133,7 +123,7 @@ This mirrors the investigative pivots performed manually during the execution bu
 
 ---
 
-## Data Dependencies and Telemetry Requirements
+### Data Dependencies and Telemetry Requirements
 
 Automation quality depends entirely on telemetry quality.
 
@@ -156,7 +146,7 @@ If telemetry is inconsistent, detection logic becomes brittle and high-noise.
 
 ---
 
-## Risk of Over-Automation
+### Risk of Over-Automation
 
 Not all behaviors should immediately become blocking controls.
 
@@ -176,7 +166,7 @@ This mirrors how mature SOC programs phase in automation.
 
 ---
 
-## Feedback Loop Between Analysts and Automation
+### Feedback Loop Between Analysts and Automation
 
 Detection engineering should remain tightly coupled to analyst workflows.
 
@@ -191,7 +181,7 @@ This loop ensures that automation supports analysts rather than replacing them.
 
 ---
 
-## Relevance to SOC and Detection Engineering Workflows
+### Relevance to SOC and Detection Engineering Workflows
 
 This execution demonstrates the early-stage phase of detection engineering where:
 
@@ -210,7 +200,7 @@ This approach aligns with:
 
 ---
 
-## Summary of Automation Design Considerations
+### Summary of Automation Design Considerations
 
 - Python scripts serve as behavioral prototypes, not production detectors.
 - Detection logic should preserve investigative intent, not just numeric thresholds.
@@ -219,3 +209,4 @@ This approach aligns with:
 - Human review remains critical during early detection lifecycle stages.
 
 These principles guide how manual analysis transitions into scalable security automation.
+
