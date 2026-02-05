@@ -11,7 +11,7 @@ These notes preserve analytical context that does not belong in the formal workf
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 One of the most noticeable differences compared to Bash-based workflows is how PowerShell object pipelines dramatically simplify correlation across evidence types. Sorting and filtering on properties like `Length`, `Name`, `OwningProcess`, and `DisplayName` allowed me to pivot between filesystem, process, and network evidence without re-parsing text output.
 
@@ -23,7 +23,7 @@ Service DisplayNames stood out as a surprisingly useful investigative surface. E
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 The most consistent friction point was remembering that PowerShell returns objects, not plain text. Early filters that assumed string output did not behave as expected until I adjusted queries to reference explicit properties.
 
@@ -35,7 +35,7 @@ When inspecting network connections, understanding that `Get-NetTCPConnection` r
 
 ---
 
-## Investigative Reasoning and Pivots
+### Investigative Reasoning and Pivots
 
 The workflow intentionally progressed from static discovery into runtime inspection. Filesystem enumeration established what artifacts existed on disk, which then informed integrity checks using `Get-FileHash`.
 
@@ -47,7 +47,7 @@ Remote execution was placed at the end of the workflow to reflect how triage oft
 
 ---
 
-## Limitations of This Walkthrough
+### Limitations of This Walkthrough
 
 This walkthrough does not include:
 
@@ -62,7 +62,7 @@ Additionally, no EDR telemetry was available, which limits behavioral correlatio
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Future enhancements could include:
 
@@ -75,7 +75,7 @@ These additions would move this workflow closer to full response automation.
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow directly supports and complements:
 
@@ -84,3 +84,4 @@ This workflow directly supports and complements:
 - SIEM-based detection validation workflows
 
 The same investigative flow — enumerate, validate, pivot, and correlate — is repeated across platforms, reinforcing consistent analytical methodology.
+
