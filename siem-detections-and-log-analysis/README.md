@@ -14,6 +14,11 @@ Every subfolder here is a **fully self-contained operational execution scenario*
 > 👉 **Follow the workflow execution first**  
 Begin with `workflow-execution.md` inside a workflow folder to see how logs were analyzed, detection queries were built, and suspicious activity was validated step by step using SIEM search techniques and investigative methodology.
 
+> 👉 **See what files exist in each workflow folder**  
+For a complete breakdown of every standard file included in a workflow execution — including what each document contains, how it supports automation and detection engineering workflows, and how the documentation is structured — see the **[Workflow Documentation Structure](#workflow-documentation-structure)** section below.
+
+> 👉 **See which workflow executions currently exist in this category**  
+For a list of all automation and log processing executions currently included in this folder, along with a description of what each workflow demonstrates and which operational skills it focuses on, see the **[What’s in This Folder](#whats-in-this-folder)** section below.
 
 > **Terminology used in this category:**  
 > **Workflows** refer to common security operations tasks (such as traffic filtering or session reconstruction).  
@@ -126,4 +131,5 @@ Workflows in this category are continuously expanded as telemetry sources, detec
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production SOC environments, detection rules and investigative techniques are constantly tuned as new threats, data sources, and false positive patterns emerge.
 
 The focus is on building a growing library of reusable detection validation and log analysis techniques rather than static one-time demonstrations.
+
 
