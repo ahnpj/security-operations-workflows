@@ -1,4 +1,4 @@
-# Workflow Execution — Process and Network Triage Using Windows CLI (CMD) + PowerShell
+# Process and Network Triage Using Windows CLI (CMD) + PowerShell
 
 ### Overview
 
@@ -481,5 +481,6 @@ In addition to the commands I demonstrated in this workflow execution (`tasklist
 
 #### ▶ Why This Matters
 While these commands weren’t the focus of this workflow, being aware of them strengthens my ability to perform **holistic endpoint triage**. They complement the discovery and remediation steps I practiced with `tasklist` and `netstat`, and show readiness to expand my toolkit for more advanced SOC workflows.
+
 
 
