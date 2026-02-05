@@ -1,9 +1,9 @@
 # Windows Endpoint Triage and System Inspection Using PowerShell
 
-**Category:** Endpoint Triage and Host Analysis  
-**Primary Operational Focus:** Host state validation, system artifact inspection, and endpoint triage automation using PowerShell  
-**Operational Objectives Demonstrated:** Process Inspection, Service Validation, Network Activity Analysis, Suspicious Artifact Identification, Rapid Host Integrity Assessment  
-**Primary Data Sources:** Windows process telemetry, service configuration data, network connection information, user session context, and system artifact metadata
+- **Category:** Endpoint Triage and Host Analysis  
+- **Primary Operational Focus:** Host state validation, system artifact inspection, and endpoint triage automation using PowerShell  
+- **Operational Objectives Demonstrated:** Process Inspection, Service Validation, Network Activity Analysis, Suspicious Artifact Identification, Rapid Host Integrity Assessment  
+- **Primary Data Sources:** Windows process telemetry, service configuration data, network connection information, user session context, and system artifact metadata
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as endpoint triage or host validation).  
@@ -114,5 +114,6 @@ PowerShell provides enhanced visibility and automation capabilities compared to 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical Windows endpoint triage methodology, PowerShell-based investigative scripting techniques, and professional workflow documentation aligned with real operational SOC environments.
 
 More complex investigations and response workflows are documented separately in the **incident-response-and-investigations** repository. This execution focuses on host triage and evidence correlation fundamentals that support those deeper response efforts.
+
 
 
