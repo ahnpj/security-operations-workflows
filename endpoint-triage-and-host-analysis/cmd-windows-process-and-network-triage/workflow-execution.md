@@ -1,33 +1,42 @@
 # Workflow Execution — Process and Network Triage Using Windows CLI (CMD) + PowerShell
 
----
+### Overview
 
-## Overview
+This execution documents how I performed endpoint triage using native Windows command-line utilities and PowerShell. The objective was to identify suspicious artifacts on disk, determine whether those artifacts were actively running, and evaluate whether they created network exposure on the host.
 
-This section establishes the investigative goals of the workflow, the operational mindset applied during execution, and how native Windows command-line tooling supports realistic endpoint triage and containment scenarios.
+During execution, I used filesystem enumeration to locate artifacts, process inspection to identify active executables, and network correlation to determine which processes were exposing listening services. I then performed targeted containment and verified system state afterward to confirm the impact of remediation actions.
+
+The execution demonstrates how native Windows tooling can be used to investigate suspicious activity, validate host exposure, and support containment decisions during early-stage incident response.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
 
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
+
+---
+
 ### Purpose and Analyst Focus
 
-This workflow execution exercise documents a structured approach to endpoint triage using only native Windows command-line utilities and PowerShell. The primary focus is on identifying suspicious artifacts on disk, correlating those artifacts to active processes, mapping processes to network exposure, and validating containment actions through targeted remediation steps.
+### ▶ Purpose
 
-The workflow is intentionally constrained to native tooling to reflect early-stage incident response scenarios where analysts may be limited to:
+The purpose of this execution is to demonstrate how to perform structured endpoint triage using only native Windows tools. The focus is on identifying suspicious files, correlating them to running processes, mapping those processes to network services, and validating containment actions.
 
-- Built-in operating system utilities
-- Remote shell access
-- Restricted or degraded endpoint environments
+This execution shows how analysts can quickly determine whether suspicious components are actively contributing to risk, even when advanced forensic or EDR tooling is unavailable.
 
-By using both CMD and PowerShell, the workflow demonstrates how analysts can pivot between tools depending on task requirements, privilege levels, and available telemetry, rather than relying on a single interface or specialized forensic tooling.
+#### ▶ Analyst Focus
+
+The analyst focus during this execution is on validating host activity through layered evidence correlation. This includes confirming whether artifacts on disk are executing in memory, determining whether those processes expose network services, and verifying containment results after remediation.
+
+The execution reflects how SOC analysts and incident responders perform early-stage triage, prioritize suspicious activity, and confirm that containment actions reduce host exposure without disrupting unrelated services.
+Why This Version Works (Portfolio Strategy)
+
+---
 
 ### What This Workflow Demonstrates
 
-This workflow demonstrates how analysts can move methodically through multiple evidence layers on an endpoint to validate whether suspicious artifacts are actively contributing to host exposure.
-
-Rather than treating filesystem, process, and network analysis as separate activities, the workflow models how analysts:
+This workflow demonstrates how analysts can move methodically through multiple evidence layers on an endpoint to validate whether suspicious artifacts are actively contributing to host exposure. Rather than treating filesystem, process, and network analysis as separate activities, the workflow models how analysts:
 
 - Begin with on-disk artifact discovery
 - Pivot to memory by identifying related running processes
@@ -35,11 +44,11 @@ Rather than treating filesystem, process, and network analysis as separate activ
 - Perform targeted containment actions
 - Re-validate system state after remediation
 
-Each phase builds on findings from the previous phase, reinforcing an investigative pattern of:
-
-**enumerate → correlate → validate → contain → re-validate**
+Each phase builds on findings from the previous phase, reinforcing an investigative pattern of: **enumerate → correlate → validate → contain → re-validate**
 
 This reflects real-world triage methodology where analysts must confirm not only the presence of suspicious components, but whether those components are actively contributing to risk.
+
+---
 
 ### Investigation and Detection Relevance
 
@@ -60,11 +69,15 @@ These same data sources — process creation, service activity, and network list
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 This section documents the technical environment, access method, and operational constraints under which the workflow was executed, providing important context for how commands and investigative steps behaved during analysis.
 
-### Execution Platform
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 All activity was performed on a Windows endpoint accessed through terminal-based command execution using both CMD and PowerShell. The environment reflects a workstation-style system representative of endpoints commonly investigated during SOC triage.
 
@@ -83,7 +96,11 @@ Environment characteristics:
 
 This setup mirrors real-world containment and triage phases where analysts must quickly assess host state before escalating to deeper forensic acquisition or remediation.
 
-### Tooling and Constraints
+</details>
+
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
 
 All investigative actions were performed using native Windows utilities and PowerShell cmdlets only.
 
@@ -101,7 +118,11 @@ This constraint ensures that:
 
 The workflow also demonstrates how CMD and PowerShell complement each other, with CMD providing quick system enumeration and PowerShell supporting more structured inspection when needed.
 
-### Data Sources Analyzed
+</details>
+
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
 
 The workflow inspects multiple categories of live endpoint telemetry, including:
 
@@ -114,7 +135,11 @@ Each data source contributes to forming a complete picture of host exposure rath
 
 By correlating across these domains, the workflow validates whether suspicious artifacts are merely present on disk or actively contributing to attack surface and persistence.
 
-### Workflow Map (High-Level)
+</details>
+
+<details>
+<summary><strong>▶Workflow Map (High-Level)</strong><br>
+</summary><br>
 
 The workflow follows a progressive investigative sequence designed to reflect real-world triage methodology:
 
@@ -126,17 +151,28 @@ The workflow follows a progressive investigative sequence designed to reflect re
 
 Each phase is grouped by investigative objective rather than by individual command usage, reinforcing that investigations are driven by analytical questions, not tools.
 
+</details>
+
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-### Objective 1 — File System Enumeration and Artifact Discovery
+This section walks through how I performed endpoint triage using native Windows command-line tools and PowerShell. I begin by identifying suspicious files on disk, then pivot to process enumeration to determine whether those files are actively running. Next, I correlate running processes to listening ports and network exposure using PID mapping.
+
+After establishing process-to-network relationships, I perform targeted containment by terminating a specific process and then re-validate system state to confirm the impact of that action. Each step shows the commands used, the results observed, and how those results informed the next investigative decision.
+
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ 1) — File System Enumeration and Artifact Discovery</strong><br>
+→ identifying potentially suspicious files and confirm locations on disk.
+</summary><br>
 
 **Goal:** Identify potentially suspicious files and confirm their locations on disk.
 
 I began by reviewing directory contents to identify files that did not match expected naming patterns or locations. This mirrors real investigations where attackers may stage payloads in user-accessible directories.
 
-#### Objective 1.1 — Enumerating directory contents and validating file artifacts
+##### 🔷 1.1 — Enumerating directory contents and validating file artifacts
 
 Using CMD, I listed directory contents to establish visibility into the current working directory and then pivoted into a subdirectory that appeared relevant.
 
@@ -160,15 +196,19 @@ This confirmed that a file artifact existed in the directory and that it could b
 
 This step established an initial anchor artifact that could later be correlated with process activity and network behavior if needed.
 
----
+</details>
 
-### Objective 2 — Process Enumeration and PID Identification
+
+<details>
+<summary><strong>▶ 2) — Process Enumeration and PID Identification</strong><br>
+→ identifying active processes on systems and isolating processes associated with executables of interest.
+</summary><br>
 
 **Goal:** Identify active processes on the system and isolate processes associated with specific executables of interest.
 
 After identifying artifacts on disk, the next step in triage is to understand what is currently executing in memory. This helps determine whether suspicious files are actively running or whether they may represent dormant persistence or staging.
 
-#### Objective 2.1 — Reviewing active processes using tasklist
+##### 🔷 2.1 — Reviewing active processes using tasklist
 
 I started by reviewing the full list of running processes to understand the general state of the system.
 
@@ -186,7 +226,7 @@ tasklist /?
 
 This provided a high-level snapshot of all active processes, including system services and user-launched applications.
 
-#### Objective 2.2 — Filtering processes by executable name
+##### 🔷 2.2 — Filtering processes by executable name
 
 To reduce noise and focus on a specific executable, I filtered the process list for instances of `sshd.exe`.
 
@@ -212,15 +252,19 @@ These PIDs become critical pivots for correlating to network connections and det
 
 This objective narrowed system activity from "everything running" to a specific executable of interest, enabling precise network correlation in the next phase.
 
----
+</details>
 
-### Objective 3 — Network Enumeration and Process-to-Port Correlation
+
+<details>
+<summary><strong>▶ 3) — Network Enumeration and Process-to-Port Correlation</strong><br>
+→ understanding and confirming baseline system information through command-line enumeration
+</summary><br>
 
 **Goal:** Identify listening ports and correlate them to owning processes using PIDs obtained during process enumeration.
 
 Network activity provides strong context for whether a process is acting as a service, accepting inbound connections, or communicating externally.
 
-#### Objective 3.1 — Enumerating connections and listeners with netstat
+##### 🔷 3.1 — Enumerating connections and listeners with netstat
 
 To correlate open and listening ports with owning processes, I used `netstat` with a consolidated set of flags:
 
@@ -251,7 +295,7 @@ Using these flags together allows direct mapping between:
 
 **Note:** On Windows, `netstat` does **not** have a `-d` switch; the common combo is `-a b o n`. You can run `netstat -h` to view complete usage and available flags on your system.
 
-#### Objective 3.2 — Interpreting network results
+##### 🔷 3.2 — Interpreting network results
 
 During review of the output, I observed:
 
@@ -270,15 +314,18 @@ Additional services such as `RpcSs` on port `135` and `TermService` on port `338
 
 This step is critical during triage because it establishes whether a process is externally exposed and whether that exposure aligns with expected services.
 
----
+</details>
 
-### Objective 4 — Containment Validation via Targeted Process Termination
+<details>
+<summary><strong>▶ 4) — Containment Validation via Targeted Process Termination</strong><br>
+→ terminating a specific process and validating post-action system state
+</summary><br>
 
 **Goal:** Demonstrate controlled containment by terminating a specific process and validating post-action system state.
 
 Containment actions in real investigations must be deliberate and verifiable. Terminating the wrong process can disrupt business services or erase evidence.
 
-#### Objective 4.1 — Terminating a specific process by PID
+##### 🔷 4.1 — Terminating a specific process by PID
 
 After confirming target PIDs, I terminated one instance of `sshd.exe` using its PID.
 
@@ -288,7 +335,7 @@ taskkill /PID 540
 
 This command targets only the specified process rather than stopping all instances of the service, which is important when multiple legitimate service processes may exist.
 
-#### Objective 4.2 — Post-containment validation
+##### 🔷 4.2 — Post-containment validation
 
 After termination, I revalidated system state using:
 
@@ -311,9 +358,11 @@ In real investigations, this validation step is essential to ensure that:
 
 Broader remediation actions, such as stopping the service entirely, revoking credentials, or modifying startup configuration, would be considered only after confirming which instance was unauthorized.
 
+</details>
+
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 The workflow successfully demonstrated how native Windows command-line utilities and PowerShell can be used together to perform meaningful endpoint triage without relying on third-party tooling. Starting from filesystem discovery, I was able to identify on-disk artifacts, then pivot into memory by enumerating running processes, and finally correlate those processes with listening network services.
 
@@ -329,7 +378,7 @@ The post-termination validation steps further confirmed that service exposure pe
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 This workflow reinforces several operational principles that apply directly to SOC triage and incident response:
 
@@ -343,9 +392,9 @@ These patterns align with real-world triage workflows where analysts must move q
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
-### Filesystem Discovery
+#### ▶ Filesystem Discovery
 
 ```cmd
 dir
@@ -354,7 +403,7 @@ type <file>
 ```
 Used to quickly enumerate directories, pivot into suspicious locations, and inspect text-based artifacts without launching additional tools.
 
-### Process Enumeration
+#### ▶ Process Enumeration
 
 ```cmd
 tasklist
@@ -363,8 +412,7 @@ tasklist /FI "imagename eq <process.exe>"
 
 Used to establish baseline process activity and isolate specific executables for further correlation and containment.
 
-
-### Network Correlation
+#### ▶ Network Correlation
 
 ```cmd
 netstat -abon
@@ -372,7 +420,7 @@ netstat -abon
 
 Used to map open and listening ports to owning executables and PIDs. This is critical when determining whether a process is externally exposed or communicating unexpectedly.
 
-### Targeted Containment
+#### ▶ Targeted Containment
 
 ```cmd
 taskkill /PID <pid>
@@ -380,7 +428,7 @@ taskkill /PID <pid>
 
 Used to terminate a specific process instance while minimizing impact on other services or system functions.
 
-### Validation
+#### ▶ Validation
 
 ```cmd
 tasklist /FI "imagename eq <process.exe>"
@@ -390,7 +438,7 @@ netstat -abon
 Used after containment to confirm system state and verify whether exposure or process activity has changed as expected.
 
 
-### Reuse Pack Summary
+#### ▶ Reuse Pack Summary
 - `dir`, `cd`, and `type` enable quick **file discovery** and validation from the CLI.  
 - `tasklist` (with filters) is ideal for **process discovery** and narrowing to a target executable.  
 - `netstat -abon` is a powerful one‑liner to correlate **ports ↔ processes ↔ PIDs** without DNS noise.  
@@ -399,7 +447,7 @@ Used after containment to confirm system state and verify whether exposure or pr
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 This workflow strengthened my ability to conduct structured endpoint triage using only native Windows tooling. It reinforced how to:
 
@@ -414,8 +462,7 @@ It also reinforced the importance of disciplined investigation flow: enumerate f
 - Expand to **PowerShell** for scripted process/port correlation and logging.  
 - Add detection/containment steps as a mini **playbook** (e.g., confirm SSH configuration, review auth logs, disable/lock accounts if necessary).
 
-
-### Additional Tools Awareness
+#### ▶ Additional Tools Awareness
 
 In addition to the commands I demonstrated in this workflow execution (`tasklist`, `taskkill`, `netstat`, `dir`, etc.), I am aware of several other built-in Windows utilities that could also be leveraged during endpoint triage:
 
@@ -432,5 +479,5 @@ In addition to the commands I demonstrated in this workflow execution (`tasklist
   After identifying suspicious behavior or unexpected crashes, I could use this to check for modified or corrupted system files. This helps ensure the endpoint remains stable after containment and recovery.
 
 
-### Why This Matters
+#### ▶ Why This Matters
 While these commands weren’t the focus of this workflow, being aware of them strengthens my ability to perform **holistic endpoint triage**. They complement the discovery and remediation steps I practiced with `tasklist` and `netstat`, and show readiness to expand my toolkit for more advanced SOC workflows.
