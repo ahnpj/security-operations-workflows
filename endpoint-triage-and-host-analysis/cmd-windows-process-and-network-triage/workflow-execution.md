@@ -19,7 +19,7 @@ The execution demonstrates how native Windows tooling can be used to investigate
 
 ### Purpose and Analyst Focus
 
-### ▶ Purpose
+#### ▶ Purpose
 
 The purpose of this execution is to demonstrate how to perform structured endpoint triage using only native Windows tools. The focus is on identifying suspicious files, correlating them to running processes, mapping those processes to network services, and validating containment actions.
 
@@ -481,3 +481,4 @@ In addition to the commands I demonstrated in this workflow execution (`tasklist
 
 #### ▶ Why This Matters
 While these commands weren’t the focus of this workflow, being aware of them strengthens my ability to perform **holistic endpoint triage**. They complement the discovery and remediation steps I practiced with `tasklist` and `netstat`, and show readiness to expand my toolkit for more advanced SOC workflows.
+
