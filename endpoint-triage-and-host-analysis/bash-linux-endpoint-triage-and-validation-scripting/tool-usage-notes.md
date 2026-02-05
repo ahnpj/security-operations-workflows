@@ -15,12 +15,16 @@ All actions in this execution are performed using native Linux utilities and the
 
 #### ▶ Remote Linux Virtual Machine
 
-**Purpose:** Provide a realistic host environment for practicing live endpoint investigation and shell-based automation.  
-**How It Was Used:** All commands and scripts were executed directly on the host through terminal-based SSH sessions. Files were created, edited, and executed locally within the VM filesystem.  
-**Operational Relevance:** Mirrors how analysts access and investigate potentially compromised systems during triage and containment.
+**Purpose:**<br>
+Provide a realistic host environment for practicing live endpoint investigation and shell-based automation.  
 
-Environment characteristics observed during execution:
+**How It Was Used:**<br> 
+All commands and scripts were executed directly on the host through terminal-based SSH sessions. Files were created, edited, and executed locally within the VM filesystem.  
 
+**Operational Relevance:**<br>
+Mirrors how analysts access and investigate potentially compromised systems during triage and containment.
+
+**Environment characteristics observed during execution:**
 - **Operating System:** Ubuntu Linux (LTS release)  
 - **Kernel:** Linux 5.x series  
 - **Shell:** Bash (`/bin/bash`)  
@@ -319,4 +323,5 @@ These tools would be used after initial triage to support containment and eradic
 - **Analysis Method:** Host-based enumeration, permission inspection, and behavioral validation
 
 These tools collectively support realistic endpoint triage and lightweight automation workflows commonly performed by SOC analysts and incident responders.
+
 
