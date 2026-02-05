@@ -11,9 +11,9 @@ All actions in this execution are performed using native Linux utilities and the
 
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Remote Linux Virtual Machine
+#### ▶ Remote Linux Virtual Machine
 
 **Purpose:** Provide a realistic host environment for practicing live endpoint investigation and shell-based automation.  
 **How It Was Used:** All commands and scripts were executed directly on the host through terminal-based SSH sessions. Files were created, edited, and executed locally within the VM filesystem.  
@@ -32,11 +32,11 @@ Because the environment reset between sessions, scripts and files did not persis
 
 ---
 
-## System and Host Context Enumeration
+### System and Host Context Enumeration
 
 Establishing baseline host context is a critical first step in endpoint triage. These commands were used to confirm system identity, configuration, and resource state before deeper inspection.
 
-### Operating System and Kernel
+#### ▶ Operating System and Kernel
 
 ```bash
 uname -a
@@ -47,9 +47,8 @@ lsb_release -a
 **Investigative Use:** Kernel version affects exploit feasibility, module compatibility, and EDR driver behavior. Distribution determines file paths, logging locations, and package management tooling.  
 **Operational Relevance:** Analysts must confirm host type before applying response scripts or remediation steps.
 
----
 
-### Host Identity
+#### ▶ Host Identity
 
 ```bash
 hostname
@@ -60,9 +59,8 @@ hostnamectl
 **Investigative Use:** Prevents accidental investigation of unintended systems when pivoting between hosts.  
 **Operational Relevance:** Hostname correlation is critical when matching endpoint activity to SIEM alerts and asset inventories.
 
----
 
-### Resource Utilization
+#### ▶ Resource Utilization
 
 ```bash
 df -h /
@@ -73,9 +71,8 @@ free -h
 **Investigative Use:** Disk exhaustion may indicate log flooding, malware staging, or ransomware encryption activity. Memory pressure may suggest runaway processes or cryptomining.  
 **Operational Relevance:** Resource anomalies often precede or accompany security incidents.
 
----
 
-### Network Configuration
+#### ▶ Network Configuration
 
 ```bash
 ip a
@@ -90,11 +87,11 @@ Interface names varied by cloud provider and system configuration, reinforcing t
 
 ---
 
-## User and Authentication Context
+### User and Authentication Context
 
 Understanding which accounts are active and how users are accessing the system is central to intrusion detection and incident response.
 
-### Current User and Privileges
+#### ▶ Current User and Privileges
 
 ```bash
 whoami
@@ -105,9 +102,7 @@ id
 **Investigative Use:** Determines whether the session has elevated privileges and whether privilege escalation may be required for further analysis.  
 **Operational Relevance:** Group memberships (e.g., `sudo`, `docker`) can significantly expand attacker capabilities.
 
----
-
-### Login History
+#### ▶ Login History
 
 ```bash
 last -a | head
@@ -121,11 +116,11 @@ This command relies on `wtmp` logs and does not capture all authentication attem
 
 ---
 
-## Filesystem Navigation and Inspection
+### Filesystem Navigation and Inspection
 
 Filesystem awareness supports both normal administration and compromise investigation.
 
-### Directory Context and Visibility
+#### ▶ Directory Context and Visibility
 
 ```bash
 pwd
@@ -137,9 +132,7 @@ ls -la
 **Investigative Use:** Identifies suspicious executables, hidden persistence files, or unauthorized scripts.  
 **Operational Relevance:** Analysts must always confirm directory context before executing or modifying files.
 
----
-
-### File Content Review
+#### ▶ File Content Review
 
 ```bash
 cat file.txt
@@ -154,9 +147,7 @@ tail file.txt
 
 `less` was preferred for large files to avoid flooding the terminal and degrading performance.
 
----
-
-### Pattern-Based Searching
+#### ▶ Pattern-Based Searching
 
 ```bash
 grep "pattern" file.txt
@@ -169,11 +160,11 @@ grep -i "error" logfile.log
 
 ---
 
-## File Permissions and Execution Control
+### File Permissions and Execution Control
 
 Linux enforces execution as a filesystem-level permission, making permission inspection critical for both defense and response.
 
-### Permission Inspection
+#### ▶ Permission Inspection
 
 ```bash
 ls -l
@@ -184,9 +175,7 @@ stat script.sh
 **Investigative Use:** World-writable or executable files in sensitive locations can indicate persistence or misconfiguration.  
 **Operational Relevance:** Supports timeline reconstruction and detection of unauthorized modifications.
 
----
-
-### Granting Execution Rights
+#### ▶ Granting Execution Rights
 
 ```bash
 chmod +x script.sh
@@ -196,9 +185,7 @@ chmod +x script.sh
 **Investigative Use:** Required to run response or validation scripts during investigations.  
 **Security Context:** Execution permission is a core Linux security boundary and helps prevent unauthorized code execution.
 
----
-
-### Executing Scripts
+#### ▶ Executing Scripts
 
 ```bash
 ./script.sh
@@ -211,9 +198,9 @@ bash script.sh
 
 ---
 
-## Bash Scripting Constructs Used
+### Bash Scripting Constructs Used
 
-### Shebang Declaration
+#### ▶ Shebang Declaration
 
 ```bash
 #!/bin/bash
@@ -222,9 +209,7 @@ bash script.sh
 **Purpose:** Specifies which interpreter executes the script.  
 **Operational Relevance:** Ensures consistent execution regardless of user default shell.
 
----
-
-### Variable Assignment and Input
+#### ▶ Variable Assignment and Input
 
 ```bash
 read user_input
@@ -234,9 +219,7 @@ read user_input
 **Operational Relevance:** Supports confirmation prompts, triage questionnaires, and manual validation workflows.  
 **Security Note:** Input is unvalidated and not suitable for secret handling in production systems.
 
----
-
-### Loops
+#### ▶ Loops
 
 ```bash
 for i in {1..3}; do
@@ -248,9 +231,7 @@ done
 **Operational Relevance:** Enables scalable checks without duplicating code.  
 **Portability Note:** Brace expansion is Bash-specific and not POSIX portable.
 
----
-
-### Conditional Execution
+#### ▶ Conditional Execution
 
 ```bash
 if [ "$var" = "value" ]; then
@@ -262,9 +243,7 @@ fi
 **Operational Relevance:** Supports access validation, response gating, and state-dependent automation.  
 **Syntax Requirements:** Spaces inside brackets are mandatory; variables should always be quoted.
 
----
-
-### Compound Conditions
+#### ▶  Compound Conditions
 
 ```bash
 if [ cond1 ] && [ cond2 ]; then
@@ -275,9 +254,9 @@ if [ cond1 ] && [ cond2 ]; then
 
 ---
 
-## Output Interpretation and Failure Modes
+### Output Interpretation and Failure Modes
 
-### Common Errors Observed
+#### ▶ Common Errors Observed
 
 - `Permission denied` — missing execute bit or insufficient privileges  
 - Immediate script exit — syntax error or unmet condition  
@@ -290,7 +269,7 @@ if [ cond1 ] && [ cond2 ]; then
 
 ---
 
-## Performance and Safety Considerations
+### Performance and Safety Considerations
 
 Most commands used in this execution are low impact and safe for live systems. However:
 
@@ -302,7 +281,7 @@ Scripts should always be tested in isolated environments before use in productio
 
 ---
 
-## Portability and Environment Caveats
+### Portability and Environment Caveats
 
 - Network interface names vary across platforms  
 - Minimal containers may not include `/bin/bash`  
@@ -313,7 +292,7 @@ Enterprise automation must account for heterogeneous host configurations.
 
 ---
 
-## Tools That Extend This Workflow into Full IR
+### Tools That Extend This Workflow into Full IR
 
 Additional tools commonly used during deeper endpoint investigations include:
 
@@ -327,7 +306,7 @@ These tools would be used after initial triage to support containment and eradic
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Remote Linux virtual machine  
 - **Operating System:** Ubuntu Linux  
@@ -340,3 +319,4 @@ These tools would be used after initial triage to support containment and eradic
 - **Analysis Method:** Host-based enumeration, permission inspection, and behavioral validation
 
 These tools collectively support realistic endpoint triage and lightweight automation workflows commonly performed by SOC analysts and incident responders.
+
