@@ -158,8 +158,9 @@ Each execution phase may involve multiple concrete actions, which are grouped wi
 
 ### Step-by-Step Execution
 
-This section includes step-by-step automation and parsing workflow showing scripts, command execution, transformation stages, and validation checkpoints.
+This section documents the execution in the same order an analyst or detection engineer would realistically perform automated log parsing and telemetry normalization using Python. It begins with reviewing raw authentication log data to understand structure, inconsistencies, and parsing requirements, then progresses into scripting phases that extract fields, normalize event data, validate parsing accuracy, and generate structured detection-ready datasets.
 
+Each step is written to capture both what was executed (Python logic, regex extraction patterns, dataset transformations, and validation outputs) and why it was executed (the detection engineering and data quality objectives behind each transformation). The workflow intentionally progresses from raw data inspection into automated parsing, error handling, and dataset verification, mirroring how telemetry preparation pipelines are built and validated before logs are ingested into SIEM detections, monitoring queries, and investigative workflows.
 **Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
 
 <details>
@@ -734,6 +735,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
