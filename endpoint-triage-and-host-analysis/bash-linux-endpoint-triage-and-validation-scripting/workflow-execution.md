@@ -2,7 +2,11 @@
 
 ### Overview
 
-This execution documents the practical performance of Linux endpoint triage and host validation using Bash, with a focus on building script-based validation logic that mirrors simple authentication workflows. The objective is to assess host integrity using native Linux command-line utilities while also demonstrating how Bash scripts can collect user input, validate multiple values, and control execution flow based on whether authentication-like checks succeed or fail.
+This execution documents Linux endpoint triage and host validation using native Bash utilities and scripting. The objective is to identify suspicious activity on a Linux system, validate host integrity, and assess system behavior using command-line telemetry and automated data collection techniques.
+
+The execution uses filesystem inspection, process enumeration, user activity review, and system artifact analysis to determine whether the host shows indicators of compromise, unauthorized persistence, or abnormal execution behavior. Bash scripting is used to automate data collection and improve triage repeatability while maintaining visibility into host-level activity.
+
+This execution demonstrates how native Linux tooling supports rapid alert validation, investigative scoping, and host health assessment during early-stage incident response.
 
 - The execution begins with baseline host interrogation (processes, network connections, user/session context, filesystem inspection, and permission review) to establish system state and identify artifacts that could indicate compromise, misconfiguration, or unauthorized persistence.
 - It then progresses into scripting phases where Bash is used to automate repeatable checks and implement increasingly structured logic using variables, loops, and conditionals.
@@ -1189,6 +1193,7 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - Translating programming concepts across languages
 
 ---
+
 
 
 
