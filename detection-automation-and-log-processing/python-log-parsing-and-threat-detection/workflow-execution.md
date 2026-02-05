@@ -150,10 +150,10 @@ This section includes step-by-step automation and parsing workflow showing scrip
 
 <details>
 <summary><strong>▶ Step 1 — Apache Access Logs: Detecting Web Enumeration Activity</strong><br>
+→ simulating web attack enumeration and writing a Python parset to detect suspicious events
 </summary><br>
 
-**Objective**
-Simulate web attack enumeration (404 spikes, admin path scans) and write a Python parser to detect and identify reconnaissance-style behavior such as repeated requests to administrative paths and elevated volumes of 404 responses.
+**Objective:** Simulate web attack enumeration (404 spikes, admin path scans) and write a Python parser to detect and identify reconnaissance-style behavior such as repeated requests to administrative paths and elevated volumes of 404 responses.
 
 This phase includes both dataset preparation and parsing logic development, since controlled input data is required to validate that detection logic behaves as expected.
 
@@ -291,10 +291,10 @@ Even simple regex-based parsing is enough to reveal attacker behavior. 404 spike
 
 <details>
 <summary><strong>▶ Step 2 — Linux Authentication Logs: Identifying SSH Brute-Force Attempts</strong><br>
+→ determining whether repeated authentication failutres originate from a common external source
 </summary><br>
 
-### Objective
-Determine whether repeated authentication failures originate from a common external source.
+**Objective:** Determine whether repeated authentication failures originate from a common external source.
 
 This phase again combines dataset creation with focused parsing logic to validate detection techniques.
 
@@ -407,10 +407,10 @@ Auth logs are verbose but uniform. Regex makes parsing attacker IPs straightforw
 
 <details>
 <summary><strong>▶ Step 3 — Windows Event Logs: Failed Logon Analysis via CSV</strong><br>
+→ identifying repeated authentication failures used Windows Event ID 4625
 </summary><br>
 
-## Objective
-Identify repeated authentication failures using Windows Event ID **4625** grouped by account and source IP.
+**Objective:** Identify repeated authentication failures using Windows Event ID **4625** grouped by account and source IP.
 
 - Log filename: `windows_events.csv`
 - Parser filename: `python3 parser_windows.py`
@@ -532,10 +532,10 @@ Windows logs become manageable when exported to CSV and filtered by Event ID. CS
 
 <details>
 <summary><strong>▶ Step 4 — CloudTrail Identity Logs (JSON): IAM Abuse Detection via CloudTrail Logs</strong><br>
+→ surfacing IAM actions that might indicate privilege escalation or tampering
 </summary><br>
   
-### Objective
-Surface IAM actions that may indicate privilege escalation or tampering with logging visibility.
+**Objective:** Surface IAM actions that may indicate privilege escalation or tampering with logging visibility.
 
 - Log filename: `cloudtrail.json`
 - Parser filename: `parser_windows.py`
@@ -720,6 +720,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
