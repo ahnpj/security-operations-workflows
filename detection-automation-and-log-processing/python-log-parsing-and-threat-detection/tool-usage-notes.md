@@ -15,11 +15,16 @@ All tooling in this execution is intentionally limited to Python standard librar
 
 #### ▶ Google Cloud Shell (Linux Environment)
 
-- **Purpose:** Provide a temporary Linux environment for scripting, file handling, and command-line execution without requiring local software installation.
-- **How It Was Used:** All datasets, Python scripts, and execution outputs were stored and accessed within the Cloud Shell filesystem. Scripts were executed directly from the terminal using the system Python interpreter.
-- **Operational Relevance:** Reflects real scenarios where analysts work on jump hosts, cloud workstations, or restricted investigation environments that limit tool installation.
+**Purpose:**<br>
+Provide a temporary Linux environment for scripting, file handling, and command-line execution without requiring local software installation.
 
-Capabilities leveraged during this execution include:
+**How It Was Used:**<br>
+All datasets, Python scripts, and execution outputs were stored and accessed within the Cloud Shell filesystem. Scripts were executed directly from the terminal using the system Python interpreter.
+
+**Operational Relevance:**<br>
+Reflects real scenarios where analysts work on jump hosts, cloud workstations, or restricted investigation environments that limit tool installation.
+
+**Capabilities leveraged during this execution include:**
 - Bash shell access for file navigation and script execution
 - Preinstalled Python 3 runtime
 - Standard Unix utilities for file inspection and validation
@@ -211,4 +216,5 @@ Once validated, detection logic should be migrated into scalable monitoring pipe
 - **Analysis Method:** Behavioral aggregation, frequency analysis, and identity-based grouping
 
 These tools collectively support end-to-end validation of detection concepts directly from raw security telemetry.
+
 
