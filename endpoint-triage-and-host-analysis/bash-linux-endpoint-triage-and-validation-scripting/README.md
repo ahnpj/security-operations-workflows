@@ -1,9 +1,9 @@
 # Linux Endpoint Triage and Script-Based Validation Logic Using Bash 
 
-**Category:** Endpoint Triage and Host Analysis  
-**Primary Operational Focus:** Host state validation, artifact inspection, and endpoint triage automation  
-**Operational Objectives Demonstrated:** Process Inspection, System Artifact Validation, Suspicious Activity Identification, Rapid Host Integrity Assessment  
-**Primary Data Sources:** Linux system process data, network connection telemetry, user activity records, file system artifacts, and scheduled task configurations
+- **Category:** Endpoint Triage and Host Analysis  
+- **Primary Operational Focus:** Host state validation, artifact inspection, and endpoint triage automation  
+- **Operational Objectives Demonstrated:** Process Inspection, System Artifact Validation, Suspicious Activity Identification, Rapid Host Integrity Assessment  
+- **Primary Data Sources:** Linux system process data, network connection telemetry, user activity records, file system artifacts, and scheduled task configurations
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as endpoint triage or host validation).  
@@ -110,4 +110,5 @@ Even environments with centralized monitoring rely on host-level inspection to c
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical endpoint triage methodology, Linux host validation techniques, and professional workflow documentation aligned with real operational SOC environments.
+
 
