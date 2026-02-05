@@ -1,7 +1,5 @@
 # Log Parsing and Threat Detection Automation Using Python
 
----
-
 ### Overview
 
 This section outlines the investigative purpose of the workflow execution, the analytical techniques being exercised, and how Python scripting is used to support security monitoring and incident response tasks.
@@ -722,6 +720,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
