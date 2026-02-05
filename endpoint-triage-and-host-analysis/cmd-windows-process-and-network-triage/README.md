@@ -1,9 +1,9 @@
 # Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell
 
-**Category:** Endpoint Triage and Host Analysis  
-**Primary Operational Focus:** Host process validation, network connection inspection, and endpoint triage using native Windows command-line utilities  
-**Operational Objectives Demonstrated:** Process Enumeration, Network Activity Validation, Suspicious Execution Identification, Rapid Host Integrity Assessment  
-**Primary Data Sources:** Windows process telemetry, network connection tables, service execution data, and user session context
+- **Category:** Endpoint Triage and Host Analysis  
+- **Primary Operational Focus:** Host process validation, network connection inspection, and endpoint triage using native Windows command-line utilities  
+- **Operational Objectives Demonstrated:** Process Enumeration, Network Activity Validation, Suspicious Execution Identification, Rapid Host Integrity Assessment  
+- **Primary Data Sources:** Windows process telemetry, network connection tables, service execution data, and user session context
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as endpoint triage or host validation).  
@@ -111,4 +111,5 @@ Even environments with centralized monitoring rely on host-level inspection to c
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical Windows endpoint triage methodology, native command-line investigation techniques, and professional workflow documentation aligned with real operational SOC environments.
+
 
