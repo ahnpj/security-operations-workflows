@@ -1,8 +1,8 @@
-# Workflow Execution — Log Parsing and Threat Detection Automation Using Python
+# Log Parsing and Threat Detection Automation Using Python
 
 ---
 
-## Overview
+### Overview
 
 This section outlines the investigative purpose of the workflow execution, the analytical techniques being exercised, and how Python scripting is used to support security monitoring and incident response tasks.
 
@@ -10,6 +10,10 @@ This section outlines the investigative purpose of the workflow execution, the a
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
+
+---
 
 ### Purpose and Analyst Focus
 
@@ -21,6 +25,8 @@ Rather than relying on a SIEM or prebuilt detection rules, the analysis intentio
 > Before starting this workflow, I independently reviewed how Python handles text processing and structured data parsing, including reading files line-by-line, working with regular expressions, parsing CSV files, and handling nested JSON structures. I also refreshed core Python concepts such as loops, conditional logic, and organizing small detection functions in a clear and readable way.  
 >
 > Spending time on these fundamentals ensured that each parser was intentionally written and understood, rather than copied or executed mechanically. This helped reinforce confidence in reading unfamiliar log formats and designing detection logic from first principles.
+
+---
 
 ### What This Workflow Demonstrates
 
@@ -35,6 +41,8 @@ The process demonstrates how raw telemetry can be transformed into structured in
 
 Instead of treating each dataset as an isolated task, the workflow repeatedly applies the same analytical methodology across multiple telemetry types. This reinforces the idea that detection logic is portable across environments when analysts focus on behaviors rather than specific log formats.
 
+---
+
 ### Investigation and Detection Relevance
 
 The techniques demonstrated in this workflow directly map to common SOC and detection engineering tasks, including:
@@ -48,11 +56,11 @@ By building lightweight parsers using only Python’s standard library, the work
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 This section describes the execution platform, available tooling, and dataset constraints that shaped how scripts were written, tested, and validated during the investigation workflow.
 
-### Execution Platform
+#### ▶ Execution Platform
 
 All analysis is performed in a Linux virtual machine accessed through Google Cloud Shell, providing a browser-based environment for file creation, scripting, and execution without requiring local tooling.
 
@@ -64,7 +72,7 @@ This setup simulates environments where analysts may need to quickly analyze dat
 - **File Handling:** Local files created directly in the VM filesystem
 - **Output Artifacts:** Terminal output, parsed indicators, and screenshots documenting results
 
-### Tooling and Constraints
+#### ▶ Tooling and Constraints
 
 Python is used as the primary analysis language, relying exclusively on the standard library to ensure portability across environments and avoid dependency on third-party packages.
 
@@ -78,7 +86,7 @@ This constraint reinforces realistic scenarios where:
 - **Modules Used:** `re`, `csv`, `json`, `collections`  
 - **Execution Method:** Command-line script execution via `python3` 
 
-### Data Sources Analyzed
+#### ▶ Data Sources Analyzed
 
 Multiple representative log formats commonly reviewed in SOC and detection engineering workflows are analyzed:
 
@@ -102,7 +110,7 @@ These datasets are intentionally heterogeneous to demonstrate that consistent de
 
 This reinforces the idea that analysts must adapt parsing logic to data format while keeping investigative logic consistent.
 
-### Workflow Map (High-Level)
+#### ▶ Workflow Map (High-Level)
 
 Rather than treating each dataset as an isolated task, the workflow follows the same analytical rhythm across all telemetry sources:
 
@@ -117,9 +125,11 @@ Each execution phase may involve multiple concrete actions, which are grouped wi
 
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-### Step 1 — Apache Access Logs: Detecting Web Enumeration Activity
+
+
+#### ▶ Step 1 — Apache Access Logs: Detecting Web Enumeration Activity
 
 **Objective**
 Simulate web attack enumeration (404 spikes, admin path scans) and write a Python parser to detect and identify reconnaissance-style behavior such as repeated requests to administrative paths and elevated volumes of 404 responses.
@@ -681,4 +691,5 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
