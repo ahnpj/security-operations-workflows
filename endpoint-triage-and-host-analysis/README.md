@@ -14,6 +14,12 @@ Every subfolder here is a **fully self-contained operational execution scenario*
 > 👉 **Follow the workflow execution first**  
 Begin with `workflow-execution.md` inside a workflow folder to see how commands, queries, and validation steps were performed in realistic investigative order.
 
+> 👉 **See what files exist in each workflow folder**  
+For a complete breakdown of every standard file included in a workflow execution — including what each document contains, how it supports automation and detection engineering workflows, and how the documentation is structured — see the **[Workflow Documentation Structure](#workflow-documentation-structure)** section below.
+
+> 👉 **See which workflow executions currently exist in this category**  
+For a list of all automation and log processing executions currently included in this folder, along with a description of what each workflow demonstrates and which operational skills it focuses on, see the **[What’s in This Folder](#whats-in-this-folder)** section below.
+
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as log normalization or detection preparation).  
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real datasets.  
@@ -129,4 +135,5 @@ Workflows in this category are continuously expanded as new triage techniques, o
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production security environments, triage procedures evolve as telemetry sources, operating systems, and detection strategies change.
 
 The focus is on building a growing library of reusable endpoint validation and host analysis techniques rather than static one-time demonstrations.
+
 
