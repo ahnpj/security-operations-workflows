@@ -2,7 +2,7 @@
 
 ### Overview
 
-This section outlines the investigative purpose of the workflow execution, the analytical techniques being exercised, and how Python scripting is used to support security monitoring and incident response tasks.
+The investigative purpose of this workflow execution is to programmatically parse security telemetry using Python in a Linux environment to surface behavioral indicators that would normally drive alert validation and investigative triage in SOC operations. This writeup includes the analytical techniques being exercised, and how Python scripting is used to support security monitoring and incident response tasks.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
@@ -58,7 +58,7 @@ By building lightweight parsers using only Python’s standard library, the work
 
 This section describes the execution platform, available tooling, and dataset constraints that shaped how scripts were written, tested, and validated during the investigation workflow.
 
-**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
 
 <details>
 <summary><strong>▶ Environment & Platform</strong><br>
@@ -144,7 +144,7 @@ Each execution phase may involve multiple concrete actions, which are grouped wi
 
 ### Step-by-Step Execution
 
-This section reconstructs the attacker’s actions step-by-step, correlating network, authentication, endpoint, file, and registry evidence across the intrusion lifecycle.
+This section includes step-by-step automation and parsing workflow showing scripts, command execution, transformation stages, and validation checkpoints.
 
 **Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
 
@@ -720,6 +720,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
