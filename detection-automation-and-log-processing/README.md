@@ -10,6 +10,13 @@ Every subfolder here is a **fully self-contained operational execution scenario*
 > 👉 **Follow the workflow execution first**  
 Begin with `workflow-execution.md` inside a workflow folder to see how data was parsed, transformed, validated, and prepared step by step using scripts, tools, and real datasets.
 
+> 👉 **See what files exist in each workflow folder**  
+For a complete breakdown of every standard file included in a workflow execution — including what each document contains, how it supports automation and detection engineering workflows, and how the documentation is structured — see the **[Workflow Documentation Structure](#workflow-documentation-structure)** section below.
+
+> 👉 **See which workflow executions currently exist in this category**  
+For a list of all automation and log processing executions currently included in this folder, along with a description of what each workflow demonstrates and which operational skills it focuses on, see the **[What’s in This Folder](#whats-in-this-folder)** section below.
+
+
 <!--
 Rather than presenting abstract automation concepts, each folder documents practical execution of specific data processing and detection preparation activities, including the scripts used, the reasoning behind each parsing and transformation step, and how outputs are validated in an operational context. The emphasis is on operational process and analyst decision-making, similar to what would be captured in internal detection engineering runbooks or data pipeline design notes.
 -->
@@ -125,6 +132,7 @@ Some workflow directories may appear iterative or incomplete. This reflects acti
 The focus is on building a growing, reusable library of automation and log processing techniques rather than static one-time scripts.
 
 ---
+
 
 
 
