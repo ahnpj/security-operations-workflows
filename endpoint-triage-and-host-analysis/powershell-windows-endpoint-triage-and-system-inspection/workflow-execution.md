@@ -245,7 +245,7 @@ This objective built the foundation for every later step. During investigations,
 
 
 <details>
-<summary><strong>▶2) - File & Directory Enumeration (Discovery + Validation)</strong><br>
+<summary><strong>▶ 2) - File & Directory Enumeration (Discovery + Validation)</strong><br>
 → fast file discovery patterns used in endpoint triage, including recursive searches for indicators, controlled error handling to avoid noisy output, and targeted filtering by filename and extensions.
 </summary><br>
 
@@ -317,7 +317,7 @@ This skill translates to log analysis, evidence collection, and forensic tasks w
 
 
 <details>
-<summary><strong>▶3) — Process Triage and Object-Pipeline Analysis</strong><br>
+<summary><strong>▶ 3) — Process Triage and Object-Pipeline Analysis</strong><br>
 → sorting and filtering file objects, selecting relevant properties, and searching file content for indicators
 </summary><br>
 
@@ -467,7 +467,7 @@ In a SOC environment, I can use these same patterns to parse local artifacts, re
 </details>
 
 <details>
-<summary><strong>▶ Objective 4 — System and Network Information Collection</strong><br>
+<summary><strong>▶ 4) — System and Network Information Collection</strong><br>
 → capturing a host baseline (OS/hardware), identifying local accounts, and collecting network configuration detail
 </summary><br>
 
@@ -586,7 +586,7 @@ This aligns with host auditing and reconnaissance. If I suspect persistence mech
 </details>
 
 <details>
-<summary><strong>▶ Objective 5 — Real-Time System Analysis and Integrity Validation</strong><br>
+<summary><strong>▶ 5) — Real-Time System Analysis and Integrity Validation</strong><br>
 → reviewing processes, services, and open connections, then validating file integrity using hashes
 </summary><br>
 
@@ -886,4 +886,5 @@ PowerShell provides enough native capability to perform meaningful endpoint tria
 This workflow execution strengthened practical endpoint triage skills using native PowerShell tooling. It reinforced command discovery habits (`Get-Command`, `Get-Help`), improved comfort with object pipelines for sorting and filtering, and built confidence with core evidence surfaces: filesystem, processes, services, and network connections.
 
 It also reinforced integrity validation practices through hashing and introduced scalable response patterns through remoting (`Invoke-Command`). Overall, the workflow execution demonstrates that I can operate effectively in constrained environments and still produce evidence-backed, repeatable triage outputs.
+
 
