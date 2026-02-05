@@ -1,4 +1,4 @@
-# Workflow Execution — Windows Endpoint Triage and System Inspection Using PowerShell
+# Windows Endpoint Triage and System Inspection Using PowerShell
 
 ---
 
@@ -813,6 +813,7 @@ PowerShell provides enough native capability to perform meaningful endpoint tria
 This workflow execution strengthened practical endpoint triage skills using native PowerShell tooling. It reinforced command discovery habits (`Get-Command`, `Get-Help`), improved comfort with object pipelines for sorting and filtering, and built confidence with core evidence surfaces: filesystem, processes, services, and network connections.
 
 It also reinforced integrity validation practices through hashing and introduced scalable response patterns through remoting (`Invoke-Command`). Overall, the workflow execution demonstrates that I can operate effectively in constrained environments and still produce evidence-backed, repeatable triage outputs.
+
 
 
 
