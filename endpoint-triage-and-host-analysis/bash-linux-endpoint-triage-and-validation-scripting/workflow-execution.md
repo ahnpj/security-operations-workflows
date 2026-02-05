@@ -916,6 +916,13 @@ I created a new script using the `nano` text editor:
 nano peters_locker_script.sh
 ```
 
+<p align="left">
+  <img src="images/linux-shell-and-scripting-basics-18.png?raw=true&v=2" 
+       style="border: 2px solid #444; border-radius: 6px;" 
+       width="1000"><br>
+  <em>Figure 18</em>
+</p>
+
 Inside the file, I added the shebang along with placeholder variables:
 
 ```
@@ -925,13 +932,6 @@ username=""
 zipcode=""
 pin=""
 ```
-
-<p align="left">
-  <img src="images/linux-shell-and-scripting-basics-18.png?raw=true&v=2" 
-       style="border: 2px solid #444; border-radius: 6px;" 
-       width="1000"><br>
-  <em>Figure 18</em>
-</p>
 
 <p align="left">
   <img src="images/linux-shell-and-scripting-basics-19.png?raw=true&v=2" 
@@ -1189,5 +1189,6 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - Translating programming concepts across languages
 
 ---
+
 
 
