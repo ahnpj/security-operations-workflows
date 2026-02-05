@@ -1,9 +1,9 @@
 # Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark
 
-**Category:** Network Monitoring and Traffic Analysis  
-**Primary Operational Focus:** Traffic filtering, protocol-level inspection, and session reconstruction for network communication analysis  
-**Operational Objectives Demonstrated:** Traffic Isolation, Protocol Behavior Inspection, Session Reconstruction, Suspicious Communication Identification  
-**Primary Data Sources:** Packet capture datasets, filtered traffic streams, and reconstructed protocol sessions derived from network packet analysis
+- **Category:** Network Monitoring and Traffic Analysis  
+- **Primary Operational Focus:** Traffic filtering, protocol-level inspection, and session reconstruction for network communication analysis  
+- **Operational Objectives Demonstrated:** Traffic Isolation, Protocol Behavior Inspection, Session Reconstruction, Suspicious Communication Identification  
+- **Primary Data Sources:** Packet capture datasets, filtered traffic streams, and reconstructed protocol sessions derived from network packet analysis
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as traffic filtering or session reconstruction).  
@@ -110,6 +110,7 @@ Even environments with automated network monitoring rely on manual packet inspec
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical packet inspection methodology, session reconstruction techniques, and professional workflow documentation aligned with real operational SOC and network security environments.
+
 
 
 
