@@ -11,7 +11,7 @@ These notes preserve context that did not belong in the formal workflow executio
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 While most commands used in the early phases were familiar, I noticed that intentionally slowing down to interpret output helped reinforce what each command actually reveals about system state. For example, reviewing `df -h`, `free -h`, and `ip a` together provided a more complete picture of host health than running them individually.
 
@@ -23,7 +23,7 @@ When writing scripts, small syntax issues (such as missing spaces inside `[ ]` c
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 The most common errors encountered were related to Bash syntax strictness, especially around conditional expressions. Forgetting spaces around brackets or missing `fi` terminators caused scripts to fail silently or behave unexpectedly.
 
@@ -33,7 +33,7 @@ While building the locker authentication script, ensuring that variables were po
 
 ---
 
-## Investigative Reasoning and Pivots
+### Investigative Reasoning and Pivots
 
 The workflow began with system context validation because, in real investigations, analysts should always confirm host identity, network configuration, and resource health before performing deeper analysis.
 
@@ -45,7 +45,7 @@ The decision to build a multi-input locker script was intentional. Rather than p
 
 ---
 
-## Limitations of This Walkthrough
+### Limitations of This Walkthrough
 
 This workflow does not include forensic-level log analysis, file hashing, or persistence detection techniques.
 
@@ -55,7 +55,7 @@ No integrity monitoring or malware detection tooling was applied, so this walkth
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Future iterations could include:
 
@@ -69,7 +69,7 @@ These would extend the scripting concepts into more explicit incident response a
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 The Bash scripting concepts here directly support later workflows involving:
 
@@ -84,3 +84,4 @@ The idea of building small validation scripts translates well into:
 - forensic artifact collection scripts
 
 This workflow serves as the foundation layer for later automation-heavy investigations in the portfolio.
+
