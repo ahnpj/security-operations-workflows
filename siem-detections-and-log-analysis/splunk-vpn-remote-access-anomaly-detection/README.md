@@ -1,9 +1,9 @@
 # VPN Authentication and Remote Access Anomaly Analysis Using Splunk
 
-**Category:** SIEM Detections and Log Analysis  
-**Primary Operational Focus:** Authentication behavior analysis, VPN activity validation, and anomaly detection using SIEM telemetry  
-**Operational Objectives Demonstrated:** Authentication Pattern Analysis, Geographic and Behavioral Anomaly Detection, Credential Misuse Identification, Alert Validation  
-**Primary Data Sources:** VPN authentication logs, user login telemetry, geographic access metadata, and session activity records
+- **Category:** SIEM Detections and Log Analysis  
+- **Primary Operational Focus:** Authentication behavior analysis, VPN activity validation, and anomaly detection using SIEM telemetry  
+- **Operational Objectives Demonstrated:** Authentication Pattern Analysis, Geographic and Behavioral Anomaly Detection, Credential Misuse Identification, Alert Validation  
+- **Primary Data Sources:** VPN authentication logs, user login telemetry, geographic access metadata, and session activity records
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as authentication anomaly detection or VPN activity validation).  
@@ -110,4 +110,5 @@ Even environments with mature remote access monitoring require behavioral authen
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical SIEM-based authentication anomaly detection methodology, credential monitoring techniques, and professional workflow documentation aligned with real operational detection engineering and SOC environments.
+
 
