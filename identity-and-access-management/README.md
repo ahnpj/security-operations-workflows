@@ -14,6 +14,12 @@ Every subfolder here is a **fully self-contained operational execution scenario*
 > 👉 **Follow the workflow execution first**  
 Begin with `workflow-execution.md` inside a workflow folder to see how authentication activity, directory objects, and permission paths were analyzed and validated step by step using commands, queries, and investigative methodology.
 
+> 👉 **See what files exist in each workflow folder**  
+For a complete breakdown of every standard file included in a workflow execution — including what each document contains, how it supports automation and detection engineering workflows, and how the documentation is structured — see the **[Workflow Documentation Structure](#workflow-documentation-structure)** section below.
+
+> 👉 **See which workflow executions currently exist in this category**  
+For a list of all automation and log processing executions currently included in this folder, along with a description of what each workflow demonstrates and which operational skills it focuses on, see the **[What’s in This Folder](#whats-in-this-folder)** section below.
+
 > **Terminology used in this category:**  
 > **Workflows** refer to common security operations tasks (such as authentication validation or permission testing).  
 > **Executions** refer to the hands-on performance of those tasks using real tools, logs, and directory objects.  
@@ -123,4 +129,5 @@ Workflows in this category are continuously expanded as authentication technolog
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production environments, identity systems are frequently reconfigured, integrated with new services, and targeted by evolving attack techniques, requiring ongoing validation and monitoring.
 
 The focus is on building a growing library of reusable identity validation and access control testing techniques rather than static one-time demonstrations.
+
 
