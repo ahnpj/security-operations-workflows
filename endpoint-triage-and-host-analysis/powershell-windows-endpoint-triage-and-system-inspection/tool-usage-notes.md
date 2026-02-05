@@ -11,9 +11,9 @@ All tooling in this execution is native to Windows and PowerShell. No third-part
 
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Windows Endpoint (Remote PowerShell Session)
+#### ▶ Windows Endpoint (Remote PowerShell Session)
 
 **Purpose:** Provide a realistic environment for practicing live endpoint investigation using only native operating system telemetry.  
 **How It Was Used:** All commands were executed in PowerShell sessions connected to the endpoint. Filesystem, process, service, network, and registry-related telemetry were collected directly from the host.  
@@ -31,11 +31,11 @@ This constraint reinforces skills that remain viable even when security tooling 
 
 ---
 
-## Command Discovery and Built-In Documentation
+### Command Discovery and Built-In Documentation
 
 Understanding which tools are available on the host is critical when operating in constrained or unfamiliar environments.
 
-### Get-Command — Discovering Available Cmdlets
+#### ▶ Get-Command — Discovering Available Cmdlets
 
 ```powershell
 Get-Command
@@ -49,9 +49,7 @@ Get-Command -Name "Get-*"
 
 This step also reinforces PowerShell’s Verb-Noun naming convention, which helps analysts discover related commands based on intent.
 
----
-
-### Get-Help — On-Host Documentation
+#### ▶ Get-Help — On-Host Documentation
 
 ```powershell
 Get-Help Get-Process
@@ -66,11 +64,11 @@ Using `-Examples` accelerates learning by providing copy‑ready command pattern
 
 ---
 
-## Filesystem Enumeration and Artifact Discovery
+### Filesystem Enumeration and Artifact Discovery
 
 Filesystem inspection is often the fastest way to identify dropped tools, scripts, or persistence components.
 
-### Get-ChildItem — Directory and File Enumeration
+#### ▶ Get-ChildItem — Directory and File Enumeration
 
 ```powershell
 Get-ChildItem
@@ -84,9 +82,7 @@ Get-ChildItem -Path C:\Users -Recurse -File
 
 **Performance Consideration:** Recursive scans should be scoped to avoid excessive disk traversal on production systems.
 
----
-
-### Get-Content — File Inspection
+#### ▶ Get-Content — File Inspection
 
 ```powershell
 Get-Content .\script.ps1
@@ -98,9 +94,7 @@ Get-Content .\script.ps1
 
 For large files, output can be piped to `Select-Object -First` to avoid flooding the terminal.
 
----
-
-### Select-String — Keyword Hunting
+#### ▶ Select-String — Keyword Hunting
 
 ```powershell
 Select-String -Path .\script.ps1 -Pattern "Invoke"
@@ -114,11 +108,11 @@ Outputs include line numbers, which helps document evidence locations in reports
 
 ---
 
-## Object-Based Filtering and Data Reduction
+### Object-Based Filtering and Data Reduction
 
 PowerShell pipelines pass structured objects, enabling more reliable filtering than text parsing.
 
-### Where-Object — Property-Level Filtering
+#### ▶ Where-Object — Property-Level Filtering
 
 ```powershell
 Where-Object { $_.Extension -eq ".exe" }
@@ -129,9 +123,7 @@ Where-Object { $_.Length -gt 1MB }
 **How It Was Used:** To isolate large or executable files that warranted closer inspection.  
 **Operational Relevance:** Reduces noise and accelerates anomaly detection during triage.
 
----
-
-### Sort-Object — Outlier Detection
+#### ▶ Sort-Object — Outlier Detection
 
 ```powershell
 Sort-Object Length -Descending
@@ -142,9 +134,7 @@ Sort-Object CPU -Descending
 **How It Was Used:** To prioritize investigation of unusually large files and high-CPU processes.  
 **Operational Relevance:** Outliers often correlate with malware staging or cryptomining.
 
----
-
-### Select-Object — Evidence Scoping
+#### ▶ Select-Object — Evidence Scoping
 
 ```powershell
 Select-Object Name, Length, FullName
@@ -156,9 +146,9 @@ Select-Object Name, Length, FullName
 
 ---
 
-## Process, Service, and Network Correlation
+### Process, Service, and Network Correlation
 
-### Get-Process — Runtime Process Enumeration
+#### ▶ Get-Process — Runtime Process Enumeration
 
 ```powershell
 Get-Process
@@ -170,9 +160,7 @@ Get-Process
 
 For deeper context, CIM queries can expose command-line arguments and parent processes.
 
----
-
-### Get-Service — Persistence and Startup Analysis
+#### ▶ Get-Service — Persistence and Startup Analysis
 
 ```powershell
 Get-Service
@@ -184,9 +172,7 @@ Get-Service
 
 Both `Name` and `DisplayName` must be reviewed, as attackers may camouflage services.
 
----
-
-### Get-NetTCPConnection — Active Network Sessions
+#### ▶ Get-NetTCPConnection — Active Network Sessions
 
 ```powershell
 Get-NetTCPConnection
@@ -196,9 +182,7 @@ Get-NetTCPConnection
 **How It Was Used:** To detect suspicious external communication and service exposure.  
 **Operational Relevance:** Network visibility helps identify C2 traffic and unauthorized services.
 
----
-
-### PID Pivot — Linking Network to Process
+#### ▶ PID Pivot — Linking Network to Process
 
 ```powershell
 Get-Process -Id <PID>
@@ -210,9 +194,9 @@ Get-Process -Id <PID>
 
 ---
 
-## File Integrity Validation
+### File Integrity Validation
 
-### Get-FileHash — Cryptographic Verification
+#### ▶ Get-FileHash — Cryptographic Verification
 
 ```powershell
 Get-FileHash suspicious.txt
@@ -226,9 +210,9 @@ Hashes allow comparison against known-good baselines or threat intelligence feed
 
 ---
 
-## Remote Endpoint Validation and Scale
+### Remote Endpoint Validation and Scale
 
-### Invoke-Command — Distributed Triage
+#### ▶ Invoke-Command — Distributed Triage
 
 ```powershell
 Invoke-Command -ComputerName HOST -ScriptBlock { Get-Service }
@@ -244,7 +228,7 @@ Invoke-Command -ComputerName HOST -FilePath triage.ps1
 
 ---
 
-## Output Interpretation and Investigative Guidance
+### Output Interpretation and Investigative Guidance
 
 Indicators that would typically warrant escalation:
 
@@ -257,7 +241,7 @@ In this execution, such indicators were treated as investigative leads rather th
 
 ---
 
-## Performance and Evidence Handling Considerations
+### Performance and Evidence Handling Considerations
 
 During live response:
 
@@ -269,7 +253,7 @@ PowerShell can easily generate excessive telemetry if not carefully scoped.
 
 ---
 
-## Tools That Extend This Workflow into Full IR
+### Tools That Extend This Workflow into Full IR
 
 Additional tooling often used after triage:
 
@@ -283,7 +267,7 @@ These tools complement the discovery techniques demonstrated here.
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Windows endpoint  
 - **Shell:** Windows PowerShell  
@@ -299,3 +283,4 @@ These tools complement the discovery techniques demonstrated here.
 - **Analysis Method:** Object-based filtering, correlation, and integrity validation
 
 These tools collectively support structured endpoint triage workflows commonly used in SOC and incident response operations.
+
