@@ -1,9 +1,16 @@
 # Identity and Access Management Operations Using Active Directory
 
-**Category:** Identity and Access Management  
-**Primary Operational Focus:** Authentication validation, permission verification, and identity behavior analysis within Active Directory environments  
-**Operational Objectives Demonstrated:** Authentication Event Validation, Group Membership Analysis, Privilege Boundary Verification, Access Path Testing, Identity Misconfiguration Detection  
-**Primary Data Sources:** Active Directory authentication logs, user and group directory objects, permission assignments, and access control metadata
+**Category:** <br>
+Identity and Access Management<br>
+
+**Primary Operational Focus:**<br>
+Authentication validation, permission verification, and identity behavior analysis within Active Directory environments<br>  
+
+**Operational Objectives Demonstrated:**<br>
+Authentication Event Validation, Group Membership Analysis, Privilege Boundary Verification, Access Path Testing, Identity Misconfiguration Detection <br>
+
+**Primary Data Sources:** <br>
+Active Directory authentication logs, user and group directory objects, permission assignments, and access control metadata
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as authentication validation or permission verification).  
@@ -110,4 +117,5 @@ Even environments with mature identity monitoring require manual validation work
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical identity validation methodology, Active Directory access control analysis, and professional workflow documentation aligned with real operational IAM and SOC environments.
+
 
