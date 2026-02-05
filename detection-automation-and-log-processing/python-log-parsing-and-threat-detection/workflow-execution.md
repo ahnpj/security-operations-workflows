@@ -2,7 +2,12 @@
 
 ### Overview
 
-The investigative purpose of this workflow execution is to programmatically parse security telemetry using Python in a Linux environment to surface behavioral indicators that would normally drive alert validation and investigative triage in SOC operations. This writeup includes the analytical techniques being exercised, and how Python scripting is used to support security monitoring and incident response tasks.
+This execution documents the practical performance of automated log parsing and telemetry normalization using Python scripting to transform raw authentication log data into structured, detection-ready datasets. The objective is to improve telemetry usability, support reliable detection engineering workflows, and enable efficient investigative analysis through automated field extraction and data enrichment techniques.
+
+The execution focuses on parsing unstructured authentication logs, extracting security-relevant attributes such as timestamps, usernames, authentication outcomes, and source network identifiers, and validating parsing accuracy across multiple log entries. Python scripting is used to automate data processing, improve consistency, and prepare structured telemetry that can be consumed by SIEM detections, monitoring queries, and investigative pivoting workflows.
+
+Emphasis is placed on how telemetry normalization and automated parsing support detection reliability, reduce noise during analysis, and improve scalability of monitoring and threat detection operations within real-world security environments. The execution demonstrates how analysts leverage scripting and automation to operationalize raw log data for security monitoring and investigative wor
+
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
@@ -15,9 +20,18 @@ The investigative purpose of this workflow execution is to programmatically pars
 
 ### Purpose and Analyst Focus
 
-This workflow execution focuses on programmatically parsing heterogeneous security telemetry using Python in a Linux environment in order to surface behavioral indicators that would normally drive alert validation and investigative triage in SOC operations.
+#### ▶ Purpose
 
-Rather than relying on a SIEM or prebuilt detection rules, the analysis intentionally operates on raw log files to simulate early-stage detection logic development and investigative validation. This mirrors how analysts and detection engineers often begin by validating hypotheses against raw telemetry before translating detection logic into production monitoring platforms.
+The purpose of this execution is to demonstrate automated log parsing, telemetry normalization, and detection dataset preparation using Python scripting. The execution focuses on transforming raw authentication log data into structured, searchable telemetry that supports reliable monitoring, detection engineering workflows, and investigative analysis.
+
+This execution highlights how automation improves data consistency, reduces manual parsing overhead, and enables scalable security monitoring by extracting detection-relevant fields from unstructured log sources. It emphasizes the operational importance of preparing telemetry for SIEM ingestion, anomaly detection, and behavioral analysis, ensuring that security tooling can accurately identify suspicious activity across large datasets.
+
+#### ▶Analyst Focus
+
+This execution reflects the responsibilities of detection engineers, SOC analysts, and security automation specialists who design and maintain telemetry processing workflows. The analyst focus is on validating parsing logic, ensuring field extraction accuracy, identifying normalization gaps, and confirming that processed datasets support reliable detection and investigative pivoting.
+
+The execution also demonstrates how analysts use scripting and automation to operationalize raw telemetry, improve monitoring scalability, and reduce noise within detection pipelines. It reinforces the importance of understanding log structure, parsing logic design, and data quality validation when building automation workflows that support threat detection and security monitoring.
+
 
 > **Personal Learning Context:**  
 > Before starting this workflow, I independently reviewed how Python handles text processing and structured data parsing, including reading files line-by-line, working with regular expressions, parsing CSV files, and handling nested JSON structures. I also refreshed core Python concepts such as loops, conditional logic, and organizing small detection functions in a clear and readable way.  
@@ -720,6 +734,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
