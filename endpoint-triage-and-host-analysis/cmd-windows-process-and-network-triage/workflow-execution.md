@@ -138,7 +138,7 @@ By correlating across these domains, the workflow validates whether suspicious a
 </details>
 
 <details>
-<summary><strong>▶Workflow Map (High-Level)</strong><br>
+<summary><strong>▶ Workflow Map (High-Level)</strong><br>
 </summary><br>
 
 The workflow follows a progressive investigative sequence designed to reflect real-world triage methodology:
@@ -481,4 +481,5 @@ In addition to the commands I demonstrated in this workflow execution (`tasklist
 
 #### ▶ Why This Matters
 While these commands weren’t the focus of this workflow, being aware of them strengthens my ability to perform **holistic endpoint triage**. They complement the discovery and remediation steps I practiced with `tasklist` and `netstat`, and show readiness to expand my toolkit for more advanced SOC workflows.
+
 
