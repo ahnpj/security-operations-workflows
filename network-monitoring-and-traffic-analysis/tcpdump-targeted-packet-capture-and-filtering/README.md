@@ -1,9 +1,9 @@
 # Targeted Packet Capture and Traffic Filtering Using tcpdump
 
-**Category:** Network Monitoring and Traffic Analysis  
-**Primary Operational Focus:** Targeted packet capture, traffic filtering, and network communication validation  
-**Operational Objectives Demonstrated:** Packet Capture Strategy, Traffic Isolation, Protocol Behavior Inspection, Suspicious Communication Identification  
-**Primary Data Sources:** Live network traffic captures, filtered packet streams, and protocol-level telemetry extracted from packet inspection
+- **Category:** Network Monitoring and Traffic Analysis  
+- **Primary Operational Focus:** Targeted packet capture, traffic filtering, and network communication validation  
+- **Operational Objectives Demonstrated:** Packet Capture Strategy, Traffic Isolation, Protocol Behavior Inspection, Suspicious Communication Identification  
+- **Primary Data Sources:** Live network traffic captures, filtered packet streams, and protocol-level telemetry extracted from packet inspection
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as traffic capture or network communication analysis).  
@@ -111,4 +111,5 @@ Even environments with centralized network monitoring rely on targeted packet ca
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical packet capture methodology, targeted network traffic analysis techniques, and professional workflow documentation aligned with real operational SOC and network security environments.
+
 
