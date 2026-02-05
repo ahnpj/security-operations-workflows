@@ -166,6 +166,10 @@ Each phase is grouped by analytical objective rather than individual command usa
 
 ### Step-by-Step Execution
 
+This section documents the execution in the same order an analyst would realistically perform it during Windows endpoint triage using PowerShell. It begins with rapid command discovery and host interrogation to establish baseline context (system identity, local users, filesystem layout, running processes, services, and network state), then progresses into evidence validation steps that tie artifacts to integrity checks (hashing), process-to-connection correlation (`OwningProcess`), and persistence indicators (service metadata review).
+
+Each step is written to capture both what was executed (cmdlets, pipelines, and outputs) and why it was executed (the investigative intent behind each action). The workflow intentionally builds from basic enumeration into pivot-driven analysis—using PowerShell’s object pipelines to filter, sort, and select key properties—then finishes with remoting patterns (`Invoke-Command`) to show how the same triage logic can be executed consistently across additional hosts during incident response.
+
 <details>
 <summary><strong>▶ 1) — PowerShell Command Discovery and Built-In Help</strong><br>
 → discovering available commands, understanding syntax, and interpreting aliases directly within the shell
@@ -882,3 +886,4 @@ PowerShell provides enough native capability to perform meaningful endpoint tria
 This workflow execution strengthened practical endpoint triage skills using native PowerShell tooling. It reinforced command discovery habits (`Get-Command`, `Get-Help`), improved comfort with object pipelines for sorting and filtering, and built confidence with core evidence surfaces: filesystem, processes, services, and network connections.
 
 It also reinforced integrity validation practices through hashing and introduced scalable response patterns through remoting (`Invoke-Command`). Overall, the workflow execution demonstrates that I can operate effectively in constrained environments and still produce evidence-backed, repeatable triage outputs.
+
