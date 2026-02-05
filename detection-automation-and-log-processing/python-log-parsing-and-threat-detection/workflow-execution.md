@@ -60,7 +60,11 @@ By building lightweight parsers using only Python’s standard library, the work
 
 This section describes the execution platform, available tooling, and dataset constraints that shaped how scripts were written, tested, and validated during the investigation workflow.
 
-#### ▶ Execution Platform
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 All analysis is performed in a Linux virtual machine accessed through Google Cloud Shell, providing a browser-based environment for file creation, scripting, and execution without requiring local tooling.
 
@@ -72,7 +76,11 @@ This setup simulates environments where analysts may need to quickly analyze dat
 - **File Handling:** Local files created directly in the VM filesystem
 - **Output Artifacts:** Terminal output, parsed indicators, and screenshots documenting results
 
-#### ▶ Tooling and Constraints
+</details>
+
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
 
 Python is used as the primary analysis language, relying exclusively on the standard library to ensure portability across environments and avoid dependency on third-party packages.
 
@@ -84,9 +92,14 @@ This constraint reinforces realistic scenarios where:
 
 - **Language:** Python (standard library only)  
 - **Modules Used:** `re`, `csv`, `json`, `collections`  
-- **Execution Method:** Command-line script execution via `python3` 
+- **Execution Method:** Command-line script execution via `python3`
 
-#### ▶ Data Sources Analyzed
+</details>
+
+
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
 
 Multiple representative log formats commonly reviewed in SOC and detection engineering workflows are analyzed:
 
@@ -110,7 +123,11 @@ These datasets are intentionally heterogeneous to demonstrate that consistent de
 
 This reinforces the idea that analysts must adapt parsing logic to data format while keeping investigative logic consistent.
 
-#### ▶ Workflow Map (High-Level)
+</details>
+
+<details>
+<summary><strong>▶ Workflow Map (High-Level)</strong><br>
+</summary><br>
 
 Rather than treating each dataset as an isolated task, the workflow follows the same analytical rhythm across all telemetry sources:
 
@@ -123,6 +140,8 @@ Rather than treating each dataset as an isolated task, the workflow follows the 
 
 Each execution phase may involve multiple concrete actions, which are grouped within the same step when they serve the same analytical purpose.
 
+</details>
+
 ---
 
 ### Step-by-Step Execution
@@ -131,7 +150,9 @@ This section reconstructs the attacker’s actions step-by-step, correlating net
 
 **Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
 
-#### ▶ Step 1 — Apache Access Logs: Detecting Web Enumeration Activity
+<details>
+<summary><strong>▶ Step 1 — Apache Access Logs: Detecting Web Enumeration Activity</strong><br>
+</summary><br>
 
 **Objective**
 Simulate web attack enumeration (404 spikes, admin path scans) and write a Python parser to detect and identify reconnaissance-style behavior such as repeated requests to administrative paths and elevated volumes of 404 responses.
@@ -267,10 +288,12 @@ Even simple regex-based parsing is enough to reveal attacker behavior. 404 spike
 - Multiple 404 errors indicate enumeration/scanning behavior.
 - Regex-based extraction made parsing extremely simple.
 
+</details>
 
----
 
-## Step 2 — Linux Authentication Logs: Identifying SSH Brute-Force Attempts
+<details>
+<summary><strong>▶ Step 2 — Linux Authentication Logs: Identifying SSH Brute-Force Attempts</strong><br>
+</summary><br>
 
 ### Objective
 Determine whether repeated authentication failures originate from a common external source.
@@ -280,7 +303,7 @@ This phase again combines dataset creation with focused parsing logic to validat
 - Log filename: `auth.log`
 - Parser filename: `parser_auth.py`
 
-#### Step 2A - Generate Authentication Log Events
+##### 🔷 Step 2A - Generate Authentication Log Events
 
 A synthetic `auth.log` file was created containing multiple failed login attempts followed by a successful authentication event. To simulate this, I created my own short log file containing SSH login events, which are commonly brute-forced. I generated a few lines manually—some failed attempts against fake users (admin, root), and one legitimate login.
 
@@ -300,7 +323,7 @@ EOF
   <em>Figure 5</em>
 </p>
 
-#### Step 2B - Write Script: Extract and Count Failed Login Sources
+##### 🔷 Step 2B - Write Script: Extract and Count Failed Login Sources
 
 The parser (`parser_auth.py`) focuses only on failed authentication messages and aggregates attempts by source IP.
 
@@ -372,7 +395,7 @@ Used the command: `python3 parser_auth.py`.
 </p>
 
 
-### Step 2 Findings
+##### 🔷 Step 2 Findings
 
 This quickly highlighted one IP making multiple failed attempts. Even though the dataset was small, the logic mirrors real brute-force detection: consistent login failures from the same IP over a short time window.
 
@@ -381,10 +404,12 @@ This quickly highlighted one IP making multiple failed attempts. Even though the
 
 Auth logs are verbose but uniform. Regex makes parsing attacker IPs straightforward. SSH failures follow a very predictable format. Once you extract the IP addresses, it becomes trivial to identify malicious login patterns.
 
+</details>
 
----
 
-# Step 3 — Windows Event Logs: Failed Logon Analysis via CSV
+<details>
+<summary><strong>▶ Step 3 — Windows Event Logs: Failed Logon Analysis via CSV</strong><br>
+</summary><br>
 
 ## Objective
 Identify repeated authentication failures using Windows Event ID **4625** grouped by account and source IP.
@@ -392,7 +417,7 @@ Identify repeated authentication failures using Windows Event ID **4625** groupe
 - Log filename: `windows_events.csv`
 - Parser filename: `python3 parser_windows.py`
 
-### Step 3A — Simulate Exported Windows Event Data
+##### 🔷 Step 3A — Simulate Exported Windows Event Data
 
 To simulate a typical SOC workflow where Windows Event Logs are exported into CSV for easier analysis, a small CSV file containing Event IDs, usernames, IP addresses, and statuses was created.
 
@@ -413,7 +438,7 @@ EOF
   <em>Figure 9</em>
 </p>
 
-### Step 3B —  Write Script: Filter and Aggregate Failed Authentication Events
+##### 🔷 Step 3B —  Write Script: Filter and Aggregate Failed Authentication Events
 
 The parser was designed to perform the following tasks:
 - Loads the CSV
@@ -496,7 +521,7 @@ When I first ran the Windows 4625 parser, the script threw a KeyError for "Event
 After removing those extra heredoc lines so that the file began directly with the correct header row (EventID,AccountName,IpAddress,Status), the script parsed the data correctly and produced the expected 4625 failed-logon results.
 </blockquote>
 
-### Step 3 Findings
+##### 🔷 Step 3 Findings
 
 This showed me which accounts were repeatedly targeted. Even with synthetic data, the exercise helped reinforce how valuable Event ID filtering is. Windows logs are noisy, so focusing on specific events is crucial.
 
@@ -505,17 +530,19 @@ This showed me which accounts were repeatedly targeted. Even with synthetic data
 
 Windows logs become manageable when exported to CSV and filtered by Event ID. CSV parsing is extremely simple in Python, and Windows log analysis becomes much easier when I focus on specific event types like 4625 or 4688.
 
----
+</details>
 
-## Step 4 — CloudTrail Identity Logs (JSON): IAM Abuse Detection via CloudTrail Logs
-
+<details>
+<summary><strong>▶ Step 4 — CloudTrail Identity Logs (JSON): IAM Abuse Detection via CloudTrail Logs</strong><br>
+</summary><br>
+  
 ### Objective
 Surface IAM actions that may indicate privilege escalation or tampering with logging visibility.
 
 - Log filename: `cloudtrail.json`
 - Parser filename: `parser_windows.py`
 
-#### Step 4A — Create CloudTrail Event Records
+##### 🔷 Step 4A — Create CloudTrail Event Records
 
 Instead of using real logs, a small JSON array with actions like `AttachUserPolicy` and `DeleteTrail` was created, both of which could indicate risky or unauthorized changes.
 
@@ -546,7 +573,7 @@ Instead of using real logs, a small JSON array with actions like `AttachUserPoli
   <em>Figure 13</em>
 </p>
 
-#### Step 4B — Write Script: Group Activity by User and Flag Risky Actions
+##### 🔷 Step 4B — Write Script: Group Activity by User and Flag Risky Actions
 
 The parser was designed to perform the following tasks:
 - Loaded the JSON file
@@ -602,7 +629,7 @@ for e in events:
 - Detecting risky actions: I looped through the events again and checked if the event’s action name was in my “risky” set. If it was, I printed which user performed the action and from which IP address. This highlights potentially suspicious activity without needing complex analysis.
 
 
-#### Step 4C - Run the Python Parser Script (parser_cloudtrail.py)
+##### 🔷 Step 4C - Run the Python Parser Script (parser_cloudtrail.py)
 
 Used the command: `python3 parser_cloudtrail.py`.
 
@@ -629,7 +656,7 @@ Used the command: `python3 parser_cloudtrail.py`.
 When I tried running the script, the terminal indicated the file didn’t exist. After checking the directory, I realized the issue was a filename mismatch, the actual file was named "parser.cloudtrail.py", but I was trying to run "parser_cloudtrail.py". Updating the command to use the correct filename resolved the error. This was a quick reminder to always verify paths and filenames when troubleshooting.
 </blockquote>
 
-### Step 4 Findings
+##### 🔷 Step 4 Findings
 
 The CloudTrail log analysis revealed a clear breakdown of user activity across the environment. The user alice performed two actions, `AttachUserPolicy` and `ListBuckets`, both originating from the same IP address (`203.0.113.90`), while bob executed a `DeleteTrail` action from a different external IP (`198.51.100.200`). When flagging potentially risky behavior, the parser highlighted that alice attaching a user policy and bob deleting a trail were notable events because both actions can impact security visibility and permissions. These findings show that the script successfully identified user-level activity and surfaced actions that could represent privilege changes or attempts to modify logging, making them important for further review.
 
@@ -638,9 +665,11 @@ The CloudTrail log analysis revealed a clear breakdown of user activity across t
 
 CloudTrail JSON parsing is simple in Python and quickly reveals dangerous IAM behavior. Even tiny CloudTrail datasets reflect security patterns. IAM actions like attaching new policies or deleting trails are high-signal indicators worth alerting on.
 
+</details>
+
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 Across all telemetry sources, consistent behavior-based indicators were successfully identified:
 
@@ -655,7 +684,7 @@ Even with small synthetic datasets, the workflow mirrors how analysts validate d
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 - Repeated 404 responses targeting administrative paths are strong indicators of reconnaissance
 - SSH brute-force attempts are reliably detected by grouping failed authentication events by IP
@@ -666,16 +695,16 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
-### Command and Script Patterns
+#### ▶ Command and Script Patterns
 
 - Regex-based IP extraction from text logs
 - CSV-based grouping by user and IP
 - JSON parsing with dictionary traversal
 - Event filtering by ID or action name
 
-### Common Analysis Pivots
+#### ▶ Common Analysis Pivots
 
 - Group by source IP
 - Group by account name
@@ -684,7 +713,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 - Parsing raw telemetry across multiple formats (text, CSV, JSON)
 - Building lightweight detection logic using Python
@@ -693,6 +722,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
