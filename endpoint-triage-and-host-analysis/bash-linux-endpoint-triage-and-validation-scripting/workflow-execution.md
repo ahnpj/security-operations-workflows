@@ -1,30 +1,46 @@
-# Workflow Execution — Linux Endpoint Triage and Script-Based Validation Logic Using Bash
+# Linux Endpoint Triage and Script-Based Validation Logic Using Bash
 
----
+### Overview
 
-## Overview
+This execution documents the practical performance of Linux endpoint triage and host validation using Bash, with a focus on building script-based validation logic that mirrors simple authentication workflows. The objective is to assess host integrity using native Linux command-line utilities while also demonstrating how Bash scripts can collect user input, validate multiple values, and control execution flow based on whether authentication-like checks succeed or fail.
 
-This section establishes the analytical goals of the workflow, the operational mindset applied during execution, and how the techniques practiced align with real-world host investigation and response scenarios.
+- The execution begins with baseline host interrogation (processes, network connections, user/session context, filesystem inspection, and permission review) to establish system state and identify artifacts that could indicate compromise, misconfiguration, or unauthorized persistence.
+- It then progresses into scripting phases where Bash is used to automate repeatable checks and implement increasingly structured logic using variables, loops, and conditionals.
+
+Emphasis is placed on how interactive shell scripting supports early-stage alert validation and investigative scoping, and how input validation patterns (such as multi-field checks for username + zip code + PIN) translate directly into operational automation used for triage utilities, containment helpers, and repeatable host verification tasks in security environments.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
 
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
+
+---
+
 ### Purpose and Analyst Focus
 
-This workflow execution focuses on building foundational Linux command-line and Bash scripting capabilities that directly support host triage, system investigation, and lightweight automation tasks commonly performed in SOC and IT operations environments.
+#### ▶ Purpose
 
-The primary emphasis is not only on learning what individual commands and scripts do, but on understanding:
+The purpose of this execution is to demonstrate Linux endpoint triage techniques alongside Bash scripting patterns that support authentication-style validation and repeatable host checks. The execution focuses on collecting system telemetry for rapid situational awareness, then using Bash scripts to accept user-provided values, store them in variables, and validate them using conditional logic to simulate access control decisions.
 
-- How the shell functions as the interface between the user and the operating system
-- How commands are interpreted and executed through the kernel
-- How scripting logic in Bash parallels programming concepts already familiar from Python
+This execution highlights two operational needs that frequently overlap during investigations: 
 
-This approach ensures that command usage is not treated as isolated syntax memorization, but instead as part of a broader operational and investigative workflow where analysts must interpret system behavior, validate host state, and automate repetitive checks.
+(1) quickly validating host state using native Linux utilities, and<br>
+(2) reducing manual repetition by building small scripts that enforce input requirements and execute only when expected conditions are met. 
+
+The authentication-style “locker access” scenario is intentionally designed to practice real-world scripting fundamentals—multi-input collection, loop-driven prompting, compound conditional evaluation, and execution permission control—so the logic can later be applied to triage scripts, validation utilities, and incident response automation.
+
+#### ▶ Analyst Focus
+
+This execution reflects the responsibilities of SOC analysts, incident responders, and security engineers performing early-stage endpoint validation and investigative scoping. The analyst focus is on interpreting host-level telemetry, identifying abnormal execution patterns, validating system configuration integrity, and determining whether suspicious activity requires escalation to deeper forensic investigation or containment procedures.
+
+The execution also demonstrates how analysts balance automation and manual validation when investigating endpoint activity, ensuring that triage workflows remain both scalable and context-aware. It reinforces the importance of understanding operating system behavior, process execution context, and artifact analysis when validating potential compromise on Linux systems.
 
 > **Learning Context:**  
 > Prior to execution, time was spent reviewing how Linux shells interpret commands, how scripts are executed, and how iterative and conditional logic translates from Python into Bash. This preparation ensured that each command and script could be reasoned about rather than executed mechanically, reinforcing long-term operational understanding.
+
+---
 
 ### What This Workflow Demonstrates
 
@@ -45,6 +61,8 @@ Several scripting scenarios are intentionally designed to resemble operational p
 - Execution permission control
 
 These are fundamental constructs that later translate into more advanced automation for log parsing, system validation, and response workflows.
+
+---
 
 ### Investigation and Detection Relevance
 
@@ -67,11 +85,15 @@ Additionally, familiarity with shell environments and permission models supports
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 This section documents the technical environment, access method, and operational constraints under which the workflow was executed, providing important context for how commands and scripts behaved during analysis.
 
-### Execution Platform
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 All analysis was performed on a remote Linux virtual machine accessed via terminal-based SSH sessions. The environment was provisioned dynamically and did not persist across sessions, requiring repeated re-establishment of context and recreation of scripts.
 
@@ -102,7 +124,11 @@ Environment characteristics:
 
 Because the environment reset between sessions, internal IP addresses changed frequently (typically within the `10.201.x.x` range), and all scripts had to be recreated when reconnecting. This unintentionally reinforced familiarity with setup procedures and script reconstruction, which is common in incident response environments.
 
-### Tooling and Constraints
+</details>
+
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
 
 All tasks were performed using native Linux utilities and Bash without external scripting frameworks or automation platforms.
 
@@ -120,7 +146,11 @@ Primary tooling:
 
 Scripts were executed directly from the shell after setting appropriate execution permissions using `chmod +x`, reinforcing Linux execution control concepts that are not present in interpreted scripting environments like Python by default.
 
-### Data Sources Analyzed
+</details>
+
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
 
 This workflow execution primarily relies on:
 
@@ -137,7 +167,11 @@ Rather than analyzing imported log datasets, the workflow execution emphasizes r
 
 Authentication logs and login activity are reviewed through system context rather than full log ingestion, reflecting quick situational checks analysts often perform before moving to deeper forensic analysis.
 
-### Workflow Execution Map (High-Level)
+</details>
+
+<details>
+<summary><strong>▶ Workflow Execution Map (High-Level)</strong><br>
+</summary><br>
 
 Across all execution phases, the workflow follows a consistent analytical rhythm:
 
@@ -150,15 +184,25 @@ Across all execution phases, the workflow follows a consistent analytical rhythm
 
 Each phase is grouped by analytical objective rather than by individual command usage. This reflects how real investigations prioritize investigative goals over tool mechanics, even though multiple commands may be required to achieve each objective.
 
+</details>
+
 ---
 
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-### Step 1 — Establishing System Context and Shell Fundamentals
+This section documents the execution in the same order an analyst would realistically perform it during Linux endpoint triage and script-based validation development. It begins with rapid host interrogation to establish baseline system context (OS details, user/session identity, processes, network activity, filesystem state, and permissions), then transitions into Bash scripting phases that automate checks and implement authentication-style input validation.
 
-**Objective:**  
-Understand how the shell acts as the interface between the user and the operating system and confirm baseline system information through command-line enumeration.
+Each step is written to capture both **what was executed** (commands, scripts, and outputs) and **why it was executed** (the investigative intent behind each action). The scripting steps intentionally progress from basic input handling to loop-driven prompting and compound conditional validation (username + zip code + PIN), mirroring the control-flow patterns used in access checks, triage utilities, and operational automation during incident response.
+
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ Step 1 — Establishing System Context and Shell Fundamentals</strong><br>
+→ understanding and confirming baseline system information through command-line enumeration
+</summary><br>
+
+**Objective:** Understand how the shell acts as the interface between the user and the operating system and confirm baseline system information through command-line enumeration.
 
 Before running commands, I reviewed the conceptual relationship between the operating system, kernel, and shell:
 
@@ -179,7 +223,7 @@ Keeping this model in mind helped me better understand what was actually happeni
 > **System Concepts Review**
 > I took time to review and reinforce the relationship between the operating system, the kernel, and the shell. I confirmed that the operating system provides the full environment the machine runs on, while the kernel is the core component that directly manages hardware resources such as memory, CPU, storage, and devices. The shell serves as the user-facing interface that accepts commands and passes them to the kernel for execution. I also refreshed the differences between common shells. In this environment, I used Bash, which is the default shell on most Linux systems and supports both interactive commands and shell scripting. I compared this to PowerShell on Windows, which serves a similar purpose as a command interface but also functions as a scripting language and works with objects rather than plain text. I also noted the distinction from the older Windows Command Prompt (cmd.exe), which is more limited in functionality compared to PowerShell.
 
-#### Step 1A — SSH into the Virtual Machine and Observe System Banner
+##### 🔷 Step 1A — SSH into the Virtual Machine and Observe System Banner
 
 I connected to the virtual machine using SSH. Upon login, the system displayed a Message of the Day (MOTD) banner showing operating system version, kernel information, and basic system statistics.
 
@@ -206,7 +250,7 @@ Running this collection of commands allowed me to quickly validate that I was op
 > **Personal Learning Note:**  
 > I deliberately reviewed standard enumeration commands to reinforce consistent syntax usage and interpretation of outputs, ensuring I was not relying on memory alone but fully understanding what each command revealed about system state.
 
-#### Step 1B — Review GUI vs CLI Operational Differences
+##### 🔷 Step 1B — Review GUI vs CLI Operational Differences
 
 I reviewed why command-line interaction is heavily used in security and operations contexts compared to graphical interfaces.
 
@@ -221,23 +265,25 @@ From a practical standpoint:
 
 This reinforced why comfort with the shell is essential for investigations, incident response, and systems administration.
 
-#### Step 1 Findings
+##### 🔷 Step 1 Findings
 
 - CLI access enables faster and more precise system interrogation.
 - Enumeration commands provide immediate situational awareness.
 - Shell-based workflows are foundational to security operations.
 
----
+</details>
 
-### Step 2: Filesystem Navigation and File Inspection
+<details>
+<summary><strong>▶ Step 2: Filesystem Navigation and File Inspection</strong><br>
+→ inspecting file contents using common Linux commands
+</summary><br>
 
-**Objective:**  
-Develop proficiency navigating directories and inspecting file contents using common Linux commands.
+**Objective:** Develop proficiency navigating directories and inspecting file contents using common Linux commands.
 
 > **Personal Learning Note:**  
 > I took time to independently review and refresh several Linux command-line fundamentals, including which commands to use for system enumeration, how to interpret their output, and the correct syntax for writing them. This helped reinforce consistent command usage, improved clarity in my workflow execution, and ensured that I fully understood what each command was doing rather than running them by memory alone. I revisited directory navigation to refresh my memory on the filesystem context. I used `cd` to move between folders and `cd ..` to step one directory up. The `..` operator reminded me of directory traversal concepts attackers abuse when manipulating relative paths. While performing these checks I captured the outputs and noted the paths I visited for evidence.
 
-#### Step 2A — Verify Working Directory and Navigate Filesystem
+##### 🔷 Step 2A — Verify Working Directory and Navigate Filesystem
 
 Commands practiced:
 - `pwd` — showed my current directory.
@@ -262,7 +308,7 @@ Relative path traversal reinforces concepts commonly abused during directory tra
 > **Security Context:**  
 > Directory traversal concepts are relevant to both normal administration and exploitation techniques involving relative paths.
 
-#### Step 2B — Inspecting Files and Searching Content
+##### 🔷 Step 2B — Inspecting Files and Searching Content
 
 I revisited the `grep` command, which allows searching for specific keywords or patterns within files. This is especially helpful when dealing with large files, such as logs, where I only need lines that match a certain term. Running `grep` with the desired pattern returned only the lines in the file that contained that keyword.
 
@@ -280,7 +326,7 @@ grep "hello" examplefile.txt
 This filtered output to only show lines containing the target keyword. This type of filtering mirrors how I would search for indicators or specific values within large log files during investigations.
 
 
-#### Step 2C — Reviewing File Permissions
+##### 🔷 Step 2C — Reviewing File Permissions
 
 Commands practiced:
 - `ls` — list directory contents
@@ -319,7 +365,7 @@ Understanding these permission strings is important for identifying misconfigura
 > **Personal Learning Note:**
 > I took time to refamiliarize myself with how to interpret these permission strings, noting that the first character indicates the file type (for example, `d` for directory), followed by three sets of read (`r`), write (`w`), and execute (`e`) permissions for the owner, group, and others. Reviewing this helped reinforce how Linux controls access to files and directories and reminded me that understanding permissions is useful both for routine system interaction and when identifying misconfigurations that could be leveraged in an attack or privilege escalation scenario.
 
-#### Step 2D — Additional Enumeration Commands
+##### 🔷 Step 2D — Additional Enumeration Commands
 
 I also reviewed the following commands again to reinforce situational awareness techniques:
 
@@ -339,7 +385,7 @@ I also used `df -h` and `free -h` to check disk and memory usage respectively, a
 > **Personal Learning Note:**
 I additionally tested directory navigation and file interaction commands such as `touch`, `cat`, `less`, `head`, and `tail` to ensure I remained familiar with reading, creating, and examining files directly from the command line. Since these were primarily refreshers and foundational operations that I am already familiar with, I did not document each command output in detail here. The purpose of this review was to re-establish confidence in these core commands so that my focus can remain on analysis and interpretation rather than recalling syntax.
 
-#### Step 2 Findings
+##### 🔷 Step 2 Findings
 
 - CLI navigation enables efficient log and file inspection
 - Text searching tools such as `grep` are essential for investigations
@@ -350,12 +396,14 @@ Navigating Linux via the CLI provides fast access to system information. The abi
 > **Personal Learning Note:**
 > I reinforced core navigation and file interaction commands in Linux. These are essential commands that I will use frequently as I continue building administrative and security skills.
 
----
+</details>
 
-### Step 3: Enumerating and Evaluating Shell Environments
+<details>
+<summary><strong>▶ Step 3: Enumerating and Evaluating Shell Environments</strong><br>
+→ identifying which shell is currently active and review alternative shells available on the system
+</summary><br>
 
-**Objective:**  
-Identify which shell is currently active and review alternative shells available on the system.
+**Objective:** Identify which shell is currently active and review alternative shells available on the system.
 
 > ** Personal Learning Note:**  
 > I took time to independently review and refresh several Linux command-line fundamentals, including which commands to use for system enumeration, how to interpret their output, and the correct syntax for writing them. This helped reinforce consistent command usage, improved clarity in my workflow execution, and ensured that I fully understood what each command was doing rather than running them by memory alone.
@@ -376,7 +424,7 @@ By the end of this step, the following was executed:
   - user friendliness  
   - syntax highlighting
 
-#### Step 3A — Identifying the Active Shell
+##### 🔷 Step 3A — Identifying the Active Shell
 
 I checked the active shell by printing the `SHELL` environment variable:
 
@@ -400,7 +448,7 @@ This confirmed that my session was running in Bash, which is the default shell o
 </p>
 
 
-#### Step 3B — Listing Available Login Shells
+##### 🔷 Step 3B — Listing Available Login Shells
 
 To see which shells were available and permitted for login, I ran:
 
@@ -417,7 +465,7 @@ cat /etc/shells
 
 This file lists shells that users are allowed to log into, which is relevant when configuring accounts or restricting shell access for security purposes.
 
-#### Step 3C — Switching Between Shells Interactively
+##### 🔷 Step 3C — Switching Between Shells Interactively
 
 I temporarily switched to `Zsh` to see how it behaves differently from `Bash`. To achieve this, I first needed to see what other shells were installed and allowed for login on this system. Linux stores this information in `/etc/shells`. Without changing system defaults, I tested switching shells inside the session.
 
@@ -450,14 +498,14 @@ bash
 
 I did not permanently change the default shell for the user account. The goal was only to observe differences in interactive behavior and command completion.
 
-#### Step 3D — Reviewing Switching Shells Permanently
+##### 🔷 Step 3D — Reviewing Switching Shells Permanently
 
 I also reviewed how to permanently change the default shell for a user. The command pattern looks like this: `chsh -s /usr/bin/zsh`. 
 
 For this review portion I did not actually change my default shell; instead I focused on understanding the mechanism and when it would be appropriate to use it (for example, if I decided to fully migrate from Bash to Zsh).
 
 
-#### Step 3E — Reviewing Shell Characteristics
+##### 🔷 Step 3E — Reviewing Shell Characteristics
 
 I shifted into a more conceptual comparison of shells, starting with Bash, then Fish, then Zsh.
 
@@ -496,7 +544,7 @@ Key points I reviewed:
 
 I came away with the impression that Zsh is a strong “daily-driver” candidate for power users, especially when combined with plugins.
 
-#### Step 3 Findings
+##### 🔷 Step 3 Findings
 
 I did personal research and reviewed a comparison table for Bash, Fish, and Zsh across several categories. I summarized it for myself like this:
 
@@ -525,13 +573,9 @@ I did personal research and reviewed a comparison table for Bash, Fish, and Zsh 
 - Fish: Built-in syntax highlighting by default.
 - Zsh: Syntax highlighting is typically enabled via plugins, but works very well.
 
-This reinforced the idea that there’s no “one best shell”; it really depends on whether I care more about compatibility, interactivity, or customization.
+This reinforced the idea that there’s no “one best shell”; it really depends on whether I care more about compatibility, interactivity, or customization. Bash is widely used and is a stable, script-friendly option. Shells like Zsh and Fish offer more interactive features such as improved tab completion and syntax highlighting.
 
-Bash is widely used and is a stable, script-friendly option. Shells like Zsh and Fish offer more interactive features such as improved tab completion and syntax highlighting.
-
-I learned that different shells can improve workflow depending on preference and environment. This helped me understand why administrators may choose one shell over another.
-
-Even though this part of the analysis step was mostly review, it helped me organize what I already knew about Linux shells into something more systematic:
+Different shells can improve workflow depending on preference and environment. This helped me understand why administrators may choose one shell over another. Even though this part of the analysis step was mostly review, it helped me organize what I already knew about Linux shells into something more systematic:
 
 - I confirmed how to identify and enumerate shells on a Linux system using $SHELL and /etc/shells.
 - I saw how easy it is to test different shells interactively without changing system defaults.
@@ -540,14 +584,19 @@ Even though this part of the analysis step was mostly review, it helped me organ
   - Bash remains a baseline skill because of its ubiquity in scripts and tooling.
   - Fish and Zsh can dramatically improve productivity and reduce typing mistakes in day-to-day terminal work.
 
+<blockquote>
 If I were to change my default shell in the future, I’d likely experiment with Zsh plus a plugin framework, while still keeping Bash skills sharp for scripts and servers that only offer the standard tools.
+</blockquote>
 
----
+</details>
 
-## Step 4 — Writing Bash Scripts with Iterative and Conditional Logic
 
-### Objective
-To begin writing shell scripts and understand how variables, loops, and conditional statements support automation.
+<details>
+<summary><strong>▶ Step 4 — Writing Bash Scripts with Iterative and Conditional Logic</strong><br>
+→ writing shell scripts to understand how variables, loops, and conditional statements support automation
+</summary><br>
+
+**Objective:** To begin writing shell scripts and understand how variables, loops, and conditional statements support automation.
 
 > **Personal Learning Note:**  
 > I took time to independently review and refresh several Linux command-line fundamentals, including which commands to use for system enumeration, how to interpret their output, and the correct syntax for writing them. This helped reinforce consistent command usage, improved clarity in my workflow understanding, and ensured that I fully understood what each command was doing rather than running them by memory alone.
@@ -555,7 +604,7 @@ To begin writing shell scripts and understand how variables, loops, and conditio
 > **Personal Context:**  
 > Although I previously studied scripting in college, primarily using Python, including work with iterative and recursive functions, this task sequence served as a refresher on how similar logic structures translate into Bash. The goal was not to build a complex automation pipeline, but to reinforce core scripting mechanics that will support future SOC automation, tooling, and forensic workflows.
 
-#### Step 4A — Creating an Initial Interactive Script
+##### 🔷 Step 4A — Creating an Initial Interactive Script
 
 I created the initial Bash script using `nano`. 
 
@@ -590,7 +639,7 @@ The shebang (#!/bin/bash) is similar to how Python scripts use `#!/usr/bin/env p
 > I learned that a shebang is the very first line of a script that tells the operating system which interpreter should be used to execute the file. It begins with the characters `#!` followed by the full path to the interpreter, such as `#!/bin/bash` for a Bash script or `#!/usr/bin/env python3` for a Python script. This line is important because, without it, the system won’t know which language to use unless you explicitly run the script by calling the interpreter manually. With a proper shebang, you can execute the script directly after giving it execution permissions, and the operating system will automatically invoke the correct interpreter. It also improves portability and readability since anyone opening the script can immediately see which language and interpreter it relies on.
 
 
-#### Step 4B — Granting Execute Permissions
+##### 🔷 Step 4B — Granting Execute Permissions
 
 After writing the script, I saved it ([CTRL+X] > then [Y], then [ENTER]). Before executing the script directly, I applied execute permissions:
 
@@ -607,7 +656,7 @@ chmod +x peters_script.sh
 
 This step enforces the idea of execution-level control that doesn’t exist in Python by default but is crucial in Linux environments.
 
-#### Step 4C — Executing the Script
+##### 🔷 Step 4C — Executing the Script
 
 Now that the script had execution rights, I ran the script using:
 
@@ -627,7 +676,7 @@ To run the script, I used the `./` prefix. This explicitly told the shell to exe
 The script accepted user input, assigned it to a variable, and displayed a greeting, exactly the same flow I practiced in Python when handling raw input.
 
 
-#### Step 4D — Creating a Script With a Loop
+##### 🔷 Step 4D — Creating a Script With a Loop
 
 Next, I created a script that used a loop (named the script file `peters_loop_script.sh`). Similar to iterative (`for`) loops in Python (`for i in range(1, 11):`), this felt very familiar even though the syntax looked different.
 
@@ -665,9 +714,7 @@ chmod +x peters_loop_script.sh
 
 This script demonstrated how loops in Bash mirror iteration constructs used in Python and other languages.
 
----
-
-#### Step 4E — Creating a Script With Conditional Logic
+##### 🔷 Step 4E — Creating a Script With Conditional Logic
 
 This section introduced conditional logic (`if`/`elif`/`else`). I then created `peters_conditional_script.sh`:
 
@@ -735,7 +782,7 @@ The two screenshots below are simply examples showing both possible outcomes. Wh
 This demonstrated how conditional logic controls execution flow based on user input.
 
 
-#### Step 4F — Adding Comments for Maintainability
+##### 🔷 Step 4F — Adding Comments for Maintainability
 
 In this step, I updated the conditional script to include comments explaining each section: 
 
@@ -769,10 +816,7 @@ fi
 
 Comments don't change execution, but they dramatically improve readability, just as they did in my Python coursework.
 
----
-
-
-#### Step 4 Findings
+##### 🔷 Step 4 Findings
 
 Scripting allows repetitive tasks to be automated reliably. Conditional logic allows scripts to adapt based on input or system state.
 
@@ -823,14 +867,14 @@ Bash scripts quickly become unreadable without comments, especially when nested 
 > **Personal Context:**
 > This served as a strong refresher in shell scripting fundamentals. Although most of the concepts were familiar from studying Python and algorithmic logic (recursive vs. iterative), applying them in a Linux environment gave me a deeper understanding of how Bash differs and where it excels, especially for systems-level automation.
 
----
+</details>
 
-### Step 5 — Locker Authentication Script (Multi-Input Validation)
+<details>
+<summary><strong>▶ Step 5 — Locker Authentication Script (Multi-Input Validation)</strong><br>
+→ creating a script that validates multiple input values before granting access
+</summary><br>
 
-
-### Objective
-
-Create a script that validates multiple input values before granting access, simulating multi-factor-style checks. 
+**Objective:** Create a script that validates multiple input values before granting access, simulating multi-factor-style checks. 
 
 The objective of this task was to challenge myself by creating a small authentication program in Bash that would force me to apply multiple scripting fundamentals I’ve been reviewing variables, loops, user input handling, and conditional logic. 
 
@@ -843,7 +887,7 @@ I designed this locker-access scenario intentionally so I could test whether I c
 > I took time to independently review and refresh several Linux command-line fundamentals, including which commands to use for system enumeration, how to interpret their output, and the correct syntax for writing them. This helped reinforce consistent command usage, improved clarity in my workflow understanding, and ensured that I fully understood what each command was doing rather than running them by memory alone.
 
 
-#### Step 5A — Defining Validation Requirements
+##### 🔷 Step 5A — Defining Validation Requirements
 
 The script must validate username, company name, and PIN. The script must compare input against required values. If all three matched, access is granted; otherwise, access is denied.
 
@@ -864,7 +908,7 @@ The script needed to:
 >This immediately reminded me of input-handling assignments from Python class, where we built iterative prompts and validated user responses using conditionals.
 
 
-#### Step 5B — Creating the Script File and Variables
+##### 🔷 Step 5B — Creating the Script File and Variables
 
 I created a new script using the `nano` text editor:
 
@@ -899,7 +943,7 @@ pin=""
 The shebang works the same way it did when writing Python scripts (#!/usr/bin/env python3), telling the system which interpreter to use.
 
 
-#### Step 5C — Collecting Input Using a Loop
+##### 🔷 Step 5C — Collecting Input Using a Loop
 
 Instead of writing three separate prompts, I used a loop sequentially request the `username`, `zip code`, and `PIN`:
 
@@ -961,7 +1005,7 @@ Thought Process:
 This specific loop doesn’t use recursion (which I learned in Python as well), but the concept of controlling flow through repeated cycles is parallel to iterative function structures.
 
 
-#### Step 5D — Validating All Inputs
+##### 🔷 Step 5D — Validating All Inputs
 
 I validated all three values using a single compound conditional:
 
@@ -992,9 +1036,8 @@ Thought Process:
 > **Personal Context:**
 > The validation logic instantly reminded me of Python’s `if x == value` and `y == value:` syntax. Bash uses square brackets and requires specific spacing, but the underlying conditional evaluation worked almost exactly the same. I recognized this structure as something similar to the “base case vs. recursive case” logic taught in Python recursion: a single exact match leads to one path, and any deviation leads to the alternative.
 
----
 
-#### Step 5E — Executing and Testing the Script
+##### 🔷 Step 5E — Executing and Testing the Script
 
 Before running the script, I ensured it had the correct execution permissions:
 
@@ -1063,7 +1106,7 @@ It printed the message `Authentication Denied!!` as expected.
 
 
 
-#### Step 5 Findings
+##### 🔷 Step 5 Findings
 
 This script simulated simple authentication logic. It highlighted the importance of correct condition syntax and secure handling of input.
 
@@ -1095,9 +1138,11 @@ Misplaced brackets or missing spaces can break a script. Python taught me struct
 > **Personal Note:**
 This brought together several scripting fundamentals into one cohesive task. Writing the locker authentication script helped me recognize how transferable programming concepts are between languages, especially between Python (which I studied academically) and Bash (which is more common in Linux automation and SOC workflows).
 
+</details>
+
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 By the end of this workflow execution, I was able to confidently navigate a Linux system using the shell, enumerate system state, inspect files, and write Bash scripts that included user input, looping logic, and conditional branching.
 
@@ -1105,7 +1150,7 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 - Command-line proficiency is essential for host triage and investigation.
 - Automation scripts reduce manual effort and human error.
@@ -1114,9 +1159,9 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
-### Common Enumeration Commands
+#### ▶ Common Enumeration Commands
 
 - `uname -a`
 - `lsb_release -a`
@@ -1125,7 +1170,7 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - `free -h`
 - `ps aux`
 
-### Bash Script Patterns
+#### ▶ Bash Script Patterns
 
 - Shebang: `#!/bin/bash`
 - Execution permission: `chmod +x script.sh`
@@ -1134,7 +1179,7 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 - Linux system enumeration and triage techniques
 - Filesystem navigation and permission interpretation
@@ -1144,3 +1189,4 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - Translating programming concepts across languages
 
 ---
+
