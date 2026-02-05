@@ -11,7 +11,7 @@ These notes preserve analytical context that did not belong in the formal workfl
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 Working with CMD utilities first helped establish a fast, low-friction way to enumerate system state before switching to PowerShell for deeper inspection. Commands such as `dir`, `type`, and `tasklist` provided immediate visibility without requiring object parsing or script construction.
 
@@ -25,7 +25,7 @@ This made it clear that in real investigations, process termination alone is rar
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 The most important challenge was avoiding overreaction to the presence of `sshd.exe`. Without understanding whether SSH should be running on the host, terminating all instances could have caused legitimate remote access disruption.
 
@@ -37,7 +37,7 @@ In PowerShell, ensuring that process correlation used the correct PID field was 
 
 ---
 
-## Investigative Reasoning and Pivots
+### Investigative Reasoning and Pivots
 
 The workflow intentionally began with filesystem inspection to anchor investigation in observable artifacts rather than assumptions about active compromise.
 
@@ -51,7 +51,7 @@ Post-containment validation was treated as a mandatory investigative step rather
 
 ---
 
-## Limitations of This Walkthrough
+### Limitations of This Walkthrough
 
 This walkthrough does not evaluate:
 
@@ -66,7 +66,7 @@ The workflow also does not evaluate whether SSH access was authorized or whether
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Future enhancements could include:
 
@@ -80,7 +80,7 @@ These additions would move the workflow closer to an automated response toolkit 
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow directly complements:
 
@@ -89,3 +89,4 @@ This workflow directly complements:
 - SIEM workflows analyzing authentication and remote access telemetry
 
 Across all of these workflows, the same analytical pattern appears: establish baseline, identify anomalies, correlate across telemetry layers, and validate containment actions.
+
