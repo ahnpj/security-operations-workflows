@@ -127,7 +127,9 @@ Each execution phase may involve multiple concrete actions, which are grouped wi
 
 ### Step-by-Step Execution
 
+This section reconstructs the attacker’s actions step-by-step, correlating network, authentication, endpoint, file, and registry evidence across the intrusion lifecycle.
 
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
 
 #### ▶ Step 1 — Apache Access Logs: Detecting Web Enumeration Activity
 
@@ -139,7 +141,7 @@ This phase includes both dataset preparation and parsing logic development, sinc
 - Log filename: `apache_access.log`
 - Parser filename: `parser.apache.py`
 
-#### Step 1A — Construct Representative Apache Access Logs
+##### 🔷 Step 1A — Construct Representative Apache Access Logs
 
 To simulate how attackers probe web servers for weak points, a synthetic access log was created containing a mix of normal browsing behavior and repeated requests to common administrative paths.
 
@@ -166,7 +168,7 @@ EOF
 
 Creating known-good and known-bad patterns makes it easier to validate that parsing logic is detecting the behaviors it is intended to flag.
 
-#### Step 1B — Write Script: Parse Requests and Suspicious IP Behavior
+##### 🔷 Step 1B — Write Script: Parse Requests and Suspicious IP Behavior
 
 With test data in place, the next action was to build a parser that could extract IP addresses, count request volume, and track repeated 404 responses that often indicate scanning activity.
 
@@ -230,7 +232,7 @@ for ip, count in errors_404.items():
 - Printing 404 summaries (`for ip, count in errors_404.items():`)
 Finally, I displayed which IPs generated the most 404s. This creates a simple but effective way to highlight potentially suspicious activity.
 
-#### Step 1C - Run the Python Parser Script (parser_apache.py)
+##### 🔷 Step 1C - Run the Python Parser Script (parser_apache.py)
 
 Used the command: `python3 parser.apache.py`.
 
@@ -257,7 +259,7 @@ Used the command: `python3 parser.apache.py`.
 During execution, the terminal initially reported that the file did not exist. After checking the directory, I realized the script was named `parser.apache.py` while I attempted to run `parser_apache.py`. Updating the command resolved the issue and reinforced the importance of verifying filenames during troubleshooting.
 </blockquote>
 
-### Step 1 Findings
+##### 🔷 Step 1 Findings
 
 Even simple regex-based parsing is enough to reveal attacker behavior. 404 spikes almost always indicate scanning or automated tools looking for known vulnerabilities.
 
@@ -691,5 +693,6 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
