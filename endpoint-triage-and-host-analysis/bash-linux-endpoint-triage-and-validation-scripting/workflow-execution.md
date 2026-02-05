@@ -116,7 +116,7 @@ Environment characteristics:
 - **Execution Context:** Ephemeral virtual machine instance  
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-01.png?raw=true&v=2"
+  <img src="images/linux-shell-and-scripting-basics-01.png?raw=true&v=2"
        style="border: 2px solid #444; border-radius: 6px;"
        width="1000"><br>
   <em>Figure 1</em>
@@ -239,7 +239,7 @@ I then ran the following commands to establish baseline context:
 - `sudo apt update && apt list --upgradable` to check for available system updates
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-02.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 2</em>
@@ -441,7 +441,7 @@ The output showed:
 This confirmed that my session was running in Bash, which is the default shell on many Linux systems and is widely supported for scripting and automation.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-03.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 3</em>
@@ -457,7 +457,7 @@ cat /etc/shells
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-04.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 4</em>
@@ -475,7 +475,7 @@ To start Z shell:
 zsh
 ```
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-05.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 5</em>
@@ -490,7 +490,7 @@ bash
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-06.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 6</em>
@@ -620,14 +620,14 @@ echo "Hi there, $name"
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-07.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 7</em>
 </p>
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-08.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 8</em>
@@ -648,7 +648,7 @@ chmod +x peters_script.sh
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-09.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 9</em>
@@ -665,7 +665,7 @@ Now that the script had execution rights, I ran the script using:
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-10.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 10</em>
@@ -692,7 +692,7 @@ done
 The iterative logic mirrored Python: looped from 1 to 10, print each number. 
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-11.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 11</em>
@@ -706,7 +706,7 @@ chmod +x peters_loop_script.sh
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-12.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 12</em>
@@ -738,7 +738,7 @@ fi
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-13.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 13</em>
@@ -753,7 +753,7 @@ I executed the script running:
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-14.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 14</em>
@@ -766,14 +766,14 @@ The script checks whether the entered name matches the authorized value (“Pete
 The two screenshots below are simply examples showing both possible outcomes. When running the script yourself, you will only see one outcome at a time, either the authorized message if the input matches, or the unauthorized message if it does not.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-15.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 15</em>
 </p>
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-16.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 16</em>
@@ -808,7 +808,7 @@ fi
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-17.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-17.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 17</em>
@@ -927,14 +927,14 @@ pin=""
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-18.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-18.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 18</em>
 </p>
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-19.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-19.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 19</em>
@@ -964,7 +964,7 @@ done
 This allowed all inputs to be collected using a single loop construct, reducing repeated code and centralizing input handling.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-20.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-20.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 20</em>
@@ -1020,7 +1020,7 @@ fi
 All conditions had to evaluate to true in order for access to be granted.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-21.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-21.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 21</em>
@@ -1046,7 +1046,7 @@ chmod +x peters_locker_script.sh
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-22.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-22.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 22</em>
@@ -1059,7 +1059,7 @@ I applied execute permissions and ran the script:
 ```
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-23.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-23.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 23</em>
@@ -1074,7 +1074,7 @@ I entered the correct details first:
 - `PIN` - I entered `1234`
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-24.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-24.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 24</em>
@@ -1083,7 +1083,7 @@ I entered the correct details first:
 It printed the message `Authentication Successful. You can now access your locker, Peter.` as expected.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-25.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-25.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 25</em>
@@ -1098,7 +1098,7 @@ I then entered incorrect details to test what would happen if the variables cont
 It printed the message `Authentication Denied!!` as expected.
 
 <p align="left">
-  <img src="images/lab01-linux-shell-and-scripting-basics-26.png?raw=true&v=2" 
+  <img src="images/linux-shell-and-scripting-basics-26.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
   <em>Figure 26</em>
@@ -1189,4 +1189,5 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - Translating programming concepts across languages
 
 ---
+
 
