@@ -1,9 +1,9 @@
 # Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk
 
-**Category:** SIEM Detections and Log Analysis  
-**Primary Operational Focus:** Log parsing validation, field extraction verification, and telemetry normalization for detection reliability  
-**Operational Objectives Demonstrated:** Field Extraction Validation, Log Normalization Verification, Detection Data Quality Assessment, Search Optimization  
-**Primary Data Sources:** Raw log events, parsed event datasets, and normalized telemetry fields within Splunk
+- **Category:** SIEM Detections and Log Analysis  
+- **Primary Operational Focus:** Log parsing validation, field extraction verification, and telemetry normalization for detection reliability  
+- **Operational Objectives Demonstrated:** Field Extraction Validation, Log Normalization Verification, Detection Data Quality Assessment, Search Optimization  
+- **Primary Data Sources:** Raw log events, parsed event datasets, and normalized telemetry fields within Splunk
 
 > **Terminology used:**  
 > **Workflows** refer to common security operations tasks (such as log parsing validation or detection data preparation).  
@@ -111,5 +111,6 @@ Even environments with mature logging pipelines require ongoing parsing validati
 ---
 
 If you are reviewing this as part of my cybersecurity portfolio: this execution is intended to demonstrate practical SIEM parsing validation methodology, telemetry normalization verification, and professional workflow documentation aligned with real operational detection engineering and SOC environments.
+
 
 
