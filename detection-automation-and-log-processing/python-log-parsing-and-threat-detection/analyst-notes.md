@@ -11,7 +11,7 @@ These notes focus on how consistent behavioral detection concepts can be applied
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 Working across Apache logs, Linux auth logs, Windows authentication CSV exports, and CloudTrail JSON highlighted how different systems express similar behaviors using very different schemas. Despite format differences, the same analytical questions repeated across every dataset: who acted, from where, how often, and whether the action was risky or anomalous.
 
@@ -25,7 +25,7 @@ CloudTrail JSON parsing demonstrated how nested data structures require defensiv
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 Filename mismatches occurred multiple times when running scripts. These errors were not logic failures but operational issues, reinforcing the importance of verifying file paths and script names before debugging code.
 
@@ -37,7 +37,7 @@ CloudTrail parsing required careful handling of nested dictionaries. Attempting 
 
 ---
 
-## Investigative Reasoning and Detection Design
+### Investigative Reasoning and Detection Design
 
 The workflow applied the same analytical model across every dataset:
 
@@ -54,7 +54,7 @@ Risk classification in CloudTrail analysis was performed using explicit action a
 
 ---
 
-## Limitations of This Workflow
+### Limitations of This Workflow
 
 This workflow does not include:
 
@@ -69,7 +69,7 @@ Additionally, datasets are intentionally small and do not reflect production-sca
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Future enhancements could include:
 
@@ -83,7 +83,7 @@ These additions would move the workflow toward full detection engineering pipeli
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow supports and enhances:
 
@@ -93,3 +93,4 @@ This workflow supports and enhances:
 - IAM abuse investigations
 
 Understanding how raw telemetry becomes detection logic improves alert validation and response quality.
+
