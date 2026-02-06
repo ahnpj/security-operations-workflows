@@ -189,7 +189,7 @@ type flag.txt
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Artifact discovery via directory enumeration and "type flag.txt" validation.</em>
 </p>
 
 This confirmed that a file artifact existed in the directory and that it could be read directly from the command line. In real investigations, this same pattern is used to quickly inspect dropped notes, scripts, or configuration files without opening additional tools.
@@ -221,7 +221,7 @@ tasklist /?
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Reviewing "tasklist" usage/options to support structured process enumeration.</em>
 </p>
 
 This provided a high-level snapshot of all active processes, including system services and user-launched applications.
@@ -247,7 +247,7 @@ These PIDs become critical pivots for correlating to network connections and det
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Filtering for "sshd.exe" and capturing PIDs for correlation pivots.</em>
 </p>
 
 This objective narrowed system activity from "everything running" to a specific executable of interest, enabling precise network correlation in the next phase.
@@ -290,7 +290,7 @@ Using these flags together allows direct mapping between:
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Running "netstat -abon" to map ports to executables and owning PIDs.</em>
 </p>
 
 **Note:** On Windows, `netstat` does **not** have a `-d` switch; the common combo is `-a b o n`. You can run `netstat -h` to view complete usage and available flags on your system.
@@ -307,7 +307,7 @@ During review of the output, I observed:
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Identifying listening services and confirming "sshd.exe" bound to port 22 via PID mapping.</em>
 </p>
 
 Additional services such as `RpcSs` on port `135` and `TermService` on port `3389` were also visible, each mapped to their own service processes.
@@ -481,6 +481,7 @@ In addition to the commands I demonstrated in this workflow execution (`tasklist
 
 #### ▶ Why This Matters
 While these commands weren’t the focus of this workflow, being aware of them strengthens my ability to perform **holistic endpoint triage**. They complement the discovery and remediation steps I practiced with `tasklist` and `netstat`, and show readiness to expand my toolkit for more advanced SOC workflows.
+
 
 
 
