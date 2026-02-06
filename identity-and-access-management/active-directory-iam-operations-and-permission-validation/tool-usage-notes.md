@@ -11,9 +11,9 @@ All tooling used in this execution is native to Windows and Active Directory Dom
 
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Active Directory Domain Environment
+#### ▶ Active Directory Domain Environment
 
 **Purpose:** Provide centralized authentication, authorization, and policy enforcement across all domain‑joined systems.  
 **How It Was Used:** All identity objects (users, computers, groups, OUs) and policy settings were created and modified within the domain and automatically propagated to member systems.  
@@ -47,9 +47,9 @@ This separation supports least‑privilege models and role‑based administratio
 
 ---
 
-## Directory Management (GUI-Based Operations)
+### Directory Management (GUI-Based Operations)
 
-### Active Directory Users and Computers (ADUC)
+#### ▶ Active Directory Users and Computers (ADUC)
 
 **Purpose:** Primary graphical interface for managing directory objects and structure.  
 **How It Was Used:**
@@ -78,9 +78,9 @@ Delegation boundaries must be reviewed carefully during identity security assess
 
 ---
 
-## Organizational Unit (OU) Architecture and Management
+### Organizational Unit (OU) Architecture and Management
 
-### OU Creation and Structure
+#### ▶ OU Creation and Structure
 
 **Purpose:** Provide logical segmentation for administration and policy application.  
 **How It Was Used:** Created department‑based and device‑based OUs, including Sales, Marketing, Management, Workstations, and Servers.  
@@ -103,11 +103,11 @@ This control is commonly enabled on production OUs to reduce operational risk.
 
 ---
 
-## PowerShell Active Directory Cmdlets
+### PowerShell Active Directory Cmdlets
 
 PowerShell enables structured, repeatable, and auditable directory operations, especially for bulk changes.
 
-### Get-ADComputer — Computer Object Enumeration
+#### ▶ Get-ADComputer — Computer Object Enumeration
 
 ```powershell
 Get-ADComputer -Filter 'Name -like "LPT-*"'
@@ -119,9 +119,7 @@ Get-ADComputer -Filter 'Name -like "LPT-*"'
 
 Filtering prevents manual errors and supports consistent administrative actions.
 
----
-
-### Move-ADObject — Object Relocation
+#### ▶ Move-ADObject — Object Relocation
 
 ```powershell
 Move-ADObject -TargetPath "OU=Workstations,DC=thm,DC=local"
@@ -133,9 +131,7 @@ Move-ADObject -TargetPath "OU=Workstations,DC=thm,DC=local"
 
 Object placement is a frequent source of security misconfiguration in enterprise environments.
 
----
-
-### Set-ADAccountPassword — Password Reset
+#### ▶ Set-ADAccountPassword — Password Reset
 
 ```powershell
 Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString)
@@ -147,9 +143,7 @@ Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString)
 
 Audit logging and delegation boundaries are critical controls for this operation.
 
----
-
-### Set-ADUser — Account Attribute Updates
+#### ▶ Set-ADUser — Account Attribute Updates
 
 ```powershell
 Set-ADUser -ChangePasswordAtLogon -Identity sophie
@@ -161,9 +155,9 @@ Set-ADUser -ChangePasswordAtLogon -Identity sophie
 
 ---
 
-## Group Policy Management and Enforcement
+### Group Policy Management and Enforcement
 
-### Group Policy Management Console (GPMC)
+#### ▶ Group Policy Management Console (GPMC)
 
 **Purpose:** Central platform for creating, linking, and managing GPOs.  
 **How It Was Used:**
@@ -177,9 +171,7 @@ Set-ADUser -ChangePasswordAtLogon -Identity sophie
 **Operational Relevance:** GPOs define baseline security posture for all systems and are a primary enforcement mechanism in Windows environments.  
 **Detection Impact:** Policy changes often correlate with compliance alerts and configuration drift detections.
 
----
-
-### SYSVOL Replication and Policy Distribution
+#### ▶ SYSVOL Replication and Policy Distribution
 
 **Purpose:** Distribute GPO templates and scripts to all domain‑joined systems.  
 **Observed in Workflow:** Policies stored under `C:\Windows\SYSVOL\sysvol` and pulled by endpoints during refresh cycles.  
@@ -187,9 +179,7 @@ Set-ADUser -ChangePasswordAtLogon -Identity sophie
 
 SYSVOL integrity is critical for preventing large‑scale compromise.
 
----
-
-### gpupdate /force — Immediate Policy Refresh
+#### ▶ gpupdate /force — Immediate Policy Refresh
 
 ```powershell
 gpupdate /force
@@ -201,9 +191,9 @@ gpupdate /force
 
 ---
 
-## Authentication Infrastructure Components
+### Authentication Infrastructure Components
 
-### Kerberos Authentication
+#### ▶ Kerberos Authentication
 
 **Components:** Client, KDC (Domain Controller), Service  
 **Operational Relevance:** Kerberos ticket issuance and validation govern access to nearly all domain resources.  
@@ -211,9 +201,7 @@ gpupdate /force
 
 Understanding Kerberos flows is critical when investigating authentication anomalies.
 
----
-
-### NTLM Legacy Authentication
+#### ▶ NTLM Legacy Authentication
 
 **Purpose:** Backward compatibility with legacy systems and services.  
 **Security Risk:** Vulnerable to pass‑the‑hash and relay attacks.  
@@ -223,18 +211,16 @@ Reducing NTLM usage is a common identity‑hardening objective.
 
 ---
 
-## Trust Relationships and Domain Scaling
+### Trust Relationships and Domain Scaling
 
-### Trees and Forests
+#### ▶ Trees and Forests
 
 **Purpose:** Support organizational growth and administrative segmentation.  
 **Security Impact:** Trust boundaries influence how compromise can spread between domains.
 
 Attack paths frequently leverage misconfigured trust relationships.
 
----
-
-### Trust Configuration
+#### ▶ Trust Configuration
 
 **Purpose:** Enable cross‑domain authentication and resource access.  
 **Operational Relevance:** Common during mergers, acquisitions, and hybrid identity deployments.  
@@ -244,7 +230,7 @@ Trust relationships are a major focus of identity threat modeling.
 
 ---
 
-## Investigative Interpretation and Detection Relevance
+### Investigative Interpretation and Detection Relevance
 
 Directory changes that typically warrant investigation:
 
@@ -258,7 +244,7 @@ These signals frequently appear in breach investigations involving privilege esc
 
 ---
 
-## Extending Into Detection and Monitoring
+### Extending Into Detection and Monitoring
 
 To operationalize detection of IAM abuse, environments typically ingest:
 
@@ -271,7 +257,7 @@ Configuration workflows demonstrated here directly generate telemetry used by th
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Windows domain environment  
 - **Directory Service:** Active Directory Domain Services  
@@ -284,4 +270,5 @@ Configuration workflows demonstrated here directly generate telemetry used by th
 - **Analysis Method:** Identity structure validation, permission scoping, and policy enforcement verification
 
 These tools collectively support enterprise‑grade identity administration and security governance workflows.
+
 
