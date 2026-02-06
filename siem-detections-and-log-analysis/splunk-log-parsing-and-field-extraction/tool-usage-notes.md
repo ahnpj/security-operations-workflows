@@ -1,19 +1,19 @@
 # Tool Usage Notes — Log Parsing, Event Normalization, and Field Extraction Using Splunk
 
+This document explains how Splunk’s ingestion and parsing toolchain was used to convert raw scripted log output into structured, detection-ready events. The focus is on controlling event boundaries, preserving multi-line context, protecting sensitive values, and extracting consistent fields that downstream searches and detections can reliably reference.
+
+All tooling used in this execution is native to Splunk Enterprise and standard Linux utilities. No forwarders, external parsers, or add-ons were used. This mirrors early-stage onboarding and troubleshooting scenarios where analysts must directly manipulate configuration files to correct parsing behavior before production pipelines can be trusted.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry, validating parsing behavior, and protecting sensitive data during ingestion.  
 > - **Executions** refer to the hands-on configuration and validation of Splunk ingestion and parsing pipelines using real log generators and configuration files.  
 > - **Writeups** document configuration decisions, troubleshooting steps, validation checks, and how parsing outcomes affect detection reliability.
 
-This document explains how Splunk’s ingestion and parsing toolchain was used to convert raw scripted log output into structured, detection-ready events. The focus is on controlling event boundaries, preserving multi-line context, protecting sensitive values, and extracting consistent fields that downstream searches and detections can reliably reference.
-
-All tooling used in this execution is native to Splunk Enterprise and standard Linux utilities. No forwarders, external parsers, or add-ons were used. This mirrors early-stage onboarding and troubleshooting scenarios where analysts must directly manipulate configuration files to correct parsing behavior before production pipelines can be trusted.
-
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Local Splunk Enterprise Instance on Linux
+#### ▶ Local Splunk Enterprise Instance on Linux
 
 **Purpose:** Provide a full parsing pipeline where ingestion, transformation, and validation can be tested end-to-end.  
 **How It Was Used:** Splunk was installed locally and configured through direct edits to configuration files, followed by service restarts and validation searches in Splunk Web.  
@@ -31,9 +31,9 @@ This setup exposes the full ingestion pipeline and makes parsing behavior transp
 
 ---
 
-## Splunk App Framework and Configuration Isolation
+### Splunk App Framework and Configuration Isolation
 
-### Custom App Container (`DataApp`)
+#### ▶ Custom App Container (`DataApp`)
 
 **Purpose:** Provide an isolated location to store scripted inputs and related parsing configurations.  
 **How It Was Used:** A minimal Splunk app named `DataApp` was created to house scripts and associated `inputs.conf` stanzas rather than modifying global system defaults.  
@@ -43,9 +43,9 @@ App-based configuration also reduces the risk that experimental parsing changes 
 
 ---
 
-## Scripted Data Generation and Ingestion
+### Scripted Data Generation and Ingestion
 
-### Script-Based Telemetry Generators
+#### ▶ Script-Based Telemetry Generators
 
 **Purpose:** Simulate realistic log sources that commonly cause parsing problems.  
 **How It Was Used:** Three executable scripts were staged in the app’s `bin` directory to generate:  
@@ -55,9 +55,7 @@ App-based configuration also reduces the risk that experimental parsing changes 
 
 **Operational Relevance:** Many real-world telemetry sources are not cleanly formatted syslog feeds and require custom ingestion strategies.
 
----
-
-### inputs.conf — Scripted Input Stanzas
+#### ▶ inputs.conf — Scripted Input Stanzas
 
 ```conf
 [script:///opt/splunk/etc/apps/DataApp/bin/vpnlogs]
@@ -75,11 +73,11 @@ Setting explicit `source` and `sourcetype` values ensures downstream parsing rul
 
 ---
 
-## Event Boundary Control and Multi-Line Handling
+### Event Boundary Control and Multi-Line Handling
 
 Correct event breaking is foundational for detection accuracy, correlation, and timeline analysis.
 
-### MUST_BREAK_AFTER — Line-Terminated Records
+#### ▶ MUST_BREAK_AFTER — Line-Terminated Records
 
 ```conf
 [vpn_logs]
@@ -93,9 +91,7 @@ MUST_BREAK_AFTER = (DISCONNECT|CONNECT)
 
 This method is appropriate when each record ends with a consistent marker.
 
----
-
-### BREAK_ONLY_BEFORE — Header-Based Multi-Line Events
+#### ▶ BREAK_ONLY_BEFORE — Header-Based Multi-Line Events
 
 ```conf
 [auth_logs]
@@ -111,9 +107,9 @@ Multi-line preservation is critical for stack traces, authentication traces, and
 
 ---
 
-## Sensitive Data Protection at Ingestion
+### Sensitive Data Protection at Ingestion
 
-### SEDCMD — Regex-Based Masking
+#### ▶ SEDCMD — Regex-Based Masking
 
 ```conf
 SEDCMD-cc = s/\d{4}-\d{4}-\d{4}-\d{4}/XXXX-XXXX-XXXX-XXXX/g
@@ -127,11 +123,11 @@ Ingestion-time masking is safer than relying on search-time redaction controls.
 
 ---
 
-## Field Extraction and Normalization
+### Field Extraction and Normalization
 
 Structured fields are required for scalable detection logic and reliable dashboards.
 
-### transforms.conf — Reusable Extraction Rules
+#### ▶ transforms.conf — Reusable Extraction Rules
 
 ```conf
 [vpn_custom_fields]
@@ -146,9 +142,7 @@ WRITE_META = true
 
 Reusable transforms support consistent parsing across multiple sourcetypes.
 
----
-
-### props.conf — Binding Transforms to Sourcetypes
+#### ▶ props.conf — Binding Transforms to Sourcetypes
 
 ```conf
 [vpn_logs]
@@ -159,9 +153,7 @@ TRANSFORMS-vpn = vpn_custom_fields
 **How It Was Used:** Prevented VPN regex rules from running against unrelated datasets.  
 **Operational Relevance:** Reduces false extractions and improves parsing performance.
 
----
-
-### fields.conf — Indexed Field Declaration
+#### ▶ fields.conf — Indexed Field Declaration
 
 ```conf
 [Username]
@@ -176,9 +168,9 @@ This decision is typically reserved for fields heavily used in detections and da
 
 ---
 
-## Validation and Troubleshooting Workflow
+### Validation and Troubleshooting Workflow
 
-### Splunk Web Searches
+#### ▶ Splunk Web Searches
 
 ```spl
 index=main sourcetype=vpn_logs Username=*
@@ -189,9 +181,7 @@ index=main sourcetype=vpn_logs Username=*
 
 Analysts should validate both event counts and field population.
 
----
-
-### Service Restarts
+#### ▶ Service Restarts
 
 ```bash
 /opt/splunk/bin/splunk restart
@@ -204,7 +194,7 @@ Restart discipline is critical during parsing development cycles.
 
 ---
 
-## Configuration File Responsibilities
+### Configuration File Responsibilities
 
 | File | Operational Role |
 |--------|------------------|
@@ -219,7 +209,7 @@ Knowing which file to modify is essential for efficient troubleshooting.
 
 ---
 
-## Operational Safety and Best Practices
+### Operational Safety and Best Practices
 
 - Avoid modifying system default configuration files when testing  
 - Validate regex against sample logs before deployment  
@@ -231,7 +221,7 @@ These practices support defensible SOC operations and reduce regression risk.
 
 ---
 
-## Detection Engineering and Monitoring Relevance
+### Detection Engineering and Monitoring Relevance
 
 Proper parsing enables:
 
@@ -244,7 +234,7 @@ Most detection failures originate from ingestion and normalization errors rather
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Linux host running Splunk Enterprise  
 - **Configuration Tools:** inputs.conf, props.conf, transforms.conf, fields.conf  
@@ -254,3 +244,4 @@ Most detection failures originate from ingestion and normalization errors rather
 - **Analysis Method:** Parsing validation, field extraction verification, and compliance protection
 
 These tools collectively support the telemetry onboarding workflows required for effective SOC monitoring and detection engineering.
+
