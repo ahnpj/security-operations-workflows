@@ -1,19 +1,19 @@
 # Tool Usage Notes — Targeted Packet Capture and Traffic Filtering Using tcpdump
 
+This document explains how `tcpdump` and supporting Linux shell utilities were used to perform targeted packet capture, offline replay, and protocol-level inspection. The emphasis is on deliberate scoping of network telemetry rather than indiscriminate capture, mirroring how analysts collect evidence during incident response and network investigations.
+
+All tooling used in this execution is native to Linux systems and requires no graphical interfaces or third‑party analyzers. This reflects real-world scenarios where analysts often have only SSH access to servers, network appliances, or cloud instances during triage and must rely on lightweight command‑line tools.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational security tasks such as network telemetry collection, traffic scoping, and validation of suspected communication paths.  
 > - **Executions** refer to the hands-on performance of those tasks using live interfaces, packet capture utilities, and stored packet artifacts.  
 > - **Writeups** document how capture strategies were applied, how filters were constructed, and how results were interpreted in an investigative context.
 
-This document explains how `tcpdump` and supporting Linux shell utilities were used to perform targeted packet capture, offline replay, and protocol-level inspection. The emphasis is on deliberate scoping of network telemetry rather than indiscriminate capture, mirroring how analysts collect evidence during incident response and network investigations.
-
-All tooling used in this execution is native to Linux systems and requires no graphical interfaces or third‑party analyzers. This reflects real-world scenarios where analysts often have only SSH access to servers, network appliances, or cloud instances during triage and must rely on lightweight command‑line tools.
-
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Remote Linux Host (Cloud-Based Virtual Machine)
+#### ▶ Remote Linux Host (Cloud-Based Virtual Machine)
 
 **Purpose:** Provide a realistic server environment for practicing command-line packet capture and protocol analysis.  
 **How It Was Used:** All packet captures and offline analysis were executed directly on the VM using SSH terminal sessions. Network traffic was observed on the active Ethernet interface and stored locally for replay.  
@@ -32,11 +32,11 @@ Cloud environments generate background traffic related to metadata services, mon
 
 ---
 
-## Interface Enumeration and Capture Prerequisites
+### Interface Enumeration and Capture Prerequisites
 
 Before capturing traffic, analysts must confirm which interfaces are active and carrying traffic.
 
-### `ip address show` — Interface Identification
+#### ▶ `ip address show` — Interface Identification
 
 ```bash
 ip a s
@@ -50,11 +50,11 @@ Correct interface selection is critical in cloud environments where interface na
 
 ---
 
-## Baseline Capture and Telemetry Validation
+### Baseline Capture and Telemetry Validation
 
 Initial captures should confirm that traffic is observable before applying narrow filters.
 
-### Bounded Capture on Active Interface
+#### ▶ Bounded Capture on Active Interface
 
 ```bash
 sudo tcpdump -i ens5 -c 5 -n
@@ -75,11 +75,11 @@ This pattern is commonly used during triage to avoid flooding consoles or writin
 
 ---
 
-## Writing and Replaying Packet Artifacts
+### Writing and Replaying Packet Artifacts
 
 Packet captures are most useful when preserved as artifacts that can be replayed, shared, and correlated with other telemetry sources.
 
-### Writing Packets to File
+#### ▶ Writing Packets to File
 
 ```bash
 sudo tcpdump -i ens5 -w data.pcap
@@ -91,9 +91,7 @@ sudo tcpdump -i ens5 -w data.pcap
 
 `.pcap` files are portable and widely supported across network forensic tools.
 
----
-
-### Reading Packets from File
+#### ▶ Reading Packets from File
 
 ```bash
 tcpdump -r traffic.pcap
@@ -107,11 +105,11 @@ Offline replay is especially useful when investigating short-lived network event
 
 ---
 
-## Host, Port, and Protocol Scoping
+### Host, Port, and Protocol Scoping
 
 Effective packet capture requires narrowing scope to traffic relevant to the investigative hypothesis.
 
-### Host-Based Filtering
+#### ▶ Host-Based Filtering
 
 ```bash
 sudo tcpdump host example.com -w http.pcap
@@ -123,9 +121,7 @@ sudo tcpdump host example.com -w http.pcap
 
 Empty captures are meaningful when testing hypotheses and verifying that traffic is not present.
 
----
-
-### Port-Based Filtering (DNS Example)
+#### ▶ Port-Based Filtering (DNS Example)
 
 ```bash
 sudo tcpdump -i ens5 port 53 -n
@@ -137,9 +133,7 @@ sudo tcpdump -i ens5 port 53 -n
 
 Port filters are commonly paired with protocol detection logic in IDS and SIEM rules.
 
----
-
-### Protocol-Based Filtering (ICMP Example)
+#### ▶ Protocol-Based Filtering (ICMP Example)
 
 ```bash
 sudo tcpdump -i ens5 icmp -n
@@ -151,9 +145,7 @@ sudo tcpdump -i ens5 icmp -n
 
 ICMP filtering is useful for detecting scanning activity and connectivity testing by attackers.
 
----
-
-### Logical Operator Combinations
+#### ▶ Logical Operator Combinations
 
 ```bash
 tcpdump -i ens5 host example.com and tcp port 443 -w https.pcap
@@ -167,11 +159,11 @@ Supported operators include `and`, `or`, and `not`, allowing complex filter cons
 
 ---
 
-## Offline Analysis and Quantitative Pivots
+### Offline Analysis and Quantitative Pivots
 
 Once traffic is captured, analysts often perform fast quantitative checks before deeper inspection.
 
-### Counting Packets from a Source Host
+#### ▶ Counting Packets from a Source Host
 
 ```bash
 tcpdump -r traffic.pcap src 192.168.124.1 -n | wc -l
@@ -183,9 +175,7 @@ tcpdump -r traffic.pcap src 192.168.124.1 -n | wc -l
 
 Line counts serve as a quick proxy for packet volume in summary output modes.
 
----
-
-### Counting Protocol-Specific Packets
+#### ▶ Counting Protocol-Specific Packets
 
 ```bash
 tcpdump -r traffic.pcap icmp -n | wc
@@ -197,11 +187,11 @@ tcpdump -r traffic.pcap icmp -n | wc
 
 ---
 
-## ARP and Local Network Correlation
+### ARP and Local Network Correlation
 
 ARP analysis enables mapping between IP addresses and physical MAC identities.
 
-### Identify ARP Requestors
+#### ▶ Identify ARP Requestors
 
 ```bash
 tcpdump -r traffic.pcap arp and host 192.168.124.137
@@ -211,9 +201,7 @@ tcpdump -r traffic.pcap arp and host 192.168.124.137
 **How It Was Used:** Identified the querying host for the target IP address.  
 **Operational Relevance:** Supports lateral movement analysis and device attribution on local segments.
 
----
-
-### Extract MAC Addresses
+#### ▶ Extract MAC Addresses
 
 ```bash
 tcpdump -r traffic.pcap arp -e
@@ -225,11 +213,11 @@ tcpdump -r traffic.pcap arp -e
 
 ---
 
-## Packet Size-Based Filtering
+### Packet Size-Based Filtering
 
 Packet length can indicate file transfers, tunneling, or abnormal payloads.
 
-### Live Large-Packet Filtering
+#### ▶ Live Large-Packet Filtering
 
 ```bash
 tcpdump -i ens5 greater 1000
@@ -239,9 +227,7 @@ tcpdump -i ens5 greater 1000
 **How It Was Used:** Identify traffic potentially associated with data transfer.  
 **Operational Relevance:** Supports detection of bulk transfers and potential exfiltration.
 
----
-
-### Offline Large-Packet Identification
+#### ▶ Offline Large-Packet Identification
 
 ```bash
 tcpdump -r traffic.pcap 'greater 15000' -n
@@ -253,11 +239,11 @@ tcpdump -r traffic.pcap 'greater 15000' -n
 
 ---
 
-## Header Byte and Bitwise Filtering
+### Header Byte and Bitwise Filtering
 
 Advanced filtering sometimes requires inspecting specific header bits.
 
-### Multicast Detection via Ethernet Header
+#### ▶ Multicast Detection via Ethernet Header
 
 ```bash
 sudo tcpdump -i ens5 'ether[0] & 1 != 0'
@@ -271,11 +257,11 @@ Bitwise operations enable protocol-aware filtering beyond standard field matchin
 
 ---
 
-## TCP Flag Analysis
+### TCP Flag Analysis
 
 TCP flag states reveal connection behavior and potential scanning or DoS activity.
 
-### SYN-Only Packets
+#### ▶ SYN-Only Packets
 
 ```bash
 tcpdump -i ens5 'tcp[tcpflags] == tcp-syn'
@@ -285,9 +271,7 @@ tcpdump -i ens5 'tcp[tcpflags] == tcp-syn'
 **How It Was Used:** Attempted to observe handshake initiation.  
 **Observed Outcome:** No matches due to low traffic volume.
 
----
-
-### SYN Present (Bitwise Match)
+#### ▶ SYN Present (Bitwise Match)
 
 ```bash
 tcpdump -i ens5 'tcp[tcpflags] & tcp-syn != 0'
@@ -296,9 +280,7 @@ tcpdump -i ens5 'tcp[tcpflags] & tcp-syn != 0'
 **Purpose:** Capture packets where SYN is set regardless of other flags.  
 **How It Was Used:** Observe broader handshake-related traffic.
 
----
-
-### SYN or ACK Present
+#### ▶ SYN or ACK Present
 
 ```bash
 tcpdump -i ens5 'tcp[tcpflags] & (tcp-syn|tcp-ack) != 0'
@@ -307,9 +289,7 @@ tcpdump -i ens5 'tcp[tcpflags] & (tcp-syn|tcp-ack) != 0'
 **Purpose:** Capture packets involved in connection establishment and acknowledgment.  
 **How It Was Used:** Visualize handshake flow behavior.
 
----
-
-### RST-Only Packets from Capture File
+#### ▶ RST-Only Packets from Capture File
 
 ```bash
 tcpdump -r traffic.pcap 'tcp[tcpflags] == tcp-rst' | wc -l
@@ -321,11 +301,11 @@ tcpdump -r traffic.pcap 'tcp[tcpflags] == tcp-rst' | wc -l
 
 ---
 
-## Display and Interpretation Modes
+### Display and Interpretation Modes
 
 Output modes affect how analysts interpret packet contents.
 
-### Basic Summary Output
+#### ▶ Basic Summary Output
 
 ```bash
 tcpdump -r traffic.pcap -c 2
@@ -333,9 +313,7 @@ tcpdump -r traffic.pcap -c 2
 
 Displays timestamps, IPs, ports, flags, and packet lengths.
 
----
-
-### Quick Mode
+#### ▶ Quick Mode
 
 ```bash
 tcpdump -r traffic.pcap -q -c 2
@@ -343,9 +321,7 @@ tcpdump -r traffic.pcap -q -c 2
 
 Shows only flow-level metadata, useful for fast scanning.
 
----
-
-### Link-Layer Headers
+#### ▶ Link-Layer Headers
 
 ```bash
 tcpdump -r traffic.pcap -e -c 2
@@ -353,9 +329,7 @@ tcpdump -r traffic.pcap -e -c 2
 
 Adds MAC addresses and Ethernet framing, supporting Layer‑2 investigations.
 
----
-
-### ASCII Payload View
+#### ▶ ASCII Payload View
 
 ```bash
 tcpdump -r traffic.pcap -A -c 2
@@ -363,9 +337,7 @@ tcpdump -r traffic.pcap -A -c 2
 
 Useful for plaintext protocols; encrypted payloads appear unreadable as expected.
 
----
-
-### Hexadecimal Payload View
+#### ▶ Hexadecimal Payload View
 
 ```bash
 tcpdump -r traffic.pcap -xx -c 2
@@ -373,9 +345,7 @@ tcpdump -r traffic.pcap -xx -c 2
 
 Supports low-level protocol and payload inspection.
 
----
-
-### Combined Hex and ASCII
+#### ▶ Combined Hex and ASCII
 
 ```bash
 tcpdump -r traffic.pcap -X -c 2
@@ -385,7 +355,7 @@ Allows correlation of raw bytes with readable segments without switching modes.
 
 ---
 
-## Operational Safety and Evidence Handling
+### Operational Safety and Evidence Handling
 
 - Avoid unfiltered long captures on production systems.  
 - Use `.pcap` files to preserve raw evidence.  
@@ -396,7 +366,7 @@ Proper scoping supports both privacy protection and efficient investigation.
 
 ---
 
-## Extension into Detection and Monitoring
+### Extension into Detection and Monitoring
 
 Packet capture supports detection engineering by validating:
 
@@ -409,7 +379,7 @@ Tcpdump often serves as the ground-truth reference when validating whether detec
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Remote Linux virtual machine  
 - **Shell:** Bash  
@@ -420,3 +390,4 @@ Tcpdump often serves as the ground-truth reference when validating whether detec
 - **Analysis Method:** BPF filtering, protocol inspection, and quantitative pivots
 
 These tools collectively support targeted network triage and forensic validation workflows commonly used in SOC and incident response operations.
+
