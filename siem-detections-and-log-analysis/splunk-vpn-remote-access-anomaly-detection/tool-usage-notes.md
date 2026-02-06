@@ -1,19 +1,19 @@
 # Tool Usage Notes — VPN Authentication and Remote Access Anomaly Analysis Using Splunk
 
+This document explains how Splunk SPL and JSON field extraction were used to analyze VPN authentication and session telemetry in order to surface anomalous remote access behavior. The focus is on transforming raw JSON logs into structured, queryable datasets and then applying investigative pivots that mirror how SOC analysts triage potential credential misuse, brute-force attempts, and abnormal encrypted session behavior.
+
+Rather than relying on prebuilt detections or alerts, this execution emphasizes analyst-driven exploration, where baselines are first established and then deviations from those baselines are identified using targeted aggregations. This approach mirrors real-world SOC workflows where detection logic is often refined only after analysts understand what “normal” looks like for a given environment.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational security tasks such as onboarding remote access telemetry, validating authentication behavior, and establishing access baselines.  
 > - **Executions** refer to the hands-on performance of those tasks using Splunk SPL, JSON field extraction, and statistical aggregation against VPN datasets.  
 > - **Writeups** document how queries were constructed, what investigative pivots were used, and how results were interpreted in a SOC context.
 
-This document explains how Splunk SPL and JSON field extraction were used to analyze VPN authentication and session telemetry in order to surface anomalous remote access behavior. The focus is on transforming raw JSON logs into structured, queryable datasets and then applying investigative pivots that mirror how SOC analysts triage potential credential misuse, brute-force attempts, and abnormal encrypted session behavior.
-
-Rather than relying on prebuilt detections or alerts, this execution emphasizes analyst-driven exploration, where baselines are first established and then deviations from those baselines are identified using targeted aggregations. This approach mirrors real-world SOC workflows where detection logic is often refined only after analysts understand what “normal” looks like for a given environment.
-
 ---
 
-## Execution Platform and Operating Environment
+### Execution Platform and Operating Environment
 
-### Splunk Enterprise Analysis Environment
+#### ▶ Splunk Enterprise Analysis Environment
 
 **Purpose:** Provide a centralized platform for ingesting, parsing, and querying VPN telemetry.  
 **How It Was Used:** All searches and field extraction were performed using Splunk Web against a locally indexed dataset containing JSON-formatted VPN events.  
@@ -31,11 +31,11 @@ Using JSON-formatted logs introduces the same parsing challenges encountered whe
 
 ---
 
-## Dataset Validation and JSON Field Extraction
+### Dataset Validation and JSON Field Extraction
 
 Before meaningful analysis can occur, analysts must confirm that telemetry is both indexed and structurally accessible.
 
-### Broad Dataset Validation Search
+#### ▶ Broad Dataset Validation Search
 
 ```spl
 index="main"
@@ -47,9 +47,7 @@ index="main"
 
 If events do not appear at this stage, parsing and detection tuning are irrelevant until ingestion problems are resolved.
 
----
-
-### spath — Structured JSON Field Extraction
+#### ▶  spath — Structured JSON Field Extraction
 
 ```spl
 | spath
@@ -64,11 +62,11 @@ Many cloud and VPN data sources require explicit field extraction before any det
 
 ---
 
-## Geographic and User-Based Baseline Analysis
+### Geographic and User-Based Baseline Analysis
 
 Establishing baseline access patterns is a prerequisite for identifying anomalies.
 
-### Aggregation by User and Country
+#### ▶ Aggregation by User and Country
 
 ```spl
 index="main"
@@ -83,9 +81,7 @@ index="main"
 
 This pivot is commonly used in SOC environments to flag “impossible travel” or cross-border access anomalies.
 
----
-
-### Excluding Expected Regions
+#### ▶ Excluding Expected Regions
 
 ```spl
 | search Source_Country!="France"
@@ -99,11 +95,11 @@ Exclusion filters are often refined iteratively during baseline development.
 
 ---
 
-## Failed Authentication and Brute-Force Indicators
+### Failed Authentication and Brute-Force Indicators
 
 Authentication failures are strong signals when correlated across accounts and source addresses.
 
-### Aggregating Failed Logins by User and Source IP
+#### ▶ Aggregating Failed Logins by User and Source IP
 
 ```spl
 index="main" action=failed
@@ -121,11 +117,11 @@ This pattern frequently forms the basis of automated brute-force detections.
 
 ---
 
-## Regional Baseline Analysis Within Trusted Countries
+### Regional Baseline Analysis Within Trusted Countries
 
 Country-level analysis may still mask abnormal regional access patterns.
 
-### State-Level Aggregation Within the United States
+#### ▶ State-Level Aggregation Within the United States
 
 ```spl
 index="main" Source_Country="United States"
@@ -142,11 +138,11 @@ State-level analysis is especially relevant for organizations with geographicall
 
 ---
 
-## Encrypted Session Termination Behavior
+### Encrypted Session Termination Behavior
 
 Session teardown patterns can indicate instability, scanning behavior, or misuse of encrypted channels.
 
-### Filtering Secure Teardown Events
+#### ▶ Filtering Secure Teardown Events
 
 ```spl
 index="main" action=teardown protocol=tcp (port=443 OR dest_port=443)
@@ -163,11 +159,11 @@ Checking both `port` and `dest_port` accounts for variability in vendor log form
 
 ---
 
-## Session Outcome Baseline Distribution
+### Session Outcome Baseline Distribution
 
 Understanding normal outcome ratios helps tune alert thresholds.
 
-### Aggregating Session Outcomes
+#### ▶ Aggregating Session Outcomes
 
 ```spl
 index="main"
@@ -184,9 +180,9 @@ Sudden shifts in outcome distribution often precede incident escalation.
 
 ---
 
-## Search Optimization and Field Usage Considerations
+### Search Optimization and Field Usage Considerations
 
-### Field-Based vs String-Based Filtering
+#### ▶ Field-Based vs String-Based Filtering
 
 Field-based searches:
 
@@ -205,7 +201,7 @@ are more reliable and performant than string searches:
 
 ---
 
-## Interpretation and Investigative Follow-Up
+### Interpretation and Investigative Follow-Up
 
 Indicators that warrant escalation or correlation:
 
@@ -225,7 +221,7 @@ Single telemetry sources rarely provide sufficient confidence for attribution.
 
 ---
 
-## Operational Safety and Best Practices
+### Operational Safety and Best Practices
 
 - Always validate JSON field extraction before building detections  
 - Normalize field naming during onboarding to simplify correlation  
@@ -237,7 +233,7 @@ These practices reduce false positives and detection blind spots.
 
 ---
 
-## Detection Engineering and Monitoring Relevance
+### Detection Engineering and Monitoring Relevance
 
 Well-parsed VPN telemetry enables:
 
@@ -250,7 +246,7 @@ Most remote-access detections depend on consistent authentication metadata and r
 
 ---
 
-## Summary of Tools, Platforms, and Data Sources
+### Summary of Tools, Platforms, and Data Sources
 
 - **Platform:** Splunk Enterprise on Linux  
 - **Primary Tools:** Splunk Web, SPL, spath JSON extraction  
@@ -260,3 +256,4 @@ Most remote-access detections depend on consistent authentication metadata and r
 - **Operational Focus:** Baseline development and anomaly identification
 
 These tools and techniques support SOC-level investigation of remote access abuse and credential compromise scenarios.
+
