@@ -11,7 +11,7 @@ These notes focus on why specific parsing controls were applied, how ingestion p
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 The most immediate takeaway was how quickly unusable data becomes when event boundaries are incorrect. In the VPN logs, multiple connection events collapsing into a single Splunk event made it impossible to count sessions, detect bursts, or correlate disconnect behavior. This reinforced that parsing problems are not cosmetic — they directly create detection blind spots.
 
@@ -25,7 +25,7 @@ Creating a minimal Splunk app to hold scripts and configuration reinforced that 
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 Early troubleshooting required separating ingestion problems from parsing problems. Data was arriving in Splunk, but formatting was wrong. This reinforced that inputs validation must always happen before modifying parsing logic.
 
@@ -37,7 +37,7 @@ When multiple configuration files interact (`inputs.conf`, `props.conf`, `transf
 
 ---
 
-## Investigative Reasoning and Parsing Strategy
+### Investigative Reasoning and Parsing Strategy
 
 The workflow followed a deliberate sequence:
 
@@ -58,7 +58,7 @@ This mirrors real-world onboarding processes where reliable event modeling prece
 
 ---
 
-## Limitations of This Workflow
+### Limitations of This Workflow
 
 This workflow did not include:
 
@@ -71,7 +71,7 @@ The environment also did not simulate ingestion failures, forwarder misconfigura
 
 ---
 
-## Ideas for Expansion
+### Ideas for Expansion
 
 Potential future improvements include:
 
@@ -85,7 +85,7 @@ These would further connect parsing work to detection and monitoring use cases.
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow directly supports:
 
@@ -95,3 +95,4 @@ This workflow directly supports:
 - Log ingestion troubleshooting playbooks
 
 Strong parsing discipline improves every downstream SOC function.
+
