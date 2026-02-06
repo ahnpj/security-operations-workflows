@@ -1,21 +1,31 @@
 # Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk
 
----
+### Overview
 
-## Overview
+This workflow documents practical log parsing and field extraction using Splunk to transform raw or inconsistently formatted log data into structured, searchable, and detection-ready telemetry. The workflow focuses on extracting meaningful attributes from unstructured log events, validating parsing accuracy, and preparing datasets that support monitoring, detection engineering, and investigative analysis.
 
-This workflow execution write-up document an end-to-end approach to ingesting custom log sources into Splunk and then shaping that raw data into analyst-ready events. The execution focuses on four outcomes that directly affect detection quality: correct event breaking, correct multi-line handling, safe handling of sensitive values (masking), and consistent field extraction for reliable filtering and correlation.
+The analysis progresses through structured parsing phases that begin with raw log exploration, followed by field extraction using search processing language (SPL), regular expressions, and transformation logic. The workflow demonstrates how log normalization improves data visibility, query reliability, and investigative efficiency within security operations environments.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
 
-### Analyst Intent & Operational Focus
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
 
-The operational intent is to ensure that logs arriving from custom sources are searchable, reliable, and safe to retain. When event boundaries are wrong, a single Splunk event can contain multiple real-world actions (or one action can be split into fragments), which creates blind spots and false negatives. When multi-line entries are split incorrectly, authentication traces and application events become difficult to reconstruct. When sensitive values (such as credit card numbers) are indexed, compliance exposure increases without adding investigative value.
+### Purpose and Analyst Focus
 
-### Workflow Scope and Objectives
+#### ▶ Purpose
+
+The purpose of this workflow is to perform structured log parsing and field extraction using Splunk to convert raw log telemetry into normalized and searchable datasets. The workflow focuses on identifying key security-relevant attributes such as timestamps, usernames, event actions, authentication outcomes, and source network indicators.
+
+The workflow demonstrates how log parsing supports detection preparation by improving field consistency, enabling reliable query development, and reducing noise within monitoring pipelines. It emphasizes how structured telemetry allows analysts to pivot across events, correlate activity across datasets, and build detection logic that relies on consistent data formatting.
+
+#### ▶ Analyst Focus
+
+The analyst focus is on using Splunk to analyze raw log datasets, apply field extraction techniques, validate parsing accuracy, and confirm that extracted telemetry supports detection and investigative workflows. The workflow reflects responsibilities commonly performed by SOC analysts and detection engineers when onboarding new log sources or improving telemetry quality.
+
+The workflow reinforces how analysts evaluate parsing logic, validate extracted attributes against original log content, and ensure that normalized telemetry supports alerting, correlation, and threat-hunting activities. It highlights the importance of understanding log structure, extraction techniques, and data quality validation when preparing telemetry for operational security monitoring.
 
 This workflow is framed as a realistic SOC parsing and onboarding task for a fictional organization (“CyberT”) that is ingesting machine-generated logs from a custom source. The logs are produced by local scripted generators and intentionally exhibit common ingestion problems that analysts and detection engineers routinely have to correct before detections can be trusted.
 
@@ -31,17 +41,38 @@ The scope of work is intentionally “pipeline-first” rather than “search-fi
 I started by reviewing the role of configuration files such as "inputs.conf", "props.conf", and "transforms.conf", and how to use these files to extract and filter fields. I paid attention to the context of why parsing is so critical for a SOC analyst: poorly parsed logs can lead to incomplete data, false negatives, or gaps in investigations.
 </blockquote>
 
-## Environment and Execution Context
+---
+
+### Environment and Execution Context
 
 This section documents the tools, evidence sources, and constraints used to perform the workflow so that results can be interpreted consistently and reproduced by another analyst.
 
-### Scenario and Execution Assumptions
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 The workflow is executed in a controlled Linux environment where the analyst has local access to a Splunk Enterprise instance and a set of scripted log generators. The scenario assumes a SOC analyst is onboarding and normalizing a new custom log source for a fictional company (“CyberT”), with the goal of producing detection-ready events that can be queried reliably.
 
 Scripts are staged under `/Downloads/scripts/`, and the workflow assumes root-level command execution (for example, using `nano` for file edits and running Splunk lifecycle commands). Splunk is accessed through Splunk Web, and parsing changes are applied by editing `.conf` files and restarting Splunk so the updated stanzas take effect.
 
-### Data Sources Analyzed
+</details>
+
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
+
+- Splunk Enterprise (local instance, accessed via Splunk Web)
+- Splunk configuration files: `inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf` (and additional config files reviewed for context: `indexes.conf`, `outputs.conf`, `authentication.conf`)
+- Linux (Ubuntu-based) command line (root execution context), including `cd`, `ls`, and `nano`
+- Browser (FireFox) to access Splunk Web
+
+</details>
+
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
 
 The workflow uses three scripted log generators (located in the scripts directory) to produce different parsing challenges:
 
@@ -49,14 +80,12 @@ The workflow uses three scripted log generators (located in the scripts director
 - `authentication_logs` — multi-line authentication entries that must be merged into single events.
 - `purchase-details` — purchase logs containing credit card values that must be masked prior to indexing.
 
-### Tools and Platforms
+</details>
 
-- Splunk Enterprise (local instance, accessed via Splunk Web)
-- Splunk configuration files: `inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf` (and additional config files reviewed for context: `indexes.conf`, `outputs.conf`, `authentication.conf`)
-- Linux (Ubuntu-based) command line (root execution context), including `cd`, `ls`, and `nano`
-- Browser (FireFox) to access Splunk Web
 
-### Workflow Map (High-Level)
+<details>
+<summary><strong>▶ Workflow Map (High-Level)</strong><br>
+</summary><br>
 
 1. Validate the local scripts directory and identify available log generators.
 2. Review Splunk’s parsing pipeline concepts: format → sourcetype → parsing rules → field extraction → verification.
@@ -69,15 +98,28 @@ The workflow uses three scripted log generators (located in the scripts director
 9. Extract custom fields using `transforms.conf` and apply them via `props.conf`, optionally indexing fields via `fields.conf`.
 10. Validate the resulting data model using searches and field-based filtering.
 
+</details>
+
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-### Phase 1 — Scenario Orientation and Script Inventory
+This section documents the workflow in the same order an analyst would realistically perform log parsing and telemetry normalization using Splunk. 
 
-**Objective:** Establish the working directory, confirm where scripts live, and identify the scripted data sources that will be ingested into Splunk.
+The process begins with exploring raw log datasets to understand event structure, field patterns, and available data sources. Analysis then progresses into applying search filters, building field extraction logic, and validating extracted attributes against original log entries.
 
-**Step 1:** Navigate to the scripts directory  
+Each step captures both the technical actions performed using SPL and the analytical reasoning behind those actions. The workflow intentionally progresses from raw data inspection into structured field extraction and dataset validation, mirroring how analysts transform unstructured telemetry into detection-ready data during log onboarding and detection engineering workflows.
+
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ Phase 1 — Scenario Orientation and Script Inventory</strong><br>
+→ establishing the working directory, confirming where scripts live, and identifying the scripted data sources that will be ingested
+</summary><br>
+
+**Goal:** Establish the working directory, confirm where scripts live, and identify the scripted data sources that will be ingested into Splunk.
+
+##### 🔷 Phase 1.1 — Navigate to the scripts directory  
 Scripts are provided in `/Downloads/scripts/`, and commands are executed as a root user. The shell prompt indicates an Ubuntu-based system (for example, `ubuntu@tryhackme`), which matters because paths and service management commands follow Linux conventions.
 
 Navigation was performed using:
@@ -94,7 +136,7 @@ cd Downloads/scripts
   <em>Figure 1</em>
 </p>
 
-**Step 2:** Enumerate directory contents and confirm the available scripted generators  
+##### 🔷 Phase 1.2 — Enumerate directory contents and confirm the available scripted generators  
 
 The directory contents were listed using `ls`, and the output showed three items: `authentication_logs`, `purchase-details`, and `vpnlogs`. These items do not use the typical `.py` extension that often identifies Python scripts. However, scripts can exist without a `.py` extension (for example, executable scripts using a shebang such as `#!/usr/bin/python3`), and training environments frequently name executables without extensions.
 
@@ -117,20 +159,24 @@ The directory contents were listed using `ls`, and the output showed three items
 This reinforced how to quickly navigate through the Linux file system and inspect directories using commands like `cd` and `ls`. It also reminded me that while most Python scripts are saved with a `.py` extension, technically any file could contain Python code if it starts with a proper line (e.g., #!/usr/bin/python3). However, in practical scenarios and exams, the `.py` extension is the standard indicator.
 </blockquote>
 
+</details>
 
-### Phase 2 — Splunk Parsing Pipeline Concepts
+<details>
+<summary><strong>▶ Phase 2 — Splunk Parsing Pipeline Concepts</strong><br>
+→ understanding how Splunk converts raw input into searchable events and which configuration objects influence each stage
+</summary><br>
 
-**Objective:** Understand how Splunk converts raw input into searchable events and which configuration objects influence each stage.
+**Goal:** Understand how Splunk converts raw input into searchable events and which configuration objects influence each stage.
 
 <blockquote>
 I walked through the high-level process Splunk uses to parse data. First, I studied how Splunk needs to understand the format of incoming data, whether it’s JSON, XML, syslog, or CSV. Next, I saw how every dataset is assigned a sourcetype, which tells Splunk what parsing rules to apply. I then worked with examples of how to configure the "props.conf" file to bind a "sourcetype" to a source path, and how to define regular expressions for extracting fields. The provided configuration snippets showed me how to write to specific sections (or stanzas) in "props.conf" and attach field extractions using "EXTRACT-field = regex". Finally, I looked at the importance of saving the file, restarting Splunk, and validating by running searches to confirm whether the extracted fields were working as intended.
 </blockquote>
 
-**Step 1:** Understand the data format and expected fields  
+##### 🔷 Phase 2.1 — Understand the data format and expected fields  
 
 Splunk supports multiple formats (CSV, JSON, XML, syslog-style text). In this workflow, the scripts emit text logs with recognizable markers (authentication header lines, VPN connect/disconnect keywords, purchase line patterns). Knowing these markers is necessary to design breaking and extraction regex safely.
 
-**Step 2:** Identify the sourcetype  
+##### 🔷 Phase 2.2 — Identify the sourcetype  
 
 A sourcetype tells Splunk how to parse and interpret incoming data. Operationally, sourcetype is the anchor for most parsing stanzas in `props.conf`, which is why it becomes the primary control point for event breaking, merging, and extraction application.
 
@@ -138,7 +184,7 @@ A sourcetype tells Splunk how to parse and interpret incoming data. Operationall
 The "sourcetype" field is essential for parsing, as it tells Splunk how to handle a specific dataset.
 </blockquote>
 
-**Step 3:** Bind a source path to a sourcetype (source stanza template)
+##### 🔷 Phase 2.3 — Bind a source path to a sourcetype (source stanza template)
 
 ```conf
 [source::/path/to/your/data]  
@@ -171,11 +217,9 @@ EXTRACT-field2 = regular_expression2
 - `EXTRACT-field1 = regular_expression1` and `EXTRACT-field2 = regular_expression2` is basically how you would extract a single field from your data source.
   - `field1` and `field2` are the names of a fields you want to extract, and `regular_expression1` and `regular_expression2` are the regex used to match, filter, and extract the values.
 
-#### Side Example — Field extraction mental model (kept from original content)
+##### 🔷 Phase 2.4 — Field extraction mental model Example (kept from original content)
 
-<blockquote>
 I wanted to try out my own simple example to check my understanding of how field extractions work in Splunk. 
-</blockquote>
 
 A small log line (from an imaginary data source) with two users and their actions were created:  
 
@@ -219,7 +263,7 @@ EXTRACT-j_users_login = user=(j\w+)\s+action=login
 
 The result would create a field listing all users whose names start with a "j" and who performed a `login` action.
 
-**Step 5:** Apply changes and validate  
+##### 🔷 Phase 2.5 — Apply changes and validate  
 
 After editing configuration files, Splunk must be restarted so parsing changes apply. Validation is performed by searching the ingested data and confirming that events break correctly and fields appear as expected.
 
@@ -227,10 +271,15 @@ After editing configuration files, Splunk must be restarted so parsing changes a
 I learned that parsing in Splunk is a structured pipeline that begins with ingestion and continues through sourcetype assignment, regex extraction, and validation. The `props.conf` file (example configuration file) in this task  is central to this process, acting as the instruction manual for Splunk on how to handle each dataset. I also learned that without proper configuration, Splunk would ingest data as raw text, making searches much less useful.
 </blockquote>
 
+</details>
 
-### Phase 3 — Exploring Splunk Configuration Files and Stanzas
 
-**Objective:** Establish which configuration file controls ingestion vs parsing vs transformation, and understand the stanza model Splunk uses to scope behavior.
+<details>
+<summary><strong>▶ Phase 3 — Exploring Splunk Configuration Files and Stanzas</strong><br>
+→ establishing which configuration file controls ingestion vs parsing vs transformation and understanding the stanza model Splunk uses to scope behavior
+</summary><br>
+
+**Goal:** Establish which configuration file controls ingestion vs parsing vs transformation, and understand the stanza model Splunk uses to scope behavior.
 
 **Overview of actions taken:**
 
@@ -240,13 +289,9 @@ I learned that parsing in Splunk is a structured pipeline that begins with inges
 - Learned about `authentication.conf`, which enables features like LDAP authentication. 
 - Also examined the different stanza types in Splunk, such as `[sourcetype]`, `REPORT`, `EXTRACT`, and `TIME_PREFIX`, which define how events are processed and indexed. 
 
-**Step 1:** Review key configuration files
+##### 🔷 Phase 3.1 — Review key configuration files
 
-<blockquote>
-I learned about several important configuration files in Splunk.
-</blockquote>
-
-Examples tested:
+I learned about several important configuration files in Splunk. Examples tested:
 
 **(1) `inputs.conf` — ingestion definition**  
 Defines data inputs, where the data lives, and how Splunk collects it.
@@ -417,7 +462,7 @@ This is crucial because without SSL, login credentials would be sent in cleartex
 Although these are not all of the configuration files Splunk provides, these are the ones that I primarily focused on. I learned about "inputs.conf", "props.conf", "transforms.conf", "indexes.conf", "outputs.conf", and a small piece of "authentication.conf" to understand how parsing, routing, storage, forwarding, and authentication work together. Splunk also has many other configuration files that handle tasks such as server settings ("server.conf"), limits ("limits.conf"), deployment ("deploymentclient.conf"), and more. I concentrated on the files most relevant to the data pipeline and authentication basics.
 </blockquote>
 
-**Step 2:** Understand stanzas and how they control parsing  
+##### 🔷 Phase 3.2 — Understand stanzas and how they control parsing  
 
 A stanza is a named section within a `.conf` file that scopes the settings beneath it. Stanzas such as `TIME_PREFIX` and `TIME_FORMAT` help Splunk identify timestamps. Stanzas like `LINE_BREAKER`, `BREAK_ONLY_BEFORE`, `MUST_BREAK_AFTER`, and `SHOULD_LINEMERGE` determine how raw data is split into events or individual lines. Other stanzas such as `REPORT-*`, `TRANSFORMS-*`, and `EXTRACT-*` use regex to define how fields are extracted. `KV_MODE` can automatically extract key/value pairs.
 
@@ -465,19 +510,21 @@ A quick reference table created to loosely define some common stanzas and provid
 I learned that each configuration file has a unique responsibility, and together they create the entire ingestion and parsing pipeline. Knowing which file to modify is critical to solving problems quickly. I also learned that stanza-based configuration is extremely powerful, allowing very granular control over parsing behavior with just a few lines of configuration. I learned the **"division of responsibilities"**: "inputs.conf" ingests, "props.conf" parses, "transforms.conf" manipulates, "indexes.conf" stores, and "outputs.conf" forwards. I also learned about how "stanzas" in Splunk configuration files is essentially a section within a ".conf" file that defines specific behavior or rules.
 </blockquote>
 
+</details>
 
-### Phase 4 — Creating a Simple Splunk App (`DataApp`) for Scripted Ingestion
+<details>
+<summary><strong>▶ Phase 4 — Creating a Simple Splunk App (`DataApp`) for Scripted Ingestion</strong><br>
+→ creating a Splunk app container and configuring a scripted input so ingestion and parsing work can be isolated and managed through the app framework
+</summary><br>
 
-**Objective:** Create a minimal Splunk app container and configure a scripted input so the ingestion and parsing work can be isolated and managed through the app framework.
+**Goal:** Create a minimal Splunk app container and configure a scripted input so the ingestion and parsing work can be isolated and managed through the app framework.
 
-<blockquote>
 I created my own Splunk app called `DataApp` to better understand how Splunk organizes and extends functionality through apps. An app in Splunk is essentially a container that holds configurations, inputs, and supporting files such as scripts or dashboards. By building a very simple sample app that outputs a test log, I was able to see how Splunk apps are structured and where they are stored in the file system. The purpose of this workflow execution exercise is not to build a production-ready application, but to practice the process of creating, saving, and placing files into Splunk’s app framework. This helps demonstrate how custom data sources or logic can be added into Splunk through apps, making it easier to manage specific use cases in an organized way.
-</blockquote>
 
 The Splunk service was started from `/opt/splunk` using the `bin/splunk start` command and logged in with the provided credentials. Once inside the Splunk web interface > the Apps section, a new app was created with fields like name, folder path, author, and description. To simulate log ingestion, simple Python script called `samplelogs.py` was created to print a single log line. This script was placed in the `bin` directory of the app. An `inputs.conf` file was then created to instruct Splunk to execute the script every five seconds, sending its output to the `main` index with a sourcetype of `testing`. Splunk was restarted to apply the changes.  
 
 
-**Step 1:** Start Splunk
+##### 🔷 Phase 4.1 — Start Splunk
 
 ```bash
 cd /opt/splunk
@@ -493,11 +540,13 @@ I changed into the Splunk installation directory with "cd /opt/splunk" (where th
 I hit permission errors when trying to start it without elevated rights, so I prefixed the command with "sudo" to run it as superuser. The console showed the web server coming up and printed the access URL — “The Splunk web interface is at http://tryhackme:8000”, which is the address to open in a browser to reach the running Splunk instance.
 </blockquote>
 
-**Step 2:** Log in to Splunk Web
+##### 🔷 Phase 4.2 — Log in to Splunk Web
 
-**Step 3:** Create a new app  
+I logged into the Splunk web app.
 
-- **(3a)** Select the gear icon next to **Apps** to open the Apps management page.
+##### 🔷 Phase 4.3 — Create a new app  
+
+(Phase 4.3, Step 1): Select the gear icon next to **Apps** to open the Apps management page.
 
 <p align="center">
   <img src="images/lab10-splunk-data-manipulation-figure04.png?raw=true&v=2" 
@@ -507,7 +556,7 @@ I hit permission errors when trying to start it without elevated rights, so I pr
   <em>Figure 4</em>
 </p>
 
-- **(3b)** Select **[Create app]**.
+(Phase 4.3, Step 2): Select **[Create app]**.
 
 <p align="center">
   <img src="images/lab10-splunk-data-manipulation-figure05.png?raw=true&v=2" 
@@ -517,7 +566,7 @@ I hit permission errors when trying to start it without elevated rights, so I pr
   <em>Figure 5</em>
 </p>
 
-- **(3c)** Provide app metadata and create the app:
+(Phase 4.3, Step 3): Provide app metadata and create the app:
 
   - Name and folder: **DataApp**
   - Path location: `$SPLUNK_HOME/etc/apps/`
@@ -536,7 +585,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
   <em>Figure 6</em>
 </p>
 
-- **(3d)** Confirm the app appears in the Apps table.
+(Phase 4.3, Step 4): Confirm the app appears in the Apps table.
 
 <p align="center">
   <img src="images/lab10-splunk-data-manipulation-figure07.png?raw=true&v=2" 
@@ -546,7 +595,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
   <em>Figure 7</em>
 </p>
 
-- **(3e)** Launch the app to confirm it loads. At this point, no data appears yet because ingestion is not configured.
+(Phase 4.3, Step 5):  Launch the app to confirm it loads. At this point, no data appears yet because ingestion is not configured.
 
 <blockquote>
 I clicked [Launch App] under the "Actions" column, which evidently showed that no activity has been logged. I went ahead and wrote a Python Script for sample logs in previous steps.
@@ -560,7 +609,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
   <em>Figure 8</em>
 </p>
 
-- **(3f)** Return to the Linux terminal to locate the newly created app on disk.
+(Phase 4.3, Step 6):  Return to the Linux terminal to locate the newly created app on disk.
 
 <p align="center">
   <img src="images/lab10-splunk-data-manipulation-figure09.png?raw=true&v=2" 
@@ -570,7 +619,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
   <em>Figure 9</em>
 </p>
 
-**Step 4:** Create a simple script that generates log output  
+##### 🔷 Phase 4.4 — Create a simple script that generates log output  
 
 Within the app’s `bin` directory, a script named `samplelogs.py` was created/edited. The script prints a single line:
 
@@ -608,7 +657,7 @@ The script was executed to confirm the output is produced as expected.
   <em>Figure 11</em>
 </p>
 
-**Step 5:** Configure `inputs.conf` for scripted ingestion  
+##### 🔷 Phase 4.5 — Configure `inputs.conf` for scripted ingestion  
 
 To ingest the script output, `inputs.conf` was edited in `/opt/splunk/etc/system/default`. This location was used in the original workflow notes, and the file was opened with `nano`.
 
@@ -640,7 +689,7 @@ interval = 5
 
 This configuration instructs Splunk to execute the script every five seconds, treat stdout as events, and assign consistent metadata (index, source, sourcetype).
 
-**Step 6:** Restart Splunk to apply changes
+##### 🔷 Phase 4.6 —  Restart Splunk to apply changes
 
 ```bash
 /opt/splunk/bin/splunk restart
@@ -656,8 +705,7 @@ I learned how Splunk apps organize configurations and that "inputs.conf" scripts
 I also learned how Splunk apps provide a modular way to manage configuration and how they can be used to simulate log ingestion for testing. Writing even a simple script and configuring "inputs.conf" gave me a clear picture of how Splunk consumes and indexes events in real time. There is significant importance to restarting Splunk to make new configurations effective. It was cool to see how Splunk apps organize configurations and that "inputs.conf" scripts can simulate live log ingestion.
 </blockquote>
 
-
-### Phase 5 — Event Boundaries for VPN Logs (`vpnlogs`)
+##### 🔷 Phase 4.7 — Event Boundaries for VPN Logs (`vpnlogs`)
 
 **Objective:** Correct event breaking so each connect/disconnect line becomes a separate Splunk event.
 
@@ -665,7 +713,7 @@ I also learned how Splunk apps provide a modular way to manage configuration and
 I worked with the "vpnlogs" script, which generated VPN connection and disconnection events. After placing the script into the app’s "bin" directory, I configured an "inputs.conf" entry to ingest it into Splunk. When I searched the ingested data, I noticed that Splunk did not break the events correctly, treating multiple log lines as one. To fix this, I created a regular expression that matched the words "DISCONNECT" or "CONNECT" at the end of each line. I updated "props.conf" to include "MUST_BREAK_AFTER = (DISCONNECT|CONNECT)" and enabled line merging with "SHOULD_LINEMERGE = true". After restarting Splunk, I confirmed that each event was being properly broken at the correct boundary. 
 </blockquote>
 
-**Step 1:** Configure ingestion for `vpnlogs`
+(Phase 4.7, Step 1): Configure ingestion for `vpnlogs`
 
 ```
 [script:///opt/splunk/etc/apps/DataApp/bin/vpnlogs]
@@ -684,7 +732,7 @@ interval = 5
 I encountered a problem where Splunk was grouping multiple events together incorrectly.
 </blockquote>
 
-**Step 2:** Validate ingestion and observe incorrect event breaking  
+(Phase 4.7, Step 2): Validate ingestion and observe incorrect event breaking  
 
 In Splunk (search):  
 
@@ -714,10 +762,15 @@ MUST_BREAK_AFTER = (DISCONNECT|CONNECT)
 I learned how important it is to configure event boundaries so Splunk can distinguish between separate events. Regex-based rules in `props.conf` give me precise control over where events start and end. This is essential because improper event breaking can cause searches and dashboards to misinterpret the data. 
 </blockquote>
 
+</details>
 
-### Phase 6 — Multi-line Authentication Events (`authentication_logs`)
 
-**Objective:** Preserve multi-line entries as single events.
+<details>
+<summary><strong>▶ Phase 5 — Multi-line Authentication Events (`authentication_logs`)</strong><br>
+→ preserving multi-line entries as single events.
+</summary><br>
+
+**Goal:** Preserve multi-line entries as single events.
 
 There was a problem where `authentication_logs` produced multi-line events split incorrectly. Worked with `authentication_logs` script.
 
@@ -725,8 +778,7 @@ There was a problem where `authentication_logs` produced multi-line events split
 Next, I worked with the "authentication_logs" script, which generates multi-line log entries. After ingesting the logs using "inputs.conf", I noticed that Splunk incorrectly treated the logs as multiple events.
 <blockquote> 
 
-**Step 1:** Configure ingestion for `authentication_logs`
-
+##### 🔷 Phase 5.1 — Configure ingestion for `authentication_logs`
 
 To fix this, the "props.conf" file was configured to merge lines and only break events when a line started with "[Authentication]". This was done using "BREAK_ONLY_BEFORE = \[Authentication\]" along with "SHOULD_LINEMERGE = true". Restarting Splunk and re-running the search showed me that the multi-line logs were now captured correctly as single events.  
 <blockquote>
@@ -743,7 +795,7 @@ interval = 5
 
 Observed multi-line logs breaking incorrectly.  
 
-**Step 2:** Apply merge + break-before logic in `props.conf`
+##### 🔷 Phase 5.2 — Apply merge + break-before logic in `props.conf`
 
  ```
 [auth_logs]
@@ -759,10 +811,14 @@ BREAK_ONLY_BEFORE = \[Authentication\]
 I learned that multi-line events are a common challenge in Splunk, especially for logs like authentication or application errors that span several lines. Using the right regex and stanza settings in `props.conf` ensures these logs remain intact, preventing data fragmentation.  
 </blockquote>
 
+</details>
 
-### Phase 7 — Masking Sensitive Data (`purchase-details`)
+<details>
+<summary><strong>▶ Phase 6 — Masking Sensitive Data (`purchase-details`)</strong><br>
+→ masking credit card numbers before indexing while keeping event context searchable
+</summary><br>
 
-**Objective:** Mask credit card numbers before indexing while keeping event context searchable.
+**Goal:** Mask credit card numbers before indexing while keeping event context searchable.
 
 The `purchase-details` script, which generated logs containing credit card numbers, was modified. These logs were ingested into Splunk using an `inputs.conf` configuration. 
 
@@ -774,7 +830,7 @@ Summary of my actions:
 - Created regex for event boundaries.
 
 
-**Step 1:** Define event boundary pattern for purchase logs
+##### 🔷 Phase 6.1 — Define event boundary pattern for purchase logs
 
 ```regex
 \d{4}\.
@@ -788,7 +844,7 @@ SHOULD_LINEMERGE = true
 MUST_BREAK_AFTER = \d{4}\.
 ```
 
-**Step 2:** Apply masking with `SEDCMD`
+##### 🔷 Phase 6.2 — Apply masking with `SEDCMD`
 
 Introduced **SEDCMD** for masking:  
 
@@ -805,10 +861,14 @@ SEDCMD-cc = s/\d{4}-\d{4}-\d{4}-\d{4}/XXXX-XXXX-XXXX-XXXX/g
 I learned that Splunk provides built-in mechanisms to anonymize sensitive data at ingestion time. The `SEDCMD` setting works like the Unix `sed` command, applying regex replacements before indexing the data. This ensures compliance with standards like PCI DSS and HIPAA while still preserving logs for analysis.
 </blockquote>
 
+</details>
 
-### Phase 8 — Extracting Custom Fields (`vpn_logs`)
+<details>
+<summary><strong>▶ Phase 7 — Extracting Custom Fields (`vpn_logs`)</strong><br>
+→ exracting fields so detections can filter on structured values instead of raw text matching
+</summary><br>
 
-**Objective:** Extract fields so detections can filter on structured values instead of raw text matching.
+**Goal:** Extract fields so detections can filter on structured values instead of raw text matching.
 
 Summary of actions taken:
 
@@ -817,7 +877,7 @@ Summary of actions taken:
 - After restarting Splunk, I validated that usernames were extracted. I then extended the regex to capture not only the username but also the server and action fields, using `User:\s(\w+\s\w+),.+Server:\s(.+),.+Action:\s(\w+)`.
 - I updated the transform and fields configuration to include these fields and confirmed that Splunk extracted them successfully. 
 
-**Step 1:** Extract `Username`
+##### 🔷 Phase 7.1 — Extract `Username`
 
 VPN logs don’t auto-extract fields (`username`, `server`, `action`). Worked with `vpn_logs`. 
 
@@ -854,7 +914,7 @@ INDEXED = true
 
 Restarted Splunk and validated. 
 
-Extended regex to capture username, server, and action
+##### 🔷 Phase 7.2 — Extended regex to capture username, server, and action
  
 - Extended regex to capture username, server, and action:  
 
@@ -862,7 +922,7 @@ Extended regex to capture username, server, and action
 User:\s(\w+\s\w+),.+Server:\s(.+),.+Action:\s(\w+)
 ```
 
-**Analyst validation check (captured values):**
+##### 🔷 Phase 7.3 — Analyst validation check (captured values):**
 
 **Prompt 1:** Regex for three fields? — Conclusion: `User:\s(\w+\s\w+),.*Server:\s(\w+),.*Action:\s(\w+)`  
 **Prompt 2:** How many usernames extracted from purchase_logs? — Conclusion: Example: 5  
@@ -872,10 +932,14 @@ User:\s(\w+\s\w+),.+Server:\s(.+),.+Action:\s(\w+)
 I learned that custom field extraction is one of the most powerful aspects of Splunk. Using regex in `transforms.conf` and `props.conf` allows me to create new, meaningful fields from raw log text. This makes searches much more efficient, since I can query structured fields rather than relying on free-text search.
 </blockquote>
 
+</details>
 
-### Phase 9 — Recap and Closure
+<details>
+<summary><strong>▶ Phase 8 — Recap and Closure</strong><br>
+→ consolidating the parsing pipeline sequence and confirm the workflow produces detection-ready events
+</summary><br>
 
-**Objective:** Consolidate the parsing pipeline sequence and confirm the workflow produces detection-ready events.
+**Goal:** Consolidate the parsing pipeline sequence and confirm the workflow produces detection-ready events.
 
 The workflow executed a chain that can be summarized as:
 - Defining event boundaries  
@@ -890,11 +954,13 @@ The workflow executed a chain that can be summarized as:
 
 These skills are critical for SOC Analysts to properly analyze and secure log data.
 
-**Analyst validation check:** Workflow execution reached a stable end state with parsing and extraction rules applied and verified through search results.
+##### 🔷 Phase 8.1 —  Workflow execution reached a stable end state with parsing and extraction rules applied and verified through search results.
+
+</details>
 
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 The workflow produced Splunk data that is more reliable for detection engineering and investigation.
 
@@ -905,7 +971,7 @@ The workflow produced Splunk data that is more reliable for detection engineerin
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 - **Parsing quality is detection quality.** Even well-written SPL detections underperform if Splunk’s event model is wrong or if key values remain trapped inside `_raw`.
 - **Choose the right breaking strategy for the log type.** Single-line logs often work well with `MUST_BREAK_AFTER`, while multi-line logs commonly require `SHOULD_LINEMERGE` plus `BREAK_ONLY_BEFORE` so events start at a stable header pattern.
@@ -915,9 +981,9 @@ The workflow produced Splunk data that is more reliable for detection engineerin
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
-### Scripted input template (`inputs.conf`)
+#### ▶ Scripted input template (`inputs.conf`)
 
 ```
 [script:///path/to/script]
@@ -927,7 +993,7 @@ sourcetype = <sourcetype_name>
 interval = 5
 ```
 
-### Event breaking for single-line records (`props.conf`)
+#### ▶ Event breaking for single-line records (`props.conf`)
 
 ```conf
 [<sourcetype>]
@@ -935,7 +1001,7 @@ SHOULD_LINEMERGE = true
 MUST_BREAK_AFTER = <regex>
 ```
 
-### Multi-line preservation (`props.conf`)
+#### ▶ Multi-line preservation (`props.conf`)
 
 ```conf
 [<sourcetype>]
@@ -943,7 +1009,7 @@ SHOULD_LINEMERGE = true
 BREAK_ONLY_BEFORE = <regex>
 ```
 
-### Masking with `SEDCMD` (`props.conf`)
+#### ▶ Masking with `SEDCMD` (`props.conf`)
 
 ```
 SEDCMD-<name> = s/<regex_to_match>/<replacement>/g
@@ -955,7 +1021,7 @@ SEDCMD-<name> = s/<regex_to_match>/<replacement>/g
 SEDCMD-cc = s/\d{4}-\d{4}-\d{4}-\d{4}/XXXX-XXXX-XXXX-XXXX/g
 ```
 
-### Custom field extraction (`transforms.conf` + `props.conf`)
+#### ▶ Custom field extraction (`transforms.conf` + `props.conf`)
 
 `transforms.conf`:
 
@@ -982,19 +1048,16 @@ INDEXED = true
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 This workflow strengthened practical understanding of how Splunk transforms raw text into detection-ready events through a configuration-driven pipeline. It reinforced the division of responsibilities between `inputs.conf` (ingestion), `props.conf` (parsing and rule application), and `transforms.conf` (transformation logic), and demonstrated how stanza-scoped regex rules can correct event boundaries and preserve multi-line structures. It also demonstrated ingestion-time data protection using `SEDCMD` and showed how custom field extraction enables more reliable, field-based searches that are better suited to SOC monitoring and detection engineering.
 
 ---
 
-## Reflection
+### Reflection
 
 This workflow execution exercise gave me practical experience with Splunk configuration files, regex-based parsing, masking sensitive data, and extracting custom fields. These skills are directly relevant to real-world SOC analyst responsibilities, including compliance, incident investigation, and monitoring.  
 
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
-
-
-
