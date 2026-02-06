@@ -11,7 +11,7 @@ These notes complement the formal execution walkthrough by focusing on *why* cer
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 Identifying the correct interface (`ens5`) was more important than expected. Even though the host only had a small number of interfaces, confirming which one carried active traffic prevented wasted capture attempts and reinforced that interface naming varies widely across environments (cloud VMs, on‑prem servers, containers, etc.).
 
@@ -29,7 +29,7 @@ TCP flag filtering highlighted how connection behavior can be inferred without a
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 The biggest challenge was interpreting output when no packets matched filters. Several commands produced zero results due to limited background activity in the environment. Instead of assuming misconfiguration, validating filters against offline data confirmed that syntax was correct and that the environment simply lacked traffic.
 
@@ -46,7 +46,7 @@ Header byte offset filters were the most conceptually difficult. Understanding w
 
 ---
 
-## Investigative Reasoning and Workflow Design
+### Investigative Reasoning and Workflow Design
 
 The workflow followed a clear investigative progression:
 
@@ -67,7 +67,7 @@ Display-mode testing was placed last because payload and header visualization on
 
 ---
 
-## Limitations of This Workflow
+### Limitations of This Workflow
 
 This workflow does not include:
 
@@ -82,7 +82,7 @@ The environment also did not generate high traffic volumes, which limited the op
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Future enhancements could include:
 
@@ -96,7 +96,7 @@ These additions would bridge manual packet inspection with detection engineering
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow strongly supports:
 
@@ -106,3 +106,4 @@ This workflow strongly supports:
 - SIEM detection validation exercises
 
 Understanding packet-level behavior improves confidence when interpreting higher-level telemetry across security tools.
+
