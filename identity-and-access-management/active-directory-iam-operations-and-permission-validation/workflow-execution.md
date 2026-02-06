@@ -1,45 +1,47 @@
 # Workflow Execution — Identity and Access Management (IAM) Operations, Authentication, and Permission Validation Using Active Directory
 
----
+### Overview
 
-## Overview
+This execution documents identity and access validation within an Active Directory environment using native administrative tooling and directory inspection techniques. The objective is to verify authentication behavior, account privilege assignments, group memberships, and effective permission boundaries to determine whether identity controls are functioning as intended.
 
-This section establishes the operational purpose of the workflow, the identity and access concepts being exercised, and how directory-level actions translate into real-world security posture and detection considerations.
+The execution focuses on collecting and correlating directory service telemetry, authentication activity, and access control configurations to identify privilege anomalies, unauthorized group membership changes, and potential exposure paths. Emphasis is placed on validating identity behavior through structured verification steps rather than relying solely on alert-driven investigation.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
 
-Key investigative and operational questions addressed include:
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
 
-- How does the Domain Controller authenticate users and systems?
-- How do OUs and group memberships affect access rights?
-- How are permissions delegated safely across administrative roles?
-- How does Group Policy enforce security configurations?
-- How does Kerberos authentication function within the domain?
-- How do trust relationships extend authentication across domains?
-
-Each section builds on previous steps to show how identity infrastructure operates as an interconnected system rather than isolated configuration objects.
+---
 
 ### Purpose and Analyst Focus
 
-This workflow execution focuses on hands-on execution of core Active Directory identity and access management operations, including user creation, group membership, organizational unit (OU) structure, delegation, and Group Policy behavior.
+#### ▶ Purpose
 
-This workflow write-up follows a progressive identity‑operations model, starting with domain fundamentals and expanding into user and group administration, organizational unit structure, delegated permissions, group policy enforcement, authentication mechanisms, and inter‑domain trust relationships.
+The purpose of this execution is to demonstrate a structured identity validation and access control review process that answers core investigative and security control questions:
 
-The primary analytical focus is on understanding how administrative actions at the directory level directly affect:
+- Which accounts exist in the directory and what privileges do they hold?
+- Do group memberships align with role-based access expectations?
+- Are authentication events consistent with expected usage patterns?
+- Do accounts have unintended or excessive access to protected resources?
+- Are directory objects configured in ways that could introduce privilege escalation or lateral movement risk?
 
-- Authentication behavior
-- Authorization boundaries
-- Privilege distribution
-- Policy enforcement across systems
+This execution emphasizes systematic identity verification, permission validation, and authentication analysis to support both proactive security control validation and investigation of suspicious identity activity.
 
-A secondary objective is to reinforce how identity infrastructure underpins nearly all enterprise security controls. By directly interacting with domain services, authentication mechanisms, and policy enforcement, the workflow demonstrates how identity becomes both a control plane and an attack surface.
+#### ▶ Analyst Focus
 
-Rather than treating identity as an abstract configuration layer, the workflow approaches Active Directory as an operational control plane where every administrative action creates security-relevant state changes that may later appear in logs, alerts, or incident investigations.
+The analyst focus during this execution is on validating identity and access security posture through direct directory inspection, authentication telemetry review, and effective permission analysis. This includes:
 
-The workflow execution emphasizes not only how to perform identity operations, but how to reason about the security implications of those operations when viewed from a SOC or detection engineering perspective.
+- Enumerating user, computer, and service account objects to establish identity inventory
+- Reviewing group memberships to identify excessive privileges or policy drift
+- Validating authentication activity to detect abnormal login behavior or credential misuse
+- Inspecting directory object attributes for misconfigurations or indicators of compromise
+- Testing access paths to confirm whether accounts have unintended resource permissions
+
+The execution reflects how SOC analysts, identity engineers, and incident responders perform identity-focused triage and access validation to detect privilege abuse, confirm policy enforcement, and support identity-driven investigation workflows.
+
+---
 
 ### What This Workflow Demonstrates
 
@@ -56,18 +58,20 @@ The workflow also highlights how small configuration changes — such as group m
 
 Rather than isolating individual administrative tasks, the workflow treats directory management as a connected system where identity objects, policy application, and authorization logic interact continuously.
 
+---
+
 ### Investigation and Detection Relevance
 
 In modern enterprise environments, identity systems are among the most targeted and abused components during intrusion campaigns.
 
-Attackers frequently exploit the following to escalate access, move laterally, or establish persistence:
+(1) Attackers frequently exploit the following to escalate access, move laterally, or establish persistence:
 
 - Excessive group membership
 - Misconfigured delegation
 - Poor OU segmentation
 - Weak privilege separation
 
-In enterprise environments, directory services are central to:
+(2) In enterprise environments, directory services are central to:
 
 - Authentication and authorization enforcement
 - Privileged access management
@@ -75,7 +79,7 @@ In enterprise environments, directory services are central to:
 - Account compromise investigations
 - Policy enforcement and compliance validation
 
-Understanding how legitimate identity operations are performed provides critical baseline knowledge for distinguishing expected administrative activity from suspicious behavior in:
+(3) Understanding how legitimate identity operations are performed provides critical baseline knowledge for distinguishing expected administrative activity from suspicious behavior in:
 
 - Windows Security logs
 - Active Directory audit logs
@@ -89,11 +93,15 @@ By performing identity management actions directly, the workflow reinforces how 
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 This section documents the directory environment, access methods, and operational constraints under which identity and access operations were executed, providing important context for how configuration changes propagate and how administrative boundaries are enforced.
 
-### Execution Platform
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 All identity operations were performed within a Windows domain environment backed by Active Directory Domain Services.
 
@@ -108,8 +116,12 @@ Environment characteristics:
 
 This setup mirrors common enterprise identity administration models where directory changes are made centrally and propagated automatically across domain infrastructure.
 
-### Tooling and Constraints
+</details>
 
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
+  
 All directory operations were performed using built-in Windows administrative tools without third-party identity management platforms or automation frameworks.
 
 Primary tools included:
@@ -128,8 +140,12 @@ This constraint reinforces familiarity with:
 
 and avoids reliance on tooling that may abstract away underlying directory behavior.
 
-### Data Sources Analyzed
+</details>
 
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
+  
 The workflow operates primarily on directory object state rather than log telemetry, with emphasis on:
 
 - **Active Directory Users and Computers (ADUC)** object hierarchy
@@ -149,7 +165,11 @@ Although log analysis is not the focus of this workflow, all actions performed w
 
 Understanding the directory changes themselves is a prerequisite to interpreting those downstream telemetry signals during investigations.
 
-### Workflow Map (High-Level)
+</details>
+
+<details>
+<summary><strong>▶ Workflow Map (High-Level)</strong><br>
+</summary><br>
 
 The workflow follows a structured sequence designed to demonstrate how identity structure, policy scope, and delegated control interact within a domain environment:
 
@@ -162,11 +182,24 @@ The workflow follows a structured sequence designed to demonstrate how identity 
 
 Each phase builds toward understanding how directory design choices influence both operational efficiency and security posture, reinforcing the importance of intentional identity architecture in enterprise environments.
 
+</details>
+
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-### Step 1 — Domain Controller Role and Directory Initialization
+This section documents the execution in the same order an analyst would realistically perform it during Active Directory IAM operations and permission validation. It begins by establishing directory scope and identity context (domain details, available administrative tooling, target users/groups, and relevant authentication signals), then transitions into structured enumeration and validation steps across users, groups, and access controls.
+
+Each step captures both what was executed (directory queries, validation checks, and collected outputs) and why it was executed (the identity risk question being answered). The execution progresses from identity inventory and group membership verification into effective permission analysis and privilege boundary validation, mirroring how analysts confirm whether access is appropriate, detect privilege drift, and identify potential privilege escalation or lateral movement paths.
+
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ 1) — Domain Controller Role and Directory Initialization</strong><br>
+→ establishing directory service context and validate core identity infrastructure components
+</summary><br>
+
+**Goal:** Establish baseline understanding of the Domain Controller’s role and verify that core Active Directory identity, policy, and name resolution services are operational and accessible for authentication and permission validation.
 
 I logged into a Windows Server virtual machine configured as the Domain Controller (DC). I reviewed the main role of a DC, which is to authenticate users, apply Group Policy, and maintain the AD database.
 
@@ -178,12 +211,14 @@ I confirmed the presence of the following management tools:
 
 I prepared the environment to explore how AD organizes users, computers, groups, policies, and authentication workflows.
 
----
+</details>
 
-### Step 2 — Domain Authentication and Controller Dependencies
+<details>
+<summary><strong>▶ 2) — Domain Authentication and Controller Dependencies</strong><br>
+→ identifying directory hierarchy and understand identity object organization
+</summary><br>
 
-**Objective:**
-To understand the relationship between domain-joined systems and the Domain Controller, and how authentication requests are processed in a domain environment.
+**Goal:** Review how Active Directory organizes users, computers, and groups within Organizational Units (OUs) and validate how directory structure supports administrative delegation, policy application, and access control boundaries.
 
 I logged into the Domain Controller and reviewed the domain configuration. I confirmed that DNS was hosted on the same system, which aligns with Kerberos requirements for service name resolution.
 
@@ -204,16 +239,19 @@ This confirmed that authentication services are centralized and dependent on DC 
 > **Personal Learning Note:**
 > I learned how authentication traffic flows in a domain and how DNS and Kerberos rely on the DC. This directly connected to Security+ topics around secure authentication systems. I learned how domains unify authentication and how DNS and Kerberos rely on the DC. This connected directly to identity and AAA concepts from my Sec+ study.
 
----
+</details>
 
-### Step 3 — Users, Groups, and Organizational Unit (OU) Structure
 
-**Objective**
-To understand how Active Directory organizes and manages objects such as users and computers, and how OUs help structure the domain for easier administration.
+<details>
+<summary><strong>▶ 3) — Users, Groups, and Organizational Unit (OU) Structure</strong><br>
+→ Validating user account configuration, identity attributes, and authentication properties
+</summary><br>
+
+**Goal:** Enumerate domain user accounts and review identity attributes such as account status, login restrictions, password settings, and descriptive metadata to validate proper identity lifecycle configuration and detect misconfiguration or unauthorized accounts.
 
 I explored Active Directory Users and Computers (ADUC) and examined built‑in groups, the default Computers container, and the Domain Users group.
 
-#### Step 3A — Creating and Exploring Organizational Units
+##### 🔷 3A — Creating and Exploring Organizational Units
 
 I created new Organizational Units (OUs) to logically group users and machines, which makes policy assignment easier. 
 
@@ -233,7 +271,7 @@ I then opened Active Directory Users and Computers (ADUC)
 
 I explored the default OUs: Users, Computers, and Built‑in security groups. Then, I reviewed how to create new Organizational Units (OUs) to group users and systems for easier management. I created example user accounts and placed them inside appropriate OUs. Finally, I reviewed group membership and access inheritance.
 
-### Step 3 Findings and Analysis
+##### 🔷 Step 3 Findings and Analysis
 
 Security Groups handle permission assignment, while OUs provide structure and allow Group Policy to be applied at a targeted level. Organizing objects logically makes the domain easier to secure and maintain.
 
@@ -242,16 +280,19 @@ AD becomes much easier to manage when users and machines are organized clearly. 
 > **Personal Learning Note:**
 > I learned the key difference between Groups and OUs. Groups define *what someone can do*, while OUs define *where and how users and computers are organized for administration and policy purposes*. I also learned how OUs form the structure of AD while groups handle access control. This supported the principle of least privilege and role-based access management from Security+.
 
----
+</details>
 
-### Step 4 — Delegation and Privilege Management
 
-### Objective
-To delegate administrative responsibility while maintaining the principle of least privilege.
+<details>
+<summary><strong>▶ 4) — Group Membership and Privilege Boundary Validation</strong><br>
+→ identifying privilege assignments and validate role-based access control implementation
+</summary><br>
+
+**Goal:** Review group membership assignments to determine effective privilege levels, validate role-based access alignment with least-privilege principles, and identify potential privilege escalation or excessive permission exposure risks.
 
 I removed an outdated OU by disabling “Protect object from accidental deletion.” Then, using the Delegation of Control Wizard, I assigned a user (Phillip) permission to manage only the Sales OU. I reset a user password and confirmed that Phillip could manage Sales accounts but not the rest of the domain.
 
-#### Step 4A — Deleting an OU
+##### 🔷 4A — Deleting an OU
 
 For testing, I attempted to delete the "Research and Development" OU, but I wasn’t able to because Active Directory indicated that I either didn’t have the necessary permissions or the OU was protected from accidental deletion.
 
@@ -262,7 +303,7 @@ For testing, I attempted to delete the "Research and Development" OU, but I wasn
   <em>Figure 2</em>
 </p>
 
-#### Step 4B — Disabling accidental deletion protection feature
+##### 🔷 4B — Disabling accidental deletion protection feature
 
 If the issue was simply a lack of permissions, there wouldn’t be anything I could do. 
 
@@ -297,7 +338,7 @@ It was successfully deleted.
   <em>Figure 5</em>
 </p>
 
-#### Step 4C — Using the Delegation of Control Wizard feature
+##### 🔷 4C — Using the Delegation of Control Wizard feature
 
 At this point in the process, I worked with Active Directory Organizational Units (OUs) to delegate limited administrative privileges to a support user. The goal was to allow the user "Phillip", who is responsible for IT support, to reset passwords for users in the Sales OU without giving him full domain administrator rights.
 
@@ -333,7 +374,7 @@ I granted permission to reset passwords and force password change at next logon.
   <em>Figure 7</em>
 </p>
 
-#### Step 4D — Validating Delegated Permissions via RDP
+##### 🔷 4D — Validating Delegated Permissions via RDP
 
 To test the delegation, I logged into the domain using Phillip’s account. During the RDP login, I specified the domain "thm.local"
 
@@ -373,7 +414,7 @@ I was successfully able to access Phillip’s session on the machine, confirming
 </p>
 
 
-#### Step 4E — Testing Delegated Permissions via PowerShell
+##### 🔷 4E — Testing Delegated Permissions via PowerShell
 
 To test Phillip's delegated permissions, I attempted to setting a new password for Sophie under Phillip's account.
 
@@ -423,18 +464,21 @@ Set-ADUser -ChangePasswordAtLogon -Identity sophie -Verbose
 
 Phillip had successfully been delegated password reset capabilities for users inside the Sales OU, demonstrating how targeted privilege delegation supports operational efficiency while preserving security boundaries.
 
-### Step 4 Findings and Analysis
+##### 🔷 4 Findings and Analysis
 
 Delegation allows organizations to split responsibility without granting full domain admin access. This reduces risk and supports scalable administration.
 
 > **Personal Learning Note:**
 > I learned how role-based control and least privilege are implemented in real environments, matching what I studied in Security+ regarding privilege separation and insider threat mitigation.
 
+</details>
 
-### Step 5 — Workstation and Server Organization
+<details>
+<summary><strong>▶ 5) — Authentication Behavior and Logon Activity Validation</strong><br>
+→ Analyze authentication events and validate account usage patterns
+</summary><br>
 
-**Objective:**
-Correctly organize computer objects in the domain so the right policies are applied to the right systems.
+**Goal:** Review authentication activity to validate expected login behavior, identify abnormal or unauthorized access attempts, and confirm whether authentication controls are functioning correctly across domain resources.
 
 By default, any machine that joins a domain (except Domain Controllers) is automatically placed in the built-in Computers container. After reviewing the **Computers** container in **Active Directory Users and Computers**, I noticed that a mix of devices were stored there, including servers, laptops, and desktops. 
 
@@ -446,7 +490,7 @@ To better organize the environment, I separated devices based on the device type
 - Servers – Systems that provide services to users or to other servers on the network.
 - Domain Controllers – Already stored in their own OU by default, as they are considered the most sensitive systems in the domain.
 
-#### Step 5A — Creating new OUs to better organize the environment
+##### 🔷 5A — Creating new OUs to better organize the environment
 
 I created two new OUs: **Workstations** and **Servers** under the domain container. To achieve this, in **ADUC**, I right-clicked the domain, selected **[New > Organizational Unit]**.
 
@@ -467,7 +511,7 @@ I repeated this process twice: once to create an OU named "Workstations" and onc
 </p>
 
 
-#### Step 5B — Moving Devices into the Appropriate Organizational Units</h4>
+##### 🔷 5B — Moving Devices into the Appropriate Organizational Units</h4>
 
 After creating the Workstations and Servers OUs, I moved the existing computer objects out of the default **Computers** container and into their appropriate OUs. 
 
@@ -484,7 +528,7 @@ I decided to move:
 "LPT-" and "PC-" mean laptop and desktop PC, respectively.
 </blockquote>
 
-#### Step 5C — Moving Personal Computers and Laptops to the "Workstations" OU
+##### 🔷 5C — Moving Personal Computers and Laptops to the "Workstations" OU
 
 In PowerShell, I ran the following command to move all personal computers (starting with PC) and laptops (starting with LPT):
 
@@ -516,7 +560,7 @@ It took a several attempts to get the syntax exactly right, but once I confirmed
   <em>Figure 16</em>
 </p>
 
-#### Step 5C — Moving Servers to the "Servers" OU
+##### 🔷 5D — Moving Servers to the "Servers" OU
 
 In PowerShell, I ran the following command to move all personal computers (starting with PC) and laptops (starting with LPT):
 
@@ -548,18 +592,21 @@ Similarly, it took several attempts to get the syntax exactly right, but once I 
   <em>Figure 18</em>
 </p>
 
-### Step 5 Findings and Analysis
+##### 🔷 5 Findings and Analysis
 
 Grouping devices makes policy management predictable and easier to maintain. Servers require stricter controls than regular user workstations.
 
 Separating servers from workstations allows different GPOs to apply depending on security requirements. Servers need stricter controls than user machines.
 
----
+</details>
 
-### Step 6 — Group Policy Configuration and Enforcement
 
-**Objective:**
-Understand how Group Policy enforces settings and security standards across the domain.
+<details>
+<summary><strong>▶ 6) — Group Policy Object (GPO) Inspection and Policy Enforcement Validation</strong><br>
+→ Validate security configuration enforcement and policy inheritance behavior
+</summary><br>
+
+**Goal:** Inspect Group Policy Objects to verify enforcement of authentication policies, password requirements, account lockout settings, and security configuration standards, while confirming correct policy inheritance and OU-level application.
 
 After verifying that my domain was set up correctly, I opened Active Directory Users and Computers (ADUC) and navigated to the thm.local domain. 
 
@@ -567,7 +614,7 @@ I first confirmed that users and computers were currently stored under default c
 
 I reviewed default GPOs, edited domain password policy, created custom policies, and validated inheritance.
 
-#### Step 6A — Reviewing Existing GPOs</h4>
+##### 🔷 6A — Reviewing Existing GPOs</h4>
 
 I opened **Group Policy Management** console and reviewed existing GPOs and saw there were three GPOs:
 
@@ -584,7 +631,7 @@ Both "Default Domain Policy" and "RDP" policy were linked to the domain as a who
   <em>Figure 19</em>
 </p>
 
-#### Step 6B — Examining the Default Domain Policy GPO
+##### 🔷 6B — Examining the Default Domain Policy GPO
 
 I examined the **Default Domain Policy** GPO to check its scope. Confirmed that this policy is linked at the domain level, which means it affects the entire domain by default. 
 
@@ -614,7 +661,7 @@ After creating and organizing the OUs, I opened Group Policy Management to revie
 Without Security Filtering, the policy applies to everyone. With Security Filtering, the policy applies only to the users or computers that I choose to include.
 </blockquote>
 
-#### Step 6C — Editing the Default Domain Policy GPO
+##### 🔷 6C — Editing the Default Domain Policy GPO
 
 Since the Default Domain Policy is linked at the domain level, any changes made to it would affect every user and every computer in the domain. To see how policy changes are applied, I edited this GPO and updated the password requirements.
 
@@ -640,7 +687,7 @@ This change meant that any user account in the domain must now use a password wi
   <em>Figure 23</em>
 </p>
 
-#### Step 6D — Editing the Default Domain Policy GPO
+##### 🔷 6D — Editing the Default Domain Policy GPO
 
 Group Policy Objects (GPOs) are distributed across the network. When a GPO is created or modified, it is stored in a shared folder on the Domain Controller called `SYSVOL`. 
 
@@ -665,14 +712,14 @@ gpupdate /force
   <em>Figure 24</em>
 </p>
 
-#### Step 6E — Creating and Applying Custom GPOs
+##### 🔷 6E — Creating and Applying Custom GPOs
 
 For testing, I created two new Group Policy Objects (GPOs) to enforce security and access control settings across the domain:
 
 - Restrict access to the Windows Control Panel for non-IT users (Step 6F)
 - Automatically lock workstations and servers after 5 minutes of inactivity (Step 6G)
 
-#### Step 6F — Restricting Access to the Control Panel
+##### 🔷 6F — Restricting Access to the Control Panel
 
 The goal of this policy was to make sure that only members of the IT department could access the Control Panel. Other departments (Sales, Marketing, Management, etc.) should not be able to modify system settings on their machines.
 
@@ -720,7 +767,7 @@ I achieved this with a simple drag-and-drop:
 
 This ensured that only users within those specific OUs would be restricted, while IT staff retained full access.
 
-#### Step 6G — Automatically lock workstations and servers after 5 minutes of inactivity
+##### 🔷 6G — Automatically lock workstations and servers after 5 minutes of inactivity
 
 Next, I created a GPO to automatically lock workstations and servers after 5 minutes of inactivity. I named this policy "Auto Lock Screen". 
 
@@ -760,7 +807,7 @@ After closing the GPO editor, I linked the GPO to the root domain by dragging th
   <em>Figure 32</em>
 </p>
 
-#### Step 6H — Verifying GPOs have been applied to the correct OUs</h4>
+##### 🔷 6H — Verifying GPOs have been applied to the correct OUs</h4>
 
 To verify, I logged into the domain using Mark’s account, who is in the "Marketing" OU. The Marketing OU should now have the following GPOs applied to it:
 
@@ -800,7 +847,7 @@ I was successfully able to access Mark’s session on the machine, confirming th
   <em>Figure 35</em>
 </p>
 
-#### Step 6I — Testing Control Panel Access
+##### 🔷 6I — Testing Control Panel Access
 
 I opened the Control Panel, but access was blocked. This confirmed that the GPO restricting Control Panel access was successfully applied to the intended OUs:
 
@@ -817,7 +864,7 @@ Mark being in the "Marketing" OU should not have access to the Control Panel, wh
   <em>Figure 36</em>
 </p>
 
-#### Step 6J — Testing inactivity GPO
+##### 🔷 6J — Testing inactivity GPO
 
 I left the workstation idle for five minutes to verify the Auto Lock Screen GPO from Step 6G. After the idle period, the screen automatically locked and required credentials to log back in, confirming the policy was successfully applied.
 
@@ -831,17 +878,20 @@ Group Policy ensures consistency, compliance, and baseline security across large
 
 Group Policy allows configuration enforcement at scale. It ensures users and machines follow consistent security rules, which is something I repeatedly saw emphasized in Security+ for enterprise hardening.
 
----
+</details>
 
-### Step 7 — Kerberos vs NTLM Authentication Review
 
-**Objective:**
-To understand how Active Directory handles authentication using Kerberos and how NTLM remains for legacy support.
+<details>
+<summary><strong>▶ 7) — Kerberos vs NTLM Authentication Review</strong><br>
+→ understanding how Active Directory handles authentication using Kerberos and how NTLM remains for legacy support
+</summary><br>
 
-#### Review & Analysis
+**Goal:** To understand how Active Directory handles authentication using Kerberos and how NTLM remains for legacy support.
+
+##### 🔷 7A — Review & Analysis
 I reviewed how authentication works in a Windows Active Directory domain, focusing on Kerberos and NTLM. I remembered learning the high-level concepts when studying for the CompTIA Security+ exam, but seeing the actual authentication flows laid out step-by-step helped solidify how they function in a real enterprise environment.
 
-**Review & Analysis: Kerberos**
+##### 🔷 7B — Review & Analysis: Kerberos
 
 Kerberos is the default authentication protocol used in modern AD domains. Instead of sending passwords or password hashes across the network repeatedly, Kerberos uses encrypted tickets and temporary session keys to verify identity. This greatly reduces credential exposure and makes it harder for attackers to reuse stolen hashes.
 
@@ -855,7 +905,7 @@ The Domain Controller acts as the Key Distribution Center (KDC), which provides 
 - The Authentication Service (AS)
 - The Ticket Granting Service (TGS)
 
-**Kerberos Authentication Steps:**
+##### 🔷 7C — Kerberos Authentication Steps
 
 1. **Initial User Login** - When a user logs into Windows, they enter their username and password. The workstation does not send the password to the Domain Controller. Instead, it creates an encrypted timestamp using the user's password hash (which is stored locally after the login attempt) and sends that to the KDC. This is known as the AS-REQ.
 2. **Ticket Granting Ticket (TGT) Issued** - The KDC verifies the timestamp by decrypting it with the stored copy of the user’s password hash. If it matches, the KDC sends two things back to the client:
@@ -887,7 +937,7 @@ With Kerberos, the important detail is that credentials are never re-sent once a
 
 NTLM is the older authentication protocol and still shows up in environments for backward compatibility. NTLM does not use tickets. Instead, it relies heavily on the user’s password hash, which can be vulnerable to Pass-the-Hash attacks.
 
-**NTLM Authentication Steps:**
+##### 🔷 7D — NTLM Authentication Steps
 
 1. The client requests authentication from a server.
 2. The server sends a randomly generated challenge back to the client.
@@ -898,18 +948,20 @@ NTLM is the older authentication protocol and still shows up in environments for
 
 One major drawback is that if an attacker steals the NTLM hash, they can authenticate without needing to know the actual password.
 
-### Step 7 Key Takeaways
+##### 🔷 7 — Key Takeaways
 
 Seeing the actual authentication flows helped reinforce the Security+ concepts I studied. Kerberos makes sense now in a more practical way: it reduces credential exposure by using tickets and session keys instead of password hashes. NTLM, on the other hand, now feels clearly outdated and risky, especially because of how frequently Pass-the-Hash attacks are seen in real incident response cases.
 
 Understanding these authentication flows is extremely important for Blue Team and SOC Analyst work, especially when reviewing Windows Event Logs, investigating failed logon attempts, or analyzing lateral movement across a network.
 
----
+</details>
 
-### Step 8 — Trees, Forests, and Trust Relationships
+<details>
+<summary><strong>▶ 8) — Trees, Forests, and Trust Relationships</strong><br>
+→ understanding how AD scales to large and multi-organization environments.
+</summary><br>
 
-**Objective:**
-Understand how AD scales to large and multi-organization environments.
+**Goal:** Understand how AD scales to large and multi-organization environments.
 
 #### Review & Analysis
 
@@ -917,7 +969,7 @@ I reviewed the concepts of Trees, Forests, and Trust Relationships within Active
 
 A single domain (such as thm.local) is enough for smaller organizations. However, as a company grows, especially across regions or business units, managing everything under one domain can become difficult and inefficient. Different teams may require separate administrative control, unique Group Policies, or different compliance requirements.
 
-**Review & Analysis: Trees**
+##### 🔷 8A — Review & Analysis: Trees
 
 A **Tree** is formed when multiple domains share the same root namespace. For example:
 - thm.local (root domain)
@@ -930,7 +982,7 @@ These are separate domains but share the same namespace ("thm.local") and are co
 
 However, an Enterprise Admin (a different security group) has full control across the entire Tree.
 
-**Review & Analysis: Forests**
+##### 🔷 8B — Review & Analysis: Forests
 
 I learned (and reviewed) that a **Forest** is created when there are multiple Trees that do NOT share the same namespace. For example, if company THM merges with another company MHT Inc., each may already have its own established domain structure:
 - thm.local Tree
@@ -940,7 +992,7 @@ Combining them creates a Forest. This allows the organizations to connect their 
 
 The Forest acts as the security boundary for the network. Enterprise Admins can manage objects across all domains in the Forest.
 
-**Review & Analysis: Trust Relationships**
+##### 🔷 8C — Review & Analysis: Trust Relationships
 
 **Trusts** allow users in one domain to access resources located in another domain. Without a trust, domains are isolated from each other.
 
@@ -961,7 +1013,7 @@ It is important to note that a trust relationship only allows the opportunity fo
 
 This explained how AD scales across large organizations.
 
-### Step 8 Key Takeaways
+##### 🔷 8 — Key Takeaways
 
 Understanding how Trees and Forests are structured makes it clear why large enterprise environments rarely use only one domain. Delegation of control, geographic separation, compliance rules, and operational boundaries all require structured domain hierarchy.
 
@@ -969,15 +1021,17 @@ Trusts are also key in real-world networks, especially during mergers, acquisiti
 
 This ties directly back to the Security+ objectives around AAA (authentication, authorization, accounting) and enterprise identity management. Seeing the visual breakdown and practical examples made these architectural concepts much clearer and easier to remember.
 
+</details>
+
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 This workflow confirmed how identity, authentication, and access control are enforced centrally in Windows enterprise environments. Administrative boundaries, policy enforcement, and authentication protocols form layered controls that reduce operational risk and support scalable security governance.
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 - Misconfigured delegation can allow privilege escalation.
 - Weak GPO scoping can expose systems to insecure configurations.
@@ -987,7 +1041,7 @@ This workflow confirmed how identity, authentication, and access control are enf
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
 - ADUC for object management
 - Delegation of Control Wizard for least-privilege assignment
@@ -997,7 +1051,7 @@ This workflow confirmed how identity, authentication, and access control are enf
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 I gained practical experience working with AD infrastructure and now understand how identity, access control, and system configuration are enforced in enterprise environments.
 
@@ -1008,9 +1062,12 @@ I gained practical experience working with AD infrastructure and now understand 
 - Authentication protocol analysis
 - Enterprise directory architecture concepts
 
+---
+
 ### Conclusion and Final Reflection
 
 This has allowed me to practice real administrative tasks in Active Directory while reinforcing Security+ identity management concepts. I learned how to organize users and devices, delegate privileges, apply Group Policy, and understand authentication protocols.
 
 This workflow execution has also helped me move from theoretical understanding to hands‑on use of Active Directory. I managed users, devices, OUs, delegated privileges, and configured GPOs. I also reinforced key identity and authentication concepts from my CompTIA Security+ studies.
+
 
