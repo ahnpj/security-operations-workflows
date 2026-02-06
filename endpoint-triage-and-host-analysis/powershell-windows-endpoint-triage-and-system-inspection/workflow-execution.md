@@ -195,7 +195,7 @@ I confirmed basic PowerShell navigation and command discovery patterns that are 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: PowerShell command discovery and help enumeration.</em>
 </p>
 
 **Evidence Capture Commands (examples)**
@@ -356,7 +356,7 @@ I used `Get-ChildItem | Sort-Object Length` to sort files by size. I treated thi
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Files sorted by size to identify suspicious artifacts.</em>
 </p>
 
 ##### 🔷 3.3 — Step 2: Filtering specific file types and name patterns
@@ -373,7 +373,7 @@ Using `Where-Object`, I filtered file objects based on properties like extension
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Filtering files by name and extension patterns.</em>
 </p>
 
 ##### 🔷 3.4 — Step 3: Selecting key properties to reduce noise
@@ -390,7 +390,7 @@ I used `Select-Object` to output only the properties I needed (like file name an
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Selecting key file properties to reduce output noise.</em>
 </p>
 
 ##### 🔷 3.5 — Step 4: Searching file content for keywords (Select-String)
@@ -409,7 +409,7 @@ For instance: `Select-String -Path .\example.txt -Pattern "keyword"` returned ma
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Keyword search within file content using "Select-String".</em>
 </p>
 
 ##### 🔷 3.6 — Step 5: Size-based filtering challenge (comparison operators)
@@ -435,7 +435,7 @@ Get-Children | Where-Object -Property Length -gt 100
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Size-based file filtering using comparison operators.</em>
 </p>
 
 To make sure I could explain the command cleanly in reporting, I also broke down the components explicitly:
@@ -451,7 +451,7 @@ To make sure I could explain the command cleanly in reporting, I also broke down
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Pipeline breakdown for size-based filtering logic./em>
 </p>
 
 ##### 🔷 3.7 — Why this objective matters in real investigations
@@ -518,7 +518,7 @@ navigate → enumerate → pivot → validate artifact content → capture evide
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Verification task overview showing artifact discovery workflow.</em>
 </p>
 
 (Step 1): navigate to the user root directory
@@ -529,7 +529,7 @@ I changed into `C:\Users` using `Set-Location` so I could locate the target user
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Navigation to user directory for artifact triage.</em>
 </p>
 
 (Step 2): enumerate contents and pivot into the suspicious directory
@@ -541,7 +541,7 @@ I listed the contents with `Get-ChildItem` and identified a directory called `hi
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Enumeration of suspicious user directory contents.</em>
 </p>
 
 (Step 3): read the artifact content to retrieve the answer
@@ -553,7 +553,7 @@ I opened the file with `Get-Content big-treasure.txt` to retrieve the content. I
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Artifact content inspection using "Get-Content".</em>
 </p>
 
 (Step 4): confirmation of completion
@@ -565,7 +565,7 @@ I captured the completion state as proof that the artifact was located and read 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Evidence capture confirming artifact retrieval.</em>
 </p>
 
 ##### 🔷 Objective 4.5 — Why this objective matters in real investigations
@@ -630,7 +630,7 @@ Each verification required referencing earlier findings and validating them usin
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: Verification prompt: retrieve artifact hash./em>
 
 **Verification Check 2 (rephrased)** Which default property returned by `Get-NetTCPConnection` identifies the process that owns a given network connection?
 
@@ -639,7 +639,7 @@ Each verification required referencing earlier findings and validating them usin
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: Verification prompt: retrieve default property.</em>
 
 **Verification Check 3 (rephrased)** Which service name corresponds to a service whose DisplayName was modified to match the suspicious user’s motto?
 
@@ -648,7 +648,7 @@ Each verification required referencing earlier findings and validating them usin
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 15</em>
+  <em>Figure 15:: Verification prompt: retrieve service name.</em>
   
 ##### 🔷 5.3 — Step 1: Artifact integrity validation using file hashing
 
@@ -666,14 +666,14 @@ I executed the following sequence:
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: Reviewing "Get-NetTCPConnection" output for process linkage.</em>
 
 <p align="left">
   <img src="images/powershell-endpoint-triage-basics.13.answer.png" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 17 (Answer)</em>
+  <em>Figure 17: Captured artifact hash output (verification result).</em>
 
 This step demonstrates how filesystem discovery naturally flows into integrity validation during endpoint triage.
 
@@ -686,7 +686,7 @@ This step required identifying which property in `Get-NetTCPConnection` output a
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 18</em>
+  <em>Figure 18: Identified property output that allows correlation between network connections</em>
 
 By reviewing cmdlet documentation and output structure, I confirmed that the relevant property is `OwningProcess`. This field provides the Process ID (PID) associated with each connection. That PID can then be mapped back to executable context using `Get-Process` or CIM queries, allowing analysts to determine which application initiated the traffic.
 
@@ -697,7 +697,7 @@ Rather than relying on guesswork, this was validated directly through documentat
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 19 (Answer)</em>
+  <em>Figure 19: Service name tied to modified "DisplayName" (answer).</em>
 
 ##### 🔷 5.5 — Step 3: Detecting service metadata tampering
 
@@ -716,7 +716,7 @@ This aligned with the suspicious user motto observed earlier in the workflow. I 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 20</em>
+  <em>Figure 20: Service output showing motto-based "DisplayName".</em>
 
 This confirmed that service metadata had been modified, which is a common persistence and defense-evasion technique. Even when the service binary itself is not immediately suspicious, altered DisplayNames can indicate attacker attempts to disguise malicious services as benign system components.
 
@@ -725,7 +725,7 @@ This confirmed that service metadata had been modified, which is a common persis
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 21 (Answer)</em>
+  <em>Figure 21: Captured service name associated with tampered "DisplayName" (answer).</em>
 
 ##### 🔷 Objective 5.6 — Additional integrity validation note (hashing ship-flag.txt)
 
@@ -808,7 +808,7 @@ The task was to execute the `Get-Service` cmdlet on a remote host named `RoyalFo
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 22</em>
+  <em>Figure 22: Remote "Invoke-Command" execution against "RoyalFortune".</em>
 
 I used the **Invoke-Command** cmdlet to run **Get-Service** on the remote host named *RoyalFortune*. To perform the remote execution, I used the following command:
 
@@ -823,7 +823,7 @@ This command sends the `Get-Service` instruction to the remote host, executes it
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 23 (Answer)</em>
+  <em>Figure 23: Returned service list confirming successful remoting (answer).)</em>
 
 **Why this matters**  
 This demonstrates the ability to scale triage and collection tasks across systems. In real incidents, analysts often need to validate process state, service configuration, or registry settings across multiple endpoints simultaneously. Remote execution allows that work to be performed quickly and consistently without manual host-by-host access.
@@ -886,6 +886,7 @@ PowerShell provides enough native capability to perform meaningful endpoint tria
 This workflow execution strengthened practical endpoint triage skills using native PowerShell tooling. It reinforced command discovery habits (`Get-Command`, `Get-Help`), improved comfort with object pipelines for sorting and filtering, and built confidence with core evidence surfaces: filesystem, processes, services, and network connections.
 
 It also reinforced integrity validation practices through hashing and introduced scalable response patterns through remoting (`Invoke-Command`). Overall, the workflow execution demonstrates that I can operate effectively in constrained environments and still produce evidence-backed, repeatable triage outputs.
+
 
 
 
