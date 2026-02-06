@@ -10,7 +10,7 @@ These notes reflect how directory-level actions translate into security posture 
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 Working directly inside Active Directory Users and Computers (ADUC) made it clear how much security posture is determined by object placement and inheritance rather than by individual permissions alone. Simply moving users or computers between OUs can drastically change which policies apply to them, even if their group memberships remain unchanged.
 
@@ -24,7 +24,7 @@ Testing policies by logging in as different users was critical. Verifying that M
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 The most significant friction occurred when working with PowerShell AD cmdlets for bulk movement of computer objects. Getting the `-Filter` syntax correct and specifying the correct `SearchBase` distinguished whether commands targeted the intended container or silently returned no results.
 
@@ -36,7 +36,7 @@ GPO application timing was another consideration. While `gpupdate /force` can re
 
 ---
 
-## Investigative Reasoning and Administrative Pivots
+### Investigative Reasoning and Administrative Pivots
 
 The workflow progressed from structure → permissions → enforcement → validation intentionally.
 
@@ -52,7 +52,7 @@ Trust and forest concepts were reviewed last to contextualize how identity risk 
 
 ---
 
-## Limitations of This Workflow
+### Limitations of This Workflow
 
 This walkthrough does not evaluate:
 
@@ -67,7 +67,7 @@ The environment also does not simulate adversarial abuse of identity features, s
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Potential future extensions include:
 
@@ -81,7 +81,7 @@ These additions would bridge configuration management with active detection engi
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow strongly supports:
 
@@ -91,3 +91,4 @@ This workflow strongly supports:
 - Privileged access abuse investigations
 
 Understanding legitimate identity operations makes it easier to detect misuse during security incidents.
+
