@@ -123,7 +123,7 @@ Environment characteristics:
   <img src="images/linux-shell-and-scripting-basics-01.png?raw=true&v=2"
        style="border: 2px solid #444; border-radius: 6px;"
        width="1000"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: VM environment banner showing OS, kernel, and baseline system stats.</em>
 </p>
 
 Because the environment reset between sessions, internal IP addresses changed frequently (typically within the `10.201.x.x` range), and all scripts had to be recreated when reconnecting. This unintentionally reinforced familiarity with setup procedures and script reconstruction, which is common in incident response environments.
@@ -246,7 +246,7 @@ I then ran the following commands to establish baseline context:
   <img src="images/linux-shell-and-scripting-basics-02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Baseline host interrogation commands executed after SSH login.</em>
 </p>
 
 Running this collection of commands allowed me to quickly validate that I was operating on the expected host image, confirm that networking was functional, and check that disk and memory usage were normal before continuing.
@@ -448,7 +448,7 @@ This confirmed that my session was running in Bash, which is the default shell o
   <img src="images/linux-shell-and-scripting-basics-03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Confirming the active shell via "echo $SHELL".</em>
 </p>
 
 
@@ -464,7 +464,7 @@ cat /etc/shells
   <img src="images/linux-shell-and-scripting-basics-04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Enumerating available login shells from "/etc/shells".</em>
 </p>
 
 This file lists shells that users are allowed to log into, which is relevant when configuring accounts or restricting shell access for security purposes.
@@ -482,7 +482,7 @@ zsh
   <img src="images/linux-shell-and-scripting-basics-05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Switching into Zsh to compare interactive shell behavior.</em>
 </p>
 
 After exiting the Z shell (zsh) setup menu, I manually switched my shell back. To do this, I simply typed `bash` and pressed [Enter]. This immediately returned me to the standard Bash prompt, confirming that I was now back in the Bash environment.
@@ -497,7 +497,7 @@ bash
   <img src="images/linux-shell-and-scripting-basics-06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Returning to Bash after testing Zsh.</em>
 </p>
 
 I did not permanently change the default shell for the user account. The goal was only to observe differences in interactive behavior and command completion.
@@ -627,14 +627,14 @@ echo "Hi there, $name"
   <img src="images/linux-shell-and-scripting-basics-07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Creating a simple interactive Bash script in "nano".</em>
 </p>
 
 <p align="left">
   <img src="images/linux-shell-and-scripting-basics-08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Script contents showing "read" input captured into a variable.</em>
 </p>
 
 The shebang (#!/bin/bash) is similar to how Python scripts use `#!/usr/bin/env python3` to specify the interpreter. This seems to be the same concept, just different ecosystem. Basically, the shebang (`#!/bin/bash`) specifies that the script should be interpreted using Bash when executed directly.
@@ -655,7 +655,7 @@ chmod +x peters_script.sh
   <img src="images/linux-shell-and-scripting-basics-09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Granting execute permissions using "chmod +x".</em>
 </p>
 
 This step enforces the idea of execution-level control that doesn’t exist in Python by default but is crucial in Linux environments.
@@ -672,7 +672,7 @@ Now that the script had execution rights, I ran the script using:
   <img src="images/linux-shell-and-scripting-basics-10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Running the script with "./" and validating interactive input flow.</em>
 </p>
 
 To run the script, I used the `./` prefix. This explicitly told the shell to execute the file located in the current directory, because the current directory wasn’t included in the system’s PATH. Without `./`, the shell would look only in the directories listed in PATH, fail to find the script, and return a “command not found” error.
@@ -699,7 +699,7 @@ The iterative logic mirrored Python: looped from 1 to 10, print each number.
   <img src="images/linux-shell-and-scripting-basics-11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Writing a loop-based Bash script to practice iteration.</em>
 </p>
 
 After writing the script, I saved it ([CTRL+X] > then [Y], then [ENTER]), I applied execute permissions and ran the script:
@@ -713,7 +713,7 @@ chmod +x peters_loop_script.sh
   <img src="images/linux-shell-and-scripting-basics-12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Loop script execution output confirming iteration behavior.</em>
 </p>
 
 This script demonstrated how loops in Bash mirror iteration constructs used in Python and other languages.
@@ -745,7 +745,7 @@ fi
   <img src="images/linux-shell-and-scripting-basics13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: Creating an "if/else" conditional script for basic access logic.</em>
 </p>
 
 The structure is similar to Python’s conditional branching, but using `fi` to close a condition, an explicit end marker to prevent logic bleed.
@@ -760,7 +760,7 @@ I executed the script running:
   <img src="images/linux-shell-and-scripting-basics-14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: Executing the conditional script to validate branching behavior.</em>
 </p>
 
 Using `./peters_conditional_script.sh` only runs the file, it does not give it permission to run. If the script isn’t already executable, the command will fail. The purpose of `chmod +x` is to add the executable permission so the system can actually run it. After that, `./script.sh` works because the file is now allowed to execute.
@@ -773,14 +773,14 @@ The two screenshots below are simply examples showing both possible outcomes. Wh
   <img src="images/linux-shell-and-scripting-basics-15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 15</em>
+  <em>Figure 15: Authorized output path when the expected name is entered.</em>
 </p>
 
 <p align="left">
   <img src="images/linux-shell-and-scripting-basics-16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: Unauthorized output path when validation fails.</em>
 </p>
 
 This demonstrated how conditional logic controls execution flow based on user input.
@@ -815,7 +815,7 @@ fi
   <img src="images/linux-shell-and-scripting-basics-17.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 17</em>
+  <em>Figure 17: Adding inline comments to improve script readability and maintainability.</em>
 </p>
 
 Comments don't change execution, but they dramatically improve readability, just as they did in my Python coursework.
@@ -924,7 +924,7 @@ nano peters_locker_script.sh
   <img src="images/linux-shell-and-scripting-basics-18.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 18</em>
+  <em>Figure 18: Creating the multi-input “locker” script file in nano.</em>
 </p>
 
 Inside the file, I added the shebang along with placeholder variables:
@@ -941,7 +941,7 @@ pin=""
   <img src="images/linux-shell-and-scripting-basics-19.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 19</em>
+  <em>Figure 19: Initial variable placeholders and script scaffolding for input capture.</em>
 </p>
 
 The shebang works the same way it did when writing Python scripts (#!/usr/bin/env python3), telling the system which interpreter to use.
@@ -971,7 +971,7 @@ This allowed all inputs to be collected using a single loop construct, reducing 
   <img src="images/linux-shell-and-scripting-basics-20.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 20</em>
+  <em>Figure 20: Loop-driven prompting to collect multiple input fields.</em>
 </p>
 
 Thought Process:
@@ -1027,7 +1027,7 @@ All conditions had to evaluate to true in order for access to be granted.
   <img src="images/linux-shell-and-scripting-basics-21.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 21</em>
+  <em>Figure 21: Compound conditional validation for username + org + PIN.</em>
 </p>
 
 
@@ -1053,7 +1053,7 @@ chmod +x peters_locker_script.sh
   <img src="images/linux-shell-and-scripting-basics-22.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 22</em>
+  <em>Figure 22: Applying execute permissions to the locker script.</em>
 </p>
 
 I applied execute permissions and ran the script:
@@ -1066,7 +1066,7 @@ I applied execute permissions and ran the script:
   <img src="images/linux-shell-and-scripting-basics-23.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 23</em>
+  <em>Figure 23: Running the locker script and collecting interactive inputs.</em>
 </p>
 
 I tested both valid and invalid input scenarios.
@@ -1081,7 +1081,7 @@ I entered the correct details first:
   <img src="images/linux-shell-and-scripting-basics-24.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 24</em>
+  <em>Figure 24: Entering valid inputs to test the success path.</em>
 </p>
 
 It printed the message `Authentication Successful. You can now access your locker, Peter.` as expected.
@@ -1090,7 +1090,7 @@ It printed the message `Authentication Successful. You can now access your locke
   <img src="images/linux-shell-and-scripting-basics-25.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 25</em>
+  <em>Figure 25: Successful authentication message confirming all checks passed.</em>
 </p>
 
 I then entered incorrect details to test what would happen if the variables contained (at least) 1 wrong input that wasn't defined in the locker script since the script was defined to only print the authentication successfull message if all variables matched:
@@ -1105,7 +1105,7 @@ It printed the message `Authentication Denied!!` as expected.
   <img src="images/linux-shell-and-scripting-basics-26.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 26</em>
+  <em>Figure 26: Failed authentication output when one or more fields are incorrect.</em>
 </p>
 
 
@@ -1193,6 +1193,7 @@ Even simple scripts demonstrated how automation can be applied to repetitive val
 - Translating programming concepts across languages
 
 ---
+
 
 
 
