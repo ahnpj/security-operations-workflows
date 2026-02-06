@@ -129,7 +129,7 @@ cd Downloads/scripts
 ```
 
 <p align="left">
-  <img src="images/lab10-splunk-data-manipulation-figure01.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure01.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="500"><br>
@@ -141,7 +141,7 @@ cd Downloads/scripts
 The directory contents were listed using `ls`, and the output showed three items: `authentication_logs`, `purchase-details`, and `vpnlogs`. These items do not use the typical `.py` extension that often identifies Python scripts. However, scripts can exist without a `.py` extension (for example, executable scripts using a shebang such as `#!/usr/bin/python3`), and training environments frequently name executables without extensions.
 
 <p align="left">
-  <img src="images/lab10-splunk-data-manipulation-figure01.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure01.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="500"><br>
@@ -485,7 +485,7 @@ A quick reference table created to loosely define some common stanzas and provid
 **Challenge / Question Set (knowledge check)**
 
 <p align="left">
-  <img src="images/lab10-splunk-data-manipulation-figure03.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure03.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="900"><br>
@@ -549,7 +549,7 @@ I logged into the Splunk web app.
 (Phase 4.3, Step 1): Select the gear icon next to **Apps** to open the Apps management page.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure04.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure04.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -559,7 +559,7 @@ I logged into the Splunk web app.
 (Phase 4.3, Step 2): Select **[Create app]**.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure05.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure05.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -578,7 +578,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
 </blockquote>
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure06.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure06.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -588,7 +588,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
 (Phase 4.3, Step 4): Confirm the app appears in the Apps table.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure07.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure07.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -602,7 +602,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
 </blockquote>
     
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure08.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure08.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -612,7 +612,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
 (Phase 4.3, Step 6):  Return to the Linux terminal to locate the newly created app on disk.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure09.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure09.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -640,7 +640,7 @@ print("This is a sample log...")
 ```
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure10.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure10.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -650,7 +650,7 @@ print("This is a sample log...")
 The script was executed to confirm the output is produced as expected.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure11.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure11.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -668,7 +668,7 @@ The goal was to simulate a real-world scenario where Splunk needs to ingest data
 The purpose of this step is not just to collect fake data, but to understand how Splunk apps bundle configurations that control data ingestion. In production, different apps use their own `inputs.conf` files to define how logs from servers, applications, or security tools are pulled into Splunk. This exercise helps reinforce that idea by walking through the process in a simplified example.
 
 <p align="center">
-  <img src="images/lab10-splunk-data-manipulation-figure12.png?raw=true&v=2" 
+  <img src="images/splunk-data-manipulation-figure12.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
@@ -1061,3 +1061,4 @@ This workflow execution exercise gave me practical experience with Splunk config
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
+
