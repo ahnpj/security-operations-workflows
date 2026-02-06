@@ -11,7 +11,7 @@ These notes emphasize how baseline development, aggregation strategies, and geog
 
 ---
 
-## Observations During Execution
+### Observations During Execution
 
 Applying `spath` early in nearly every query reinforced how essential field extraction is when working with JSON-formatted telemetry. Without structured fields, all subsequent aggregation would have required brittle string searches that would not scale to detection engineering or dashboards.
 
@@ -29,7 +29,7 @@ Baseline outcome distribution using `stats count by action` helped contextualize
 
 ---
 
-## Challenges and Troubleshooting
+### Challenges and Troubleshooting
 
 One challenge was ensuring that all queries consistently applied `spath`. Forgetting to extract fields resulted in empty or misleading aggregation results, which could easily be mistaken for lack of suspicious activity rather than parsing failure.
 
@@ -41,7 +41,7 @@ When filtering for port 443, using both `port=443` and `dest_port=443` highlight
 
 ---
 
-## Investigative Reasoning and Workflow Design
+### Investigative Reasoning and Workflow Design
 
 The workflow was structured to move from broad baseline understanding into more targeted anomaly detection:
 
@@ -62,7 +62,7 @@ Baseline outcome analysis at the end helped contextualize whether earlier findin
 
 ---
 
-## Limitations of This Workflow
+### Limitations of This Workflow
 
 This workflow does not include:
 
@@ -77,7 +77,7 @@ Additionally, the dataset does not represent production-scale VPN telemetry, whe
 
 ---
 
-## Ideas for Expansion or Automation
+### Ideas for Expansion or Automation
 
 Potential enhancements include:
 
@@ -91,7 +91,7 @@ These would extend exploratory analysis into continuous monitoring.
 
 ---
 
-## Cross-Workflow Connections
+### Cross-Workflow Connections
 
 This workflow directly supports:
 
@@ -101,3 +101,4 @@ This workflow directly supports:
 - Zero-trust access validation
 
 Understanding VPN behavior improves confidence when investigating lateral movement and credential misuse alerts.
+
