@@ -1,13 +1,13 @@
 # Tool Usage Notes — Identity and Access Management (IAM) Operations Using Active Directory
 
+This document provides a technical reference for the native Windows directory management tools and PowerShell Active Directory cmdlets used during the IAM workflow execution. The focus is on how identity operations are performed, how permissions and policies propagate through the directory, and how those changes directly influence authentication and authorization behavior across domain‑joined systems.
+
+All tooling used in this execution is native to Windows and Active Directory Domain Services. No third‑party identity management platforms or automation frameworks were used. This mirrors common enterprise environments where directory changes are performed using standard administrative consoles and scripting tools.
+
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational security tasks such as identity provisioning, access control design, and policy enforcement.  
 > - **Executions** refer to the hands-on performance of those tasks using real directory services, management tools, and authentication mechanisms.  
 > - **Writeups** document configuration steps, validation actions, and how identity changes affect security posture and detection visibility.
-
-This document provides a technical reference for the native Windows directory management tools and PowerShell Active Directory cmdlets used during the IAM workflow execution. The focus is on how identity operations are performed, how permissions and policies propagate through the directory, and how those changes directly influence authentication and authorization behavior across domain‑joined systems.
-
-All tooling used in this execution is native to Windows and Active Directory Domain Services. No third‑party identity management platforms or automation frameworks were used. This mirrors common enterprise environments where directory changes are performed using standard administrative consoles and scripting tools.
 
 ---
 
@@ -284,3 +284,4 @@ Configuration workflows demonstrated here directly generate telemetry used by th
 - **Analysis Method:** Identity structure validation, permission scoping, and policy enforcement verification
 
 These tools collectively support enterprise‑grade identity administration and security governance workflows.
+
