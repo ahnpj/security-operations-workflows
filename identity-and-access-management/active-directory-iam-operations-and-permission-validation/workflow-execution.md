@@ -1,4 +1,4 @@
-# Workflow Execution — Identity and Access Management (IAM) Operations, Authentication, and Permission Validation Using Active Directory
+# Identity and Access Management (IAM) Operations, Authentication, and Permission Validation Using Active Directory
 
 ### Overview
 
@@ -1069,5 +1069,6 @@ I gained practical experience working with AD infrastructure and now understand 
 This has allowed me to practice real administrative tasks in Active Directory while reinforcing Security+ identity management concepts. I learned how to organize users and devices, delegate privileges, apply Group Policy, and understand authentication protocols.
 
 This workflow execution has also helped me move from theoretical understanding to hands‑on use of Active Directory. I managed users, devices, OUs, delegated privileges, and configured GPOs. I also reinforced key identity and authentication concepts from my CompTIA Security+ studies.
+
 
 
