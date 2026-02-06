@@ -1,4 +1,4 @@
-# Workflow Execution — Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk
+# Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk
 
 ---
 
@@ -995,5 +995,6 @@ This workflow execution exercise gave me practical experience with Splunk config
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
+
 
 
