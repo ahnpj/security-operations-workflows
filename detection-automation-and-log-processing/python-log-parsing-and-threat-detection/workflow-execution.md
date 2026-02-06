@@ -8,7 +8,6 @@ The execution focuses on parsing unstructured authentication logs, extracting se
 
 Emphasis is placed on how telemetry normalization and automated parsing support detection reliability, reduce noise during analysis, and improve scalability of monitoring and threat detection operations within real-world security environments. The execution demonstrates how analysts leverage scripting and automation to operationalize raw log data for security monitoring and investigative wor
 
-
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
@@ -26,7 +25,7 @@ The purpose of this execution is to demonstrate automated log parsing, telemetry
 
 This execution highlights how automation improves data consistency, reduces manual parsing overhead, and enables scalable security monitoring by extracting detection-relevant fields from unstructured log sources. It emphasizes the operational importance of preparing telemetry for SIEM ingestion, anomaly detection, and behavioral analysis, ensuring that security tooling can accurately identify suspicious activity across large datasets.
 
-#### ▶Analyst Focus
+#### ▶ Analyst Focus
 
 This execution reflects the responsibilities of detection engineers, SOC analysts, and security automation specialists who design and maintain telemetry processing workflows. The analyst focus is on validating parsing logic, ensuring field extraction accuracy, identifying normalization gaps, and confirming that processed datasets support reliable detection and investigative pivoting.
 
@@ -736,6 +735,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
