@@ -134,7 +134,7 @@ index="main"
 - `sort - count` → Displays most frequent results at the top.  
 
 <p align="left">
-  <img src="images/lab09-splunk-figure.01.png?raw=true&v=2" 
+  <img src="images/splunk-figure.01.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
@@ -174,7 +174,7 @@ index="main" action=failed
 - `Source_ip` → Identifies the attacker or misconfigured client.
 
 <p align="left">
-  <img src="images/lab09-splunk-figure.02.png?raw=true&v=2" 
+  <img src="images/splunk-figure.02.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
@@ -215,7 +215,7 @@ index="main" Source_Country="United States"
 - `stats count` → Counts activity per state.
 
 <p align="left">
-  <img src="images/lab09-splunk-figure.03.png?raw=true&v=2" 
+  <img src="images/splunk-figure.03.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
@@ -257,7 +257,7 @@ index="main" action=teardown protocol=tcp (port=443 OR dest_port=443)
 - `Source_ip` → The origin of the session.
 
 <p align="left">
-  <img src="images/lab09-splunk-figure.04.png?raw=true&v=2" 
+  <img src="images/splunk-figure.04.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
@@ -297,7 +297,7 @@ index="main"
 - `stats count by action` → Quickly counts how many of each outcome exist.
 
 <p align="left">
-  <img src="images/lab09-splunk-figure.05.png?raw=true&v=2" 
+  <img src="images/splunk-figure.05.png?raw=true&v=2" 
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
@@ -353,3 +353,4 @@ index="main" action=teardown protocol=tcp (port=443 OR dest_port=443) | spath | 
 ## What I Learned (Skills Demonstrated)
 
 This workflow reinforced how VPN telemetry can support detection of credential misuse and abnormal access behavior using simple aggregation techniques. It strengthened proficiency in JSON field extraction using `spath`, statistical summarization using `stats`, and investigative pivoting based on authentication outcomes and geographic distribution. These techniques directly support SOC triage workflows and can be operationalized into dashboards and alerts for continuous monitoring.
+
