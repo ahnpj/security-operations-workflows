@@ -197,7 +197,7 @@ EOF
   <img src="images/python-log-parsing-and-security-analysis-01.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Synthetic Apache access log created for parser testing</em>
 </p>
 
 Creating known-good and known-bad patterns makes it easier to validate that parsing logic is detecting the behaviors it is intended to flag.
@@ -250,7 +250,7 @@ for ip, count in errors_404.items():
   <img src="images/python-log-parsing-and-security-analysis-02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Apache parser logic (IP extraction + 404 aggregation)</em>
 </p>
 
 **Thought Process Behind the Apache Log Parser**:
@@ -274,7 +274,7 @@ Used the command: `python3 parser.apache.py`.
   <img src="images/python-log-parsing-and-security-analysis-03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Running the Apache parser script in the terminal</em>
 </p>
 
 **Interpretation of Results:**
@@ -286,7 +286,7 @@ Used the command: `python3 parser.apache.py`.
   <img src="images/python-log-parsing-and-security-analysis-04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Apache parser output highlighting 404-heavy enumeration IP</em>
 </p>
 
 <blockquote>
@@ -333,7 +333,7 @@ EOF
   <img src="images/python-log-parsing-and-security-analysis-05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Synthetic "auth.log" with failed + successful SSH events</em>
 </p>
 
 ##### 🔷 Step 2B - Write Script: Extract and Count Failed Login Sources
@@ -364,7 +364,7 @@ for ip, count in Counter(fail_ips).most_common():
   <img src="images/python-log-parsing-and-security-analysis-06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Auth parser logic (failed SSH extraction + IP counting)</em>
 </p>
 
 **Thought Process Behind the Auth Log Parser**:
@@ -393,7 +393,7 @@ Used the command: `python3 parser_auth.py`.
   <img src="images/python-log-parsing-and-security-analysis-07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Running the SSH auth parser script</em>
 </p>
 
 **Interpretation of Results:**
@@ -404,7 +404,7 @@ Used the command: `python3 parser_auth.py`.
   <img src="images/python-log-parsing-and-security-analysis-08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Auth parser output showing brute-force source IP</em>
 </p>
 
 
@@ -448,7 +448,7 @@ EOF
   <img src="images/python-log-parsing-and-security-analysis-09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Synthetic Windows event CSV (4625/4624 sample data)</em>
 </p>
 
 ##### 🔷 Step 3B —  Write Script: Filter and Aggregate Failed Authentication Events
@@ -480,7 +480,7 @@ for (user, ip), count in fail_counts.most_common():
   <img src="images/python-log-parsing-and-security-analysis-10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Windows CSV parser logic (filter 4625 + group user/IP)</em>
 </p>
 
 **Thought Process Behind the Windows 4625 Failed Logon Parser**
@@ -509,7 +509,7 @@ Used the command: `python3 parser_windows.py`.
   <img src="images/python-log-parsing-and-security-analysis-11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Running the Windows 4625 parser script</em>
 </p>
 
 **Interpretation of Results:**
@@ -523,7 +523,7 @@ When parsing the Windows event CSV, the script correctly filtered for failed aut
   <img src="images/python-log-parsing-and-security-analysis-12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Windows parser output showing repeated failed logons</em>
 </p>
 
 <blockquote>
@@ -583,7 +583,7 @@ Instead of using real logs, a small JSON array with actions like `AttachUserPoli
   <img src="images/python-log-parsing-and-security-analysis-13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: CloudTrail JSON dataset with high-risk IAM actions</em>
 </p>
 
 ##### 🔷 Step 4B — Write Script: Group Activity by User and Flag Risky Actions
@@ -622,7 +622,7 @@ for e in events:
   <img src="images/python-log-parsing-and-security-analysis-14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: CloudTrail parser logic (group by user + flag risky actions)</em>
 </p>
 
 **Thought Process Behind the CloudTrail Log Parser**
@@ -650,7 +650,7 @@ Used the command: `python3 parser_cloudtrail.py`.
   <img src="images/python-log-parsing-and-security-analysis-15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 15</em>
+  <em>Figure 15: Running the CloudTrail parser script</em>
 </p>
 
 **Interpretation of Results:**
@@ -662,7 +662,7 @@ Used the command: `python3 parser_cloudtrail.py`.
   <img src="images/python-log-parsing-and-security-analysis-16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: CloudTrail parser output flagging risky IAM activity</em>
 </p>
 
 <blockquote>
@@ -735,6 +735,7 @@ Python-based parsing logic can later be translated into SIEM queries or cloud-na
 - Translating raw event data into investigative signals
 
 ---
+
 
 
 
