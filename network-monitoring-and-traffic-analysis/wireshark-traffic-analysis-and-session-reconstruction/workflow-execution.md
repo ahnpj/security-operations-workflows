@@ -1,26 +1,35 @@
 # Workflow Execution — Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark
 
----
+### Overview
 
-## Overview
+This workflow documents practical network traffic analysis using Wireshark to inspect packet-level communications and reconstruct network activity during investigative scenarios. The workflow focuses on capturing, filtering, and analyzing packet data to identify communication patterns, validate network behavior, and isolate traffic associated with potential security events.
 
-This workflow execution write-up documents a structured approach to inspecting packet-capture (PCAP/PCAPNG) data in Wireshark to understand protocol behavior, session structure, and packet-level evidence across the TCP/IP and OSI models. The workflow focuses on repeatable analyst actions: loading captures, orienting within the interface, dissecting protocol layers, navigating large datasets, and applying filters to isolate traffic of interest.
+The analysis progresses through structured traffic inspection phases, beginning with baseline network observation and advancing into protocol dissection, stream reconstruction, and targeted filtering. The workflow demonstrates how graphical packet analysis complements command-line capture tools by providing deeper visibility into protocol structure, payload data, and session context.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to operational tasks such as onboarding telemetry and validating parsing behavior.  
 > - **Executions** refer to hands-on configuration and validation using real data and Splunk services.  
 > - **Writeups** document configuration decisions, troubleshooting steps, and validation results.
 
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution Walkthrough](#step-by-step-execution)** section below.
+
+---
+
 ### Purpose and Analyst Focus
 
-The primary purpose is to operationalize Wireshark as a protocol and session analysis tool in a way that supports real investigations. The workflow emphasizes how to move from “raw traffic” to actionable interpretation by:
+#### ▶ Purpose
 
-- Establishing familiarity with the interface components that control visibility and navigation.
-- Using packet dissection to trace how a single communication event is represented from Layer 2 through the application protocol.
-- Applying navigation features (searching, marking, commenting, exporting) to manage large captures as evidence datasets.
-- Using display filters and conversation reconstruction features to isolate a specific session and view full request/response content.
+The purpose of this workflow is to perform detailed packet inspection using Wireshark to analyze captured network traffic and validate communication behavior across multiple protocols. The workflow focuses on identifying suspicious or abnormal network activity by examining packet metadata, protocol fields, and reconstructed session streams.
 
-A secondary focus is contrast and complementarity: Wireshark provides a visual, protocol-aware interface that pairs well with command-line capture tooling (for example, tcpdump) by making packet structure, session flows, and application-layer content easier to inspect and communicate.
+The workflow demonstrates how visual packet inspection supports alert triage, investigation scoping, and validation of potential indicators of compromise. It emphasizes how analysts use Wireshark to interpret packet contents, identify anomalies within protocol communications, and extract evidence that supports detection and incident response workflows.
+
+#### ▶ Analyst Focus
+
+The analyst focus is on using Wireshark to dissect network traffic, apply targeted display filters, reconstruct communication sessions, and interpret protocol behavior to determine whether observed activity represents legitimate network operations or potential malicious behavior.
+
+The workflow reflects responsibilities commonly performed by SOC analysts, incident responders, and detection engineers when validating alerts, investigating suspicious network communications, and performing deep traffic analysis. It reinforces the importance of understanding protocol structures, session reconstruction techniques, and traffic filtering strategies when analyzing packet-level telemetry during investigations.
+
+---
 
 ### What This Workflow Demonstrates
 
@@ -35,6 +44,8 @@ This workflow demonstrates an end-to-end packet review process using pre-capture
 - Extract transferred objects (for example, HTTP-delivered files) and validate them using file hashing.
 - Apply filters efficiently using “Apply as Filter,” conversation filters, “Prepare as Filter,” and stream reconstruction (“Follow TCP Stream”).
 
+---
+
 ### Investigation and Detection Relevance
 
 Packet captures are frequently used when telemetry sources (firewall logs, proxy logs, EDR network events, IDS alerts) require validation at the packet level. The workflow’s steps map directly to common security and troubleshooting questions, including:
@@ -48,15 +59,23 @@ By documenting repeatable procedures (navigation, filtering, object export, and 
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 This section documents the tools, evidence sources, and constraints used to perform the workflow so that results can be interpreted consistently and reproduced by another analyst.
 
-### Execution Platform
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view details on software, tools, environment, data sources, and more.
+
+<details>
+<summary><strong>▶ Environment & Platform</strong><br>
+</summary><br>
 
 Wireshark analysis was performed using stored capture files (PCAPNG) rather than relying exclusively on live sniffing. This decision ensures repeatability and removes dependency on local interface availability.
 
-### Tooling and Constraints
+</details>
+
+<details>
+<summary><strong>▶ Tooling and Constraints</strong><br>
+</summary><br>
 
 - **Primary tool:** Wireshark (graphical network protocol analyzer)
 - **Capture mode used:** Offline analysis (pre-captured files)
@@ -64,14 +83,22 @@ Wireshark analysis was performed using stored capture files (PCAPNG) rather than
 
 The workflow intentionally relies on Wireshark-native capabilities (pane navigation, display filtering, stream reconstruction, export features) rather than external protocol decoding tools.
 
-### Data Sources Analyzed
+</details>
+
+<details>
+<summary><strong>▶ Data Sources Analyzed</strong><br>
+</summary><br>
 
 The workflow used the following stored packet capture files:
 
 - **http1.pcapng** (used for HTTP-centric packet inspection and session reconstruction)
 - **Exercise.pcapng** (merged with the primary capture to evaluate multi-file timeline behavior and to practice file property review)
 
-### Workflow Map (High-Level)
+</details>
+
+<details>
+<summary><strong>▶ Workflow Map (High-Level)</strong><br>
+</summary><br>
 
 1. Load and orient within Wireshark (panes, filters, coloring rules).
 2. Attempt live capture and validate capture interface availability.
@@ -80,19 +107,28 @@ The workflow used the following stored packet capture files:
 5. Navigate and annotate captures (search, mark, comment) and export evidence (objects and packet subsets).
 6. Apply display filters and conversation/session reconstruction (conversation filters, prepared filters, columns, Follow Stream).
 
+</details>
+
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
-This section follows the original workflow order and preserves all execution details. The steps are grouped into operational phases that align with how packet analysis is performed in practice.
+This section documents the workflow in the same order an analyst would realistically perform network traffic analysis using Wireshark. The process begins with loading and reviewing captured traffic to establish baseline network activity and identify protocols present within the dataset. Analysis then progresses into targeted filtering, packet inspection, and session reconstruction to isolate traffic relevant to investigative objectives.
 
-### Phase 1 — Interface Familiarization and Capture Context Validation
+Each phase captures both the technical actions performed within Wireshark and the investigative reasoning behind those actions. The workflow intentionally progresses from broad traffic visibility into targeted protocol analysis and stream reconstruction, mirroring how analysts move from general network observation to evidence-driven traffic interpretation during network investigations.
+
+**Note:** Each section is collapsible. Click the ▶ arrow to expand and view the detailed steps.
+
+<details>
+<summary><strong>▶ Phase 1 — Interface Familiarization and Capture Context Validation</strong><br>
+→ establishing the Wireshark interface model and validating how captures are loaded, visualized, and contextualized
+</summary><br>
 
 This phase establishes the Wireshark interface model and validates how captures are loaded, visualized, and contextualized.
 
 **Note:** This section focused on familiarizing myself with Wireshark’s graphical interface, core features, and basic functionalities. I learned how to load PCAP files, interpret different panes, and understand what each visual section of the interface represents.
 
-#### Step 1 — Review Wireshark interface layout and primary panes
+##### 🔷 Phase 1.1 — Review Wireshark interface layout and primary panes
 
 Wireshark’s layout was reviewed to establish where critical analysis controls and evidence views are located. The interface areas observed included the **Toolbar**, **Display Filter Bar**, **Recent Files**, **Capture Interfaces**, and **Status Bar**.
 
@@ -109,7 +145,7 @@ Wireshark evidence is interpreted primarily through three panes, each serving a 
 - **Packet Details Pane** (bottom-left pane) decodes the selected packet into a hierarchical protocol tree (for example: Ethernet → IP → TCP → HTTP). This pane is used to interpret fields and flags.
 - **Packet Bytes Pane** (bottom-right pane) shows the raw packet bytes in hexadecimal and ASCII. This pane is used to validate how decoded fields map to bytes on the wire.
 
-#### Step 2 — Load and open stored capture files
+##### 🔷 Phase 1.2 — Load and open stored capture files
 
 Stored capture file loading was practiced using **http1.pcapng**, ensuring that the capture was displayed correctly and that packet details were accessible immediately.
 
@@ -129,7 +165,7 @@ The packet details were displayed in three key panes:
   - **Packet Details Pane** – displays protocol details in a hierarchical structure, such as Ethernet, IP, TCP, and application layer data. (bottom-left pane)
   - **Packet Bytes Pane** – presents hexadecimal and ASCII representations of the selected packet. (bottom-right pane)
 
-#### Step 3 — Evaluate packet coloring behavior and rule priority
+##### 🔷 Phase 1.3 — Evaluate packet coloring behavior and rule priority
 
 Wireshark’s default packet coloring system was reviewed to understand how visual highlighting can accelerate protocol identification and anomaly spotting. Both **temporary** and **permanent** coloring rules were explored by navigating to **View → Coloring Rules** and reviewing the **Wireshark - Coloring Rules Default** modal.
 
@@ -151,7 +187,7 @@ I later experimented with toggling the “Colorize Packet List” feature and us
 </blockquote>
 
 
-#### Step 4 — Attempt live traffic capture and validate interface availability
+##### 🔷 Phase 1.4 — Attempt live traffic capture and validate interface availability
 
 A live capture attempt was performed to validate whether traffic could be sniffed directly from local interfaces. Capture start/stop mechanics were reviewed (including the blue “shark fin” capture control).
 
@@ -163,7 +199,7 @@ I selected “Cisco remote capture: ciscodump,” thinking it was my network int
 
 Because the other listed interfaces were virtual or system-based rather than active local network adapters, the **[Start Capture]** button remained greyed out and a live capture could not be initiated.
 
-#### Step 5 — Merge PCAP files and review capture file properties
+##### 🔷 Phase 1.5 — Merge PCAP files and review capture file properties
 
 Wireshark’s multi-file analysis capability was exercised using **File → Merge** to combine captures into a unified timeline. This approach is useful when:
 
@@ -175,7 +211,7 @@ Wireshark’s multi-file analysis capability was exercised using **File → Merg
 I decided to try merging another .pcap file with my current capture to see how Wireshark handles multiple data sources in one timeline. Merging pcap files is useful when you want to analyze traffic captured from different interfaces or at different times together. For example, combining client and server captures to see the full conversation, or merging sequential captures to create one continuous session. It helps provide a more complete picture of network activity without having to switch between separate files.
 </blockquote>
 
-##### Step 5a — Merge Exercise.pcapng into http1.pcapng
+(Phase 1.5, Step 1) — Merge Exercise.pcapng into http1.pcapng
 
 The merge action was performed via **File > Merge**, selecting **Exercise.pcapng** to merge into **http1.pcapng**.
 
@@ -186,7 +222,7 @@ The merge action was performed via **File > Merge**, selecting **Exercise.pcapng
   <em>Figure 4</em>
 </p>
 
-##### Step 5b — Review capture file properties and hash metadata
+(Phase 1.5, Step 2) — Review capture file properties and hash metadata
 
 Capture file properties were reviewed via **Statistics → Capture File Properties** to validate capture context and metadata such as creation timing, source interface information, file format, and checksum values (including SHA256).
 
@@ -211,9 +247,12 @@ I went to **Statistics → Capture File Properties** because I wanted to see mor
 This task helped me become comfortable with the Wireshark environment. I realized that while it can look overwhelming at first, its layout is designed for efficiency. The ability to colorize, filter, and merge captures helps tremendously when analyzing complex datasets. Packet details across the three panes allowed me to trace communication flow between hosts from the link layer up to the application layer.
 </blockquote>
 
----
+</details>
 
-### Phase 2 — Packet Dissection Across OSI Layers (Representative HTTP Packet)
+<details>
+<summary><strong>▶ Phase 2 — Packet Dissection Across OSI Layers (Representative HTTP Packet)</strong><br>
+→ dissecting packets at multiple OSI layers and examine detailed protocol information
+</summary><br>
 
 This phase focuses on a single packet to demonstrate how Wireshark decodes protocol layers and how decoded fields map to raw bytes. The objective of this section was to dissect packets at multiple OSI layers and examine detailed protocol information. 
 
@@ -221,7 +260,7 @@ This phase focuses on a single packet to demonstrate how Wireshark decodes proto
 I wanted to understand how Wireshark decodes network packets and organizes them into structured fields for analysis. I examined captured HTTP traffic and learned to break packets down by OSI layers, starting from the physical layer up to the application layer. By clicking on a specific packet, Wireshark expanded its contents to reveal information such as Ethernet source/destination MAC addresses, IP headers, TCP flags, and payloads. For this phase, I focused in on a specific packet, which was packet #27 which was using the HTTP protocol. 
 </blockquote>
 
-#### Step 1 — Select a representative HTTP packet for layer-by-layer analysis
+##### 🔷 Phase 2.1 — Select a representative HTTP packet for layer-by-layer analysis
 
 Packet dissection was performed on **Packet #27**, identified as an HTTP protocol packet. The selection supports consistent interpretation because the same packet can be re-opened and reviewed repeatedly across analysis passes.
 
@@ -242,7 +281,7 @@ The byte mapping concept was reinforced:
 - Wireshark maps those bytes to their decoded meaning, so when you select, say, the “Source IP” line, the four bytes representing that IP address turn blue in the hex pane.
 - This makes it easy to trace any part of a packet back to its raw data representation and see how the packet is built layer-by-layer.
 
-#### Step 2 — Layer 1: Frame metadata (Physical)
+##### 🔷 Phase 2.2 — Layer 1: Frame metadata (Physical)
 
 The **Frame** section was reviewed as the representation of Layer 1 (Physical) capture metadata, including arrival timing, encapsulation type, and total frame length.
 
@@ -278,7 +317,7 @@ The highlighted blue section corresponds to the bytes that belong to the Etherne
   <em>Figure 7</em>
 </p>
 
-#### Step 3 — Layer 2: Ethernet II header (Data Link / MAC addressing)
+##### 🔷 Phase 2.3 — Layer 2: Ethernet II header (Data Link / MAC addressing)
 
 The Ethernet II header was reviewed as Layer 2 evidence for framing and MAC-based delivery on the local network.
 
@@ -305,7 +344,7 @@ Fields interpreted (inside the red box):
 
 These details show how the **Data Link layer** wraps the network-layer data in an Ethernet frame to move it across a physical medium (like a switch or LAN). When this frame reaches the destination, the MAC address helps ensure it’s delivered to the correct network interface before being passed up to Layer 3 (IP).
 
-#### Step 4 — Layer 3: IPv4 header (Network / routing)
+##### 🔷 Phase 2.4 — Layer 3: IPv4 header (Network / routing)
 
 The IP header was reviewed as Layer 3 evidence for logical addressing, routing semantics, and transport protocol identification.
 
@@ -340,7 +379,7 @@ Selecting these fields in the details pane was used to confirm byte-level mappin
 When you click any of these IP fields in Wireshark, the corresponding bytes in the **Packet Bytes Pane** (bottom-right) are highlighted which showed the exact binary data representing these Layer 3 details.
 </blockquote>
 
-#### Step 5 — Layer 4: TCP header (Transport / session reliability)
+##### 🔷 Phase 2.5 — Layer 4: TCP header (Transport / session reliability)
 
 The TCP header was reviewed as Layer 4 evidence for end-to-end reliability, port-based application identification, sequencing, and acknowledgment behavior.
 
@@ -393,7 +432,7 @@ Within the TCP header, I observed important fields such as **Sequence and Acknow
 Additional dropdowns like **SEQ/ACK analysis** and **Timestamps** revealed how Wireshark tracks packet timing, delays, and flow control. These values help verify that TCP communication is synchronized and reliable. Overall, this section demonstrated how Layer 4 manages data delivery, acknowledgment, and timing—bridging the IP-based routing (Layer 3) below and application data (Layer 7) above.
 </blockquote>
 
-#### Step 6 — Layer 4 continuation: reassembly and protocol segmentation behavior
+##### 🔷 Phase 2.6 — Layer 4 continuation: reassembly and protocol segmentation behavior
 
 Wireshark’s TCP reassembly behavior was reviewed to understand how fragmented payloads are reconstructed into a single data stream.
 
@@ -419,7 +458,7 @@ Reassembly details interpreted (inside the red box):
 
 This confirms ordered delivery behavior: even when data is split across segments, TCP stream reconstruction enables analysis of the full payload content.
 
-#### Step 7 — Layers 5–7: HTTP application protocol and content
+##### 🔷 Phase 2.7 — Layers 5–7: HTTP application protocol and content
 
 The HTTP section was reviewed as the representation of upper OSI layers (Session, Presentation, Application) where user-facing protocol semantics and content appear.
 
@@ -463,9 +502,12 @@ Packet dissection allowed me to see how data travels through network layers. By 
 I learned to correlate protocol layers to understand end-to-end communication. This exercise gave me hands-on experience tracing traffic from Ethernet frames to TCP streams and application data.
 </blockquote>
 
----
+</details>
 
-### Phase 3 — Capture Navigation, Evidence Annotation, and Export
+<details>
+<summary><strong>▶ Phase 3 — Capture Navigation, Evidence Annotation, and Export</strong><br>
+→ managing large packet datasets and creating analyst-friendly evidence subsets
+</summary><br>
 
 This phase focuses on managing large packet datasets and creating analyst-friendly evidence subsets.
 
@@ -473,7 +515,7 @@ This phase focuses on managing large packet datasets and creating analyst-friend
 This phase also focused on learning how to efficiently navigate within Wireshark captures, locate specific packets, and manage annotations for deeper analysis.
 </blockquote>
 
-#### Step 1 — Use packet numbers for deterministic navigation
+##### 🔷 Phase 3.1 — Use packet numbers for deterministic navigation
 
 Wireshark’s packet numbering was used as a primary navigation anchor. Selecting a packet number in the **Packet List Pane** drives synchronized updates in:
 
@@ -491,8 +533,7 @@ Wireshark’s packet numbering was used as a primary navigation anchor. Selectin
 While exploring Wireshark, I learned that each packet is assigned a unique number in the **Packet List Pane**, which helps identify and analyze individual transmissions. When I click on a specific packet number, Wireshark displays its detailed breakdown in the **Packet Details Pane** at the bottom-left, showing protocol layers and fields. At the same time, the **Packet Bytes Pane** at the bottom-right reveals the raw hexadecimal and ASCII data, allowing me to see exactly what the packet looks like at the byte level.
 </blockquote>
 
-
-#### Step 2 — Jump directly to specific packets using Go menu controls
+##### 🔷 Phase 3.2 — Jump directly to specific packets using Go menu controls
 
 Navigation features under **[Go]** were exercised to move deterministically within the capture:
 
@@ -522,7 +563,7 @@ I also practiced using the **[Go]** menu and toolbar options, including **[Go to
 These tools made it easier to track communication between hosts and understand how packets relate to each other. Overall, this part helped me see how packet numbering and navigation features improve the efficiency of analyzing network traffic in Wireshark.
 </blockquote>
 
-#### Step 3 — Find packets by content using Edit → Find Packet
+###### 🔷 Phase 3.3 — Find packets by content using Edit → Find Packet
 
 Packet discovery was practiced using **Edit → Find Packet** for content-based searching.
 
@@ -568,7 +609,7 @@ Search scope selection across panes was practiced to ensure searches target the 
 This showed me how important it is to choose the right input type and pane when performing searches to efficiently pinpoint the packets of interest.
 </blockquote>
 
-#### Step 4 — Mark packets for temporary highlighting
+##### 🔷 Phase 3.4 — Mark packets for temporary highlighting
 
 Marking was exercised to flag packets of interest for quick visual review. Marking is temporary and cleared when the capture file is closed.
 
@@ -601,7 +642,7 @@ I also learned that marking is temporary. Marked packets are cleared once the ca
 "Ctrl + M" is the hotkey shortcut.
 </blockquote>
 
-#### Step 5 — Add persistent packet comments for documentation
+##### 🔷 Phase 3.5 — Add persistent packet comments for documentation
 
 Packet commenting was exercised to embed analyst notes directly into the capture file. Unlike marking, comments persist until removed.
 
@@ -641,8 +682,7 @@ The **Packet Comments** panel was used to view and edit a test comment for packe
 I learned how to add comments to packets in Wireshark to document important findings or suspicious activity during analysis. Similar to marking, commenting helps highlight specific packets for further investigation or for other analysts reviewing the same capture.
 </blockquote>
 
-
-#### Step 6 — Export transferred objects from protocol streams
+##### 🔷 Phase 3.6 — Export transferred objects from protocol streams
 
 The **Export Objects** feature was reviewed as a method to extract files transferred over supported protocol streams. This is operationally useful for forensics and incident response when transferred artifacts need validation or malware analysis.
 
@@ -673,7 +713,7 @@ I learned how Wireshark can extract and export files that were transferred over 
 I discovered that exporting objects is only available for certain protocol streams, including DICOM, HTTP, IMF, SMB, and TFTP. By accessing these streams, analysts can save transferred files locally to analyze their contents, verify suspicious activity, or gather evidence of data exfiltration. This capability makes Wireshark a powerful tool for both troubleshooting and digital forensics.
 </blockquote>
 
-#### Step 7 — Export selected/filtered packet subsets
+##### 🔷 Phase 3.7 — Export selected/filtered packet subsets
 
 Exporting packet subsets was exercised via **File → Export Specified Packets** to create smaller evidence files. This supports collaboration (sharing only relevant traffic) and deep-dive analysis (isolating incident scope without full dataset noise). This also allowed for the saving of filtered or selected packets into a new capture file.
 
@@ -712,7 +752,7 @@ I learned how to export specific packets from a capture file in Wireshark for fo
 </blockquote>
 
 
-#### Step 8 — Adjust time display format for temporal correlation
+##### 🔷 Phase 3.8 — Adjust time display format for temporal correlation
 
 Time display formatting was adjusted to support investigations requiring consistent timestamps that correlate with external logs.
 
@@ -738,7 +778,7 @@ However, this isn’t always ideal for investigations that require exact timesta
 I learned how to change the time display format in Wireshark to make packet analysis easier and more accurate. By default, Wireshark shows time as **Seconds Since Beginning of Capture**, which reflects when each packet was captured relative to the start of the recording. 
 </blockquote>
 
-#### Step 9 — Review Expert Information for anomaly surfacing
+##### 🔷 Phase 3.9 — Review Expert Information for anomaly surfacing
 
 Wireshark’s **Analyze → Expert Information** feature was reviewed to understand how Wireshark automatically categorizes notable conditions and potential anomalies.
 
@@ -773,7 +813,7 @@ Category groupings reviewed:
 There are around 8 – 10 major groups, but Wireshark dynamically shows only the ones relevant to the traffic you’re analyzing. In the screenshot above, for example, I was only seeing Malformed, Protocol, Sequence, and Comment, which are the most common ones in typical TCP/HTTP captures.
 </blockquote>
 
-#### Step 10 — Self Test 1: Extract a transmitted image and compute its MD5 hash
+##### 🔷 Phase 3.10 — Self Test 1: Extract a transmitted image and compute its MD5 hash
 
 A specific HTTP-delivered image transfer was identified at packet **#39765**, where an **HTTP 200 OK** response returned a **JPEG** payload. Wireshark reassembly was used to reconstruct the full image content across multiple TCP segments, and the JPEG file structure was observable in the Packet Details pane (Start of Image `0xFFD8`, quantization tables, Start of Scan, etc.).
 
@@ -790,7 +830,7 @@ In this self test, I observed packet number 39765, and saw an "HTTP 200 OK" resp
   <em>Figure 27</em>
 </p>
 
-##### Step 10a — Export the JPEG bytes from the packet details tree
+(Phase 3.10, Step 1) — Export the JPEG bytes from the packet details tree
 
 To extract the image bytes, the **JPEG File Interchange Format** item under the Packet Details Pane was selected and **Export Packet Bytes** was used.
 
@@ -801,7 +841,7 @@ To extract the image bytes, the **JPEG File Interchange Format** item under the 
   <em>Figure 28</em>
 </p>
 
-##### Step 10b — Save exported image as peter_test.jpg and validate reconstruction
+(Phase 3.10, Step 2) — Save exported image as peter_test.jpg and validate reconstruction
 
 The raw image data was saved as `peter_test.jpg` to desktop.
 
@@ -816,7 +856,7 @@ The raw image data was saved as `peter_test.jpg` to desktop.
 This method exports only the bytes from that specific protocol layer, effectively reconstructing the image as it was transmitted over the network. Once saved, I could open the image locally to verify that it was successfully captured and properly reconstructed.
 </blockquote>
 
-##### Step 10c — Compute the MD5 hash of the exported image
+(Phase 3.10, Step 3) — Compute the MD5 hash of the exported image
 
 A Bash terminal was opened in the directory containing the exported file and the MD5 hash was computed.
 
@@ -837,11 +877,11 @@ I could also run "sha256sum peter_test" to retrieve the SHA256 hash. I recorded 
 MD5 and SHA-256 are different hashing algorithms with key differences in their security and hash output size. SHA-256 is a more secure algorithm that produces a 256-bit hash, while MD5 is older, faster, and produces a 128-bit hash.
 </blockquote>
 
-#### Step 11 — Self Test 2: Locate an HTTP-delivered .txt object and read it
+##### 🔷 Phase 3.11 — Self Test 2: Locate an HTTP-delivered .txt object and read it
 
 A text file was known to exist in the capture. The workflow used Wireshark’s HTTP object export functionality rather than manual packet inspection.
 
-##### Step 11a — Open HTTP Export Objects list
+(Phase 3.11, Step 1) — Open HTTP Export Objects list
 
 **File > Export Objects > HTTP** was used to view all HTTP objects contained in the capture.
 
@@ -856,7 +896,7 @@ I knew there was a txt file in the capture file, so I navigated to **[File > Exp
   <em>Figure 31</em>
 </p>
 
-##### Step 11b — Filter exported objects list to .txt
+(Phase 3.11, Step 2) — Filter exported objects list to .txt
 
 In the "Text Filter" field, `.txt` was entered to filter the list of HTTP objects to just `.txt` files (or text-file objects).
 
@@ -867,7 +907,7 @@ In the "Text Filter" field, `.txt` was entered to filter the list of HTTP object
   <em>Figure 32</em>
 </p>
 
-##### Step 11c — Save the .txt file locally as peter_note.txt
+(Phase 3.11, Step 2) — Save the .txt file locally as peter_note.txt
 
 The `.txt` file was saved as `peter_note.txt`.
 
@@ -878,7 +918,7 @@ The `.txt` file was saved as `peter_note.txt`.
   <em>Figure 33</em>
 </p>
 
-##### Step 11d — Read exported file contents using cat
+(Phase 3.11, Step 4) — Read exported file contents using cat
 
 Instead of previewing the file in Wireshark, or jumping to a packet number as demonstrated in **Step 11-b** to view it in the **Packet Details Pane**, a Bash terminal was used to read file contents directly.
 
@@ -901,9 +941,12 @@ Wireshark’s navigation tools make packet inspection much more manageable. Bein
 I learned how to move through large captures effectively, mark and comment on key packets, and export relevant data. These functions are essential for documenting and sharing findings in professional investigations.
 </blockquote>
 
----
+</details>
 
-### Phase 4 — Display Filtering and Session Reconstruction
+<details>
+<summary><strong>▶ Phase 4 — Display Filtering and Session Reconstruction</strong><br>
+→ isolating traffic of interest and reconstructing complete conversations
+</summary><br>
 
 This phase focuses on isolating traffic of interest and reconstructing complete conversations.
 
@@ -911,7 +954,7 @@ This phase focuses on isolating traffic of interest and reconstructing complete 
 This section was about understanding and applying packet filtering within Wireshark to isolate traffic of interest. I wanted to practice using display filters to view only relevant protocols or hosts.
 </blockquote>
 
-#### Step 1 — Apply display filters via Apply as Filter
+##### 🔷 Phase 4.1 — Apply display filters via Apply as Filter
 
 The **Analyze → Apply as Filter** workflow was used to generate a filter expression directly from a selected field. The source field (source IP) of **Packet #1** was selected in the Packet List Pane, then **Apply as Filter → Selected** was applied.
 
@@ -950,7 +993,7 @@ This made it easier to focus on relevant traffic for deeper analysis. I also not
 </blockquote>
 
 
-#### Step 2 — Apply a conversation filter to isolate a full TCP session
+##### 🔷 Phase 4.2 — Apply a conversation filter to isolate a full TCP session
 
 Conversation filtering was used to capture the full packet flow for a specific session rather than isolating a single field.
 
@@ -982,7 +1025,7 @@ After selecting **[TCP]**, Wireshark automatically applied a filter showing only
 
 This automatically displayed only the packets that shared the same IP addresses and port numbers, effectively showing the complete conversation between the two endpoints. This method makes it easier to follow communication streams, identify request–response patterns, and analyze the overall interaction between hosts without the distraction of unrelated traffic.
 
-#### Step 3 — Highlight a conversation without filtering using Colorize Conversation
+##### 🔷 Phase 4.3 — Highlight a conversation without filtering using Colorize Conversation
 
 Colorize Conversation was used to visually trace a conversation while leaving unrelated packets visible. A TCP packet (**Packet #3**) was selected and the conversation was colorized via **Colorize Conversation → TCP → Color 4**.
 
@@ -1019,7 +1062,7 @@ This feature works alongside Wireshark’s Coloring Rules, but it overrides them
 Overall, the Colorize Conversation option is a quick and non-intrusive way to highlight all packets within a conversation without filtering or hiding others—useful when analyzing multiple simultaneous connections in a busy network capture.
 
 
-#### Step 4 — Build filters iteratively using Prepare as Filter
+##### 🔷 Phase 4.4 — Build filters iteratively using Prepare as Filter
 
 [Prepare as Filter] was used to construct a filter expression without applying it immediately, enabling controlled edits and incremental composition.
 
@@ -1098,7 +1141,7 @@ After finalizing the expression, the filter was applied by pressing [Enter] to a
 This method gave me greater control over how filters were built and applied, making it ideal for constructing precise and complex filtering logic without immediately altering the current packet view.
 </blockquote>
 
-#### Step 5 — Add protocol fields as columns using Apply as Column
+##### 🔷 Phase 4.5 — Add protocol fields as columns using Apply as Column
 
 **[Apply as Column]** was used to create a new "Packet List Pane" column based on a selected field. A "Source Port" field from "Packet #6" was selected in the "Packet List Pane" and applied as a column.
 
@@ -1129,7 +1172,7 @@ I could apply other fields such as TTL (Time To Live) or HTTP hostnames as colum
 </blockquote>
 
 
-#### Step 6 — Reconstruct session content using Follow TCP Stream
+##### 🔷 Phase 4.6 — Reconstruct session content using Follow TCP Stream
 
 Follow Stream was used to reconstruct the full application-layer conversation as continuous text rather than individual packets.
 
@@ -1186,10 +1229,12 @@ Filtering drastically improves visibility in large datasets. The ability to high
 I learned how to construct and apply Wireshark filters efficiently. Understanding display filters and stream following is essential for analyzing targeted communications and identifying potential issues or malicious behaviors in network traffic.
 </blockquote>
 
+</details>
+
 
 ---
 
-## Results & Interpretation
+### Results & Interpretation
 
 This workflow confirms that Wireshark can be used as a repeatable, evidence-first process for protocol understanding, session reconstruction, and artifact extraction when working from stored packet captures.
 
@@ -1208,7 +1253,7 @@ This workflow also demonstrated the core capabilities of Wireshark and how it si
 
 ---
 
-## Operational & Defensive Takeaways
+### Operational & Defensive Takeaways
 
 Wireshark is an indispensable tool for both network troubleshooting and cybersecurity investigations. It allowed me to visualize how data moves through various layers, identify anomalies, and reconstruct conversations in real time. Compared to command-line tools, Wireshark offers an intuitive way to interpret complex network behavior.
 
@@ -1226,10 +1271,9 @@ Wireshark becomes most valuable in operations when it is treated as an evidence 
 
 ---
 
-## Reuse Pack (Quick Reference)
+### Reuse Pack (Quick Reference)
 
-### Wireshark panes (how to use them together)
-
+#### ▶ Wireshark panes (how to use them together)
 
 - **Packet List Pane:** Use this pane to scan and triage at speed: identify protocol mix, source/destination patterns, and time clustering. It is also the primary navigation surface for “jumping around” a capture once a hypothesis exists (for example, focusing on a specific server IP or port). Treat it as the index of the evidence set.
 
@@ -1237,7 +1281,7 @@ Wireshark becomes most valuable in operations when it is treated as an evidence 
 
 - **Packet Bytes Pane:** Use this pane to validate claims by mapping decoded fields to raw hex/ASCII. When documenting findings, this supports defensibility because it shows the exact bytes on the wire that correspond to a field. It is also useful for spotting recognizable magic bytes (for example, JPEG Start of Image) and verifying reassembled payload content.
 
-### Practical navigation (controls that reduce time-to-answer)
+#### ▶ Practical navigation (controls that reduce time-to-answer)
 
 - **Go to Packet:** Use deterministic jumps when a packet number is known from another reference point (for example, Expert Information, exported object list, or collaborator notes). This avoids scrolling and helps reviewers land on the same artifact quickly.
 
@@ -1247,7 +1291,7 @@ Wireshark becomes most valuable in operations when it is treated as an evidence 
 
 - **Packet Comment:** Use comments for durable documentation embedded directly in the capture file. This supports collaboration and later review because notes remain attached to the exact packet(s) they reference.
 
-### Evidence extraction (how to preserve and share what matters)
+#### ▶ Evidence extraction (how to preserve and share what matters)
 
 - **File → Export Objects:** Use this to recover transferred files from supported protocols (HTTP, SMB, TFTP, etc.). After exporting, treat the file as an artifact: store it with a clear name, compute hashes, and validate integrity before deeper analysis.
 
@@ -1255,7 +1299,7 @@ Wireshark becomes most valuable in operations when it is treated as an evidence 
 
 - **Capture File Properties:** Use this to verify capture context (duration, packet count, interface, file format) and to record file hashes for chain-of-custody style documentation. This helps ensure analysis conclusions are grounded in a known dataset and supports reproducibility.
 
-### Filtering and reconstruction (how to isolate a conversation)
+#### ▶ Filtering and reconstruction (how to isolate a conversation)
 
 - **Apply as Filter:** Use this for quick isolation of a value discovered during inspection (for example, a specific source IP). It generates the correct expression automatically, reducing syntax errors and speeding up iteration.
 
@@ -1267,7 +1311,7 @@ Wireshark becomes most valuable in operations when it is treated as an evidence 
 
 ---
 
-## What I Learned (Skills Demonstrated)
+### What I Learned (Skills Demonstrated)
 
 Through this workflow, I learned how to:
 - Navigate Wireshark’s GUI and analyze captured packets.
@@ -1283,17 +1327,4 @@ Overall, this workflow exercise strengthened my foundational understanding of ne
 - Dataset navigation: using packet numbers, search primitives, marking, and persistent comments to manage large captures.
 - Evidence extraction and integrity practices: exporting objects from traffic streams and validating artifacts with cryptographic hashes.
 - Precision filtering and conversation analysis: applying display filters, building logical expressions, isolating conversations, and reconstructing sessions with Follow Stream.
-
----
-
-## Suggested Workflow Title Options
-
-If a more “workflow-forward” title is desired while preserving scope, these alternatives fit the same content:
-
-- **Workflow Execution — Wireshark Packet Dissection, Navigation, and Session Reconstruction (HTTP/TCP)**
-- **Workflow Execution — PCAP Triage and Protocol Session Analysis Using Wireshark**
-- **Workflow Execution — Network Traffic Analysis with Wireshark: Dissection, Filtering, and Artifact Export**
-
-
-
 
