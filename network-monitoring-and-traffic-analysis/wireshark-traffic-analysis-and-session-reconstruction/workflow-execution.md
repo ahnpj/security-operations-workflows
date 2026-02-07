@@ -136,7 +136,7 @@ Wireshark’s layout was reviewed to establish where critical analysis controls 
   <img src="images/wireshark-packet-analysis-and-filtering-01.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Reviewing Wireshark interface layout and analysis panes.</em>
 </p>
 
 Wireshark evidence is interpreted primarily through three panes, each serving a distinct purpose:
@@ -157,7 +157,7 @@ You can load the PCAP file by either opening it from the "File" menu, dragging a
   <img src="images/wireshark-packet-analysis-and-filtering-02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Loading stored PCAPNG capture file into Wireshark.</em>
 </p>
 
 The packet details were displayed in three key panes:
@@ -173,7 +173,7 @@ Wireshark’s default packet coloring system was reviewed to understand how visu
   <img src="images/wireshark-packet-analysis-and-filtering-03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Reviewing default packet coloring rules and priority behavior.</em>
 </p>
 
 A key behavioral detail was validated: Wireshark applies colors using the **first matching rule from top to bottom**. As a result, TCP packets can appear green even when a default TCP rule is configured as purple, if those packets match a higher-priority rule (for example, a “Bad TCP” or other earlier rule).
@@ -219,7 +219,7 @@ The merge action was performed via **File > Merge**, selecting **Exercise.pcapng
   <img src="images/wireshark-packet-analysis-and-filtering-04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Merging secondary capture file into primary dataset.</em>
 </p>
 
 (Phase 1.5, Step 2) — Review capture file properties and hash metadata
@@ -236,7 +236,7 @@ This review is operationally important because capture interpretation depends on
   <img src="images/wireshark-packet-analysis-and-filtering-05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Reviewing capture file properties and hash metadata.</em>
 </p>
 
 <blockquote>
@@ -291,7 +291,7 @@ In this Wireshark capture, the **Frame** section represents information captured
   <img src="images/wireshark-packet-analysis-and-filtering-06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Inspecting frame-level metadata and physical-layer capture details.</em>
 </p>
 
 The fields observed describe the packet as it appeared on the wire rather than the semantic contents:
@@ -314,7 +314,7 @@ The highlighted blue section corresponds to the bytes that belong to the Etherne
   <img src="images/wireshark-packet-analysis-and-filtering-07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Correlating decoded protocol layers to raw packet bytes.</em>
 </p>
 
 ##### 🔷 Phase 2.3 — Layer 2: Ethernet II header (Data Link / MAC addressing)
@@ -333,7 +333,7 @@ This layer is responsible for framing, MAC addressing, and delivering packets be
   <img src="images/wireshark-packet-analysis-and-filtering-08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Inspecting Ethernet II header and MAC address delivery context.</em>
 </p>
 
 Fields interpreted (inside the red box):
@@ -358,7 +358,7 @@ In this capture, Wireshark is displaying details from the Internet Protocol (IP)
   <img src="images/wireshark-packet-analysis-and-filtering-09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Inspecting IPv4 header fields and routing-level metadata.</em>
 </p>
 
 Fields (Layer 3) interpreted (inside the red box):
@@ -393,7 +393,7 @@ In this capture, Wireshark is displaying details from the Transmission Control P
   <img src="images/wireshark-packet-analysis-and-filtering-10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Inspecting TCP header fields including ports, sequence, and acknowledgments.</em>
 </p>
 
 Core fields interpreted (key fields that define this TCP segment):
@@ -415,7 +415,7 @@ Expanded subsections in the TCP tree were reviewed to interpret behavior:
   <img src="images/wireshark-packet-analysis-and-filtering-11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Reviewing TCP flags, timing, and sequence analysis details.</em>
 </p>
 
 The observed **Flags field (0x018 – PSH, ACK)** indicates the segment is acknowledging received data and requesting that received content be pushed to the application immediately.
@@ -446,7 +446,7 @@ In this capture, Wireshark is displaying reassembled TCP Segments, which is part
   <img src="images/wireshark-packet-analysis-and-filtering-12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Reviewing TCP stream reassembly and segmented payload reconstruction.</em>
 </p>
 
 Reassembly details interpreted (inside the red box):
@@ -474,7 +474,7 @@ This part of the packet shows the actual application data being exchanged betwee
   <img src="images/wireshark-packet-analysis-and-filtering-13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: Inspecting HTTP response headers and application-layer content.</em>
 </p>
 
 Fields interpreted (inside the red box):
@@ -526,7 +526,7 @@ Wireshark’s packet numbering was used as a primary navigation anchor. Selectin
   <img src="images/wireshark-packet-analysis-and-filtering-14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: Navigating packets using packet numbering and pane synchronization.</em>
 </p>
 
 <blockquote>
@@ -548,7 +548,7 @@ These features support conversation tracking and reduce time spent scrolling thr
   <img src="images/wireshark-packet-analysis-and-filtering-15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 15</em>
+  <em>Figure 15: Using Go menu controls for deterministic packet navigation.</em>
 </p>
 
 <blockquote>
@@ -571,7 +571,7 @@ Packet discovery was practiced using **Edit → Find Packet** for content-based 
   <img src="images/wireshark-packet-analysis-and-filtering-16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: Accessing Find Packet interface for content-based searching.</em>
 </p>
 
 The four input types were reviewed:
@@ -585,7 +585,7 @@ The four input types were reviewed:
   <img src="images/wireshark-packet-analysis-and-filtering-17.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 17</em>
+  <em>Figure 17: Reviewing available search input types and filtering methods.</em>
 </p>
 
 <blockquote>
@@ -602,7 +602,7 @@ Search scope selection across panes was practiced to ensure searches target the 
   <img src="images/wireshark-packet-analysis-and-filtering-18.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 18</em>
+  <em>Figure 18: Selecting search scope across packet list, details, and bytes panes.</em>
 </p>
 
 <blockquote>
@@ -627,7 +627,7 @@ I noticed that once marked, packets appear in black, regardless of their origina
   <img src="images/wireshark-packet-analysis-and-filtering-19.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 19</em>
+  <em>Figure 19: Marking packets for temporary investigative highlighting.</em>
 </p>
 
 <blockquote>
@@ -654,7 +654,7 @@ I explored how to add comments to packets for documentation purposes, then viewe
   <img src="images/wireshark-packet-analysis-and-filtering-20.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 20</em>
+  <em>Figure 20: Adding persistent packet comments for documentation.</em>
 </p>
 
 Commenting methods reviewed:
@@ -675,7 +675,7 @@ The **Packet Comments** panel was used to view and edit a test comment for packe
   <img src="images/wireshark-packet-analysis-and-filtering-21.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 21</em>
+  <em>Figure 21: Reviewing and editing packet comment annotations.</em>
 </p>
 
 <blockquote>
@@ -702,7 +702,7 @@ Supported protocol categories observed include:
   <img src="images/wireshark-packet-analysis-and-filtering-22.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 22</em>
+  <em>Figure 22: Accessing Export Objects feature for protocol-based artifact extraction.</em>
 </p>
 
 <blockquote>
@@ -721,7 +721,7 @@ Exporting packet subsets was exercised via **File → Export Specified Packets**
   <img src="images/wireshark-packet-analysis-and-filtering-23.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 23</em>
+  <em>Figure 23: Exporting selected packets using Export Specified Packets.</em>
 </p>
 
 Export scope controls reviewed: **Captured** and **Displayed** packets. 
@@ -742,7 +742,7 @@ Additional export options reviewed:
   <img src="images/wireshark-packet-analysis-and-filtering-24.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 24</em>
+  <em>Figure 24: Reviewing packet export scope and range selection options.</em>
 </p>
 
 This gives analysts flexibility when isolating specific parts of network activity. Overall, this feature helps streamline the analysis process and focus on packets tied directly to an incident or event of interest.
@@ -771,7 +771,7 @@ However, this isn’t always ideal for investigations that require exact timesta
   <img src="images/wireshark-packet-analysis-and-filtering-25.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 25</em>
+  <em>Figure 25: Adjusting timestamp display format for temporal correlation.</em>
 </p>
 
 <blockquote>
@@ -806,7 +806,7 @@ Category groupings reviewed:
   <img src="images/wireshark-packet-analysis-and-filtering-26.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 26</em>
+  <em>Figure 26: Reviewing Expert Information panel for anomaly surfacing.</em>
 </p>
 
 <blockquote>
@@ -827,7 +827,7 @@ In this self test, I observed packet number 39765, and saw an "HTTP 200 OK" resp
   <img src="images/wireshark-packet-analysis-and-filtering-27.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 27</em>
+  <em>Figure 27: Identifying HTTP-delivered JPEG transfer within capture stream.</em>
 </p>
 
 (Phase 3.10, Step 1) — Export the JPEG bytes from the packet details tree
@@ -838,7 +838,7 @@ To extract the image bytes, the **JPEG File Interchange Format** item under the 
   <img src="images/wireshark-packet-analysis-and-filtering-28.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 28</em>
+  <em>Figure 28: Exporting JPEG payload bytes from packet details.</em>
 </p>
 
 (Phase 3.10, Step 2) — Save exported image as peter_test.jpg and validate reconstruction
@@ -849,7 +849,7 @@ The raw image data was saved as `peter_test.jpg` to desktop.
   <img src="images/wireshark-packet-analysis-and-filtering-29.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 29</em>
+  <em>Figure 29: Saving reconstructed JPEG file locally for validation.</em>
 </p>
 
 <blockquote>
@@ -866,7 +866,7 @@ A Bash terminal was opened in the directory containing the exported file and the
   <img src="images/wireshark-packet-analysis-and-filtering-30.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 30</em>
+  <em>Figure 30: Computing MD5 hash of exported artifact for integrity verification.</em>
 </p>
 
 <blockquote>
@@ -893,7 +893,7 @@ I knew there was a txt file in the capture file, so I navigated to **[File > Exp
   <img src="images/wireshark-packet-analysis-and-filtering-31.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 31</em>
+  <em>Figure 31: Accessing HTTP object export list for transferred file review.</em>
 </p>
 
 (Phase 3.11, Step 2) — Filter exported objects list to .txt
@@ -904,7 +904,7 @@ In the "Text Filter" field, `.txt` was entered to filter the list of HTTP object
   <img src="images/wireshark-packet-analysis-and-filtering-32.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 32</em>
+  <em>Figure 32: Filtering exported HTTP objects to identify text files.</em>
 </p>
 
 (Phase 3.11, Step 2) — Save the .txt file locally as peter_note.txt
@@ -915,7 +915,7 @@ The `.txt` file was saved as `peter_note.txt`.
   <img src="images/wireshark-packet-analysis-and-filtering-33.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 33</em>
+  <em>Figure 33: Saving extracted text object locally from capture.</em>
 </p>
 
 (Phase 3.11, Step 4) — Read exported file contents using cat
@@ -932,7 +932,7 @@ cat peter_note.txt
   <img src="images/wireshark-packet-analysis-and-filtering-34.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 34</em>
+  <em>Figure 34: Reviewing exported text file contents via command-line validation.</em>
 </p>
 
 Wireshark’s navigation tools make packet inspection much more manageable. Being able to jump directly to relevant packets or mark them for comparison is extremely useful for forensic analysis. Exporting objects or filtered data creates a more efficient workflow for isolating specific traffic without cluttering the main capture file.
@@ -966,7 +966,7 @@ I practiced using Wireshark’s [Analyze] > [Apply as Filter] feature to isolate
   <img src="images/wireshark-packet-analysis-and-filtering-35.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 35</em>
+  <em>Figure 35: Applying display filter using Apply as Filter automation.</em>
 </p>
 
 Wireshark automatically generated the appropriate display filter based on the selected field and applied it to the capture. Wireshark generated and applied:
@@ -979,7 +979,7 @@ This same expression could be entered manually into the display filter bar.
   <img src="images/wireshark-packet-analysis-and-filtering-36.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 36</em>
+  <em>Figure 36: Reviewing generated source IP display filter results.</em>
 </p>
 
 <blockquote>
@@ -1011,7 +1011,7 @@ Since the selected packet was a TCP segment over IPv4, only the relevant filters
   <img src="images/wireshark-packet-analysis-and-filtering-37.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 37</em>
+  <em>Figure 37: Applying conversation filter to isolate full TCP session.</em>
 </p>
 
 After selecting **[TCP]**, Wireshark automatically applied a filter showing only packets belonging to that specific TCP conversation between the two endpoints.
@@ -1020,7 +1020,7 @@ After selecting **[TCP]**, Wireshark automatically applied a filter showing only
   <img src="images/wireshark-packet-analysis-and-filtering-38.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 38</em>
+  <em>Figure 38: Reviewing filtered packet list for isolated TCP conversation.</em>
 </p>
 
 This automatically displayed only the packets that shared the same IP addresses and port numbers, effectively showing the complete conversation between the two endpoints. This method makes it easier to follow communication streams, identify request–response patterns, and analyze the overall interaction between hosts without the distraction of unrelated traffic.
@@ -1037,7 +1037,7 @@ I learned how to visually highlight related packets in Wireshark using the **[Co
   <img src="images/wireshark-packet-analysis-and-filtering-39.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 39</em>
+  <em>Figure 39: Applying Colorize Conversation to visually highlight session traffic.</em>
 </p>
 
 <blockquote>
@@ -1050,7 +1050,7 @@ Wireshark highlighted all packets in the TCP stream (between `source 145.254.160
   <img src="images/wireshark-packet-analysis-and-filtering-40.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 40</em>
+  <em>Figure 40: Reviewing conversation colorization across packet stream.</em>
 </p>
 
 Reset behavior was noted: **View → Colorize Conversation → Reset Colorization** restores default coloring.
@@ -1078,7 +1078,7 @@ A source IP field from **Packet #5** was selected and **Prepare as Filter → Se
   <img src="images/wireshark-packet-analysis-and-filtering-41.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 41</em>
+  <em>Figure 41: Generating filter expression using Prepare as Filter.</em>
 </p>
 
 This automatically generated the corresponding filter expression and displayed it in the **Display Filter** toolbar without applying it immediately. This produced `ip.src == 65.208.228.223` in the filter bar without executing it.
@@ -1087,7 +1087,7 @@ This automatically generated the corresponding filter expression and displayed i
   <img src="images/wireshark-packet-analysis-and-filtering-42.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 42</em>
+  <em>Figure 42: Reviewing generated filter expression prior to execution.</em>
 </p>
 
 <blockquote>
@@ -1100,7 +1100,7 @@ To narrow the capture down further by including packets associated with the dest
   <img src="images/wireshark-packet-analysis-and-filtering-43.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 43</em>
+  <em>Figure 43: Expanding filter logic using compound Prepare as Filter conditions.</em>
 </p>
 
 
@@ -1125,7 +1125,7 @@ This appended the destination IP (`ip.dst == 145.254.160.237`) to the existing e
   <img src="images/wireshark-packet-analysis-and-filtering-44.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 44</em>
+  <em>Figure 44: Reviewing completed compound filter expression.</em>
 </p>
 
 After finalizing the expression, the filter was applied by pressing [Enter] to apply the filter and view only the matching packets in the **Packet List Pane**.
@@ -1134,7 +1134,7 @@ After finalizing the expression, the filter was applied by pressing [Enter] to a
   <img src="images/wireshark-packet-analysis-and-filtering-45.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 45</em>
+  <em>Figure 45: Applying compound filter to isolate bidirectional session traffic.</em>
 </p>
 
 <blockquote>
@@ -1155,7 +1155,7 @@ To test this, the field "Source Port" was right-clicked for packet #6 within the
   <img src="images/wireshark-packet-analysis-and-filtering-46.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 46</em>
+  <em>Figure 46: Adding protocol field as custom column using Apply as Column.</em>
 </p>
 
 Wireshark then created a new column at the end of the packet list, showing the selected field’s (**Source Port**) value for every packet in the capture.
@@ -1164,7 +1164,7 @@ Wireshark then created a new column at the end of the packet list, showing the s
   <img src="images/wireshark-packet-analysis-and-filtering-47.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 47</em>
+  <em>Figure 47: Reviewing packet list with added custom column field.</em>
 </p>
 
 <blockquote>
@@ -1190,7 +1190,7 @@ To test this, a TCP packet (Packet #7) was selected and **[Follow TCP Stream]** 
   <img src="images/wireshark-packet-analysis-and-filtering-48.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 48</em>
+  <em>Figure 48: Initiating Follow TCP Stream session reconstruction.</em>
 </p>
 
 Wireshark opened a separate dialogue window showing the entire conversation, with client-originated packets highlighted in red and server-originated packets in blue. This color distinction clearly identified which side each message came from. The stream window displayed the full conversation with client-originated data highlighted in red and server-originated data highlighted in blue.
@@ -1203,7 +1203,7 @@ I learned I could also search for key terms from the **Find** text bar.
   <img src="images/wireshark-packet-analysis-and-filtering-49.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 49</em>
+  <em>Figure 49: Reviewing reconstructed TCP conversation content.</em>
 </p>
 
 Wireshark automatically applied a display filter to isolate only packets in the selected stream. To restore all packets, the filter was cleared using the “X” control on the right side of the Display Filter bar.
@@ -1216,7 +1216,7 @@ I noticed that the packet count in the status bar changed to reflect only the pa
   <img src="images/wireshark-packet-analysis-and-filtering-50.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 50</em>
+  <em>Figure 50: Clearing stream filter and restoring full capture visibility.</em>
 </p>
 
 **[Follow Stream]** was explicitly recognized as particularly useful for unencrypted protocols (for example, HTTP) where sensitive content may be visible in plaintext.
@@ -1327,4 +1327,5 @@ Overall, this workflow exercise strengthened my foundational understanding of ne
 - Dataset navigation: using packet numbers, search primitives, marking, and persistent comments to manage large captures.
 - Evidence extraction and integrity practices: exporting objects from traffic streams and validating artifacts with cryptographic hashes.
 - Precision filtering and conversation analysis: applying display filters, building logical expressions, isolating conversations, and reconstructing sessions with Follow Stream.
+
 
