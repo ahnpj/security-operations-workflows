@@ -266,7 +266,7 @@ I then opened Active Directory Users and Computers (ADUC)
   <img src="images/active-directory-domain-structure-01.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Viewing domain structure and OU layout in ADUC.</em>
 </p>
 
 I explored the default OUs: Users, Computers, and Built‑in security groups. Then, I reviewed how to create new Organizational Units (OUs) to group users and systems for easier management. I created example user accounts and placed them inside appropriate OUs. Finally, I reviewed group membership and access inheritance.
@@ -300,7 +300,7 @@ For testing, I attempted to delete the "Research and Development" OU, but I wasn
   <img src="images/active-directory-domain-structure-02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Deletion blocked due to permissions / accidental deletion protection.</em>
 </p>
 
 ##### 🔷 4B — Disabling accidental deletion protection feature
@@ -313,7 +313,7 @@ However, assuming the OU was protected from accidental deletion, I disabled that
   <img src="images/active-directory-domain-structure-03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Disabling “Protect object from accidental deletion” on the OU.</em>
 </p>
 
 I went back into the THM OU folder, right-clicked the "Research and Development" child OU, and selected [Delete].
@@ -326,7 +326,7 @@ A new modal appeared asking me to confirm deletion nothing that the OU had other
   <img src="images/active-directory-domain-structure-04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Deletion confirmation prompt for OU containing objects.</em>
 </p>
 
 It was successfully deleted.
@@ -335,7 +335,7 @@ It was successfully deleted.
   <img src="images/active-directory-domain-structure-05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: OU successfully deleted from the directory tree.</em>
 </p>
 
 ##### 🔷 4C — Using the Delegation of Control Wizard feature
@@ -353,7 +353,7 @@ This was to delegate OU-level privileges to Phillip for the Sales OU using the D
   <img src="images/active-directory-domain-structure-06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Launching Delegation of Control Wizard on the Sales OU.</em>
 </p>
 
 <blockquote>
@@ -371,7 +371,7 @@ I granted permission to reset passwords and force password change at next logon.
   <img src="images/active-directory-domain-structure-07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Delegating password reset + force-change-at-logon permissions.</em>
 </p>
 
 ##### 🔷 4D — Validating Delegated Permissions via RDP
@@ -386,7 +386,7 @@ Every Active Directory domain has a domain name. In this environment, the AD dom
   <img src="images/active-directory-domain-structure-08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: RDP connection targeting the domain environment ("thm.local").</em>
 </p>
 
 In this environment, the Active Directory domain name "thm.local" is configured to resolve directly to the domain controller. This means that when I entered "thm.local" in the **Computer** field in Remote Desktop Connection, RDP was able to locate and connect to the domain controller successfully.
@@ -401,7 +401,7 @@ This resolved correctly to the domain controller and brought me to the Windows l
   <img src="images/active-directory-domain-structure-09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Domain login screen for Phillip session.</em>
 </p>
 
 I was successfully able to access Phillip’s session on the machine, confirming that the credentials and domain login were working as expected. Once logged in, I had full access to his desktop environment and could proceed with testing the delegated permissions.
@@ -410,7 +410,7 @@ I was successfully able to access Phillip’s session on the machine, confirming
   <img src="images/active-directory-domain-structure-10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Phillip successfully logged in (session validated).</em>
 </p>
 
 
@@ -435,7 +435,7 @@ Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString -Pro
   <img src="images/active-directory-domain-structure-11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Resetting Sophie’s password via "Set-ADAccountPassword".</em>
 </p>
 
 The output confirmed the operation was made on the correct user of the Sales department OU:
@@ -459,7 +459,7 @@ Set-ADUser -ChangePasswordAtLogon -Identity sophie -Verbose
   <img src="images/active-directory-domain-structure-12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Forcing password change at next logon via "Set-ADUser".</em>
 </p>
 
 Phillip had successfully been delegated password reset capabilities for users inside the Sales OU, demonstrating how targeted privilege delegation supports operational efficiency while preserving security boundaries.
@@ -498,7 +498,7 @@ I created two new OUs: **Workstations** and **Servers** under the domain contain
   <img src="images/active-directory-domain-structure-13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: Creating the “Workstations” OU.</em>
 </p>
 
 I repeated this process twice: once to create an OU named "Workstations" and once to create an OU named "Servers". For both, I enabled the "Protect from accidental deletion" option.
@@ -507,7 +507,7 @@ I repeated this process twice: once to create an OU named "Workstations" and onc
   <img src="images/active-directory-domain-structure-14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: Creating the “Servers” OU with deletion protection enabled.</em>
 </p>
 
 
@@ -548,7 +548,7 @@ Get-ADComputer -Filter 'Name -like "LPT-*" -or Name -like "PC-*"' -SearchBase "C
   <img src="images/active-directory-domain-structure-15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 15</em>
+  <em>Figure 15: PowerShell move operation for Workstations (initial attempt/output).</em>
 </p>
 
 It took a several attempts to get the syntax exactly right, but once I confirmed the command was functioning, I reopened PowerShell and captured a clean screenshot of the final working version.
@@ -557,7 +557,7 @@ It took a several attempts to get the syntax exactly right, but once I confirmed
   <img src="images/active-directory-domain-structure-16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: Final working command to move PCs/LPTs into Workstations OU.</em>
 </p>
 
 ##### 🔷 5D — Moving Servers to the "Servers" OU
@@ -580,7 +580,7 @@ Move-ADObject -TargetPath "OU=Servers,DC=thm,DC=local"
   <img src="images/active-directory-domain-structure-17.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 17</em>
+  <em>Figure 17: PowerShell move operation for Servers (initial attempt/output).</em>
 </p>
 
 Similarly, it took several attempts to get the syntax exactly right, but once I confirmed the command was functioning, I reopened PowerShell and captured a clean screenshot of the final working version.
@@ -589,7 +589,7 @@ Similarly, it took several attempts to get the syntax exactly right, but once I 
   <img src="images/active-directory-domain-structure-18.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 18</em>
+  <em>Figure 18: Final working command to move SRV systems into Servers OU.</em>
 </p>
 
 ##### 🔷 5 Findings and Analysis
@@ -628,7 +628,7 @@ Both "Default Domain Policy" and "RDP" policy were linked to the domain as a who
   <img src="images/active-directory-domain-structure-19.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 19</em>
+  <em>Figure 19: Reviewing existing GPO links in Group Policy Management.</em>
 </p>
 
 ##### 🔷 6B — Examining the Default Domain Policy GPO
@@ -639,7 +639,7 @@ I examined the **Default Domain Policy** GPO to check its scope. Confirmed that 
   <img src="images/active-directory-domain-structure-20.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 20</em>
+  <em>Figure 20: Confirming Default Domain Policy scope at the domain level.</em>
 </p>
 
 > **Personal Learning Note:**
@@ -654,7 +654,7 @@ After creating and organizing the OUs, I opened Group Policy Management to revie
   <img src="images/active-directory-domain-structure-21.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 21</em>
+  <em>Figure 21: Navigating Default Domain Policy security settings in GPMC Editor.</em>
 </p>
 
 <blockquote>
@@ -673,7 +673,7 @@ To change the minimum password length, I navigated to: **[Computer Configuration
   <img src="images/active-directory-domain-structure-22.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 22</em>
+  <em>Figure 22: Editing password policy settings (minimum length).</em>
 </p>
 
 I set the minimum password length policy to 10 characters.
@@ -684,7 +684,7 @@ This change meant that any user account in the domain must now use a password wi
   <img src="images/active-directory-domain-structure-23.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 23</em>
+  <em>Figure 23: Updated minimum password length set to 10 characters.</em>
 </p>
 
 ##### 🔷 6D — Editing the Default Domain Policy GPO
@@ -709,7 +709,7 @@ gpupdate /force
   <img src="images/active-directory-domain-structure-24.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 24</em>
+  <em>Figure 24: Forcing policy refresh with "gpupdate /force".</em>
 </p>
 
 ##### 🔷 6E — Creating and Applying Custom GPOs
@@ -729,7 +729,7 @@ I created a new GPO named "Restrict Control Panel Access" and opened it for edit
   <img src="images/active-directory-domain-structure-25.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 25</em>
+  <em>Figure 25: Creating the “Restrict Control Panel Access” GPO.</em>
 </p>
 
 After creating the GPO, I opened it for editing. Inside the Group Policy Management Editor, I navigated to **[User Configuration → Policies → Administrative Templates → Control Panel]**. I updated setting for the "Prohibit access to Control Panel and PC Settings policy" and se it to **[Enabled]**, and saved the configuration.
@@ -738,7 +738,7 @@ After creating the GPO, I opened it for editing. Inside the Group Policy Managem
   <img src="images/active-directory-domain-structure-26.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 26</em>
+  <em>Figure 26: Enabling “Prohibit access to Control Panel and PC Settings.”</em>
 </p>
 
 The filter in the new GPO was successfully enabled:
@@ -747,7 +747,7 @@ The filter in the new GPO was successfully enabled:
   <img src="images/active-directory-domain-structure-27.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 27</em>
+  <em>Figure 27: Policy enabled confirmation in the GPO editor.</em>
 </p>
 
 Once the GPO was configured, I linked it to all of the OUs corresponding to users who shouldn't have access to the Control Panel of their PCs. In this case, I applied the GPO to the following child OUs:
@@ -762,7 +762,7 @@ I achieved this with a simple drag-and-drop:
   <img src="images/active-directory-domain-structure-28.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 28</em>
+  <em>Figure 28: Linking the Control Panel restriction GPO to target OUs.</em>
 </p>
 
 This ensured that only users within those specific OUs would be restricted, while IT staff retained full access.
@@ -777,7 +777,7 @@ Since I wanted this policy to apply to all computers in the domain, I linked the
   <img src="images/active-directory-domain-structure-29.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 29</em>
+  <em>Figure 29: Creating “Auto Lock Screen” GPO and linking at domain root.</em>
 </p>
 
 I opened the GPO Editor for the "Auto Lock Screen" GPO, and navigated to **[Computer Configuration > Windows Settings > Security Settings > Security Options]**. Then, I located the "Interactive logon: Machine inactivity limit".
@@ -786,7 +786,7 @@ I opened the GPO Editor for the "Auto Lock Screen" GPO, and navigated to **[Comp
   <img src="images/active-directory-domain-structure-30.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 30</em>
+  <em>Figure 30: Locating the “Machine inactivity limit” security option.</em>
 </p>
 
 I selected the "Define this policy setting" checkbox to allow for editing, then set the inactivity limit to 5 minutes (which is 300 seconds).
@@ -795,7 +795,7 @@ I selected the "Define this policy setting" checkbox to allow for editing, then 
   <img src="images/active-directory-domain-structure-31.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 31</em>
+  <em>Figure 31: Setting inactivity timeout to 300 seconds (5 minutes).</em>
 </p>
 
 After closing the GPO editor, I linked the GPO to the root domain by dragging the GPO into it.
@@ -804,7 +804,7 @@ After closing the GPO editor, I linked the GPO to the root domain by dragging th
   <img src="images/active-directory-domain-structure-32.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 32</em>
+  <em>Figure 32: Linking the Auto Lock Screen GPO to the domain.</em>
 </p>
 
 ##### 🔷 6H — Verifying GPOs have been applied to the correct OUs</h4>
@@ -826,7 +826,7 @@ This is different from typical production environments where you usually RDP to 
   <img src="images/active-directory-domain-structure-33.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 33</em>
+  <em>Figure 33: RDP connection using Mark’s domain credentials.</em>
 </p>
 
 This resolved correctly to the domain controller and brought me to the Windows login screen with the default blue background. From there, I logged in using Mark’s domain credentials.
@@ -835,7 +835,7 @@ This resolved correctly to the domain controller and brought me to the Windows l
   <img src="images/active-directory-domain-structure-34.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 34</em>
+  <em>Figure 34: Mark successfully authenticated to the domain.</em>
 </p>
 
 I was successfully able to access Mark’s session on the machine, confirming that the credentials and domain login were working as expected. Once logged in, I had full access to his desktop environment and could proceed with testing the delegated permissions.
@@ -844,7 +844,7 @@ I was successfully able to access Mark’s session on the machine, confirming th
   <img src="images/active-directory-domain-structure-35.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 35</em>
+  <em>Figure 35: Mark’s desktop session validated post-login.</em>
 </p>
 
 ##### 🔷 6I — Testing Control Panel Access
@@ -861,7 +861,7 @@ Mark being in the "Marketing" OU should not have access to the Control Panel, wh
   <img src="images/active-directory-domain-structure-36.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 36</em>
+  <em>Figure 36: Control Panel access blocked (GPO enforcement confirmed).</em>
 </p>
 
 ##### 🔷 6J — Testing inactivity GPO
@@ -1069,6 +1069,7 @@ I gained practical experience working with AD infrastructure and now understand 
 This has allowed me to practice real administrative tasks in Active Directory while reinforcing Security+ identity management concepts. I learned how to organize users and devices, delegate privileges, apply Group Policy, and understand authentication protocols.
 
 This workflow execution has also helped me move from theoretical understanding to hands‑on use of Active Directory. I managed users, devices, OUs, delegated privileges, and configured GPOs. I also reinforced key identity and authentication concepts from my CompTIA Security+ studies.
+
 
 
 
