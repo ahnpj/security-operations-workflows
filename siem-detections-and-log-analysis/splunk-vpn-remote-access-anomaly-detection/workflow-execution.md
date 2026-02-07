@@ -1,6 +1,6 @@
 # VPN Authentication and Remote Access Anomaly Analysis Using Splunk
 
-## Overview
+### Overview
 
 This workflow documents practical anomaly detection analysis using Splunk to identify abnormal Business Process Name (BPN) activity within authentication and operational log telemetry. The workflow focuses on identifying deviations from expected process execution behavior by analyzing event frequency, process naming patterns, and usage trends across datasets.
 
@@ -138,7 +138,7 @@ index="main"
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Aggregating VPN activity by user and geographic source country.</em>
 </p>
 
 This screenshot shows a Splunk query grouping events by `UserName` and `Source_Country`, excluding traffic from France. The results highlight geolocation activity, allowing detection of unusual login patterns such as a single user appearing in multiple foreign countries. Useful for identifying account compromise or suspicious travel-related anomalies
@@ -178,7 +178,7 @@ index="main" action=failed
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Identifying repeated failed authentication attempts by user and source IP.</em>
 </p>
 
 This screenshot displays a Splunk search filtered for events where `action=failed`. Events are aggregated by `UserName` and `ource_ip`, making it possible to identify repeated login failures tied to specific accounts and source IPs. This is a common use case for detecting brute-force attempts or credential stuffing.
@@ -219,7 +219,7 @@ index="main" Source_Country="United States"
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Establishing U.S. state-level VPN activity baseline.</em>
 </p>
 
 This screenshot highlights a Splunk query filtered to `Source_Country="United States"`, with results grouped by `source_state`. The output provides insight into geographic distribution of traffic across U.S. states. This is helpful for baseline monitoring and identifying anomalies (e.g., a user accessing from a state that is outside expected regions).
@@ -261,7 +261,7 @@ index="main" action=teardown protocol=tcp (port=443 OR dest_port=443)
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 4:</em>
+  <em>Figure 4: Analyzing encrypted VPN session teardown activity by source IP.:</em>
 </p>
 
 This screenshot illustrates a search that filters for `action=teardown` and protocol `tcp` with ports 443 or destination port 443. Grouping by `Source_ip` reveals which IPs are generating SSL/TLS session terminations. This is useful for monitoring secure traffic patterns, diagnosing abnormal HTTPS teardown activity, or spotting potential misuse of encrypted connections.
@@ -301,7 +301,7 @@ index="main"
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="1000"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Establishing baseline distribution of VPN session outcomes.</em>
 </p>
 
 This screenshot shows a baseline aggregation query using stats count by `Source_ip`, with results sorted in descending order. It highlights the top IP addresses generating events in the dataset. This is useful for quickly spotting “noisy” IPs, scanning activity, or establishing a baseline of top talkers in the environment.
@@ -353,4 +353,5 @@ index="main" action=teardown protocol=tcp (port=443 OR dest_port=443) | spath | 
 ## What I Learned (Skills Demonstrated)
 
 This workflow reinforced how VPN telemetry can support detection of credential misuse and abnormal access behavior using simple aggregation techniques. It strengthened proficiency in JSON field extraction using `spath`, statistical summarization using `stats`, and investigative pivoting based on authentication outcomes and geographic distribution. These techniques directly support SOC triage workflows and can be operationalized into dashboards and alerts for continuous monitoring.
+
 
