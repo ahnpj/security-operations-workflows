@@ -133,7 +133,7 @@ cd Downloads/scripts
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="500"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Navigating to scripted log generator directory.</em>
 </p>
 
 ##### 🔷 Phase 1.2 — Enumerate directory contents and confirm the available scripted generators  
@@ -145,7 +145,7 @@ The directory contents were listed using `ls`, and the output showed three items
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="500"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Enumerating available log generator scripts.</em>
 </p>
 
 **Analyst validation check:**
@@ -489,7 +489,7 @@ A quick reference table created to loosely define some common stanzas and provid
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="900"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Reviewing Splunk stanza and parsing knowledge checks.</em>
 </p>
 
 **Q1:** Which stanza breaks events after a provided pattern?  
@@ -553,7 +553,7 @@ I logged into the Splunk web app.
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Opening Splunk Apps management interface.</em>
 </p>
 
 (Phase 4.3, Step 2): Select **[Create app]**.
@@ -563,7 +563,7 @@ I logged into the Splunk web app.
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Launching new Splunk app creation workflow.</em>
 </p>
 
 (Phase 4.3, Step 3): Provide app metadata and create the app:
@@ -582,7 +582,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Configuring and saving new Splunk app metadata.</em>
 </p>
 
 (Phase 4.3, Step 4): Confirm the app appears in the Apps table.
@@ -592,7 +592,7 @@ I was redirected to a page where I can add details for my Splunk app. I named th
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Verifying app creation within Splunk Apps listing.</em>
 </p>
 
 (Phase 4.3, Step 5):  Launch the app to confirm it loads. At this point, no data appears yet because ingestion is not configured.
@@ -606,7 +606,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Launching newly created Splunk app interface.</em>
 </p>
 
 (Phase 4.3, Step 6):  Return to the Linux terminal to locate the newly created app on disk.
@@ -616,7 +616,7 @@ I clicked [Launch App] under the "Actions" column, which evidently showed that n
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Locating app directory within Splunk filesystem.</em>
 </p>
 
 ##### 🔷 Phase 4.4 — Create a simple script that generates log output  
@@ -644,7 +644,7 @@ print("This is a sample log...")
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Creating sample scripted log generator.</em>
 </p>
 
 The script was executed to confirm the output is produced as expected.
@@ -654,7 +654,7 @@ The script was executed to confirm the output is produced as expected.
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Validating scripted log output execution.</em>
 </p>
 
 ##### 🔷 Phase 4.5 — Configure `inputs.conf` for scripted ingestion  
@@ -672,7 +672,7 @@ The purpose of this step is not just to collect fake data, but to understand how
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Editing "inputs.conf" for scripted ingestion configuration.</em>
 </p>
 
 To make changes to the sample `inputs.conf` file located in Splunk’s default directory. the main Splunk directory was opened to have clean starting point. From there, `cd /opt/splunk/etc/system/default` was ran to move into the `default` configuration folder, `ls` was used to confirm that the inputs.conf file was there. `nano inputs.conf` was entered to begin editing.
@@ -1061,4 +1061,5 @@ This workflow execution exercise gave me practical experience with Splunk config
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
+
 
