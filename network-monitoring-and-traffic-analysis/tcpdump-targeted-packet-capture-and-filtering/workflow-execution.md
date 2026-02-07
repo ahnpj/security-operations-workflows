@@ -117,7 +117,7 @@ which is representative of many production Linux server environments.
   <img src="images/tcpdump_packet_capture_and_filtering_01.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 1</em>
+  <em>Figure 1: Validating Linux environment details and confirming active network interface context.</em>
 </p>
 
 </details>
@@ -222,7 +222,7 @@ This output included interfaces such as:
   <img src="images/tcpdump_packet_capture_and_filtering_02.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 2</em>
+  <em>Figure 2: Enumerating available network interfaces using "ip a s".</em>
 </p>
 
 ##### 🔷 1.2 — Start a bounded capture on the selected interface
@@ -237,7 +237,7 @@ Command executed:
   <img src="images/tcpdump_packet_capture_and_filtering_03.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 3</em>
+  <em>Figure 3: Performing bounded packet capture on interface "ens5".</em>
 </p>
 
 **Note:** The command `sudo tcpdump -i ens5 -c 5 -n` told the system to listen on the `ens5` network interface, capture five packets, and display them without converting IPs to hostnames. Running it with sudo gave the necessary root permissions to access the network interface.
@@ -293,7 +293,7 @@ Command executed:
   <img src="images/tcpdump_packet_capture_and_filtering_04.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 4</em>
+  <em>Figure 4: Applying host-based filter and saving capture to "http.pcap".</em>
 </p>
 
 How this capture is constrained:
@@ -314,7 +314,7 @@ The capture file (`http.pcap`) represents a portable artifact that can later be 
   <img src="images/tcpdump_packet_capture_and_filtering_05.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 5</em>
+  <em>Figure 5: Reviewing capture summary output after stopping host-filtered capture.</em>
 </p>
 
 Directional refinement options for host filtering:
@@ -335,7 +335,7 @@ Command executed:
   <img src="images/tcpdump_packet_capture_and_filtering_06.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 6</em>
+  <em>Figure 6: Filtering live traffic for DNS activity using port 53.</em>
 </p>
 
 Filter enforcement details:
@@ -353,7 +353,7 @@ I terminated capture using `Ctrl + C` which also produced a short capture summar
   <img src="images/tcpdump_packet_capture_and_filtering_07.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 7</em>
+  <em>Figure 7: Reviewing DNS capture summary after stopping live filtering.</em>
 </p>
 
 Directional refinement options for port filtering:
@@ -374,7 +374,7 @@ I filtered by protocol using the command below to capture only ICMP traffic, whi
   <img src="images/tcpdump_packet_capture_and_filtering_08.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 8</em>
+  <em>Figure 8: Filtering traffic for ICMP protocol activity.</em>
 </p>
 
 Filter enforcement details:
@@ -392,7 +392,7 @@ Again, I terminated capture using `Ctrl + C` which also produced a short capture
   <img src="images/tcpdump_packet_capture_and_filtering_09.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 9</em>
+  <em>Figure 9: Reviewing ICMP capture summary confirming no matching packets.</em>
 </p>
 
 Observed outcome context:
@@ -447,7 +447,7 @@ This approach:
   <img src="images/tcpdump_packet_capture_and_filtering_10.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 10</em>
+  <em>Figure 10: Filtering packets from ".pcap" file by source IP and counting results.</em>
 </p>
 
 Command components (explicit mapping):
@@ -461,7 +461,7 @@ Command components (explicit mapping):
   <img src="images/tcpdump_packet_capture_and_filtering_11.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 11</em>
+  <em>Figure 11: Reviewing packet count output and filter results using "wc".</em>
 </p>
 
 Observed output interpretation:
@@ -499,7 +499,7 @@ This command:
   <img src="images/tcpdump_packet_capture_and_filtering_12.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 12</em>
+  <em>Figure 12: Counting ICMP packets from capture file using offline filtering.</em>
 </p>
 
 Observed output interpretation:
@@ -527,7 +527,7 @@ I filtered the capture file to display ARP (Address Resolution Protocol) traffic
   <img src="images/tcpdump_packet_capture_and_filtering_13.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 13</em>
+  <em>Figure 13: Identifying ARP request source host using capture file filtering.</em>
 </p>
 
 Observed result:
@@ -551,7 +551,7 @@ This command filters the capture to show `DNS` traffic (which uses `port 53`) an
   <img src="images/tcpdump_packet_capture_and_filtering_14.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 14</em>
+  <em>Figure 14: Extracting DNS query hostname from packet payload using ASCII display.</em>
 </p>
 
 The first DNS query observed in this capture included:
@@ -596,7 +596,7 @@ Keywords `greater` and `less` allow filtering packets based on their byte length
   <img src="images/tcpdump_packet_capture_and_filtering_15.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 15</em>
+  <em>Figure 15: Capturing packets larger than 1000 bytes using default interface.</em>
 </p>
 
 Capture termination and summary review was performed using `Ctrl + C`:
@@ -605,7 +605,7 @@ Capture termination and summary review was performed using `Ctrl + C`:
   <img src="images/tcpdump_packet_capture_and_filtering_16.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 16</em>
+  <em>Figure 16: Reviewing capture summary for large-packet filtering results.</em>
 </p>
 
 (Step 2) — Capture packets larger than a threshold on a specified interface
@@ -620,7 +620,7 @@ This binds the same length filter to `ens5` specifically.
   <img src="images/tcpdump_packet_capture_and_filtering_17.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 17</em>
+  <em>Figure 17: Capturing packets larger than 1000 bytes on "ens5" interface.</em>
 </p>
 
 I pressed `Ctrl + C` to stop the live capture to see a short summary of all packets captured on the `ens5` interface:
@@ -629,7 +629,7 @@ I pressed `Ctrl + C` to stop the live capture to see a short summary of all pack
   <img src="images/tcpdump_packet_capture_and_filtering_18.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 18</em>
+  <em>Figure 18: Reviewing capture summary confirming large-packet activity on "ens5".</em>
 </p>
 
 (Step 3) — Capture packets larger than a threshold involving a specific host
@@ -646,7 +646,7 @@ This applies both a host filter and a packet-length filter on `ens5`.
   <img src="images/tcpdump_packet_capture_and_filtering_19.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 19</em>
+  <em>Figure 19: Filtering large packets involving specific host traffic.</em>
 </p>
 
 Capture termination and summary review was performed using `Ctrl + C` to see a short summary of all packets captured involving the host `example.com` on the `ens5` interface that are larger than 1000 bytes:
@@ -655,7 +655,7 @@ Capture termination and summary review was performed using `Ctrl + C` to see a s
   <img src="images/tcpdump_packet_capture_and_filtering_20.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 20</em>
+  <em>Figure 20: Reviewing capture summary confirming host-specific large packet filtering.</em>
 </p>
 
 
@@ -675,7 +675,7 @@ This captured all TCP packets that are greater than 1000 bytes on the `ens5` net
   <img src="images/tcpdump_packet_capture_and_filtering_21.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 21</em>
+  <em>Figure 21: Capturing large TCP packets involving a specific host using compound filters.</em>
 </p>
 
 Capture termination and summary review was performed using `Ctrl + C` to see a short summary of all `TCP` packets captured involving the host `example.com` on the `ens5` interface that are larger than 1000 bytes:
@@ -684,7 +684,7 @@ Capture termination and summary review was performed using `Ctrl + C` to see a s
   <img src="images/tcpdump_packet_capture_and_filtering_22.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 22</em>
+  <em>Figure 22: Reviewing capture summary for compound TCP large-packet filtering.</em>
 </p>
 
 
@@ -730,7 +730,7 @@ To capture packets sent to and from `example.com` whose Ethernet destination add
   <img src="images/tcpdump_packet_capture_and_filtering_23.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 23</em>
+  <em>Figure 23: Applying multicast MAC filtering using byte-offset and bitwise logic.</em>
 </p>
 
 Capture termination and summary review was performed using `Ctrl + C`:
@@ -739,7 +739,7 @@ Capture termination and summary review was performed using `Ctrl + C`:
   <img src="images/tcpdump_packet_capture_and_filtering_24.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 24</em>
+  <em>Figure 24: Reviewing capture summary for multicast packet filtering.</em>
 </p>
 
 
@@ -774,7 +774,7 @@ When I ran this tcpdump command to capture SYN packets, no packets appeared. Thi
   <img src="images/tcpdump_packet_capture_and_filtering_25.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 25</em>
+  <em>Figure 25: Filtering packets containing only TCP SYN flag during handshake analysis.</em>
 </p>
 
 I pressed `Ctrl + C` to stop the capture and get a short summary of all packets captured:
@@ -783,7 +783,7 @@ I pressed `Ctrl + C` to stop the capture and get a short summary of all packets 
   <img src="images/tcpdump_packet_capture_and_filtering_26.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 26</em>
+  <em>Figure 26: Reviewing capture summary confirming SYN-only filter results.</em>
 </p>
 
 
@@ -801,7 +801,7 @@ This filter matches packets where SYN is set, regardless of whether other flags 
   <img src="images/tcpdump_packet_capture_and_filtering_27.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 27</em>
+  <em>Figure 27: Filtering packets containing SYN flag using bitwise logic.</em>
 </p>
 
 Capture termination and summary review was performed using `Ctrl + C`:
@@ -810,7 +810,7 @@ Capture termination and summary review was performed using `Ctrl + C`:
   <img src="images/tcpdump_packet_capture_and_filtering_28.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 28</em>
+  <em>Figure 28: Reviewing capture summary confirming SYN flag packet activity.</em>
 </p>
 
 (Step 3) — Capture TCP packets with SYN **or** ACK set (handshake visibility)
@@ -827,7 +827,7 @@ This matches packets where SYN or ACK is set. This is useful for observing hands
   <img src="images/tcpdump_packet_capture_and_filtering_29.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 29</em>
+  <em>Figure 29: Filtering packets containing SYN or ACK flags to observe handshake flow.</em>
 </p>
 
 <blockquote>
@@ -840,7 +840,7 @@ I pressed `Ctrl + C` to stop the live capture and get a short capture summary of
   <img src="images/tcpdump_packet_capture_and_filtering_30.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 30</em>
+  <em>Figure 30: Reviewing capture summary confirming SYN/ACK filtering results.</em>
 </p>
 
 (Step 4) — Retrieve TCP flag information from a `.pcap` file (RST-only counting + large packet origin)
@@ -861,7 +861,7 @@ This command:
   <img src="images/tcpdump_packet_capture_and_filtering_31.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 31</em>
+  <em>Figure 31: Counting TCP RST-only packets using offline capture analysis.</em>
 </p>
 
 To identify sender of packets larger than 15,000 bytes to find the IP address of the host that sent packets larger than 15,000 bytes, the follow expression was used:
@@ -878,7 +878,7 @@ This command:
   <img src="images/tcpdump_packet_capture_and_filtering_32.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 32</em>
+  <em>Figure 32: Identifying source host sending extremely large packets from capture file.</em>
 </p>
 
 
@@ -923,7 +923,7 @@ This command reads and displays the first two packets from a previously captured
   <img src="images/tcpdump_packet_capture_and_filtering_33.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 33</em>
+  <em>Figure 33: Displaying basic packet metadata from capture file sample.</em>
 </p>
 
 ##### 🔷 4.2 — Display brief packet information (quick view)
@@ -938,7 +938,7 @@ To simplify the output of the two packets captured and displayed in **Step 1** a
   <img src="images/tcpdump_packet_capture_and_filtering_34.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 34</em>
+  <em>Figure 34: Displaying simplified packet output using quick display mode.</em>
 </p>
 
 ##### 🔷 4.3 — Include MAC addresses and link-layer headers
@@ -953,7 +953,7 @@ To now include MAC addresses and Ethernet headers to display link-level headers,
   <img src="images/tcpdump_packet_capture_and_filtering_35.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 35</em>
+  <em>Figure 35: Displaying link-layer headers including MAC addresses.</em>
 </p>
 
 ##### 🔷 4.4 — Display packets as ASCII
@@ -970,7 +970,7 @@ The output appeared mostly unreadable, filled with random letters, numbers, and 
   <img src="images/tcpdump_packet_capture_and_filtering_36.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 36</em>
+  <em>Figure 36: Displaying packet payload in ASCII format for plaintext inspection.</em>
 </p>
 
 ##### 🔷 4.5 — Display packets in hexadecimal format
@@ -987,7 +987,7 @@ The results also show the IP and TCP headers in addition to the packet contents.
   <img src="images/tcpdump_packet_capture_and_filtering_37.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 37</em>
+  <em>Figure 37: Displaying packet payload in hexadecimal format.</em>
 </p>
 
 ##### 🔷 4.6 — Display packets using both hex and ASCII simultaneously
@@ -1002,7 +1002,7 @@ To combine both hex and ASCII output using `-X`, which showed packets in both fo
   <img src="images/tcpdump_packet_capture_and_filtering_38.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 38</em>
+  <em>Figure 38: Displaying packet payload using combined hex and ASCII output.</em>
 </p>
 
 ##### 🔷 4.7 — Identify MAC address of a host that sent an ARP request
@@ -1017,7 +1017,7 @@ This filters `traffic.pcap` for ARP frames and includes Ethernet headers (`-e`) 
   <img src="images/tcpdump_packet_capture_and_filtering_39.png?raw=true&v=2" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="800"><br>
-  <em>Figure 39</em>
+  <em>Figure 39: Identifying MAC address of host sending ARP request using link-layer output.</em>
 </p>
 
 Observed outcome interpretation:
@@ -1189,3 +1189,4 @@ Throughout this workflow execution exercise, I practiced using Tcpdump to captur
 
 ### Reflection
 Tcpdump is lightweight but incredibly powerful. Unlike graphical tools, it provides immediate insight without requiring a large amount of system resources. By learning its syntax and options, I can now use it to diagnose connectivity issues, observe protocol behavior, and even detect potential malicious traffic. Combining Tcpdump with tools like Wireshark or Splunk could create a strong foundation for deeper network investigations.
+
