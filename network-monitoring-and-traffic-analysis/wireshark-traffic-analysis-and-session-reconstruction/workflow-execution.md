@@ -17,19 +17,6 @@ The analysis progresses through structured traffic inspection phases, beginning 
 
 ---
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Purpose and Analyst Focus
 
 #### ▶ Purpose
@@ -1342,6 +1329,7 @@ Overall, this workflow exercise strengthened my foundational understanding of ne
 - Dataset navigation: using packet numbers, search primitives, marking, and persistent comments to manage large captures.
 - Evidence extraction and integrity practices: exporting objects from traffic streams and validating artifacts with cryptographic hashes.
 - Precision filtering and conversation analysis: applying display filters, building logical expressions, isolating conversations, and reconstructing sessions with Follow Stream.
+
 
 
 
