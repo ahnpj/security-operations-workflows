@@ -623,7 +623,7 @@ Marked packets display in black regardless of prior coloring, improving visibili
 
 <blockquote>
 I noticed that once marked, packets appear in black, regardless of their original color, which helps quickly identify them during analysis. For practice, I marked packets 20 - 26. 
-<blockquote>
+</blockquote>
 
 <p align="left">
   <img src="images/wireshark-packet-analysis-and-filtering-19.png?raw=true&v=2" 
@@ -1117,7 +1117,6 @@ To narrow the capture down further by including packets associated with the dest
 [...and Not Selected] -> Appends the condition to exclude certain traffic while keeping others, using the AND NOT operator
 
 [...or Not Selected] -> Appends the condition that includes packets that match either the original field or anything that does not match the new one
-</blockquote>
 
 Final composed filter: `(ip.src == 65.208.228.223) && (ip.dst == 145.254.160.237)`
 
@@ -1329,6 +1328,7 @@ Overall, this workflow exercise strengthened my foundational understanding of ne
 - Dataset navigation: using packet numbers, search primitives, marking, and persistent comments to manage large captures.
 - Evidence extraction and integrity practices: exporting objects from traffic streams and validating artifacts with cryptographic hashes.
 - Precision filtering and conversation analysis: applying display filters, building logical expressions, isolating conversations, and reconstructing sessions with Follow Stream.
+
 
 
 
