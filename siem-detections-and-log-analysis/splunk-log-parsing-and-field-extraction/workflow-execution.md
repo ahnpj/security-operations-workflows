@@ -780,8 +780,7 @@ Next, I worked with the "authentication_logs" script, which generates multi-line
 
 ##### 🔷 Phase 5.1 — Configure ingestion for `authentication_logs`
 
-To fix this, the "props.conf" file was configured to merge lines and only break events when a line started with "[Authentication]". This was done using "BREAK_ONLY_BEFORE = \[Authentication\]" along with "SHOULD_LINEMERGE = true". Restarting Splunk and re-running the search showed me that the multi-line logs were now captured correctly as single events.  
-<blockquote>
+To fix this, the "props.conf" file was configured to merge lines and only break events when a line started with "[Authentication]". This was done using "BREAK_ONLY_BEFORE = \[Authentication\]" along with "SHOULD_LINEMERGE = true". Restarting Splunk and re-running the search showed me that the multi-line logs were now captured correctly as single events. 
 
 Configured inputs.conf:
 
@@ -1061,6 +1060,7 @@ This workflow execution exercise gave me practical experience with Splunk config
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
+
 
 
 
