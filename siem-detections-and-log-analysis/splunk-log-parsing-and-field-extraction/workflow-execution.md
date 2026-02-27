@@ -776,7 +776,7 @@ There was a problem where `authentication_logs` produced multi-line events split
 
 <blockquote>
 Next, I worked with the "authentication_logs" script, which generates multi-line log entries. After ingesting the logs using "inputs.conf", I noticed that Splunk incorrectly treated the logs as multiple events.
-<blockquote> 
+</blockquote>
 
 ##### 🔷 Phase 5.1 — Configure ingestion for `authentication_logs`
 
@@ -1061,5 +1061,6 @@ This workflow execution exercise gave me practical experience with Splunk config
 I reviewed everything I had completed in the lab, from defining event boundaries and parsing multi-line logs to masking sensitive information and extracting custom fields.
 
 I also built a simple Splunk app to simulate log ingestion, which tied together all the configurations I had practiced. Each phase built upon the last, giving me a realistic view of the types of parsing and ingestion issues a SOC analyst faces. 
+
 
 
