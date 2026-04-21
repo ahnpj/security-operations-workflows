@@ -1,5 +1,5 @@
-# Manual Phishing Email Artifact Extraction and Triage  
-(`manual-phishing-email-artifact-extraction/README.md`)
+# Email Security and Phishing Analysis/Triage
+(`email-security-and-phishing-analysis/README.md`)
 
 This folder contains workflow executions where the **primary focus is manually extracting, validating, and correlating phishing-related artifacts from suspicious email messages using analyst-driven techniques and enrichment tools**.
 
