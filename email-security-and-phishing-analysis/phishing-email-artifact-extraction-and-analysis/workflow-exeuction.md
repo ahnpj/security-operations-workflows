@@ -522,6 +522,8 @@ Potential next actions may include:
 This final step reinforced that phishing triage is not just about reading headers. It is about building a reliable explanation of how the message was delivered, what it wanted the user to do, and what indicators support a malicious conclusion.
 </blockquote>
 
+</details>
+
 ---
 
 ### What I Learned (Skills Demonstrated)
