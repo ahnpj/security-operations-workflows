@@ -54,6 +54,7 @@ Each workflow lives in its own folder inside a category and includes the documen
 | **identity-and-access-management/** | Identity and access management workflows focused on directory operations and permission validation. | Workflows for Active Directory user/group administration, delegation, OU management, and access control validation using standard enterprise tooling. |
 | **detection-automation-and-log-processing/** | Automation and log-processing workflows focused on turning raw telemetry into repeatable detection logic. | Workflows for Python-based parsing/analysis, transforming logs into structured signals, and prototyping behavior-based detections. |
 | **vulnerability-management-and-exposure-analysis/** | Vulnerability management workflows focused on exposure analysis, prioritization, and remediation tracking. | Category scaffold for future workflows (currently no workflow folders in this category). |
+| **email-security-and-phising-analysis/** | Phishing email analysis workflows focused on extracting, validating, and analyzing email-based attack artifacts. | Workflows for manual email header analysis, sender spoofing detection, reply-to validation, URL and domain investigation, attachment hashing, and artifact enrichment using tools like PhishTool, WHOIS, and VirusTotal. |
 
 ---
 
@@ -161,6 +162,15 @@ Current workflows:
 - **Log Parsing and Threat Detection Automation Using Python — Operational Execution**  
   Behavior-based detection logic prototyping from raw security telemetry across multiple environments. Tools: Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.  
   Folder: `detection-automation-and-log-processing/python-log-parsing-and-threat-detection/`
+
+#### ▶️ Email Security and Phishing Analysis Workflows
+`email-security-and-phishing-analysis/`
+
+Current workflows:
+
+- **Manual Phishing Email Artifact Extraction and Triage — Operational Execution**  
+  Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal
+  Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
 
 #### ▶️ Vulnerability Management and Exposure Analysis Workflows  
 `vulnerability-management-and-exposure-analysis/`
