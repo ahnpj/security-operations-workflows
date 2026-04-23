@@ -75,6 +75,9 @@ Current workflow executions include:
   (`phishing-email-artifact-extraction-and-analysis`)  
   Demonstrates manual phishing email artifact extraction and analysis using Outlook, raw message review, and supporting enrichment tools to extract suspicious email, web, and file artifacts. It highlights how analysts investigate email behavior, validate sender infrastructure, and isolate evidence from suspicious messages
 
+- **Manual Attachment-Based Phishing Artifact Analysis**  
+  (`attachment-phishing-artifact-analysis`)  
+  Demonstrates manual analysis of a phishing attachment designed to impersonate a Microsoft login portal and harvest credentials. It highlights how analysts inspect file metadata, review rendered HTML behavior, decode obfuscated source content, and validate credential exfiltration through browser-based network analysis.
 
 Additional workflow executions will be added as coverage expands across different phishing techniques, email formats, and attacker behaviors.
 
