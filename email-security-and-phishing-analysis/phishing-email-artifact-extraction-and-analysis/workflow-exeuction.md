@@ -150,7 +150,7 @@ This phase establishes the initial context of the suspicious message and records
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 1 - SIEM alert highlighting suspicious execution of "cudominer.exe"</em>
+  <em>Figure 1"</em>
 </p>
 
 <blockquote>
