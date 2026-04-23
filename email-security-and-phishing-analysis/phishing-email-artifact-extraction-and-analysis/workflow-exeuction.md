@@ -1,4 +1,4 @@
-# Manual Phishing Email Artifact Extraction and Triage
+# Manual Phishing Email Artifact Extraction and Analysis
 
 This workflow demonstrates manual phishing email artifact extraction and analysis using Outlook, raw message review, and supporting enrichment tools to extract suspicious email, web, and file artifacts. It highlights how analysts investigate email behavior, validate sender infrastructure, and isolate evidence from suspicious messages.
 
