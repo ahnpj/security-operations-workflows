@@ -71,7 +71,7 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- Manual Phishing Email Artifact Extraction and Triage Using Outlook, Sublime Text, PhishTool, WHOIS, VirusTotal, and PowerShell  
+- Manual Phishing Email Artifact Extraction and Analysis
   (`manual-phishing-email-artifact-extraction-using-outlook-and-phishtool`)  
 
 Additional workflow executions will be added as coverage expands across different phishing techniques, email formats, and attacker behaviors.
