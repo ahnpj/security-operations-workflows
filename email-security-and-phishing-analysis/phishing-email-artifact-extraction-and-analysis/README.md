@@ -1,6 +1,6 @@
 # Manual Phishing Email Artifact Extraction and Analysis
 
-- **Category:** Email Security Analysis and Phishing Triage  
+- **Category:** Email Security and Phishing Analysis  
 - **Primary Operational Focus:** Manual extraction and validation of email, web, and file artifacts from suspicious phishing emails  
 - **Operational Objectives Demonstrated:** Email Header Review, Artifact Extraction, Sender Infrastructure Validation, URL and Domain Analysis, Attachment Hashing, Reputation Checking  
 - **Primary Data Sources:** Suspicious email messages, raw email header data, embedded URLs, sender infrastructure records, and potentially malicious file attachments derived from phishing email analysis  
