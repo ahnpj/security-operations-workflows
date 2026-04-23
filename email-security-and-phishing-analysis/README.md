@@ -1,9 +1,9 @@
 # Email Security and Phishing Analysis/Triage
 (`email-security-and-phishing-analysis/README.md`)
 
-This folder contains workflow executions where the **primary focus is manually extracting, validating, and correlating phishing-related artifacts from suspicious email messages using analyst-driven techniques and enrichment tools**.
+This folder contains workflow executions where the **primary focus is extracting, validating, and correlating phishing-related artifacts from suspicious email messages using analyst-driven techniques and enrichment tools**.
 
-This includes reviewing visible email content, inspecting raw message data, extracting sender and infrastructure details, identifying web and file artifacts, and validating indicators using enrichment platforms such as WHOIS, PhishTool, VirusTotal, and local hashing utilities.
+This includes reviewing visible email content, inspecting raw message data, extracting sender and infrastructure details, identifying web and file artifacts, and validating indicators using enrichment platforms such as WHOIS, PhishTool, VirusTotal, local hashing utilities, and more.
 
 > 👉 **Each folder represents one complete workflow execution**  
 Every subfolder here is a **fully self-contained operational execution scenario**. Each one documents how a suspicious email is analyzed from initial triage through artifact extraction, enrichment, and final investigative determination.
