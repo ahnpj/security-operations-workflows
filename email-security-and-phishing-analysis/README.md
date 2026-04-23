@@ -82,12 +82,13 @@ Additional workflow executions will be added as coverage expands across differen
 
 Each workflow execution is fully self-contained and uses documentation aligned with how phishing analysis is performed in operational SOC environments.
 
-File / Folder | Purpose | Contents and Focus  
-workflow-execution.md | Operational execution walkthrough | Step-by-step phishing analysis workflow showing email review, header inspection, artifact extraction, enrichment, and validation  
-README.md | Workflow context and operational objective | Describes phishing scenario, workflow scope, and how the execution supports triage and investigation workflows  
-analyst-notes.md | Analytical reasoning and investigative considerations | Documents why specific artifacts were prioritized and how they support phishing determination  
-tool-usage-notes.md | Tool and platform reference documentation | Explains how Outlook, text editors, hashing tools, and enrichment platforms are used during analysis  
-images/ or screenshots/ | Validation and investigation artifacts | Contains screenshots of email content, raw headers, and extracted indicators  
+| File / Folder | Purpose | Contents and Focus |
+|-------------|-------------|--------------------|
+|workflow-execution.md | Operational execution walkthrough | Step-by-step phishing analysis workflow showing email review, header inspection, artifact extraction, enrichment, and validation  |
+|README.md | Workflow context and operational objective | Describes phishing scenario, workflow scope, and how the execution supports triage and investigation workflows  |
+|analyst-notes.md | Analytical reasoning and investigative considerations | Documents why specific artifacts were prioritized and how they support phishing determination  |
+|tool-usage-notes.md | Tool and platform reference documentation | Explains how Outlook, text editors, hashing tools, and enrichment platforms are used during analysis  |
+|images/ or screenshots/ | Validation and investigation artifacts | Contains screenshots of email content, raw headers, and extracted indicators  |
 
 ---
 
