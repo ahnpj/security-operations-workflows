@@ -1,4 +1,4 @@
-# Manual Phishing Email Artifact Extraction and Triage Using Outlook, Sublime Text, PhishTool, WHOIS, VirusTotal, and PowerShell
+# Manual Phishing Email Artifact Extraction and Triage
 
 - **Category:** Email Security Analysis and Phishing Triage  
 - **Primary Operational Focus:** Manual extraction and validation of email, web, and file artifacts from suspicious phishing emails  
