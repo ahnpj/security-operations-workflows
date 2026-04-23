@@ -1,6 +1,8 @@
-# Manual Phishing Email Artifact Extraction and Triage Using Outlook, Sublime Text, PhishTool, WHOIS, VirusTotal, and PowerShell
+# Manual Phishing Email Artifact Extraction and Triage
 
-This workflow demonstrates manual phishing email analysis using Outlook, raw message review, and supporting enrichment tools to extract suspicious email, web, and file artifacts. It highlights how analysts investigate email behavior, validate sender infrastructure, and isolate evidence from suspicious messages.
+This workflow demonstrates manual phishing email artifact extraction and analysis using Outlook, raw message review, and supporting enrichment tools to extract suspicious email, web, and file artifacts. It highlights how analysts investigate email behavior, validate sender infrastructure, and isolate evidence from suspicious messages.
+
+The main tools I've used are: Outlook, Sublime Text, PhishTool, WHOIS, VirusTotal, and PowerShell. See **[Environment and Execution Context](#environment-and-execution-context)** section below.
 
 ### Overview
 
