@@ -91,6 +91,7 @@ Each workflow execution is fully self-contained and uses documentation aligned w
 |-------------|-------------|--------------------|
 |workflow-execution.md | Operational execution walkthrough | Step-by-step phishing analysis workflow showing email review, header inspection, artifact extraction, enrichment, and validation  |
 |README.md | Workflow context and operational objective | Describes phishing scenario, workflow scope, and how the execution supports triage and investigation workflows  |
+|phishing-analysis-report.md | Formal phishing analysis and incident reporting | Documents the phishing investigation, including artifact collection, infrastructure and URL analysis, correlation of indicators, and recommended defensive actions for containment and detection  |
 |analyst-notes.md | Analytical reasoning and investigative considerations | Documents why specific artifacts were prioritized and how they support phishing determination  |
 |tool-usage-notes.md | Tool and platform reference documentation | Explains how Outlook, text editors, hashing tools, and enrichment platforms are used during analysis  |
 |images/ or screenshots/ | Validation and investigation artifacts | Contains screenshots of email content, raw headers, and extracted indicators  |
