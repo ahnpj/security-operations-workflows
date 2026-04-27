@@ -80,8 +80,8 @@ Current workflow executions include:
   Demonstrates manual analysis of a phishing attachment designed to impersonate a Microsoft login portal and harvest credentials. It highlights how analysts inspect file metadata, review rendered HTML behavior, decode obfuscated source content, and validate credential exfiltration through browser-based network analysis.
 
 - **Multiple Email Phising Triage and Artifact Analysis**  
-  (`placeholder`)  
-  Demonstrates manual analysis of a phishing attachment designed to impersonate a Microsoft login portal and harvest credentials. It highlights how analysts inspect file metadata, review rendered HTML behavior, decode obfuscated source content, and validate credential exfiltration through browser-based network analysis.
+  (`multi-email-phishing-triage-and-artifact-analysis`)  
+  Demonstrates structured triage of multiple email samples to distinguish between phishing, spam, and legitimate communications. It highlights how analysts evaluate sender identity, inspect raw message headers, identify deceptive attachments, and correlate artifacts across messages to make accurate classification decisions and extract actionable indicators of compromise.
 
 Additional workflow executions will be added as coverage expands across different phishing techniques, email formats, and attacker behaviors.
 
