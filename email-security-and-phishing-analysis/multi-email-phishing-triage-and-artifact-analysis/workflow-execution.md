@@ -296,7 +296,7 @@ I treated the friendly name and the actual sender as separate values. That matte
 The `Subject` field was reviewed a few lines below the `From` header or located using text search.
 
 **Subject Line:**  
-`[INSERT SUBJECT LINE FROM EMAIL ONE]`
+`Your Amazon.co.uk order of "ION Audio Turntable`
 
 The subject line should be documented exactly as it appears because it may be useful for email gateway searches, recipient scoping, detection logic, and analyst reporting.
 
@@ -333,10 +333,18 @@ This timestamp supports reporting, scoping, and correlation with email gateway l
 
 ##### 🔷 Phase 2.6 — Extract the sending server IP
 
-The raw message was searched for sender infrastructure references. The sending server IP was identified in multiple header references, including SPF-related delivery context.
+In Sublime 2, the raw message was searched for sender infrastructure references. The sending server IP was identified in multiple header references, including SPF-related delivery context.
 
 **Sending Server IP:**  
 `68.114.190.29`
+
+<p align="left">
+  <img src="images/multi-email-phishing-triage-04.png"
+       alt="Email One full URL extraction"
+       style="border: 2px solid #444; border-radius: 6px;"
+       width="800"><br>
+  <em>Figure 4: Extracting the sending server IP in Sublime 2.</em>
+</p>
 
 This value is important because it reflects infrastructure involved in delivering the email, which can be used for enrichment, reverse DNS review, and investigation context.
 
@@ -345,9 +353,29 @@ This value is important because it reflects infrastructure involved in deliverin
 A WHOIS/DomainTools-style lookup did not return a current hostname for the sending IP, and the IP ownership context appeared to have changed. The original reverse DNS or hostname evidence was therefore taken from the preserved raw email headers.
 
 **Reverse DNS / Hostname:**  
-`[INSERT REVERSE DNS HOSTNAME FROM EMAIL ONE RAW HEADER]`
+`mtaout004-public.msg.strl.va.charter.net`
+
+<p align="left">
+  <img src="images/multi-email-phishing-triage-05.png"
+       alt="Email One full URL extraction"
+       style="border: 2px solid #444; border-radius: 6px;"
+       width="800"><br>
+  <em>Figure 5: Finding DNS hostname in raw email view.</em>
+</p>
 
 This is an important reminder that live infrastructure lookups can change over time. The raw email file preserves the historical delivery context at the time the message was sent.
+
+To determine the true sending mail server, I analyzed the `Received:` header chain from bottom to top, since each mail server appends its own entry as the email is relayed. The top entries showed Microsoft infrastructure (`*.outlook.com`, `*.protection.outlook.com`), which represent internal mail handling after the message was accepted by the recipient’s mail system. These were not considered the origin. I then located the first `Received:` entry where the message transitions from an external server into Microsoft’s environment:
+
+```
+Received: from mtaout004-public.msg.strl.va.charter.net ([68.114.190.29])
+    by SNT004-MC1F55.hotmail.com
+```
+This indicates that `mtaout004-public.msg.strl.va.charter.net (IP: 68.114.190.29)` established the SMTP connection and handed the message off to Microsoft’s mail server. As a result, this system is identified as the sending mail server from a practical and externally verifiable standpoint.
+
+Although additional `Received:` headers exist below this entry (e.g., internal Charter relay servers and a private IP `[71.10.27.121]`), these represent internal mail routing within the sender’s infrastructure and cannot be independently validated. Therefore, they are not relied upon to determine the true origin.
+
+This approach ensures that the identified sending server is based on the first trusted external handoff point, rather than potentially spoofed or non-verifiable internal hops.
 
 <blockquote>
 I did not rely only on the live lookup because IP ownership and reverse DNS context can change. The original message headers are often more useful for reconstructing what was true when the email was delivered.
@@ -355,19 +383,19 @@ I did not rely only on the live lookup because IP ownership and reverse DNS cont
 
 ##### 🔷 Phase 2.8 — Extract the full URL from the malicious email
 
-The full URL was extracted by right-clicking the link in the email client and copying the link location. This was more efficient than searching raw email content because email files often contain many unrelated HTTP/HTTPS references.
+The full URL was extracted by right-clicking the link in the email client and copying the link location and opening it in Notepad. This was more efficient than searching raw email content because email files often contain many unrelated HTTP/HTTPS references.
 
 **Full URL (sanitized):**  
-`[INSERT FULL DEFANGED URL FROM EMAIL ONE]`
+`http://id820update[.]refundsys59[.]co[.]uk/invoice103amz/index[.]php?email=jack[.]tractive@abcindustries[.]co[.]uk`
 
 The URL appeared consistent with a credential-harvesting flow because it contained formatting and parameters that suggested the user’s email address may be passed into the phishing page to auto-fill a fake Amazon login experience.
 
 <p align="left">
-  <img src="images/multi-email-phishing-triage-04.png"
+  <img src="images/multi-email-phishing-triage-06.png"
        alt="Email One full URL extraction"
        style="border: 2px solid #444; border-radius: 6px;"
        width="800"><br>
-  <em>Figure 4: Extracting the full URL from Email One using the email client.</em>
+  <em>Figure 6: Extracting the full URL from Email One using the email client.</em>
 </p>
 
 <blockquote>
@@ -392,16 +420,16 @@ Email Three required a slightly different focus from Email One. The key issue wa
 Email Three was opened in a text editor and the `From` field was reviewed.
 
 **Sending Address:**  
-`[INSERT SENDING ADDRESS FROM EMAIL THREE]`
+`FSDFAS2423N23K@gmail.com`
 
 The sender was a Gmail address despite the message claiming to represent the UK National Health Service. That mismatch supported the impersonation assessment.
 
 <p align="left">
-  <img src="images/multi-email-phishing-triage-05.png"
+  <img src="images/multi-email-phishing-triage-07.png"
        alt="Email Three From header extraction"
        style="border: 2px solid #444; border-radius: 6px;"
        width="800"><br>
-  <em>Figure 5: Extracting the actual sender from Email Three.</em>
+  <em>Figure 7: Extracting the actual sender from Email Three.</em>
 </p>
 
 ##### 🔷 Phase 3.2 — Extract the subject line
@@ -409,7 +437,7 @@ The sender was a Gmail address despite the message claiming to represent the UK 
 The `Subject` field was reviewed directly or located through text search.
 
 **Subject Line:**  
-`[INSERT SUBJECT LINE FROM EMAIL THREE]`
+`COVID19 - GET TESTED NOW!`
 
 The subject line should be preserved exactly because it may be useful for email gateway searches and recipient scoping.
 
@@ -418,7 +446,7 @@ The subject line should be preserved exactly because it may be useful for email 
 The `To` field was reviewed to identify the recipient.
 
 **Recipient:**  
-`[INSERT RECIPIENT FROM EMAIL THREE]`
+`matthew.beaman@abcindustries.co.uk`
 
 Recording the recipient supports user-level scoping and helps determine who may need follow-up if the message bypassed controls.
 
@@ -426,26 +454,47 @@ Recording the recipient supports user-level scoping and helps determine who may 
 
 The raw email was searched for `Reply-To` and `reply` values. No Reply-To header was found.
 
-**Reply-To:**  
-`none`
-
-Because no Reply-To field was present, replies would default to the sender address.
+Because no `Reply-To` field was present, replies would default to the sender address.
 
 ##### 🔷 Phase 3.5 — Extract the date and time from the raw `Date` header
 
 The raw message was searched for the `Date` field.
 
 **Date and Time:**  
-`[INSERT DATE/TIME FROM EMAIL THREE]`
+`Fri, 12 Jun 2020 21:23:00 +0100`
+
+<p align="left">
+  <img src="images/multi-email-phishing-triage-08.png"
+       alt="Email Three From header extraction"
+       style="border: 2px solid #444; border-radius: 6px;"
+       width="800"><br>
+  <em>Figure 8: Extracting date.</em>
+</p>
+
+When analyzing email headers, multiple timestamps appear across different fields, particularly within the `Received:` headers. These can be confusing, as they do not all represent the same event.
+
+The timestamps found in the `Received:` headers (e.g., `Fri, 12 Jun 2020 20:23:11 +0000`) indicate **when each mail server processed and relayed the message**. Since each server adds its own `Received:` entry as the email moves through the delivery chain, these timestamps reflect **intermediate hops**, not the original send time.
+
+In contrast, the `Date:` header:
+`Date: Fri, 12 Jun 2020 21:23:00 +0100`
+
+represents the **time the email was originally composed and sent by the sender’s mail client**. This is the timestamp most relevant for understanding when the message was actually created.
+
+Therefore, I focused on the `Date:` field rather than the timestamps in the `Received:` headers. The `Received:` timestamps are still useful for:
+- Tracing the path the email took
+- Identifying delays or anomalies in delivery
+- Correlating infrastructure handling
+
+However, they do **not** indicate the original send time. The `Date:` header provides the closest representation of when the sender initiated the email.
 
 This value supports timeline reconstruction and correlation with mail gateway logs.
 
 ##### 🔷 Phase 3.6 — Extract the sending server IP
 
-The raw message was searched for sender infrastructure references to identify the sending server IP.
+In Sublime 2, the raw message was searched for sender infrastructure references to identify the sending server IP.
 
 **Sending Server IP:**  
-`[INSERT SENDING SERVER IP FROM EMAIL THREE]`
+`209.85.160.173`
 
 The sending server IP was then used for reverse DNS or WHOIS-style review.
 
@@ -454,13 +503,75 @@ The sending server IP was then used for reverse DNS or WHOIS-style review.
 The sending IP resolved to a Gmail sending server owned by Google.
 
 **Reverse DNS / Hostname:**  
-`[INSERT GMAIL REVERSE DNS HOSTNAME FROM EMAIL THREE]`
+`mail-qt1-f173.google.com`
 
 This supported the finding that the email was delivered using Gmail infrastructure even though it claimed to represent the NHS.
+
+<p align="left">
+  <img src="images/multi-email-phishing-triage-09.png"
+       alt="Email Three From header extraction"
+       style="border: 2px solid #444; border-radius: 6px;"
+       width="800"><br>
+  <em>Figure 9: Extracting reverse DNS</em>
+</p>
 
 <blockquote>
 A Gmail sending server is not inherently malicious, but it is suspicious in this context because the message was claiming to represent a UK public health organization. The infrastructure did not match the claimed sender identity.
 </blockquote>
+
+The `Received:` header is used to identify the sending server IP because it is added by **mail servers during transit**, not by the sender. Each mail server that processes the email appends its own `Received:` entry, documenting:
+
+- The system it **received the email from**
+- The **IP address** of that system
+- The server that processed it (`by`)
+- A timestamp of when the transfer occurred
+
+In this example, the relevant `Received:` entry is:
+
+```
+Received: from mail-lf1-f173.google.com with SMTP id w9so8138297qtv.3
+for matthew.beaman@abcindustries.co.uk;
+Fri, 12 Jun 2020 13:23:11 -0700 (PDT)
+```
+
+Although this line does not explicitly show the IP, a previous `Received:` header provides it:
+
+```
+Received: from mail-lf1-f173.google.com (209.85.160.173)
+by AM6EUR05FT066.mail.protection.outlook.com
+```
+
+This means, Microsoft server is saying:
+
+“I received a connection from 209.85.160.173" which resolves to this domain "mail-lf1-f173.google.com"."
+
+Microsoft records the sending server in the `Received:` header because it directly observes the incoming SMTP connection, making it a reliable source of the actual sending server IP rather than a sender-controlled field.
+
+From this, we can determine:
+- **Sending server hostname:** `mail-lf1-f173.google.com`
+- **Sending server IP:** `209.85.160.173`
+
+This IP is considered reliable because:
+- It was recorded by the receiving mail server (Microsoft infrastructure)
+- It represents the **actual system that established the SMTP connection**
+- It aligns with authentication results:
+  - `spf=pass` → Gmail is authorized to send for the domain
+  - `dkim=pass` → Message integrity verified
+
+In contrast, fields like `From:` or `Return-Path:` could be spoofed and do not reflect the true origin of the message.
+
+Therefore, the `Received:` header is used because it provides a **verifiable, server-recorded chain of custody**, allowing analysts to confidently identify the sending server IP.
+
+In this case:
+- `209.85.160.173` is the **actual IP that connected to the receiving server**
+- This value is recorded by the receiving mail server itself, making it **trustworthy**
+
+This is why the `Received:` header is relied upon:
+- It reflects **observed network connections**, not claimed identity
+- It cannot be easily spoofed in transit because each hop is recorded independently by different servers
+- It provides a **verifiable chain of custody** for the email
+
+For this reason, analysts use the **earliest trustworthy `Received:` entry** (typically the first external handoff to a known provider like Microsoft or Google) to identify the sending server IP.
 
 ##### 🔷 Phase 3.8 — Identify the removed malicious attachment and original filename
 
@@ -472,24 +583,50 @@ The attachment displayed in the email client as a replacement text file, indicat
 The replacement text file was safe to open as a text file and provided the original malicious filename.
 
 **Original Attachment Filename:**  
-`[INSERT ORIGINAL MALICIOUS ATTACHMENT FILENAME - .pdf.exe]`
+`COVID19-Testing-Kit-2020.pdf.exe`
 
 The original filename used a double extension ending in `.pdf.exe`, indicating an executable disguised as a PDF. This is a strong malicious attachment indicator because it attempts to make the file look like a document while preserving executable behavior.
 
 <p align="left">
-  <img src="images/multi-email-phishing-triage-06.png"
+  <img src="images/multi-email-phishing-triage-10.png"
        alt="Email Three attachment replacement notice"
        style="border: 2px solid #444; border-radius: 6px;"
        width="800"><br>
-  <em>Figure 6: Reviewing the gateway-replaced attachment text file and original malicious filename.</em>
+  <em>Figure 10: Reviewing the gateway-replaced attachment text file and original malicious filename.</em>
 </p>
 
-##### 🔷 Phase 3.9 — Document the provided SHA256 hash
+##### 🔷 Phase 3.9 — Document the SHA256 hash
 
-Because the original malicious attachment had been removed, the file could not be hashed directly in the lab environment. Instead, the SHA256 value provided inside the replacement text file was documented.
+Initially, I calculated the SHA256 hash of the visible attachment using PowerShell:
+
+```powershell
+Get-FileHash .\MALICIOUS ATTACHMENT REMOVED - SBT.txt -Algorithm SHA256
+```
 
 **SHA256 Hash:**  
-`[INSERT SHA256 HASH FROM EMAIL THREE]`
+`9F119D7D876138F25508911B483165EE7DB729B4917583F2B231A0283122A368`
+
+<p align="left">
+  <img src="images/multi-email-phishing-triage-11.png"
+       alt="Email Three attachment replacement notice"
+       style="border: 2px solid #444; border-radius: 6px;"
+       width="800"><br>
+  <em>Figure 11: Generating SHA256 hash of placeholder value.</em>
+</p>
+
+However, this value was incorrect because it represents the hash of the sanitized placeholder file, not the original malicious attachment.
+
+The file `MALICIOUS ATTACHMENT REMOVED - SBT.txt` is automatically inserted by the email gateway after removing a suspicious attachment. It contains metadata about the removed file rather than the file itself.
+
+By opening the text file and reviewing its contents, I identified the original malicious file details:
+
+```
+Original Filename: COVID19-Testing-Kit-2020.pdf.exe
+Original SHA256 Hash:
+8B2E701E91101955C73865589A4C72999AEABC11043F712E05FDB1C17C4AB19A
+```
+
+This hash is the correct value to use, as it corresponds to the actual malicious file that was removed by the email security gateway.
 
 In a real investigation, if the original attachment were available, it should be handled in an isolated analysis environment and hashed using PowerShell or Linux CLI tooling.
 
