@@ -1,6 +1,5 @@
 # Phishing Attachment Analysis Report
 
----
 
 ## Section 1: Email Description and Artifacts Collected
 
