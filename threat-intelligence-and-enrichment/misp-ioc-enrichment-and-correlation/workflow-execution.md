@@ -157,7 +157,7 @@ This section documents the workflow in the same order an analyst would realistic
        alt="SIEM alert" 
        style="border: 2px solid #444; border-radius: 6px;" 
        width="600"><br>
-  <em>Figure 1"</em>
+  <em>Figure 1</em>
 </p>
 
 The workflow focused on navigating existing intelligence already populated within the MISP instance rather than building or administering the platform itself. This allowed the investigation to focus primarily on operational threat intelligence analysis, indicator review, adversary tracking, and investigative pivoting using real-world intelligence data contained within the environment.
