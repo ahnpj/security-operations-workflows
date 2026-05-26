@@ -1,6 +1,6 @@
 # Tool Usage Notes — MISP-Based Threat Intelligence Investigation and Malware Analysis
 
-## Overview
+### Overview
 
 This document summarizes the tools, platforms, workflows, and intelligence sources used throughout the MISP-based threat intelligence investigation lab.
 
@@ -15,9 +15,9 @@ The investigation focused on:
 
 ---
 
-## Primary Investigation Platform — MISP
+### Primary Investigation Platform — MISP
 
-### Purpose
+#### Purpose
 MISP (Malware Information Sharing Platform) was used as the primary threat intelligence platform for reviewing:
 - malware campaigns,
 - ransomware activity,
@@ -28,7 +28,7 @@ MISP (Malware Information Sharing Platform) was used as the primary threat intel
 - external reporting references,
 - contextual adversary intelligence.
 
-### How It Was Used
+#### How It Was Used
 MISP Event Info searches were performed using terms such as:
 - `booter`
 - `coalabot`
@@ -42,7 +42,7 @@ Individual events were reviewed through:
 - Galaxy entries,
 - linked intelligence references.
 
-### Operational Relevance
+#### Operational Relevance
 MISP functions as a centralized intelligence repository commonly used by:
 - SOC teams,
 - incident responders,
@@ -59,12 +59,12 @@ It supports:
 
 ---
 
-## Attributes Table Review
+### Attributes Table Review
 
-### Purpose
+#### Purpose
 Review operational indicators associated with malware campaigns and attacker infrastructure.
 
-### Indicators Reviewed
+#### Indicators Reviewed
 - IP addresses
 - SHA256 hashes
 - malware filenames
@@ -75,7 +75,7 @@ Review operational indicators associated with malware campaigns and attacker inf
 - Suricata rules
 - Sigma detections
 
-### Operational Relevance
+#### Operational Relevance
 Indicators reviewed within the Attributes table can be operationalized into:
 - SIEM detections,
 - firewall blocks,
@@ -85,12 +85,12 @@ Indicators reviewed within the Attributes table can be operationalized into:
 
 ---
 
-## VirusTotal Investigation
+### VirusTotal Investigation
 
-### Purpose
+#### Purpose
 Validate malware samples and identify uploaded malware metadata.
 
-### How It Was Used
+#### How It Was Used
 A VirusTotal permalink stored inside the CoalaBot event was reviewed externally to identify:
 - malware filenames,
 - associated hashes,
@@ -100,7 +100,7 @@ A VirusTotal permalink stored inside the CoalaBot event was reviewed externally 
 The investigation identified:
 - `cla.exe`
 
-### Operational Relevance
+#### Operational Relevance
 VirusTotal is commonly used during malware investigations to:
 - validate suspicious files,
 - correlate malware families,
@@ -109,12 +109,12 @@ VirusTotal is commonly used during malware investigations to:
 
 ---
 
-## Reddit Malware Analysis Reporting
+### Reddit Malware Analysis Reporting
 
-### Purpose
+#### Purpose
 Review external malware analysis reporting associated with the Rhombus Linux DDoS botnet malware.
 
-### How It Was Used
+#### How It Was Used
 A Reddit technical malware analysis report linked inside the Rhombus MISP event was reviewed to identify:
 - persistence behavior,
 - dropped payloads,
@@ -137,12 +137,12 @@ Behavioral malware analysis reporting provides operational visibility into:
 
 ---
 
-## Arctic Wolf Threat Reporting
+### Arctic Wolf Threat Reporting
 
-### Purpose
+#### Purpose
 Review incident response intelligence associated with Lorenz ransomware and MiVoice exploitation activity.
 
-### How It Was Used
+#### How It Was Used
 The linked Arctic Wolf report was reviewed to identify:
 - persistence artifacts,
 - malicious webshells,
@@ -155,7 +155,7 @@ The investigation identified:
 
 and its associated SHA256 hash.
 
-### Operational Relevance
+#### Operational Relevance
 Persistence-related reporting provides defenders with:
 - forensic artifacts,
 - IOC matching opportunities,
@@ -165,12 +165,12 @@ Persistence-related reporting provides defenders with:
 
 ---
 
-## Vulnerability Research
+### Vulnerability Research
 
-### Purpose
+#### Purpose
 Investigate exploited vulnerabilities associated with MiVoice ransomware activity.
 
-### How It Was Used
+#### How It Was Used
 External CVE research was performed for:
 - `CVE-2022-29499`
 
@@ -187,12 +187,12 @@ Threat intelligence investigations frequently extend into:
 
 ---
 
-## MISP Galaxy Intelligence
+### MISP Galaxy Intelligence
 
-### Purpose
+#### Purpose
 Review broader contextual intelligence associated with ransomware groups.
 
-### How It Was Used
+#### How It Was Used
 The Lorenz Ransomware Galaxy entry was reviewed to identify:
 - historical activity,
 - operational timelines,
@@ -213,7 +213,7 @@ MISP Galaxies provide structured contextual intelligence used for:
 
 ---
 
-## Investigation Workflow Summary
+### Investigation Workflow Summary
 
 The investigation repeatedly followed a structured workflow:
 
@@ -227,7 +227,7 @@ The investigation repeatedly followed a structured workflow:
 
 ---
 
-## Summary
+### Summary
 
 This investigation demonstrated how modern threat intelligence workflows extend beyond reviewing isolated indicators of compromise. Throughout the lab, MISP was used as a centralized intelligence platform for correlating malware infrastructure, ransomware campaigns, persistence artifacts, external malware analysis, vulnerability reporting, and contextual adversary intelligence.
 
