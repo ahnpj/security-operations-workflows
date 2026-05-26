@@ -291,6 +291,7 @@ While reviewing the YARA rule, I focused specifically on the `strings` section b
 
 ```text
 $str3 = "How To Restore Your Files.txt" wide
+```
 
 </details>
 
