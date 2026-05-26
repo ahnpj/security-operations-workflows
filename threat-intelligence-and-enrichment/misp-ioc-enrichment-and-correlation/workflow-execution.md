@@ -94,7 +94,7 @@ This section documents the tools, intelligence sources, and investigative enviro
 <summary><strong>▶ Environment & Platform</strong><br>
 </summary><br>
 
-Threat intelligence analysis was performed using MISP hosted within the BTL1 guided lab environment. MISP was accessed through a browser using a private lab IP address and authenticated using analyst credentials provided within the lab environment.
+Threat intelligence analysis was performed using MISP hosted within the environment. MISP was accessed through a browser using a private IP address and authenticated using analyst credentials provided within the environment.
 
 </details>
 
@@ -150,7 +150,7 @@ The workflow used the following intelligence sources:
 
 ### Step-by-Step Execution
 
-This section documents the workflow in the same order an analyst would realistically perform operational threat intelligence research using MISP within a controlled virtual lab environment. The analysis was performed from a lab workstation hosted in a virtualized environment, where I connected to a preconfigured MISP server hosted internally at `10.0.11.23`. The process begins with broad intelligence searches and progresses into deeper event-level analysis, ATT&CK review, malware investigation, infrastructure analysis, and external intelligence correlation.
+This section documents the workflow in the same order an analyst would realistically perform operational threat intelligence research using MISP within a controlled virtual environment. The analysis was performed from a workstation hosted in a virtualized environment, where I connected to a preconfigured MISP server hosted internally at `10.0.11.23`. The process begins with broad intelligence searches and progresses into deeper event-level analysis, ATT&CK review, malware investigation, infrastructure analysis, and external intelligence correlation.
 
 <p align="left">
   <img src="images/misp-ioc-enrichmnent-and-correlation-01.png" 
@@ -171,7 +171,7 @@ Each phase captures both the technical actions performed and the investigative r
 → investigating ransomware-related events, indicators, and malware artifacts
 </summary><br>
 
-This phase focused on using MISP search functionality to identify ransomware-related intelligence events and investigate specific ransomware families and malware artifacts within the virtual lab environment.
+This phase focused on using MISP search functionality to identify ransomware-related intelligence events and investigate specific ransomware families and malware artifacts within the virtual environment.
 
 <blockquote>
 I started with broad ransomware event searches because ransomware remains one of the most operationally impactful threat categories for organizations. I wanted to understand how MISP organizes ransomware intelligence and how indicators, malware references, and YARA rules are structured within events. Since the MISP instance was already configured and populated with intelligence data, I was able to focus directly on operational analysis and investigative pivoting rather than platform deployment or administration.
@@ -407,7 +407,7 @@ This means the workflow focused less on reviewing live endpoint or firewall logs
 
 The ATT&CK Matrix view specifically reinforced how intelligence analysis can move beyond static indicators such as hashes or IP addresses and instead focus on broader attacker behaviors across the intrusion lifecycle. In this case, the highlighted ATT&CK tactics and techniques represented observed Turla behaviors that researchers previously mapped during investigation of the campaign.
 
-Although MISP itself is not functioning as a live SIEM within this lab environment, platforms like MISP are frequently integrated operationally with SIEMs, EDR platforms, SOAR solutions, and detection pipelines within enterprise environments. For example:
+Although MISP itself is not functioning as a live SIEM within this environment, platforms like MISP are frequently integrated operationally with SIEMs, EDR platforms, SOAR solutions, and detection pipelines within enterprise environments. For example:
 
 - threat intelligence indicators stored in MISP may be exported into SIEM detection rules,
 - malicious domains or IPs may be used for alert enrichment,
@@ -802,7 +802,7 @@ Threat intelligence investigations commonly involve “pivoting” into these ex
 
 At this point, what I was actually looking at was not the malware file itself, but rather intelligence references associated with the malware investigation. The VirusTotal permalink represented a reference to a malware sample that had previously been uploaded and analyzed externally.
 
-One of the attributes contained a VirusTotal permalink associated with the malware sample. Although the isolated lab VM itself did not have internet access, the URL could still be copied manually into a normal browser outside the lab environment.
+One of the attributes contained a VirusTotal permalink associated with the malware sample. Although the isolated VM itself did not have internet access, the URL could still be copied manually into a normal browser outside the environment.
 
 The purpose of opening the VirusTotal link was to retrieve additional malware sample metadata that was not directly visible inside MISP itself.
 
@@ -1160,7 +1160,7 @@ The investigation began by reviewing DDoS “booter” infrastructure events. Bo
 
 Additional event analysis focused on the CoalaBot malware event, where external malware analysis references were reviewed. The event contained a VirusTotal permalink associated with a malware sample upload. By pivoting from the MISP event into the VirusTotal analysis page, the original malware filename was identified. This demonstrated how MISP events frequently act as centralized intelligence aggregation points that connect analysts to external malware analysis platforms, sandbox reports, malware repositories, and additional investigative resources. The investigation also reinforced how hashes, filenames, and malware upload references help analysts correlate malware campaigns and identify reused malware artifacts across environments.
 
-Further investigation centered on the Rhombus Linux DDoS botnet malware event. The event contained an Internal Reference link pointing to a Reddit-based malware analysis report. Reviewing the report revealed behavioral details regarding the malware installer, persistence mechanisms, payload delivery process, command-and-control communications, and DDoS functionality. Most importantly, the analysis identified the C2 infrastructure address `209.126.69.167:2020`, which infected systems attempted to contact after compromise. This portion of the lab demonstrated how threat intelligence often extends beyond simple indicators and includes analyst-written technical reporting that explains malware behavior, infection chains, persistence methods, and attacker infrastructure in operational detail.
+Further investigation centered on the Rhombus Linux DDoS botnet malware event. The event contained an Internal Reference link pointing to a Reddit-based malware analysis report. Reviewing the report revealed behavioral details regarding the malware installer, persistence mechanisms, payload delivery process, command-and-control communications, and DDoS functionality. Most importantly, the analysis identified the C2 infrastructure address `209.126.69.167:2020`, which infected systems attempted to contact after compromise. This portion demonstrated how threat intelligence often extends beyond simple indicators and includes analyst-written technical reporting that explains malware behavior, infection chains, persistence methods, and attacker infrastructure in operational detail.
 
 The investigation then shifted toward ransomware-related threat intelligence involving the Lorenz ransomware group and MiVoice exploitation activity. The associated MISP event referenced public reporting describing attacks against vulnerable Mitel MiVoice Connect systems. Through external research correlated with the event data, the exploited vulnerability was identified as `CVE-2022-29499`, a critical remote code execution vulnerability affecting vulnerable MiVoice Connect deployments. Additional research identified affected software versions, including `R19.2 SP3 (22.20.2300.0) and earlier` as well as `R14.x and earlier`. This phase demonstrated how analysts often combine MISP intelligence with external vendor advisories, vulnerability databases, and public reporting to fully understand exploited vulnerabilities and affected technologies.
 
@@ -1168,7 +1168,7 @@ The same MiVoice/Lorenz event was also used to review linked Arctic Wolf inciden
 
 Finally, the investigation concluded with review of the MISP Galaxy entry associated with Lorenz Ransomware. Unlike Attributes, which primarily contain technical indicators such as hashes, IP addresses, filenames, and URLs, the Galaxy section provided higher-level contextual intelligence about the ransomware group itself. Reviewing the Lorenz Ransomware galaxy entry revealed that the group had been active since at least February 2021. This demonstrated how MISP combines both low-level operational indicators and broader adversary intelligence to support long-term threat tracking, campaign attribution, ransomware profiling, and strategic threat analysis.
 
-Overall, the lab demonstrated how modern threat intelligence investigations involve far more than simply collecting indicators of compromise. Analysts continuously pivot between operational artifacts, malware reports, vulnerability research, ransomware intelligence, behavioral analysis, external reporting, and adversary context in order to build a complete understanding of malicious activity and improve detection, threat hunting, incident response, and defensive decision-making capabilities.
+Overall, the experience demonstrated how modern threat intelligence investigations involve far more than simply collecting indicators of compromise. Analysts continuously pivot between operational artifacts, malware reports, vulnerability research, ransomware intelligence, behavioral analysis, external reporting, and adversary context in order to build a complete understanding of malicious activity and improve detection, threat hunting, incident response, and defensive decision-making capabilities.
 
 ---
 
