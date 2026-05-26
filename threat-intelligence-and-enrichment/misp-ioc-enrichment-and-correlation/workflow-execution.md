@@ -1023,6 +1023,8 @@ This investigation therefore shifted from simply identifying malware files into 
 This phase reinforced how threat intelligence analysis often involves pivoting from structured intelligence events into external research reports to better understand malware behavior, persistence mechanisms, botnet operations, and command-and-control communication patterns that defenders can monitor for within enterprise environments.
 </blockquote>
 
+</details>
+
 
 <details>
 <summary><strong>▶ Phase 4 — MiVoice Exploitation and Lorenz Ransomware Intelligence Analysis</strong><br>
