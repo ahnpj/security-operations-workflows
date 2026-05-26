@@ -172,6 +172,15 @@ Current workflows:
   Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal
   Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
 
+#### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
+`threat-intelligence-enrichment-and-correlation/`
+
+Current workflows:
+
+- **Threat Intelligence Research and Analysis Using MISP — Operational Execution**  
+  Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources. Tools: MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research  
+  Folder: `threat-intelligence-enrichment-and-correlation/misp-ioc-enrichment-and-correlation/`
+
 #### ▶️ Vulnerability Management and Exposure Analysis Workflows  
 `vulnerability-management-and-exposure-analysis/`
 
