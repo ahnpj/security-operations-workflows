@@ -181,6 +181,10 @@ Current workflows:
   Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling. Tools: FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`)
   Folder: `digital-forensics-and-evidence-analysis/filesystem-identification-and-evidence-structure-analysis-using-ftk-imager/`
 
+- **Metadata Analysis and File Carving Using ExifTool and Scalpel — Operational Execution**  
+  Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing. Tools: ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum
+  Folder: `digital-forensics-and-evidence-analysis/metadata-analysis-and-file-carving-using-exiftool-and-scalpel/`
+
 #### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
 `threat-intelligence-enrichment-and-correlation/`
 
