@@ -14,6 +14,13 @@ Unlike encryption, hashing is designed to be one-way. The purpose is not to hide
 
 This workflow begins with hashing a simple text string before progressing into file hashing using both Linux and Windows tooling. The workflow concludes with hash lookup techniques and explains why so-called "MD5 decryption" websites are actually performing database lookups rather than true decryption.
 
+> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
+> - **Workflows** refer to repeatable digital forensic tasks such as metadata extraction, file carving, evidence recovery, and hash validation.  
+> - **Executions** refer to the hands-on use of forensic tools such as ExifTool and Scalpel to analyze provided evidence files.  
+> - **Writeups** document forensic observations, command usage, analyst reasoning, tool outputs, and evidence handling conclusions.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
+
 ---
 
 ### Purpose and Analyst Focus
