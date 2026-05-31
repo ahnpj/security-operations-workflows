@@ -33,16 +33,16 @@ Each workflow execution is contained in its **own dedicated folder** and represe
 
 Current workflow executions include:
 
-- **File System Identification And Evidence Structure Analysis Using FTK Imager**
-  (`filesystem-identification-and-evidence-structure-analysis-using-ftk-imager`)
+- **File System Identification And Evidence Structure Analysis Using FTK Imager**</br>
+  (`filesystem-identification-and-evidence-structure-analysis-using-ftk-imager`)</br>
   Focuses on using FTK Imager to import forensic disk images, review partition structures, and identify underlying file systems from acquired evidence. Demonstrates foundational digital forensic concepts including partition analysis, file system identification, evidence organization, and storage architecture interpretation. Covers practical examination of NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while reinforcing the relationship between file systems, partitions, clusters, Logical Block Addresses (LBAs), SSD controllers, Flash Translation Layers (FTLs), TRIM operations, garbage collection, and wear leveling. Emphasizes how file system identification establishes critical investigative context before performing deleted file recovery, metadata analysis, artifact examination, or timeline reconstruction.
 
-- **Metadata Analysis and File Carving Using ExifTool and Scalpel**
-  (`metadata-analysis-and-file-carving-using-exiftool-and-scalpel`)
+- **Metadata Analysis and File Carving Using ExifTool and Scalpel**</br>
+  (`metadata-analysis-and-file-carving-using-exiftool-and-scalpel`)</br>
   Focuses on extracting and analyzing metadata from PDF and JPEG files, identifying document authorship and image capture device information, and recovering deleted image artifacts through file carving techniques. Covers practical examination of PDF metadata, EXIF (Exchangeable Image File Format) metadata, file signatures, deleted file recovery, and evidence validation using MD5 hashing. Reinforces foundational digital forensic concepts including metadata analysis, file attribution, file carving methodology, file system-independent recovery techniques, unallocated data recovery, forensic artifact validation, and the relationship between deleted files, raw storage data, and recoverable evidence. Demonstrates the use of ExifTool for metadata extraction, Scalpel for signature-based file recovery, and command-line forensic workflows for evidence examination and validation.
 
-- **Hash Analysis and File Integrity Validation**  
-  (`digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`)
+- **Hash Analysis and File Integrity Validation**</br>
+  (`digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`)</br>
   Focuses on generating, comparing, and validating cryptographic hash values using common Linux and Windows utilities. Demonstrates foundational digital forensic concepts including evidence integrity verification, file fingerprinting, hash comparison, artifact identification, and algorithm analysis. Covers practical use of MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hashing for both text strings and file-based artifacts while reinforcing the distinction between hashing and encryption. Explores hash lookup methodologies, evidence validation workflows, chain-of-custody considerations, and the operational role of hashing within forensic acquisitions, malware investigations, incident response activities, and threat intelligence sharing. Emphasizes how cryptographic hashes serve as repeatable digital fingerprints that support artifact correlation, forensic verification, and evidence preservation throughout the investigative lifecycle.
 
 Additional workflow executions will be added as digital forensic methodologies, artifact analysis techniques, storage examination workflows, evidence recovery procedures, and DFIR-focused investigations expand.
