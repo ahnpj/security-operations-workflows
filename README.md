@@ -112,11 +112,11 @@ Current workflows:
   Folder: `endpoint-triage-and-host-analysis/bash-linux-endpoint-triage-and-validation-scripting/`
 
 - **Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell — Operational Execution**  
-  Filesystem inspection, process enumeration, network correlation, and targeted containment using native Windows CLI tools. Tools: Windows CMD, PowerShell, native Windows system utilities.  
+  Filesystem inspection, process enumeration, network correlation, and targeted containment using native Windows CLI tools. Tools: Windows CMD, PowerShell, native Windows system utilities.</br>
   Folder: `endpoint-triage-and-host-analysis/cmd-windows-process-and-network-triage/`
 
 - **Windows Endpoint Triage and System Inspection Using PowerShell — Operational Execution**  
-  Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell. Tools: Windows PowerShell, native Windows telemetry and services.  
+  Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell. Tools: Windows PowerShell, native Windows telemetry and services.</br>
   Folder: `endpoint-triage-and-host-analysis/powershell-windows-endpoint-triage-and-system-inspection/`
 
 #### ▶️ SIEM Detections and Log Analysis Workflows  
@@ -125,11 +125,11 @@ Current workflows:
 Current workflows:
 
 - **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk — Operational Execution**  
-  Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry. Tools: Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`).  
+  Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry. Tools: Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`).
   Folder: `siem-detections-and-log-analysis/splunk-log-parsing-and-field-extraction/`
 
 - **VPN Authentication and Remote Access Anomaly Analysis Using Splunk — Operational Execution**  
-  Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry. Tools: Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`.  
+  Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry. Tools: Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`.</br>
   Folder: `siem-detections-and-log-analysis/splunk-vpn-remote-access-anomaly-detection/`
 
 #### ▶️ Network Monitoring and Traffic Analysis Workflows  
@@ -138,11 +138,11 @@ Current workflows:
 Current workflows:
 
 - **Targeted Packet Capture and Traffic Filtering Using tcpdump — Operational Execution**  
-  Interface validation, bounded packet capture, protocol filtering, and offline analysis preparation. Tools: Linux, tcpdump, native networking utilities.  
+  Interface validation, bounded packet capture, protocol filtering, and offline analysis preparation. Tools: Linux, tcpdump, native networking utilities.</br>
   Folder: `network-monitoring-and-traffic-analysis/tcpdump-targeted-packet-capture-and-filtering/`
 
 - **Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark — Operational Execution**  
-  Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures. Tools: Wireshark, stored PCAP and PCAPNG capture files.  
+  Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures. Tools: Wireshark, stored PCAP and PCAPNG capture files.</br>
   Folder: `network-monitoring-and-traffic-analysis/wireshark-traffic-analysis-and-session-reconstruction/`
 
 #### ▶️ Identity and Access Management Workflows  
@@ -151,7 +151,7 @@ Current workflows:
 Current workflows:
 
 - **Identity and Access Management Operations Using Active Directory — Operational Execution**  
-  User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory. Tools: Windows Server, Active Directory Domain Services, Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).  
+  User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory. Tools: Windows Server, Active Directory Domain Services, Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).</br> 
   Folder: `identity-and-access-management/active-directory-iam-operations-and-permission-validation/`
 
 #### ▶️ Detection Automation and Log Processing Workflows  
@@ -160,7 +160,7 @@ Current workflows:
 Current workflows:
 
 - **Log Parsing and Threat Detection Automation Using Python — Operational Execution**  
-  Behavior-based detection logic prototyping from raw security telemetry across multiple environments. Tools: Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.  
+  Behavior-based detection logic prototyping from raw security telemetry across multiple environments. Tools: Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.</br>
   Folder: `detection-automation-and-log-processing/python-log-parsing-and-threat-detection/`
 
 #### ▶️ Email Security and Phishing Analysis Workflows
@@ -169,7 +169,7 @@ Current workflows:
 Current workflows:
 
 - **Manual Phishing Email Artifact Extraction and Triage — Operational Execution**  
-  Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal
+  Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal</br>
   Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
 
 #### ▶️ Digital Forensics and Evidence Analysis Workflows
@@ -178,15 +178,15 @@ Current workflows:
 Current workflows:
 
 - **File System Identification and Evidence Structure Analysis Using FTK Imager — Operational Execution**  
-  Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling. Tools: FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`)
+  Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling. Tools: FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`)</br>
   Folder: `digital-forensics-and-evidence-analysis/filesystem-identification-and-evidence-structure-analysis-using-ftk-imager/`
 
 - **Metadata Analysis and File Carving Using ExifTool and Scalpel — Operational Execution**  
-  Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing. Tools: ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum
+  Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing. Tools: ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum.</br>
   Folder: `digital-forensics-and-evidence-analysis/metadata-analysis-and-file-carving-using-exiftool-and-scalpel/`
 
 - **Hash Analysis and File Integrity Validation — Operational Execution**  
-  Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing. Tools: md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases  
+  Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing. Tools: md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases</br>
   Folder: `digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`
 
 #### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
@@ -195,7 +195,7 @@ Current workflows:
 Current workflows:
 
 - **Threat Intelligence Research and Analysis Using MISP — Operational Execution**  
-  Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources. Tools: MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research  
+  Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources. Tools: MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research</br>
   Folder: `threat-intelligence-enrichment-and-correlation/misp-ioc-enrichment-and-correlation/`
 
 #### ▶️ Vulnerability Management and Exposure Analysis Workflows  
