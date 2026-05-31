@@ -168,9 +168,19 @@ Current workflows:
 
 Current workflows:
 
-- **Manual Phishing Email Artifact Extraction and Triage — Operational Execution**  
+- **Manual Phishing Email Artifact Extraction and Analysis — Operational Execution**  
   Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal</br>
   Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
+
+- **Manual Attachment-Based Email Phising Artifact Analysis — Operational Execution**  
+  Manual analysis of a phishing attachment designed to impersonate a Microsoft login portal and harvest credentials. It highlights how analysts inspect file metadata, review rendered HTML behavior, decode obfuscated source content, and validate credential exfiltration through browser-based network analysis.</br>
+  Folder: `email-security-and-phishing-analysis/attachment-phishing-artifact-analysis/`
+
+- **Multiple Email Phising Triage and Artifact Analysis — Operational Execution**  
+  Structured triage of multiple email samples to distinguish between phishing, spam, and legitimate communications. It highlights how analysts evaluate sender identity, inspect raw message headers, identify deceptive attachments, and correlate artifacts across messages to make accurate classification decisions and extract actionable indicators of compromise.</br>
+  Folder: `email-security-and-phishing-analysis/multi-email-phishing-triage-and-artifact-analysis`
+
+
 
 #### ▶️ Digital Forensics and Evidence Analysis Workflows
 `digital-forensics-and-evidence-analysis/`
