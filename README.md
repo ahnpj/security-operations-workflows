@@ -172,6 +172,15 @@ Current workflows:
   Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal
   Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
 
+#### ▶️ Digital Forensics and Evidence Analysis Workflows
+`digital-forensics-and-evidence-analysis/`
+
+Current workflows:
+
+- **File System Identification and Evidence Structure Analysis Using FTK Imager — Operational Execution**  
+  Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling. Tools: FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`)
+  Folder: `digital-forensics-and-evidence-analysis/filesystem-identification-and-evidence-structure-analysis-using-ftk-imager/`
+
 #### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
 `threat-intelligence-enrichment-and-correlation/`
 
