@@ -185,6 +185,10 @@ Current workflows:
   Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing. Tools: ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum
   Folder: `digital-forensics-and-evidence-analysis/metadata-analysis-and-file-carving-using-exiftool-and-scalpel/`
 
+- **Hash Analysis and File Integrity Validation — Operational Execution**  
+  Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing. Tools: md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases  
+  Folder: `digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`
+
 #### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
 `threat-intelligence-enrichment-and-correlation/`
 
