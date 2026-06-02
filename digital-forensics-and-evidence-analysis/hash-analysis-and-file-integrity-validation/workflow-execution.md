@@ -116,6 +116,7 @@ Hashing allows investigators to compare evidence quickly without manually compar
 
 ```bash
 echo -n "My name is Peter Ahn!" | sha256sum
+```
 
 <p align="left">
   <img src="images/hash-analysis-and-file-integrity-validation-02.png" 
@@ -123,7 +124,6 @@ echo -n "My name is Peter Ahn!" | sha256sum
        width="900"><br>
   <em>Figure 2: Generating SHA256 Hash from a string</em>
 </p>
-```
 
 The process is identical to the MD5 example except a different hashing algorithm is used.
 
