@@ -54,15 +54,15 @@ The workflow also reinforced several foundational DFIR concepts, including:
 
 Documentation is separated into focused components to reflect how digital forensic acquisition workflows are commonly documented.
 
-**workflow-execution.md**
+`workflow-execution.md`
 
 Documents the complete acquisition workflow, including memory acquisition, process memory acquisition, disk imaging, and remote artifact collection.
 
-**analyst-notes.md**
+`analyst-notes.md`
 
 Documents observations, lessons learned, acquisition concepts, and reasoning behind each acquisition method.
 
-**tool-usage-notes.md**
+`tool-usage-notes.md`
 
 Documents how each tool was used and explains the operational relevance of FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
 
