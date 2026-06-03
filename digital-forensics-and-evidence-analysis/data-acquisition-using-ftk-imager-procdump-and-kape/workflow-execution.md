@@ -31,15 +31,11 @@ This workflow demonstrates that data acquisition can involve multiple evidence s
 
 The purpose of this workflow is to demonstrate how different forms of digital evidence can be acquired before deeper forensic analysis begins.
 
-This matters because evidence must often be preserved before an analyst can examine it. If acquisition is performed poorly, evidence may be incomplete, altered, overwritten, or unavailable later. In digital forensics and incident response, the acquisition phase helps preserve the current state of a system, application, drive, or artifact set so that later analysis can be performed using dedicated tools.
+This matters because evidence must often be preserved before an analyst can examine it. If acquisition is performed poorly, evidence may be incomplete, altered, overwritten, or unavailable later. In digital forensics and incident response, the acquisition phase helps preserve the current state of a system, application, drive, or artifact set so that later analysis can be performed using dedicated tools. This memory acquisition demonstration focused on capturing volatile system memory using FTK Imager. This matters because memory is temporary and may contain evidence that is not stored on disk in the same form.
 
-The memory acquisition exercise focused on capturing volatile system memory using FTK Imager. This matters because memory is temporary and may contain evidence that is not stored on disk in the same form.
-
-The ProcDump exercise focused on acquiring the memory of a specific process from PowerShell. This matters because an analyst may not always need or be able to capture all physical memory. In some cases, preserving one process is faster, more targeted, and more relevant to the investigation.
-
-The disk imaging exercise focused on creating a forensic image of a secondary physical drive using FTK Imager. This matters because disk images preserve storage media for later examination while allowing analysts to work from a copy instead of the original source.
-
-The KAPE exercise focused on collecting browser-related artifacts from a remote Windows host. This matters because incident responders often need to collect high-value artifacts quickly from remote systems without immediately imaging the entire disk.
+- The ProcDump exercise focused on acquiring the memory of a specific process from PowerShell. This matters because an analyst may not always need or be able to capture all physical memory. In some cases, preserving one process is faster, more targeted, and more relevant to the investigation.
+- The disk imaging exercise focused on creating a forensic image of a secondary physical drive using FTK Imager. This matters because disk images preserve storage media for later examination while allowing analysts to work from a copy instead of the original source.
+- The KAPE exercise focused on collecting browser-related artifacts from a remote Windows host. This matters because incident responders often need to collect high-value artifacts quickly from remote systems without immediately imaging the entire disk.
 
 #### ▶ Analyst Focus
 
