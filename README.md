@@ -181,7 +181,6 @@ Current workflows:
   Folder: `email-security-and-phishing-analysis/multi-email-phishing-triage-and-artifact-analysis`
 
 
-
 #### ▶️ Digital Forensics and Evidence Analysis Workflows
 `digital-forensics-and-evidence-analysis/`
 
@@ -198,6 +197,10 @@ Current workflows:
 - **Hash Analysis and File Integrity Validation — Operational Execution**  
   Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing. Tools: md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases</br>
   Folder: `digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`
+
+- **Data Acquisition Using FTK Imager, ProcDump, and KAPE — Operational Execution**
+  Evidence acquisition workflow focused on preserving volatile memory, process memory, forensic disk images, and browser-related artifacts from local and remote Windows systems. Demonstrates practical acquisition methodologies used throughout digital forensic and incident response investigations, including physical memory capture, process-specific memory dumping, forensic disk imaging, evidence integrity validation through hash generation, remote evidence collection, and targeted artifact acquisition. Reinforces foundational DFIR concepts including volatile versus persistent data, evidence preservation, process identification, forensic imaging workflows, browser artifact collection, remote acquisition operations, and the relationship between acquisition and later forensic analysis. Covers practical use of FTK Imager, ProcDump, PowerShell, Remote Desktop Protocol (RDP), and KAPE while highlighting how different acquisition methods support memory forensics, malware investigations, browser forensics, incident response activities, and digital evidence preservation. Tools: FTK Imager, ProcDump, PowerShell, RDP, KAPE, gkape, Windows File Explorer, forensic disk image files (`.E01`), memory dump files (`.mem`), process dump files (`.dmp`).</br>
+  Folder: `digital-forensics-and-evidence-analysis/data-acquisition-using-ftk-imager-procdump-and-kape/`
 
 #### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
 `threat-intelligence-enrichment-and-correlation/`
