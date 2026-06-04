@@ -571,7 +571,7 @@ PLAGUERAT.BAT
 
 is the suspicious batch file.
 
-p align="left">
+<p align="left">
   <img src="images/windows-artifact-analysis-using-wfa-pecmd-and-jumplistexplorer-08.png"
        alt="PECmd output for CMD.EXE Prefetch file showing PlagueRat reference"
        style="border: 2px solid #444; border-radius: 6px;"
