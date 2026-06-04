@@ -15,31 +15,6 @@ The scenario is that an employee system has been provided for review. The compan
 
 > 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
-> **Note:** Relationship to Browser Artifacts and Forensic Evidence:
->
-> Browser artifacts are records created by web browsers during normal user activity. These artifacts may include browsing history, cached files, download records, cookies, form data, and profile-specific metadata. Even if a user closes the browser or deletes a file after downloading it, browser artifacts may still preserve evidence of the activity.
->
-> In a real-world investigation, analysts would normally examine these artifacts from a forensic image or collected evidence package rather than directly from a live system. This helps preserve evidence integrity and prevents accidental changes to the original device.
-
-The artifacts examined in this workflow would normally be extracted from browser profile locations within a forensic image. For example:
-
-| Artifact | What It May Contain |
-|---|---|
-| Website History | Visited URLs, page titles, visit timestamps, visit counts |
-| Cached Images | Images retrieved and stored by the browser while loading webpages |
-| Download Records | Downloaded filenames, source URLs, local save paths, timestamps |
-| Browser Profiles | Browser-specific activity tied to Chrome, Edge, Internet Explorer, or other profiles |
-
-> **Note:** This workflow focuses on the browser artifact analysis portion of the investigation rather than forensic acquisition. In a real investigation, a tool such as FTK Imager, Magnet Acquire, EnCase Imager, or another acquisition utility may be used first to preserve the source evidence before analysis.
-
-The workflow focuses on analyzing three main evidence areas within Browser History Viewer:
-
-- Website history
-- Cached images
-- Download-related browser records
-
-Together, these artifacts provide valuable insight into user behavior, policy violations, webmail access, suspicious downloads, and possible malware delivery paths.
-
 The main tool used is: **Browser History Viewer (BHV)**. See the **[Environment and Execution Context](#environment-and-execution-context)** section below.
 
 ---
@@ -214,6 +189,31 @@ C:\Users\IEUser\Desktop\Windows Investigation Two\Capture
 ```
 
 Browser History Viewer was launched from the lab environment and used to load the provided browser history capture.
+
+> **Note:** Relationship to Browser Artifacts and Forensic Evidence:
+>
+> Browser artifacts are records created by web browsers during normal user activity. These artifacts may include browsing history, cached files, download records, cookies, form data, and profile-specific metadata. Even if a user closes the browser or deletes a file after downloading it, browser artifacts may still preserve evidence of the activity.
+>
+> In a real-world investigation, analysts would normally examine these artifacts from a forensic image or collected evidence package rather than directly from a live system. This helps preserve evidence integrity and prevents accidental changes to the original device.
+
+The artifacts examined in this workflow would normally be extracted from browser profile locations within a forensic image. For example:
+
+| Artifact | What It May Contain |
+|---|---|
+| Website History | Visited URLs, page titles, visit timestamps, visit counts |
+| Cached Images | Images retrieved and stored by the browser while loading webpages |
+| Download Records | Downloaded filenames, source URLs, local save paths, timestamps |
+| Browser Profiles | Browser-specific activity tied to Chrome, Edge, Internet Explorer, or other profiles |
+
+> **Note:** This workflow focuses on the browser artifact analysis portion of the investigation rather than forensic acquisition. In a real investigation, a tool such as FTK Imager, Magnet Acquire, EnCase Imager, or another acquisition utility may be used first to preserve the source evidence before analysis.
+
+The workflow focuses on analyzing three main evidence areas within Browser History Viewer:
+
+- Website history
+- Cached images
+- Download-related browser records
+
+Together, these artifacts provide valuable insight into user behavior, policy violations, webmail access, suspicious downloads, and possible malware delivery paths.
 
 </details>
 
