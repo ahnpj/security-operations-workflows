@@ -2,15 +2,18 @@
 
 This workflow demonstrates practical browser artifact analysis using **Browser History Viewer (BHV)** to examine web browsing history, cached images, downloaded files, and surrounding user activity.
 
-In this investigation, I will be analyzing browser history artifacts from a Windows system to determine what browsers were used, what websites were visited, whether the user accessed social media platforms, what cached web content was preserved, and how a suspicious downloaded file likely reached the system. The goal is not only to answer the lab questions, but to understand how browser artifacts can help reconstruct user behavior and support a forensic conclusion.
-
-We were able to acquire key browser files via KAPE, and I am to analyze them and discover the malicious site that hosted the malware so we can take defensive measures and block it.
-
-The main tool used in this workflow is:
+In this investigation, I will be analyzing browser history artifacts from a Windows system to determine what browsers were used, what websites were visited, whether the user accessed social media platforms, what cached web content was preserved, and how a suspicious downloaded file likely reached the system. The goal is not only to answer the lab questions, but to understand how browser artifacts can help reconstruct user behavior and support a forensic conclusion. We were able to acquire key browser files via KAPE, and I am to analyze them and discover the malicious site that hosted the malware so we can take defensive measures and block it. The main tool used in this workflow is:
 
 - **Browser History Viewer (BHV)** — a forensic analysis tool used to parse and review browser artifacts from multiple web browsers in one interface. Browser artifacts can include visited URLs, page titles, timestamps, cached images, browser profiles, and local file references. These records are useful because they can show what websites a user visited, what web content was loaded, what files were downloaded, and what activity occurred immediately before or after a suspicious event.
 
 The scenario is that an employee system has been provided for review. The company has a policy against employees visiting social media sites on corporate devices, and a suspicious file was downloaded to the system. I am responsible for reviewing the browser artifacts to determine which browsers were used, identify policy-related activity, examine cached web content, and reconstruct the likely path that led to the suspicious download.
+
+> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
+> - **Workflows** refer to repeatable digital forensic tasks such as memory acquisition, process memory dumping, disk imaging, and artifact collection.  
+> - **Executions** refer to the hands-on use of forensic tools such as FTK Imager, ProcDump, and KAPE to acquire evidence.  
+> - **Writeups** document acquisition steps, analyst observations, tool usage, evidence handling decisions, and forensic reasoning.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 > **Note:** Relationship to Browser Artifacts and Forensic Evidence:
 >
