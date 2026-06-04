@@ -470,7 +470,7 @@ Windows Investigation One
 ```
 
 <p align="left">
-  <img src="images/windows-artifact-analysis-using-wfa-pecmd-and-jumplistexplorer-06PEC.png"
+  <img src="images/windows-artifact-analysis-using-wfa-pecmd-and-jumplistexplorer-06.png"
        alt="Windows File Analyzer showing additional file associated with the ZIP archive"
        style="border: 2px solid #444; border-radius: 6px;"
        width="900"><br>
