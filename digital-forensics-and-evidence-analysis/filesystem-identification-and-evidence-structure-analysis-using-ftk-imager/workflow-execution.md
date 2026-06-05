@@ -2,7 +2,12 @@
 
 This workflow demonstrates practical digital forensic evidence examination using FTK Imager to identify file systems from acquired forensic disk images. The workflow focuses on importing existing image files, reviewing volume and file system information, documenting the identified file system for each image, and explaining why file system identification is an important early step before deeper forensic recovery or artifact analysis.
 
-The main tool used is: **FTK Imager**. See **[Environment and Execution Context](#environment-and-execution-context)** section below.
+> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
+> - **Workflows** refer to repeatable digital forensic tasks such as memory acquisition, process memory dumping, disk imaging, and artifact collection.  
+> - **Executions** refer to the hands-on use of forensic tools such as FTK Imager, ProcDump, and KAPE to acquire evidence.  
+> - **Writeups** document acquisition steps, analyst observations, tool usage, evidence handling decisions, and forensic reasoning.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ### Overview
 
@@ -17,13 +22,6 @@ The file systems identified were:
 This workflow documents a foundational digital forensics task: determining how a storage device organizes files and metadata before attempting deeper analysis. A file system controls how data is stored, categorized, navigated, accessed, managed, and potentially recovered. Because different file systems use different structures and rules, identifying the file system helps an analyst understand what evidence may exist, where that evidence may be located, and how deleted or residual data may behave.
 
 The reading material described a file system as a critical part of an IT system because it classifies and organizes files, stores data, manages available space, supports file navigation, and provides mechanisms for accessing and recovering data. This workflow applies that concept directly by using FTK Imager to identify the file system from forensic images before deeper analysis.
-
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to repeatable digital forensic tasks such as importing disk images, identifying file systems, reviewing evidence structures, and documenting findings.  
-> - **Executions** refer to the hands-on use of FTK Imager to add image files as evidence items and review their file system information.  
-> - **Writeups** document forensic observations, analyst reasoning, technical context, and evidence examination conclusions.
-
-> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ---
 
