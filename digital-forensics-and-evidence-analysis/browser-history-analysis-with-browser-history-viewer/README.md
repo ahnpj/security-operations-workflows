@@ -6,7 +6,7 @@ This execution documents the practical analysis of browser artifacts using Brows
 
 The investigation begins by identifying the web browsers represented in the evidence and reviewing browsing activity recorded across multiple browser profiles. It then moves into website history analysis to identify social media activity, review user browsing behavior, and examine web-based activity recorded by the browser. Next, cached image artifacts are analyzed to recover visual content preserved by the browser cache and demonstrate how browser artifacts can reveal information not immediately visible within URL history alone. Finally, download-related browser artifacts are examined to identify a suspicious downloaded file, trace the file to its remote hosting location, and reconstruct the likely sequence of events that led to the download.
 
-**Note:** Click the ▶ arrow to expand and view details on software, evidence sources, workflow scope, and the high-level execution map.
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
 
 <details>
 <summary><strong>▶ Recommended Reading Order</strong><br>
@@ -48,22 +48,13 @@ The investigation begins by identifying the web browsers represented in the evid
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
-If you want to follow the investigation step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — If you want to follow the investigation step by step</br>
 This file contains the structured walkthrough showing how browser history artifacts were reviewed, how cached images were analyzed, how downloaded files were identified, and how browser records were correlated to reconstruct user activity.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — If you want to understand the reasoning behind the process</br>
 This file explains the major learning points behind browser history artifacts, cached images, browser profiles, download records, timeline correlation, and browser-based evidence reconstruction.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — If you want to understand tool usage</br>
 This file explains how Browser History Viewer was used, why specific features were selected, and what evidence each analysis technique helped uncover.
 
 ---
@@ -84,7 +75,9 @@ This file explains how Browser History Viewer was used, why specific features we
 
 The execution focuses on browser artifact analysis using Browser History Viewer to examine web activity and reconstruct user behavior.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -95,7 +88,11 @@ The execution focuses on browser artifact analysis using Browser History Viewer 
 | **Primary Tool** | Browser History Viewer (BHV) |
 | **Operational Focus** | Browser activity analysis, download investigation, and user activity reconstruction |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -110,13 +107,17 @@ The execution focuses on browser artifact analysis using Browser History Viewer 
 | **Likely Delivery Source** | `outlook.live.com` |
 | **Hosting Domain Identified** | `secretbeauty.ge` |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational browser forensic methodology involving browser artifact analysis and activity reconstruction.
+This execution is intended to demonstrate foundational browser forensic methodology involving browser artifact analysis and activity reconstruction. This process supports later forensic work involving user activity reconstruction, malware investigations, browser-based evidence analysis, incident response, evidence triage, and forensic reporting.
 
-The workflow reflects how analysts may answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - What browsers were used on the system?
 - What websites were visited?
@@ -127,21 +128,17 @@ The workflow reflects how analysts may answer questions such as:
 - What activity occurred immediately before the download?
 - How can multiple browser artifacts be correlated to reconstruct activity?
 
-This process supports later forensic work involving user activity reconstruction, malware investigations, browser-based evidence analysis, incident response, evidence triage, and forensic reporting.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Modern web browsers generate a large volume of artifacts that record evidence of user activity.
+Modern web browsers generate a large volume of artifacts that record evidence of user activity. Website history records can reveal visited websites, page titles, timestamps, and browsing behavior. Cached image artifacts can preserve visual content viewed by the user and may provide evidence that is not immediately visible through URL history alone. Download records can reveal files obtained from the internet and may help identify how suspicious content reached a system. This workflow demonstrates how multiple browser artifact sources can be combined to produce a more complete understanding of activity occurring on a system.
 
-Website history records can reveal visited websites, page titles, timestamps, and browsing behavior.
-
-Cached image artifacts can preserve visual content viewed by the user and may provide evidence that is not immediately visible through URL history alone.
-
-Download records can reveal files obtained from the internet and may help identify how suspicious content reached a system.
-
-Together, these artifacts support:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - user activity reconstruction,
 - malware investigations,
@@ -152,7 +149,7 @@ Together, these artifacts support:
 - artifact correlation,
 - timeline development.
 
-This workflow demonstrates how multiple browser artifact sources can be combined to produce a more complete understanding of activity occurring on a system.
+</details>
 
 ---
 
