@@ -48,11 +48,14 @@ Rather than focusing on evidence analysis, the primary objective of the workflow
 
 Documentation is separated into focused components to reflect how digital forensic acquisition workflows are commonly documented.
 
-`workflow-execution.md` — Documents the complete acquisition workflow, including memory acquisition, process memory acquisition, disk imaging, and remote artifact collection.
+`workflow-execution.md` — If you want to follow the investigation step by step</br>
+Documents the complete acquisition workflow, including memory acquisition, process memory acquisition, disk imaging, and remote artifact collection.
 
-`analyst-notes.md` — Documents observations, lessons learned, acquisition concepts, and reasoning behind each acquisition method.
+`analyst-notes.md` — If you want to understand the reasoning behind the process</br>
+Documents observations, lessons learned, acquisition concepts, and reasoning behind each acquisition method.
 
-`tool-usage-notes.md` — Documents how each tool was used and explains the operational relevance of FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
+`tool-usage-notes.md` — If you want to understand the reasoning behind the process</br>
+Documents how each tool was used and explains the operational relevance of FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
 
 ---
 
