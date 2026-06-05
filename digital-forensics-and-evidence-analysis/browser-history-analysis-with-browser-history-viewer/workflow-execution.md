@@ -1,5 +1,7 @@
 # Browser History Analysis Using Browser History Viewer
 
+### Overview
+
 This workflow demonstrates practical browser artifact analysis using **Browser History Viewer (BHV)** to examine web browsing history, cached images, downloaded files, and surrounding user activity.
 
 In this investigation, I will be analyzing browser history artifacts from a Windows system to determine what browsers were used, what websites were visited, whether the user accessed social media platforms, what cached web content was preserved, and how a suspicious downloaded file likely reached the system. The goal is not only to answer the lab questions, but to understand how browser artifacts can help reconstruct user behavior and support a forensic conclusion. We were able to acquire key browser files via KAPE, and I am to analyze them and discover the malicious site that hosted the malware so we can take defensive measures and block it.
@@ -12,32 +14,6 @@ The scenario is that an employee system has been provided for review. The compan
 > - **Writeups** document acquisition steps, analyst observations, tool usage, evidence handling decisions, and forensic reasoning.
 
 > 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
-
----
-
-### Overview
-
-This project focused on examining browser artifacts to reconstruct activity associated with web browsing and a suspicious file download.
-
-1. The investigation began by loading a browser history capture into Browser History Viewer. A browser history capture is a collected set of browser artifacts from a system. Instead of manually opening each browser's database or cache location, BHV allows an analyst to load the capture and review browser activity from multiple browsers in one place.
-
-<blockquote>
-This matters because users may use more than one browser. If an analyst only checks Chrome, for example, they may miss activity stored in Edge or Internet Explorer artifacts. Reviewing the full capture helps avoid an incomplete investigation.
-</blockquote>
-
-2. The investigation then moved into browser profile identification. The **Web Browser (Profile)** column was reviewed to determine which browsers were represented in the evidence. This step established the scope of browser activity available for analysis.
-
-<blockquote>
-This matters because the browser name helps explain where the artifact came from. It also allows an analyst to determine whether the same activity occurred in one browser or across multiple browsers.
-</blockquote>
-
-3. Website history was then reviewed to identify social media activity and suspicious web activity. Website history records are useful because they preserve URLs, page titles, timestamps, and visit counts. These records can show what websites were accessed and when.
-
-4. Cached images were reviewed to recover visual content loaded by the browser. Cached images can preserve evidence of webpage content even when the analyst does not have access to the live page.
-
-5. Finally, download-related browser records were examined to identify a suspicious file, determine where it was saved, locate the hosting URL, and reconstruct the most likely user activity that led to the download.
-
-This workflow demonstrates how browser history, cached content, and download artifacts can be analyzed separately and then correlated together to reconstruct user activity.
 
 ---
 
@@ -151,6 +127,7 @@ By moving from browser profile identification to website history, cached images,
 7. Correlate the surrounding timeline.
 8. Document the likely source and malicious domain.
 
+
 ---
 
 ### Environment and Execution Context
@@ -195,6 +172,31 @@ The following evidence sources were reviewed:
 
 Each evidence source contributed a different part of the overall user activity reconstruction.
 
+> **Note:** Relationship to Browser Artifacts and Forensic Evidence:
+>
+> Browser artifacts are records created by web browsers during normal user activity. These artifacts may include browsing history, cached files, download records, cookies, form data, and profile-specific metadata. Even if a user closes the browser or deletes a file after downloading it, browser artifacts may still preserve evidence of the activity.
+>
+> In a real-world investigation, analysts would normally examine these artifacts from a forensic image or collected evidence package rather than directly from a live system. This helps preserve evidence integrity and prevents accidental changes to the original device.
+
+The artifacts examined in this workflow would normally be extracted from browser profile locations within a forensic image. For example:
+
+| Artifact | What It May Contain |
+|---|---|
+| Website History | Visited URLs, page titles, visit timestamps, visit counts |
+| Cached Images | Images retrieved and stored by the browser while loading webpages |
+| Download Records | Downloaded filenames, source URLs, local save paths, timestamps |
+| Browser Profiles | Browser-specific activity tied to Chrome, Edge, Internet Explorer, or other profiles |
+
+> **Note:** This workflow focuses on the browser artifact analysis portion of the investigation rather than forensic acquisition. In a real investigation, a tool such as FTK Imager, Magnet Acquire, EnCase Imager, or another acquisition utility may be used first to preserve the source evidence before analysis.
+
+The workflow focuses on analyzing three main evidence areas within Browser History Viewer:
+
+- Website history
+- Cached images
+- Download-related browser records
+
+Together, these artifacts provide valuable insight into user behavior, policy violations, webmail access, suspicious downloads, and possible malware delivery paths.
+
 </details>
 
 <details>
@@ -232,32 +234,29 @@ The main tool used in this workflow is:
 19. Identify the domain where the malware was downloaded from.
 20. Summarize findings and correlate browser artifacts.
 
+This project focused on examining browser artifacts to reconstruct activity associated with web browsing and a suspicious file download.
+
+1. The investigation began by loading a browser history capture into Browser History Viewer. A browser history capture is a collected set of browser artifacts from a system. Instead of manually opening each browser's database or cache location, BHV allows an analyst to load the capture and review browser activity from multiple browsers in one place.
+
+<blockquote>
+This matters because users may use more than one browser. If an analyst only checks Chrome, for example, they may miss activity stored in Edge or Internet Explorer artifacts. Reviewing the full capture helps avoid an incomplete investigation.
+</blockquote>
+
+2. The investigation then moved into browser profile identification. The **Web Browser (Profile)** column was reviewed to determine which browsers were represented in the evidence. This step established the scope of browser activity available for analysis.
+
+<blockquote>
+This matters because the browser name helps explain where the artifact came from. It also allows an analyst to determine whether the same activity occurred in one browser or across multiple browsers.
+</blockquote>
+
+3. Website history was then reviewed to identify social media activity and suspicious web activity. Website history records are useful because they preserve URLs, page titles, timestamps, and visit counts. These records can show what websites were accessed and when.
+
+4. Cached images were reviewed to recover visual content loaded by the browser. Cached images can preserve evidence of webpage content even when the analyst does not have access to the live page.
+
+5. Finally, download-related browser records were examined to identify a suspicious file, determine where it was saved, locate the hosting URL, and reconstruct the most likely user activity that led to the download.
+
+This workflow demonstrates how browser history, cached content, and download artifacts can be analyzed separately and then correlated together to reconstruct user activity.
+
 Browser History Viewer was launched from the virtual test environment and used to load the provided browser history capture.
-
-> **Note:** Relationship to Browser Artifacts and Forensic Evidence:
->
-> Browser artifacts are records created by web browsers during normal user activity. These artifacts may include browsing history, cached files, download records, cookies, form data, and profile-specific metadata. Even if a user closes the browser or deletes a file after downloading it, browser artifacts may still preserve evidence of the activity.
->
-> In a real-world investigation, analysts would normally examine these artifacts from a forensic image or collected evidence package rather than directly from a live system. This helps preserve evidence integrity and prevents accidental changes to the original device.
-
-The artifacts examined in this workflow would normally be extracted from browser profile locations within a forensic image. For example:
-
-| Artifact | What It May Contain |
-|---|---|
-| Website History | Visited URLs, page titles, visit timestamps, visit counts |
-| Cached Images | Images retrieved and stored by the browser while loading webpages |
-| Download Records | Downloaded filenames, source URLs, local save paths, timestamps |
-| Browser Profiles | Browser-specific activity tied to Chrome, Edge, Internet Explorer, or other profiles |
-
-> **Note:** This workflow focuses on the browser artifact analysis portion of the investigation rather than forensic acquisition. In a real investigation, a tool such as FTK Imager, Magnet Acquire, EnCase Imager, or another acquisition utility may be used first to preserve the source evidence before analysis.
-
-The workflow focuses on analyzing three main evidence areas within Browser History Viewer:
-
-- Website history
-- Cached images
-- Download-related browser records
-
-Together, these artifacts provide valuable insight into user behavior, policy violations, webmail access, suspicious downloads, and possible malware delivery paths.
 
 </details>
 
