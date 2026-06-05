@@ -2,46 +2,14 @@
 
 This workflow demonstrates practical Windows forensic artifact analysis using **Windows File Analyzer (WFA)**, **PECmd**, and **JumpList Explorer** to identify suspicious file activity, trace execution history, and examine user activity artifacts.
 
+The scenario is that the investigation team has seized a desktop PC from a suspect, who was believed to have purchased the commodity malware "PlagueRat" and used it to attack a company offering IT services. A forensic copy of the disk has been captured, and I am now responsible for analyzing prefetch files, jump lists, and .LNK files (shortcuts) to determine if the suspect has used PlagueRat at all. There are a list of questions that we need gather answers for so that I can find the evidence needed to convict this malicious hacker.
+
 In this investigation, I will be analyzing prefetch files, shortcuts, and jump files to determine when files were last accessed on a system that has been retrieved from a crime scene. My job is to collect information on what programs have been run on the system, how many times they've been accessed, and when. The names of any documents will also aid the investigation. All of this will be achieved using the following tools:
 
 - Windows File Analyzer - A forensic analysis tool used to examine Windows shortcut (.LNK) files. A shortcut file is a small file created by Windows that points to another file, folder, or program. Although shortcuts are commonly used to provide quick access to items on a system, they can also preserve useful information such as file names, file paths, timestamps, and locations where files previously existed. Investigators use WFA to extract and review this information.
 - Prefetch Explorer Command Line - A command-line forensic utility used to examine Windows Prefetch (.pf) files. Prefetch files are automatically created by Windows when applications run and are primarily intended to help programs start faster. From a forensic perspective, Prefetch files are valuable because they can provide evidence that a program executed on a system, how many times it executed, when it last executed, and what files or directories it referenced during execution.
 - JumpList Explorer - A forensic analysis tool used to examine Windows Jump Lists. A Jump List is a Windows feature that keeps track of files, folders, documents, and websites recently accessed through a specific application. For example, Microsoft Word may maintain a list of recently opened documents, while Microsoft Edge may maintain information about recently visited websites. JumpList Explorer allows investigators to review this activity and identify resources that a user interacted with through specific applications.
 
-The scenario is that the investigation team has seized a desktop PC from a suspect, who was believed to have purchased the commodity malware "PlagueRat" and used it to attack a company offering IT services. A forensic copy of the disk has been captured, and I am now responsible for analyzing prefetch files, jump lists, and .LNK files (shortcuts) to determine if the suspect has used PlagueRat at all. There are a list of questions that we need gather answers for so that I can find the evidence needed to convict this malicious hacker.
-
-> **Note:** Relationship to Disk Images and Forensic Evidence:
->
-> In a real-world investigation, analysts rarely examine artifacts directly from a live system. Instead, investigators typically create a forensic image of the storage device to preserve evidence and prevent accidental modification of the original data. A forensic image, often called a disk image, is a bit-for-bit copy of a storage device that contains the same files, folders, operating system data, and forensic artifacts present on the original system at the time of acquisition.
-
-Tools such as FTK Imager, Magnet Acquire, EnCase Imager, or similar acquisition tools are commonly used to create these forensic images. Once acquired, investigators can mount or examine the disk image and analyze artifact locations without interacting with the original evidence.
-
-</blockquote>
-
-The artifacts examined in this workflow would normally be extracted from locations within a forensic image. For example:
-
-| Artifact | Typical Location |
-|----------|------------------|
-| Shortcut Files (`.LNK`) | User profile directories, Recent Items folders, Desktop locations |
-| Prefetch Files (`.pf`) | `C:\Windows\Prefetch\` |
-| Jump Lists | `%AppData%\Microsoft\Windows\Recent\AutomaticDestinations\` and `%AppData%\Microsoft\Windows\Recent\CustomDestinations\` |
-
-> **Note:** In a real-world forensic investigation, these artifacts would typically be extracted from a forensic disk image rather than examined directly on a live system. Investigators often use acquisition tools such as FTK Imager to create a bit-for-bit copy of the original storage device, preserving the evidence while preventing accidental modification. Once the disk image is mounted, analysts can locate and extract artifacts such as shortcut files, Prefetch files, and Jump Lists for further examination using specialized forensic tools.
-
-<blockquote>
-For example, an investigator may first create a forensic image using FTK Imager, verify its integrity using cryptographic hashes, and then mount the image for analysis. From the mounted image, the investigator can locate the Prefetch directory, user shortcut artifacts, and Jump List files before parsing them with specialized tools such as WFA, PECmd, and JumpList Explorer.
-
-This workflow focuses on the artifact analysis portion of the investigation rather than the acquisition phase. However, in a real forensic examination, these artifacts would typically originate from a forensic image acquired from a suspect system.
-</blockquote>
-
-
-The workflow focuses on analyzing three common Windows forensic artifact sources:
-
-- Shortcut (`.LNK`) files
-- Prefetch (`.pf`) files
-- Jump Lists
-
-Together, these artifacts provide valuable insight into file access, program execution, archive origins, script activity, and browser-related user activity. Throughout the workflow, a suspicious file named **PlagueRat** was traced from an archive file to execution-related artifacts and associated user activity.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to repeatable digital forensic tasks such as metadata extraction, file carving, evidence recovery, and hash validation.  
@@ -179,6 +147,30 @@ By moving from shortcut artifacts to Prefetch artifacts to Jump Lists, the workf
 4. Identify related application activity.
 5. Correlate the findings.
 
+> **Note:** Relationship to Disk Images and Forensic Evidence:
+>
+> In a real-world investigation, analysts rarely examine artifacts directly from a live system. Instead, investigators typically create a forensic image of the storage device to preserve evidence and prevent accidental modification of the original data. A forensic image, often called a disk image, is a bit-for-bit copy of a storage device that contains the same files, folders, operating system data, and forensic artifacts present on the original system at the time of acquisition.
+
+Tools such as FTK Imager, Magnet Acquire, EnCase Imager, or similar acquisition tools are commonly used to create these forensic images. Once acquired, investigators can mount or examine the disk image and analyze artifact locations without interacting with the original evidence.
+
+
+> **Note:** In a real-world forensic investigation, these artifacts would typically be extracted from a forensic disk image rather than examined directly on a live system. Investigators often use acquisition tools such as FTK Imager to create a bit-for-bit copy of the original storage device, preserving the evidence while preventing accidental modification. Once the disk image is mounted, analysts can locate and extract artifacts such as shortcut files, Prefetch files, and Jump Lists for further examination using specialized forensic tools.
+
+<blockquote>
+For example, an investigator may first create a forensic image using FTK Imager, verify its integrity using cryptographic hashes, and then mount the image for analysis. From the mounted image, the investigator can locate the Prefetch directory, user shortcut artifacts, and Jump List files before parsing them with specialized tools such as WFA, PECmd, and JumpList Explorer.
+
+This workflow focuses on the artifact analysis portion of the investigation rather than the acquisition phase. However, in a real forensic examination, these artifacts would typically originate from a forensic image acquired from a suspect system.
+</blockquote>
+
+
+The workflow focuses on analyzing three common Windows forensic artifact sources:
+
+- Shortcut (`.LNK`) files
+- Prefetch (`.pf`) files
+- Jump Lists
+
+Together, these artifacts provide valuable insight into file access, program execution, archive origins, script activity, and browser-related user activity. Throughout the workflow, a suspicious file named **PlagueRat** was traced from an archive file to execution-related artifacts and associated user activity.
+
 ---
 
 ### Environment and Execution Context
@@ -237,6 +229,14 @@ The tools used during execution included:
 - **PECmd** — used to parse Prefetch files and search for keyword matches across Prefetch artifacts.
 - **JumpList Explorer** — used to review Jump List artifacts and identify application-related user activity.
 - **Windows Command Prompt** — used to execute PECmd commands.
+
+The artifacts examined in this workflow would normally be extracted from locations within a forensic image. For example:
+
+| Artifact | Typical Location |
+|----------|------------------|
+| Shortcut Files (`.LNK`) | User profile directories, Recent Items folders, Desktop locations |
+| Prefetch Files (`.pf`) | `C:\Windows\Prefetch\` |
+| Jump Lists | `%AppData%\Microsoft\Windows\Recent\AutomaticDestinations\` and `%AppData%\Microsoft\Windows\Recent\CustomDestinations\` |
 
 </details>
 
