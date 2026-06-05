@@ -8,21 +8,21 @@ Rather than presenting digital forensics as a collection of theoretical concepts
 
 Each folder uses a task-first naming convention followed by the primary operational focus (for example, `filesystem-identification-using-ftk-imager`). This allows quick identification of the workflow objective while documentation itself emphasizes evidence examination, forensic reasoning, and investigative methodology rather than tool features alone.
 
-> 👉 **Each folder represents one complete workflow execution**
+> 👉 **Each folder represents one complete workflow execution**</br>
 Every subfolder here is a **fully self-contained digital forensic execution scenario** documenting how evidence was reviewed, how findings were identified, how conclusions were reached, and how the workflow contributes to broader forensic understanding.
 
-> 👉 **Follow the workflow execution first**
+> 👉 **Follow the workflow execution first**</br>
 Begin with `workflow-execution.md` inside a workflow folder to see how evidence was examined step by step, what observations were made, and how forensic conclusions were reached.
 
-> 👉 **See what files exist in each workflow folder**
+> 👉 **See what files exist in each workflow folder**</br>
 For a complete breakdown of every standard file included in a workflow execution — including what each document contains, how it supports forensic analysis workflows, and how the documentation is structured — see the **Workflow Documentation Structure** section below.
 
-> 👉 **See which workflow executions currently exist in this category**
+> 👉 **See which workflow executions currently exist in this category**</br>
 For a list of all digital forensics executions currently included in this folder, along with a description of what each workflow demonstrates and which operational skills it focuses on, see the **What's in This Folder** section below.
 
-> **Terminology used:**
-> **Workflows** refer to operational digital forensic tasks such as file system identification, evidence review, artifact analysis, timeline reconstruction, or storage media examination.
-> **Executions** refer to the hands-on examination and analysis performed using forensic tools and acquired evidence.
+> **Terminology used:**</br>
+> **Workflows** refer to operational digital forensic tasks such as file system identification, evidence review, artifact analysis, timeline reconstruction, or storage media examination.</br>
+> **Executions** refer to the hands-on examination and analysis performed using forensic tools and acquired evidence.</br>
 > **Writeups** document how evidence was examined, how findings were interpreted, and how forensic conclusions were reached.
 
 ---
