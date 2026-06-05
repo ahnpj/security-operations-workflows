@@ -44,7 +44,7 @@ The investigation begins by identifying the web browsers represented in the evid
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
