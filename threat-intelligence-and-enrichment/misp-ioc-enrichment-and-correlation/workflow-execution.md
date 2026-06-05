@@ -1,10 +1,8 @@
 # Threat Intelligence Research and Analysis Using MISP
 
-This workflow demonstrates practical threat intelligence research and analysis using MISP (Malware Information Sharing Platform) to investigate ransomware operations, threat actor activity, DDoS infrastructure, malware campaigns, and ransomware-related exploitation activity. It highlights how analysts use threat intelligence platforms to pivot across events, indicators, ATT&CK mappings, external reporting, and malware intelligence to support operational awareness and investigative reporting.
-
-The main tools I've used are: MISP, MITRE ATT&CK, VirusTotal, Reddit, and external intelligence reports referenced within MISP events. See **[Environment and Execution Context](#environment-and-execution-context)** section below.
-
 ### Overview
+
+This workflow demonstrates practical threat intelligence research and analysis using MISP (Malware Information Sharing Platform) to investigate ransomware operations, threat actor activity, DDoS infrastructure, malware campaigns, and ransomware-related exploitation activity. It highlights how analysts use threat intelligence platforms to pivot across events, indicators, ATT&CK mappings, external reporting, and malware intelligence to support operational awareness and investigative reporting.
 
 This project focused on using MISP (Malware Information Sharing Platform) as a threat intelligence platform to investigate multiple real-world malware, ransomware, and DDoS-related events. Throughout the investigation, event data, operational indicators, external intelligence references, malware samples, infrastructure indicators, and contextual adversary intelligence were reviewed to better understand how threat intelligence platforms support security operations and incident response activities.
 
