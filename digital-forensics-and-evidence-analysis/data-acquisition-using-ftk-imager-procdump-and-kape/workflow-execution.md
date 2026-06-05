@@ -2,7 +2,12 @@
 
 This workflow demonstrates practical digital forensic data acquisition using FTK Imager, ProcDump, and KAPE to collect evidence from local and remote Windows systems. The workflow focuses on acquiring volatile memory, process-specific memory, a forensic disk image, and browser-related artifacts that can be preserved for later analysis.
 
-The main tools used are: **FTK Imager**, **ProcDump**, **PowerShell**, **Remote Desktop Protocol (RDP)**, and **KAPE**. See **[Environment and Execution Context](#environment-and-execution-context)** section below.
+> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
+> - **Workflows** refer to repeatable digital forensic tasks such as memory acquisition, process memory dumping, disk imaging, and artifact collection.  
+> - **Executions** refer to the hands-on use of forensic tools such as FTK Imager, ProcDump, and KAPE to acquire evidence.  
+> - **Writeups** document acquisition steps, analyst observations, tool usage, evidence handling decisions, and forensic reasoning.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ### Overview
 
@@ -15,13 +20,6 @@ This project focused on foundational digital forensic acquisition activities. Un
 3. The third portion of the lab involved using KAPE to collect artifacts from a remote Windows host. The remote host was accessed using RDP, the KAPE folder was copied to the remote system, and gkape was configured to collect Chrome and Chrome extension artifacts from the remote host's C drive. The output folder was then copied back to the analyst workstation. This demonstrated a targeted triage-style acquisition workflow where selected artifacts are collected from a remote endpoint instead of imaging an entire disk.
 
 This workflow demonstrates that data acquisition can involve multiple evidence sources, including full memory, process memory, disk images, and targeted forensic artifacts. Each source preserves a different type of evidence and supports a different part of a future investigation.
-
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to repeatable digital forensic tasks such as memory acquisition, process memory dumping, disk imaging, and artifact collection.  
-> - **Executions** refer to the hands-on use of forensic tools such as FTK Imager, ProcDump, and KAPE to acquire evidence.  
-> - **Writeups** document acquisition steps, analyst observations, tool usage, evidence handling decisions, and forensic reasoning.
-
-> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ---
 
