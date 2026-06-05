@@ -48,13 +48,13 @@ The investigation begins by identifying the web browsers represented in the evid
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
-**`workflow-execution.md`** — If you want to follow the investigation step by step</br>
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the structured walkthrough showing how browser history artifacts were reviewed, how cached images were analyzed, how downloaded files were identified, and how browser records were correlated to reconstruct user activity.
 
-**`analyst-notes.md`** — If you want to understand the reasoning behind the process</br>
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind browser history artifacts, cached images, browser profiles, download records, timeline correlation, and browser-based evidence reconstruction.
 
-**`tool-usage-notes.md`** — If you want to understand tool usage</br>
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how Browser History Viewer was used, why specific features were selected, and what evidence each analysis technique helped uncover.
 
 ---
