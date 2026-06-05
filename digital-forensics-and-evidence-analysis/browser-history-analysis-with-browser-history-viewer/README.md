@@ -1,5 +1,35 @@
 # Browser History Analysis Using Browser History Viewer
 
+### Overview
+
+This execution documents the practical analysis of browser artifacts using Browser History Viewer (BHV) to reconstruct user activity and investigate a suspicious file download. The workflow focuses on three primary browser artifact sources: Website History records, Cached Image artifacts, and Download-related browser activity. This execution is designed to demonstrate how different browser artifacts answer different investigative questions. No single artifact provides a complete picture of activity. Instead, investigators correlate browser history, cached content, download records, and timeline context to reconstruct user behavior and develop a more complete understanding of browser-based activity.
+
+The investigation begins by identifying the web browsers represented in the evidence and reviewing browsing activity recorded across multiple browser profiles. It then moves into website history analysis to identify social media activity, review user browsing behavior, and examine web-based activity recorded by the browser. Next, cached image artifacts are analyzed to recover visual content preserved by the browser cache and demonstrate how browser artifacts can reveal information not immediately visible within URL history alone. Finally, download-related browser artifacts are examined to identify a suspicious downloaded file, trace the file to its remote hosting location, and reconstruct the likely sequence of events that led to the download.
+
+**Note:** Click the ▶ arrow to expand and view details on software, evidence sources, workflow scope, and the high-level execution map.
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+  
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how browser history, cached images, download artifacts, and timeline analysis were used throughout the investigation.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand why browser artifacts exist, what they reveal, how they differ from one another, and how they can be correlated during an investigation.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` for detailed explanations of Browser History Viewer, browser artifacts, filtering techniques, timeline reconstruction, and common analysis considerations.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis
 - **Primary Operational Focus:** Browser artifact analysis, web activity reconstruction, cached content analysis, download investigation, and browser-based evidence correlation
 - **Operational Objectives Demonstrated:** Browser History Analysis, Browser Profile Identification, Cached Image Analysis, Keyword Filtering, Download Artifact Analysis, Timeline Correlation, Source Attribution
@@ -10,39 +40,7 @@
 > **Executions** refer to the hands-on analysis performed using Browser History Viewer (BHV) against collected browser artifacts.
 > **Writeups** document how browser artifacts were analyzed, how evidence was interpreted, and how findings were correlated to support investigative conclusions.
 
----
-
-### Overview
-
-This execution documents the practical analysis of browser artifacts using Browser History Viewer (BHV) to reconstruct user activity and investigate a suspicious file download.
-
-The workflow focuses on three primary browser artifact sources:
-
-- Website History records,
-- Cached Image artifacts,
-- Download-related browser activity.
-
-The investigation begins by identifying the web browsers represented in the evidence and reviewing browsing activity recorded across multiple browser profiles.
-
-The workflow then moves into website history analysis to identify social media activity, review user browsing behavior, and examine web-based activity recorded by the browser.
-
-Next, cached image artifacts are analyzed to recover visual content preserved by the browser cache and demonstrate how browser artifacts can reveal information not immediately visible within URL history alone.
-
-Finally, download-related browser artifacts are examined to identify a suspicious downloaded file, trace the file to its remote hosting location, and reconstruct the likely sequence of events that led to the download.
-
-This execution is designed to demonstrate how different browser artifacts answer different investigative questions. No single artifact provides a complete picture of activity. Instead, investigators correlate browser history, cached content, download records, and timeline context to reconstruct user behavior and develop a more complete understanding of browser-based activity.
-
-> 👉 **Follow the execution walkthrough first**
-> Begin with `workflow-execution.md` to see how browser history, cached images, download artifacts, and timeline analysis were used throughout the investigation.
-
-> 👉 **Review analytical reasoning and conceptual notes**
-> Move to `analyst-notes.md` to understand why browser artifacts exist, what they reveal, how they differ from one another, and how they can be correlated during an investigation.
-
-> 👉 **Review tooling and feature usage details**
-> See `tool-usage-notes.md` for detailed explanations of Browser History Viewer, browser artifacts, filtering techniques, timeline reconstruction, and common analysis considerations.
-
-> 👉 **See what each execution file contains in full detail**
-> Review the **Repository Structure & Supporting Documents** section below.
+</details>
 
 ---
 
