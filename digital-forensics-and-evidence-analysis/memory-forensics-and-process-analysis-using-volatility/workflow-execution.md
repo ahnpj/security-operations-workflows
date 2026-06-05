@@ -13,11 +13,11 @@ This project focused on analyzing a Windows memory image to recover host-based a
 This workflow demonstrates how multiple memory artifacts can be analyzed separately and then correlated together to better understand activity on a Windows host.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to repeatable host investigation procedures, such as reviewing process listings, analyzing process relationships, or examining command-line arguments.  
-> - **Executions** refer to the hands-on use of a tool such as Volatility Workbench against provided memory evidence.  
-> - **Writeups** document the analyst's process, observations, reasoning, tool usage, and conclusions.
+> - **Workflows** refer to operational threat intelligence tasks such as ransomware research, ATT&CK mapping analysis, IOC review, and adversary investigation.  
+> - **Executions** refer to hands-on use of MISP to perform event searches, review indicators, analyze tags and galaxies, and pivot through related intelligence.  
+> - **Writeups** document investigative findings, analyst reasoning, intelligence pivots, and threat research conclusions.
 
-> 👉 For this workflow, the goal was not only to record answers. The goal was to understand what each memory artifact revealed, why each Volatility plugin was selected, and how the findings supported the overall process investigation.
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshots**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ---
 
