@@ -43,7 +43,12 @@ The workflow focuses on analyzing three common Windows forensic artifact sources
 
 Together, these artifacts provide valuable insight into file access, program execution, archive origins, script activity, and browser-related user activity. Throughout the workflow, a suspicious file named **PlagueRat** was traced from an archive file to execution-related artifacts and associated user activity.
 
-The main tools used are: **Windows File Analyzer (WFA)**, **PECmd**, **JumpList Explorer**, and the **Windows Command Prompt**. See the **[Environment and Execution Context](#environment-and-execution-context)** section below.
+> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
+> - **Workflows** refer to repeatable digital forensic tasks such as metadata extraction, file carving, evidence recovery, and hash validation.  
+> - **Executions** refer to the hands-on use of forensic tools such as ExifTool and Scalpel to analyze provided evidence files.  
+> - **Writeups** document forensic observations, command usage, analyst reasoning, tool outputs, and evidence handling conclusions.
+
+> 👉 For a **detailed, step-by-step walkthrough of how this workflow was executed — complete with screenshot placeholders**, see the **[Step-by-Step Execution](#step-by-step-execution)** section below.
 
 ---
 
