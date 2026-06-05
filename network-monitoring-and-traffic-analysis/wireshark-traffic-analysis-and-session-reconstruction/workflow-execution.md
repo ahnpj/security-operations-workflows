@@ -1,10 +1,10 @@
 # Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark
 
-This workflow demonstrates packet-level traffic analysis using Wireshark, including protocol dissection, filtering, and session reconstruction across multiple OSI layers. It highlights how analysts investigate network behavior, validate communication patterns, and extract evidence from PCAP data.
-
 ### Overview
 
-This workflow documents practical network traffic analysis using Wireshark to inspect packet-level communications and reconstruct network activity during investigative scenarios. The workflow focuses on capturing, filtering, and analyzing packet data to identify communication patterns, validate network behavior, and isolate traffic associated with potential security events.
+This workflow demonstrates packet-level traffic analysis using Wireshark, including protocol dissection, filtering, and session reconstruction across multiple OSI layers. It highlights how analysts investigate network behavior, validate communication patterns, and extract evidence from PCAP data.
+
+This workflow also documents practical network traffic analysis using Wireshark to inspect packet-level communications and reconstruct network activity during investigative scenarios. The workflow focuses on capturing, filtering, and analyzing packet data to identify communication patterns, validate network behavior, and isolate traffic associated with potential security events.
 
 The analysis progresses through structured traffic inspection phases, beginning with baseline network observation and advancing into protocol dissection, stream reconstruction, and targeted filtering. The workflow demonstrates how graphical packet analysis complements command-line capture tools by providing deeper visibility into protocol structure, payload data, and session context.
 
