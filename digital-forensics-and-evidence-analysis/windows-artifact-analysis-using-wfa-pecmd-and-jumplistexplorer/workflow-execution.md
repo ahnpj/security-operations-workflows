@@ -4,12 +4,7 @@ This workflow demonstrates practical Windows forensic artifact analysis using **
 
 The scenario is that the investigation team has seized a desktop PC from a suspect, who was believed to have purchased the commodity malware "PlagueRat" and used it to attack a company offering IT services. A forensic copy of the disk has been captured, and I am now responsible for analyzing prefetch files, jump lists, and .LNK files (shortcuts) to determine if the suspect has used PlagueRat at all. There are a list of questions that we need gather answers for so that I can find the evidence needed to convict this malicious hacker.
 
-In this investigation, I will be analyzing prefetch files, shortcuts, and jump files to determine when files were last accessed on a system that has been retrieved from a crime scene. My job is to collect information on what programs have been run on the system, how many times they've been accessed, and when. The names of any documents will also aid the investigation. All of this will be achieved using the following tools:
-
-- Windows File Analyzer - A forensic analysis tool used to examine Windows shortcut (.LNK) files. A shortcut file is a small file created by Windows that points to another file, folder, or program. Although shortcuts are commonly used to provide quick access to items on a system, they can also preserve useful information such as file names, file paths, timestamps, and locations where files previously existed. Investigators use WFA to extract and review this information.
-- Prefetch Explorer Command Line - A command-line forensic utility used to examine Windows Prefetch (.pf) files. Prefetch files are automatically created by Windows when applications run and are primarily intended to help programs start faster. From a forensic perspective, Prefetch files are valuable because they can provide evidence that a program executed on a system, how many times it executed, when it last executed, and what files or directories it referenced during execution.
-- JumpList Explorer - A forensic analysis tool used to examine Windows Jump Lists. A Jump List is a Windows feature that keeps track of files, folders, documents, and websites recently accessed through a specific application. For example, Microsoft Word may maintain a list of recently opened documents, while Microsoft Edge may maintain information about recently visited websites. JumpList Explorer allows investigators to review this activity and identify resources that a user interacted with through specific applications.
-
+In this investigation, I will be analyzing prefetch files, shortcuts, and jump files to determine when files were last accessed on a system that has been retrieved from a crime scene. My job is to collect information on what programs have been run on the system, how many times they've been accessed, and when. The names of any documents will also aid the investigation.
 
 > **Workflow vs Execution vs Writeup (Terminology Used Here)**  
 > - **Workflows** refer to repeatable digital forensic tasks such as metadata extraction, file carving, evidence recovery, and hash validation.  
@@ -225,10 +220,9 @@ Each evidence source contributed a different part of the overall activity recons
 
 The tools used during execution included:
 
-- **Windows File Analyzer (WFA)** — used to parse and review Windows shortcut files.
-- **PECmd** — used to parse Prefetch files and search for keyword matches across Prefetch artifacts.
-- **JumpList Explorer** — used to review Jump List artifacts and identify application-related user activity.
-- **Windows Command Prompt** — used to execute PECmd commands.
+- Windows File Analyzer - A forensic analysis tool used to examine Windows shortcut (.LNK) files. A shortcut file is a small file created by Windows that points to another file, folder, or program. Although shortcuts are commonly used to provide quick access to items on a system, they can also preserve useful information such as file names, file paths, timestamps, and locations where files previously existed. Investigators use WFA to extract and review this information.
+- Prefetch Explorer Command Line - A command-line forensic utility used to examine Windows Prefetch (.pf) files. Prefetch files are automatically created by Windows when applications run and are primarily intended to help programs start faster. From a forensic perspective, Prefetch files are valuable because they can provide evidence that a program executed on a system, how many times it executed, when it last executed, and what files or directories it referenced during execution.
+- JumpList Explorer - A forensic analysis tool used to examine Windows Jump Lists. A Jump List is a Windows feature that keeps track of files, folders, documents, and websites recently accessed through a specific application. For example, Microsoft Word may maintain a list of recently opened documents, while Microsoft Edge may maintain information about recently visited websites. JumpList Explorer allows investigators to review this activity and identify resources that a user interacted with through specific applications.
 
 The artifacts examined in this workflow would normally be extracted from locations within a forensic image. For example:
 
