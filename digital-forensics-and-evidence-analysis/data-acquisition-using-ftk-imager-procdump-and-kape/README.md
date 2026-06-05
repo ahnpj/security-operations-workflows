@@ -1,5 +1,35 @@
 # Data Acquisition Using FTK Imager, ProcDump, and KAPE
 
+### Overview
+
+This execution documents the acquisition of multiple forms of digital evidence using FTK Imager, ProcDump, and KAPE. The workflow focused on three primary acquisition objectives: capturing physical and process memory, creating a forensic disk image, and collecting browser artifacts from a remote host. Evidence acquired during the process included physical system memory (RAM), process-specific memory, physical disk storage, Chrome browser artifacts, and Chrome extension artifacts.
+
+Rather than focusing on evidence analysis, the primary objective of the workflow was to preserve evidence for future examination while maintaining forensic integrity. The activities performed throughout the acquisition process reinforced several foundational DFIR concepts, including volatile evidence preservation, process memory acquisition, forensic imaging, evidence integrity validation, remote evidence collection, targeted artifact acquisition, and browser forensics. Together, these techniques demonstrate how investigators can collect and preserve diverse evidence sources for subsequent forensic analysis and incident response activities.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+  
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to review the full acquisition process step-by-step.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Review `analyst-notes.md` for acquisition concepts, observations, and learning notes recorded during execution.
+
+> 👉 **Review tooling and feature usage details**</br>
+> Review `tool-usage-notes.md` for tool-specific explanations covering FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Incident Response
 - **Primary Operational Focus:** Memory acquisition, process memory acquisition, forensic disk imaging, and targeted artifact collection
 - **Operational Objectives Demonstrated:** Volatile Memory Acquisition, Process Dump Acquisition, Disk Imaging, Remote Artifact Collection, Evidence Preservation, DFIR Fundamentals
@@ -10,61 +40,19 @@
 > **Executions** refer to the hands-on collection of evidence using FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
 > **Writeups** document how evidence was acquired, why each acquisition method matters, and how the collected data supports later forensic analysis.
 
----
-
-### Overview
-
-This execution documents the acquisition of multiple forms of digital evidence using FTK Imager, ProcDump, and KAPE.
-
-The workflow focused on three primary acquisition tasks:
-
-- Acquiring physical memory and process memory.
-- Creating a forensic disk image.
-- Collecting browser artifacts from a remote host.
-
-The workflow demonstrated multiple evidence acquisition techniques commonly encountered during digital forensic and incident response investigations. Rather than focusing on evidence analysis, the primary objective was to preserve evidence for future examination.
-
-Evidence sources acquired during the workflow included:
-
-- Physical system memory (RAM)
-- Process-specific memory
-- Physical disk storage
-- Chrome browser artifacts
-- Chrome extension artifacts
-
-The workflow also reinforced several foundational DFIR concepts, including:
-
-- volatile evidence preservation,
-- process memory acquisition,
-- forensic imaging,
-- evidence integrity validation,
-- remote evidence collection,
-- targeted artifact acquisition,
-- browser forensics.
-
-> 👉 Begin with `workflow-execution.md` to review the full acquisition process step-by-step.
-
-> 👉 Review `analyst-notes.md` for acquisition concepts, observations, and learning notes recorded during execution.
-
-> 👉 Review `tool-usage-notes.md` for tool-specific explanations covering FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic acquisition workflows are commonly documented.
 
-`workflow-execution.md`
+`workflow-execution.md` — Documents the complete acquisition workflow, including memory acquisition, process memory acquisition, disk imaging, and remote artifact collection.
 
-Documents the complete acquisition workflow, including memory acquisition, process memory acquisition, disk imaging, and remote artifact collection.
+`analyst-notes.md` — Documents observations, lessons learned, acquisition concepts, and reasoning behind each acquisition method.
 
-`analyst-notes.md`
-
-Documents observations, lessons learned, acquisition concepts, and reasoning behind each acquisition method.
-
-`tool-usage-notes.md`
-
-Documents how each tool was used and explains the operational relevance of FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
+`tool-usage-notes.md` — Documents how each tool was used and explains the operational relevance of FTK Imager, ProcDump, PowerShell, RDP, and KAPE.
 
 ---
 
@@ -82,7 +70,9 @@ Documents how each tool was used and explains the operational relevance of FTK I
 
 ### Environment, Data Sources, and Tools
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -92,7 +82,11 @@ Documents how each tool was used and explains the operational relevance of FTK I
 | **Operational Focus** | Evidence acquisition and preservation |
 | **Workflow Scope** | Memory acquisition, process acquisition, disk imaging, artifact collection |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -104,15 +98,17 @@ Documents how each tool was used and explains the operational relevance of FTK I
 | **Artifact Categories** | Chrome history, cookies, sessions, extensions, browser metadata |
 | **Operational Workflow Context** | Demonstrates evidence preservation prior to forensic analysis |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate practical evidence acquisition techniques used in digital forensics and incident response.
+This execution is intended to demonstrate practical evidence acquisition techniques used in digital forensics and incident response. The workflow reflects how investigators may collect evidence before beginning deeper analysis.
 
-The workflow reflects how investigators may collect evidence before beginning deeper analysis.
-
-The workflow helps answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - What evidence should be preserved first?
 - How can volatile memory be captured?
@@ -129,15 +125,17 @@ The workflow supports later activities such as:
 - incident response investigations,
 - evidence preservation and validation.
 
+</details>
+
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Evidence acquisition is one of the earliest and most important stages of a forensic investigation.
+Evidence acquisition is one of the earliest and most important stages of a forensic investigation. Before investigators can analyze activity, identify malware, reconstruct timelines, or review user behavior, they must first preserve evidence. The workflow also demonstrates how different evidence sources complement one another. Memory may contain evidence unavailable on disk, disk images preserve storage contents, and targeted artifact collection enables rapid triage from remote systems.
 
-Before investigators can analyze activity, identify malware, reconstruct timelines, or review user behavior, they must first preserve evidence.
-
-This execution demonstrates several core DFIR acquisition methods:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - volatile memory acquisition,
 - process memory acquisition,
@@ -152,7 +150,7 @@ These methods are commonly used during:
 - evidence preservation activities,
 - forensic examinations.
 
-The workflow also demonstrates how different evidence sources complement one another. Memory may contain evidence unavailable on disk, disk images preserve storage contents, and targeted artifact collection enables rapid triage from remote systems.
+</details>
 
 ---
 
