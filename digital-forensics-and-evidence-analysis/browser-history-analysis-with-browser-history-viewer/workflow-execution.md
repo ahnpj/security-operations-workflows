@@ -39,13 +39,6 @@ This matters because the browser name helps explain where the artifact came from
 
 This workflow demonstrates how browser history, cached content, and download artifacts can be analyzed separately and then correlated together to reconstruct user activity.
 
-> **Workflow vs Execution vs Writeup (Terminology Used Here)**  
-> - **Workflows** refer to repeatable digital forensic procedures, such as reviewing website history, analyzing cached images, or correlating download activity.  
-> - **Executions** refer to the hands-on use of a forensic tool such as Browser History Viewer against provided evidence.  
-> - **Writeups** document the analyst's process, observations, reasoning, tool usage, and conclusions.
-
-> 👉 For this workflow, the goal was not only to record answers. The goal was to understand what each browser artifact revealed, why each artifact was examined, and how the findings supported the overall reconstruction of suspicious activity.
-
 ---
 
 ### Purpose and Analyst Focus
