@@ -1,5 +1,33 @@
 # Linux Endpoint Triage and Script-Based Validation Logic Using Bash 
 
+### Overview
+
+This execution documents the practical performance of Linux endpoint triage and system validation using Bash scripting to collect and analyze host telemetry. The objective is to rapidly evaluate system integrity, identify suspicious activity, and validate host behavior using native Linux utilities and automated scripting techniques. The execution focuses on validating running processes, reviewing network connections, inspecting user activity, and analyzing system artifacts that may indicate compromise, misconfiguration, or unauthorized persistence. Emphasis is placed on how command-line triage techniques support rapid incident scoping, alert validation, and host-level threat identification within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>  
+Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using Bash scripting and native Linux inspection commands.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
+
+> 👉 **Review tooling and scripting implementation details**</br>  
+See `tool-usage-notes.md` to understand Bash command usage, scripting techniques, and host inspection methods used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Endpoint Triage and Host Analysis  
 - **Primary Operational Focus:** Host state validation, artifact inspection, and endpoint triage automation  
 - **Operational Objectives Demonstrated:** Process Inspection, System Artifact Validation, Suspicious Activity Identification, Rapid Host Integrity Assessment  
@@ -10,35 +38,25 @@
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real datasets.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
+</details>
 
-### Overview
-
-This execution documents the practical performance of Linux endpoint triage and system validation using Bash scripting to collect and analyze host telemetry. The objective is to rapidly evaluate system integrity, identify suspicious activity, and validate host behavior using native Linux utilities and automated scripting techniques.
-
-The execution focuses on validating running processes, reviewing network connections, inspecting user activity, and analyzing system artifacts that may indicate compromise, misconfiguration, or unauthorized persistence. Emphasis is placed on how command-line triage techniques support rapid incident scoping, alert validation, and host-level threat identification within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using Bash scripting and native Linux inspection commands.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
-
-> 👉 **Review tooling and scripting implementation details**  
-See `tool-usage-notes.md` to understand Bash command usage, scripting techniques, and host inspection methods used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how endpoint triage and host validation tasks are documented within SOC and incident response operational environments.
 
 If you want to follow the execution step by step, start with:
 
-**`workflow-execution.md`**
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how Linux system information was collected, how processes, files, permissions, users, and network activity were reviewed, and how Bash scripting was used to automate validation checks, collect user input, and implement authentication-style logic.
+
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind Linux endpoint triage, shell environments, filesystem permissions, process and network enumeration, Bash scripting fundamentals, conditional logic, loops, input validation, and host-based investigation workflows.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how native Linux utilities and Bash were used, why specific commands and scripting techniques were selected, and what evidence or validation each command, loop, conditional statement, and automation workflow helped uncover.
 
 ---
 
@@ -59,9 +77,12 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on automated and manual inspection of Linux host telemetry to support endpoint triage and investigative validation workflows.
+The execution focuses on automated and manual inspection of Linux host telemetry to support endpoint triage and investigative validation workflows. The execution demonstrates how host-based triage scripting supports scalable endpoint validation and improves reliability of early-stage investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
+
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -71,7 +92,12 @@ The execution focuses on automated and manual inspection of Linux host telemetry
 | **Primary Platforms / Services** | Linux operating system inspection tools and host-based telemetry collection utilities |
 | **Operational Focus** | Validate Linux host integrity and identify indicators of compromise using automated triage scripting and manual validation techniques |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -84,7 +110,8 @@ The execution focuses on automated and manual inspection of Linux host telemetry
 | **Threat Detection Heuristics** | Behavioral evaluation of process execution, network activity, and artifact placement to identify indicators consistent with compromise or policy violations |
 | **Operational Workflow Context** | Demonstrates rapid Linux endpoint triage procedures used by SOC analysts to validate alerts and determine whether escalation to full incident response is required |
 
-The execution demonstrates how host-based triage scripting supports scalable endpoint validation and improves reliability of early-stage investigative workflows.
+</details>
+
 
 ---
 
@@ -96,8 +123,12 @@ The documented execution demonstrates Linux endpoint triage, host telemetry vali
 
 ### Relevance to Security Operations
 
-Endpoint triage remains a critical component of incident response and alert validation.
+Endpoint triage remains a critical component of incident response and alert validation. Even environments with centralized monitoring rely on host-level inspection to confirm compromise and validate detection accuracy.
 
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
+  
 The execution demonstrates how command-line automation enables analysts to:
 
 - Validate host integrity and system state  
@@ -105,7 +136,7 @@ The execution demonstrates how command-line automation enables analysts to:
 - Support rapid incident scoping and investigative prioritization  
 - Improve repeatability and efficiency of endpoint validation workflows  
 
-Even environments with centralized monitoring rely on host-level inspection to confirm compromise and validate detection accuracy.
+</details>
 
 ---
 
