@@ -1,5 +1,36 @@
 # Recycle Bin Analysis Using RBCmd and CSVQuickViewer
 
+### Overview
+
+This execution documents the practical analysis of Windows Recycle Bin artifacts to identify deleted files, determine user ownership, review deletion timestamps, and reconstruct deleted-file activity. The workflow focused on examining Recycle Bin artifacts, parsing Recycle Bin metadata, and reviewing structured output for correlation and analysis. Throughout the investigation, Recycle Bin metadata was processed using RBCmd to recover original file paths, deletion timestamps, file sizes, and user-associated artifact information, while CSVQuickViewer was used to review and correlate the parsed results. 
+
+The workflow demonstrates how deleted-file activity can be reconstructed through the analysis of Recycle Bin artifacts. Rather than relying on a single piece of evidence, investigators correlate file paths, file sizes, deletion timestamps, Security Identifiers (SIDs), and user account information to determine what was deleted and who was associated with the activity. Together, these techniques reinforce foundational concepts in deleted-file investigations, artifact correlation, user attribution, metadata analysis, timeline reconstruction, and forensic examination of Windows operating system artifacts.
+
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how Recycle Bin artifacts were parsed, reviewed, and correlated throughout the investigation.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand how Recycle Bin artifacts work, what they preserve, how user attribution occurs, and why deleted-file metadata is valuable during investigations.
+
+> 👉 **Review tooling and command usage details**</br>
+> See `tool-usage-notes.md` for detailed explanations of RBCmd, CSVQuickViewer, Recycle Bin artifacts, SID folders, and command usage.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+  
 * **Category:** Digital Forensics and Evidence Analysis
 * **Primary Operational Focus:** Recycle Bin artifact analysis, deleted-file investigation, user attribution, and deleted-file activity reconstruction
 * **Operational Objectives Demonstrated:** Recycle Bin Analysis, Deleted-File Metadata Review, User Attribution, SID Analysis, Timestamp Analysis, Deleted-File Correlation, Evidence Interpretation
@@ -10,60 +41,21 @@
 > **Executions** refer to the hands-on analysis performed using RBCmd, CSVQuickViewer, Windows Command Prompt, and Recycle Bin metadata.
 > **Writeups** document how deleted-file artifacts were analyzed, how evidence was interpreted, and how findings were correlated across multiple metadata fields.
 
----
-
-### Overview
-
-This execution documents the practical analysis of Windows Recycle Bin artifacts to identify deleted files, determine user ownership, review deletion timestamps, and reconstruct deleted-file activity.
-
-The workflow focuses on three primary evidence sources:
-
-* Windows Recycle Bin artifacts,
-* parsed Recycle Bin metadata,
-* structured CSV review and correlation.
-
-The investigation begins by identifying the Recycle Bin artifact location and reviewing the SID-based folder structure used by Windows.
-
-The workflow then moves into parsing Recycle Bin metadata using RBCmd to recover information such as original file paths, deletion timestamps, file sizes, and user-associated artifact locations.
-
-Finally, CSVQuickViewer is used to review the parsed results, identify notable deleted files, determine user ownership, validate deletion timestamps, and correlate findings across multiple metadata fields.
-
-This execution is designed to demonstrate how deleted-file evidence can be reconstructed using Recycle Bin artifacts. No single metadata field provides a complete picture of activity. Instead, investigators correlate file paths, file sizes, deletion timestamps, user accounts, and SID information to understand what was deleted and who was associated with the deleted content.
-
-> 👉 **Follow the execution walkthrough first**
-> Begin with `workflow-execution.md` to see how Recycle Bin artifacts were parsed, reviewed, and correlated throughout the investigation.
-
-> 👉 **Review analytical reasoning and conceptual notes**
-> Move to `analyst-notes.md` to understand how Recycle Bin artifacts work, what they preserve, how user attribution occurs, and why deleted-file metadata is valuable during investigations.
-
-> 👉 **Review tooling and command usage details**
-> See `tool-usage-notes.md` for detailed explanations of RBCmd, CSVQuickViewer, Recycle Bin artifacts, SID folders, and command usage.
-
-> 👉 **See what each execution file contains in full detail**
-> Review the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
-If you want to follow the investigation step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the structured walkthrough showing how Recycle Bin artifacts were accessed, parsed using RBCmd, reviewed using CSVQuickViewer, and correlated to answer deleted-file investigation questions.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind Recycle Bin artifacts, deleted-file metadata, SID attribution, timestamp interpretation, file ownership, and evidence correlation.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how each tool was used, why it was selected, and what evidence it helped uncover.
 
 ---
@@ -86,7 +78,9 @@ All execution outputs are separated into focused documents to reflect operationa
 
 The execution focuses on Recycle Bin artifact analysis using forensic utilities designed to recover and interpret deleted-file metadata.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area                   | Details                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------- |
@@ -97,8 +91,12 @@ The execution focuses on Recycle Bin artifact analysis using forensic utilities 
 | **Primary Tools**      | RBCmd, CSVQuickViewer, Command Prompt                                                  |
 | **Operational Focus**  | Identify deleted files, user ownership, deletion timestamps, and deleted-file activity |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
 
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 | Area                             | Details                                 |
 | -------------------------------- | --------------------------------------- |
 | **Artifact Source**              | `C:\$Recycle.Bin`                       |
@@ -112,14 +110,18 @@ The execution focuses on Recycle Bin artifact analysis using forensic utilities 
 | **User Attribution Technique**   | Original file path and SID correlation  |
 | **SID Analysis Technique**       | Source path review and SID extraction   |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational Windows forensic methodology involving deleted-file analysis and Recycle Bin artifact review.
+This execution is intended to demonstrate foundational Windows forensic methodology involving deleted-file analysis and Recycle Bin artifact review. This process supports later forensic work involving user activity reconstruction, evidence triage, insider threat investigations, incident response, artifact analysis, and forensic reporting.
 
-The workflow reflects how analysts may answer questions such as:
-
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
+  
 * What files were deleted?
 * Where did those files originally exist?
 * When were those files deleted?
@@ -129,22 +131,19 @@ The workflow reflects how analysts may answer questions such as:
 * What deleted files support a specific allegation?
 * How can Recycle Bin artifacts be correlated to reconstruct activity?
 
-This process supports later forensic work involving user activity reconstruction, evidence triage, insider threat investigations, incident response, artifact analysis, and forensic reporting.
+</details>
+
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Windows systems continuously generate artifacts that preserve evidence of user activity.
+Windows systems continuously generate artifacts that preserve evidence of user activity. Recycle Bin artifacts can preserve metadata about deleted files, including original file paths, file sizes, deletion timestamps, and user-specific ownership information. SID folders can help associate deleted-file evidence with Windows user accounts. Parsed Recycle Bin metadata can help investigators identify what was deleted, when it was deleted, where it originated, and who was associated with the deleted content. This workflow demonstrates how multiple Recycle Bin metadata fields can be combined to produce a more complete understanding of deleted-file activity occurring on a system.
 
-Recycle Bin artifacts can preserve metadata about deleted files, including original file paths, file sizes, deletion timestamps, and user-specific ownership information.
-
-SID folders can help associate deleted-file evidence with Windows user accounts.
-
-Parsed Recycle Bin metadata can help investigators identify what was deleted, when it was deleted, where it originated, and who was associated with the deleted content.
-
-Together, these artifacts support:
-
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
+  
 * evidence triage,
 * deleted-file analysis,
 * user activity reconstruction,
@@ -154,7 +153,7 @@ Together, these artifacts support:
 * artifact correlation,
 * timeline development.
 
-This workflow demonstrates how multiple Recycle Bin metadata fields can be combined to produce a more complete understanding of deleted-file activity occurring on a system.
+</details>
 
 ---
 
