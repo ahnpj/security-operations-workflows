@@ -1,5 +1,35 @@
 # Identity and Access Management Operations Using Active Directory
 
+### Overview
+
+This execution documents the practical performance of identity and access validation within an Active Directory environment. The objective is to verify authentication behavior, validate permission assignments, and analyze access paths to identify potential misconfigurations, privilege escalation risks, or unauthorized identity activity.
+
+The execution focuses on validating authentication events, inspecting user and group memberships, verifying effective permissions, and evaluating directory object attributes that influence identity security posture. Emphasis is placed on how identity validation supports alert triage, insider threat detection, access governance enforcement, and investigative scoping within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+Begin with `workflow-execution.md` inside this folder to see how authentication behavior, group memberships, and permission boundaries were validated step by step using Active Directory administrative and inspection tools.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>
+Move to `analyst-notes.md` to understand why specific identity validation techniques were selected, how authentication and access indicators were evaluated, and how results influence investigative or remediation decisions.
+
+> 👉 **Review tooling and implementation reference details**</br>
+See `tool-usage-notes.md` to understand directory inspection methods, query techniques, and identity validation procedures used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Identity and Access Management<br>
 - **Primary Operational Focus:** Authentication validation, permission verification, and identity behavior analysis within Active Directory environments<br>
 - **Operational Objectives Demonstrated:** Authentication Event Validation, Group Membership Analysis, Privilege Boundary Verification, Access Path Testing, Identity Misconfiguration Detection<br>
@@ -10,35 +40,23 @@
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real directory objects or log data.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
+</details>
 
-### Overview
-
-This execution documents the practical performance of identity and access validation within an Active Directory environment. The objective is to verify authentication behavior, validate permission assignments, and analyze access paths to identify potential misconfigurations, privilege escalation risks, or unauthorized identity activity.
-
-The execution focuses on validating authentication events, inspecting user and group memberships, verifying effective permissions, and evaluating directory object attributes that influence identity security posture. Emphasis is placed on how identity validation supports alert triage, insider threat detection, access governance enforcement, and investigative scoping within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how authentication behavior, group memberships, and permission boundaries were validated step by step using Active Directory administrative and inspection tools.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific identity validation techniques were selected, how authentication and access indicators were evaluated, and how results influence investigative or remediation decisions.
-
-> 👉 **Review tooling and implementation reference details**  
-See `tool-usage-notes.md` to understand directory inspection methods, query techniques, and identity validation procedures used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how identity validation and access control verification tasks are documented within SOC, identity operations, and incident response environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how Active Directory was configured and administered, how users, groups, computers, and Organizational Units (OUs) were created and managed, how permissions were delegated, how Group Policy Objects (GPOs) were applied and validated, and how authentication and access controls were tested throughout the environment.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind Active Directory architecture, domain controllers, Organizational Units (OUs), security groups, privilege delegation, Group Policy inheritance, Kerberos authentication, NTLM authentication, trust relationships, forests, trees, and enterprise identity management concepts.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how Active Directory Users and Computers (ADUC), Group Policy Management, Delegation of Control Wizard, PowerShell Active Directory cmdlets, and native Windows administrative tools were used, why specific identity and access management techniques were selected, and what security controls, permissions, and authentication behaviors each administrative action helped validate.
 
 ---
 
@@ -59,9 +77,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on validation of authentication behavior and permission enforcement within Active Directory environments to support identity triage and investigative workflows.
+The execution focuses on validation of authentication behavior and permission enforcement within Active Directory environments to support identity triage and investigative workflows. The execution demonstrates how structured identity validation supports scalable access governance, detection accuracy, and investigative efficiency within enterprise environments.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -71,8 +91,12 @@ The execution focuses on validation of authentication behavior and permission en
 | **Primary Platforms / Services** | Windows Active Directory domain services and authentication logging infrastructure |
 | **Operational Focus** | Validate identity authentication behavior, permission boundaries, and access path exposure within Active Directory environments |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
 
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Primary Telemetry Sources** | Active Directory authentication logs, logon event records, directory object attributes, group membership records, and permission assignments |
@@ -84,7 +108,7 @@ The execution focuses on validation of authentication behavior and permission en
 | **Threat Detection Heuristics** | Behavioral evaluation of authentication activity, privilege assignments, and access boundaries to identify indicators consistent with credential misuse, lateral movement, or privilege escalation |
 | **Operational Workflow Context** | Demonstrates identity validation procedures used by SOC analysts and identity operations teams to investigate suspicious login behavior and validate access control enforcement |
 
-The execution demonstrates how structured identity validation supports scalable access governance, detection accuracy, and investigative efficiency within enterprise environments.
+</details>
 
 ---
 
@@ -96,7 +120,11 @@ The documented execution demonstrates Active Directory identity validation, auth
 
 ### Relevance to Security Operations
 
-Identity compromise and privilege misuse remain primary attack vectors across enterprise environments.
+Identity compromise and privilege misuse remain primary attack vectors across enterprise environments. Even environments with mature identity monitoring require manual validation workflows to confirm access control integrity and investigate anomalous identity behavior.
+
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 The execution demonstrates how identity validation enables analysts to:
 
@@ -105,7 +133,7 @@ The execution demonstrates how identity validation enables analysts to:
 - Detect indicators of credential misuse or privilege escalation  
 - Support access governance enforcement and investigative scoping  
 
-Even environments with mature identity monitoring require manual validation workflows to confirm access control integrity and investigate anomalous identity behavior.
+</details>
 
 ---
 
