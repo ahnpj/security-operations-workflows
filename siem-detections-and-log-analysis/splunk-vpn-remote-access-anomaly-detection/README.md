@@ -1,5 +1,35 @@
 # VPN Authentication and Remote Access Anomaly Analysis Using Splunk
 
+### Overview
+
+This execution documents the practical performance of VPN authentication analysis and anomaly detection using Splunk to identify suspicious login activity and validate remote access behavior. The objective is to detect abnormal authentication patterns, identify potential credential misuse, and validate remote access telemetry to support investigative triage and detection engineering workflows.
+
+The execution focuses on analyzing VPN authentication events, identifying abnormal login frequency, reviewing geographic and source access anomalies, and correlating authentication telemetry to validate suspicious remote access activity. Emphasis is placed on how authentication anomaly detection supports alert validation, insider threat detection, credential compromise identification, and investigative scoping within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+Begin with `workflow-execution.md` inside this folder to see how VPN authentication telemetry was analyzed, suspicious login behavior was identified, and anomaly detection was validated step by step using Splunk queries.
+
+> 👉 **Review analytical reasoning and detection engineering decision-making**</br>
+Move to `analyst-notes.md` to understand why specific authentication analysis techniques were selected, how login anomalies were evaluated, and how results influence investigative escalation or detection tuning decisions.
+
+> 👉 **Review tooling and query reference details**</br>
+See `tool-usage-notes.md` to understand Splunk authentication query construction, anomaly detection techniques, and behavior analysis methods used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+  
 - **Category:** SIEM Detections and Log Analysis  
 - **Primary Operational Focus:** Authentication behavior analysis, VPN activity validation, and anomaly detection using SIEM telemetry  
 - **Operational Objectives Demonstrated:** Authentication Pattern Analysis, Geographic and Behavioral Anomaly Detection, Credential Misuse Identification, Alert Validation  
@@ -10,35 +40,22 @@
 > **Executions** refer to the hands-on performance of those tasks using SIEM queries, telemetry analysis, and authentication behavior inspection.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
-
-### Overview
-
-This execution documents the practical performance of VPN authentication analysis and anomaly detection using Splunk to identify suspicious login activity and validate remote access behavior. The objective is to detect abnormal authentication patterns, identify potential credential misuse, and validate remote access telemetry to support investigative triage and detection engineering workflows.
-
-The execution focuses on analyzing VPN authentication events, identifying abnormal login frequency, reviewing geographic and source access anomalies, and correlating authentication telemetry to validate suspicious remote access activity. Emphasis is placed on how authentication anomaly detection supports alert validation, insider threat detection, credential compromise identification, and investigative scoping within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how VPN authentication telemetry was analyzed, suspicious login behavior was identified, and anomaly detection was validated step by step using Splunk queries.
-
-> 👉 **Review analytical reasoning and detection engineering decision-making**  
-Move to `analyst-notes.md` to understand why specific authentication analysis techniques were selected, how login anomalies were evaluated, and how results influence investigative escalation or detection tuning decisions.
-
-> 👉 **Review tooling and query reference details**  
-See `tool-usage-notes.md` to understand Splunk authentication query construction, anomaly detection techniques, and behavior analysis methods used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how authentication anomaly detection and VPN activity validation tasks are documented within detection engineering and SOC operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how Splunk was used to analyze VPN authentication telemetry, extract JSON fields, establish user and geographic access baselines, identify failed authentication activity, investigate session termination behavior, and detect anomalies within remote access logs.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind VPN log analysis, authentication monitoring, geographic anomaly detection, brute-force identification, session lifecycle analysis, baseline development, behavioral analytics, and how authentication telemetry supports threat detection and investigative workflows.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how Splunk SPL commands such as `spath`, `stats`, `search`, and `sort` were used to parse JSON-based VPN telemetry, aggregate authentication activity, identify suspicious access patterns, analyze session outcomes, and support security investigations through structured log analysis and behavioral monitoring.
 
 ---
 
@@ -59,9 +76,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on analysis of VPN authentication telemetry within Splunk environments to support credential monitoring and remote access validation workflows.
+The execution focuses on analysis of VPN authentication telemetry within Splunk environments to support credential monitoring and remote access validation workflows. The execution demonstrates how authentication anomaly detection supports scalable credential monitoring and improves reliability of SIEM-based threat detection and investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -71,7 +90,11 @@ The execution focuses on analysis of VPN authentication telemetry within Splunk 
 | **Primary Platforms / Services** | VPN authentication logging infrastructure, centralized SIEM ingestion pipelines, and remote access monitoring telemetry |
 | **Operational Focus** | Identify suspicious remote access behavior and validate authentication anomalies using SIEM telemetry analysis |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -84,7 +107,7 @@ The execution focuses on analysis of VPN authentication telemetry within Splunk 
 | **Threat Detection Heuristics** | Behavioral evaluation of remote access patterns, source network anomalies, login frequency spikes, and credential misuse indicators consistent with compromise or policy violations |
 | **Operational Workflow Context** | Demonstrates VPN authentication analysis procedures used by SOC analysts and detection engineers to validate suspicious remote access alerts and investigate credential compromise indicators |
 
-The execution demonstrates how authentication anomaly detection supports scalable credential monitoring and improves reliability of SIEM-based threat detection and investigative workflows.
+</details>
 
 ---
 
@@ -96,7 +119,11 @@ The documented execution demonstrates VPN authentication anomaly detection, logi
 
 ### Relevance to Security Operations
 
-Credential misuse and unauthorized remote access remain primary attack vectors across enterprise environments.
+Credential misuse and unauthorized remote access remain primary attack vectors across enterprise environments. Even environments with mature remote access monitoring require behavioral authentication analysis to identify subtle credential misuse and advanced threat activity.
+
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 The execution demonstrates how authentication anomaly detection enables analysts to:
 
@@ -105,7 +132,7 @@ The execution demonstrates how authentication anomaly detection enables analysts
 - Support investigative scoping and escalation decision-making  
 - Improve detection tuning and credential monitoring reliability  
 
-Even environments with mature remote access monitoring require behavioral authentication analysis to identify subtle credential misuse and advanced threat activity.
+</details>
 
 ---
 
