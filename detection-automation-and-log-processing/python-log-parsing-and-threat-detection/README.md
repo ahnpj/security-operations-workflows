@@ -11,13 +11,13 @@ This execution documents the practical performance of automated log parsing and 
 </summary><br>
 
 > 👉 **Follow the execution walkthrough first**</br>
-Begin with `workflow-execution.md` inside this folder to see how raw log data was parsed, normalized, and validated step by step using Python scripting and regex extraction logic.
+Begin with `workflow-execution.md` to see how Python was used to parse Apache access logs, Linux authentication logs, Windows Event CSV data, and AWS CloudTrail JSON events during the investigation.
 
 > 👉 **Review analytical reasoning and design decisions**</br> 
-Move to `analyst-notes.md` to understand why specific parsing approaches were selected, how extracted telemetry supports detection use cases, and how data quality influences monitoring reliability.
+Move to `analyst-notes.md` to understand why log parsing matters, how raw telemetry becomes detection-ready data, and how repeated patterns such as 404 spikes, failed logins, and risky IAM activity can reveal suspicious behavior.
 
 > 👉 **Review tooling and implementation reference details**</br>
-See `tool-usage-notes.md` to understand Python libraries, regex construction strategies, and parsing implementation techniques used during execution.
+See `tool-usage-notes.md` for detailed explanations of Python scripting, regex parsing, CSV handling, JSON analysis, field extraction, aggregation, and common detection automation considerations.
 
 > 👉 **See what each execution file contains in full detail**</br>
 For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
@@ -47,7 +47,13 @@ For a complete breakdown of every standard file in this folder, explaining the c
 Documentation is separated into focused components to reflect how telemetry automation and detection preparation activities are documented within detection engineering and SOC operational environments.
 
 **`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how Python was used to parse Apache access logs, Linux authentication logs, Windows Event CSV data, and AWS CloudTrail telemetry, how suspicious behaviors were identified, and how detection logic was validated across multiple log sources.
 
+**`analyst-notes.md`** — If you want to understand the reasoning behind the process</br>
+This file explains the major learning points behind log parsing, telemetry normalization, field extraction, behavioral analysis, authentication monitoring, reconnaissance detection, cloud audit logging, and the role of automation in threat detection workflows.
+
+**`tool-usage-notes.md`** — If you want to understand tool usage</br>
+This file explains how Python was used to process unstructured and structured log data, why specific parsing techniques were selected, and how regular expressions, CSV handling, JSON analysis, aggregation logic, and automation workflows were used to identify suspicious activity and prepare detection-ready datasets.
 
 ---
 
@@ -68,9 +74,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on automated transformation of authentication telemetry into structured datasets that support detection engineering and investigative workflows.
+The execution focuses on automated transformation of authentication telemetry into structured datasets that support detection engineering and investigative workflows. The execution also demonstrates how automated telemetry processing supports scalable detection engineering and improves reliability of downstream monitoring and investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -80,7 +88,11 @@ The execution focuses on automated transformation of authentication telemetry in
 | **Primary Platforms / Services** | Local log processing environment, Python scripting environment, and detection preparation workflows |
 | **Operational Focus** | Convert raw authentication telemetry into structured datasets suitable for SIEM ingestion and monitoring |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -91,8 +103,7 @@ The execution focuses on automated transformation of authentication telemetry in
 | **Python Processing Techniques** | File handling, iterative log processing, regex pattern matching, dataset structuring, and error handling to ensure parsing accuracy |
 | **Detection Preparation Techniques** | Dataset enrichment and normalization supporting authentication anomaly detection, behavioral analysis, and SIEM search optimization |
 | **Operational Workflow Context** | Demonstrates detection engineering telemetry preparation processes used to improve monitoring accuracy prior to alert development and investigative analysis |
-
-The execution demonstrates how automated telemetry processing supports scalable detection engineering and improves reliability of downstream monitoring and investigative workflows.
+</details>
 
 ---
 
@@ -104,16 +115,20 @@ The documented execution demonstrates automated telemetry normalization, structu
 
 ### Relevance to Security Operations
 
-Detection reliability and investigative efficiency depend heavily on telemetry quality and consistency.
+Detection reliability and investigative efficiency depend heavily on telemetry quality and consistency. Even well-instrumented logging environments require normalization and enrichment processes to ensure telemetry remains usable for detection and investigation.
+
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 The execution demonstrates how automation enables analysts to:
 
 - Normalize inconsistent authentication telemetry  
 - Extract detection-relevant fields from raw log sources  
 - Improve query performance and alert reliability  
-- Support scalable monitoring and investigative workflows  
+- Support scalable monitoring and investigative workflows
 
-Even well-instrumented logging environments require normalization and enrichment processes to ensure telemetry remains usable for detection and investigation.
+</details>
 
 ---
 
