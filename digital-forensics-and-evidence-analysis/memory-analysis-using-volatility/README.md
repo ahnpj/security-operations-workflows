@@ -1,5 +1,36 @@
 # Memory Analysis Using Volatility
 
+### Overview
+
+This execution documents the practical analysis of Windows memory images using the Volatility memory forensics framework. The workflow focused on several core memory analysis activities, including memory image identification, operating system profile selection, process enumeration, process relationship analysis, command-line artifact recovery, network connection analysis, process extraction from memory, and file hash generation. The investigation began by identifying the operating system profile required for Volatility to accurately interpret the memory image before progressing into process analysis, command-line artifact review, network activity examination, and the extraction of executable artifacts from memory.
+
+The workflow demonstrates how investigators use multiple memory artifacts to reconstruct system activity and identify suspicious behavior. Rather than relying on a single source of evidence, analysts correlate process information, parent-child process relationships, command-line activity, network connections, and executable artifacts to build a more complete understanding of events that occurred on the host. Together, these techniques illustrate several foundational DFIR concepts, including memory forensics, process analysis, artifact correlation, behavioral reconstruction, evidence preservation, and incident investigation using volatile system data.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how memory images were analyzed, how processes were examined, how suspicious activity was identified, and how network artifacts were investigated.
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Move to `analyst-notes.md` to understand memory forensics concepts, Volatility methodology, process analysis techniques, and investigative reasoning used throughout the workflow.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` for detailed explanations of Volatility, Linux command-line utilities, plugin usage, and artifact interpretation.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+  
 * **Category:** Digital Forensics and Evidence Analysis
 * **Primary Operational Focus:** Memory forensics, process analysis, command-line investigation, network artifact analysis, and process extraction
 * **Operational Objectives Demonstrated:** Memory Image Identification, Profile Selection, Process Enumeration, Process Tree Analysis, Command-Line Recovery, Network Connection Analysis, Process Dumping, File Hashing
@@ -10,69 +41,21 @@
 > **Executions** refer to the hands-on analysis performed using Volatility and supporting Linux command-line utilities.
 > **Writeups** document how memory artifacts were analyzed, how evidence was interpreted, and how findings were correlated across multiple sources.
 
----
-
-### Overview
-
-This execution documents the practical analysis of Windows memory images using the Volatility memory forensics framework.
-
-The workflow focuses on several core memory analysis activities:
-
-* Memory image identification,
-* Operating system profile selection,
-* Process enumeration,
-* Process relationship analysis,
-* Command-line artifact recovery,
-* Network connection analysis,
-* Process extraction from memory,
-* File hash generation.
-
-The investigation begins by identifying the operating system profile required for Volatility to accurately interpret the memory image.
-
-The workflow then moves into process analysis, where running processes are enumerated and reviewed for suspicious activity.
-
-Process tree analysis is subsequently performed to identify unusual parent-child process relationships and execution chains.
-
-The workflow then shifts into command-line analysis to determine exactly what commands were executed by suspicious processes.
-
-Finally, network artifacts are examined to identify external communications, and a process is extracted from memory and hashed for preservation and future analysis.
-
-This execution is designed to demonstrate how multiple memory artifacts provide different perspectives into system activity. No single artifact provides a complete understanding of what occurred on the host. Instead, investigators correlate process information, command-line data, network activity, and executable artifacts to reconstruct events and identify suspicious behavior.
-
-> 👉 **Follow the execution walkthrough first**
-> Begin with `workflow-execution.md` to see how memory images were analyzed, how processes were examined, how suspicious activity was identified, and how network artifacts were investigated.
-
-> 👉 **Review analytical reasoning and conceptual notes**
-> Move to `analyst-notes.md` to understand memory forensics concepts, Volatility methodology, process analysis techniques, and investigative reasoning used throughout the workflow.
-
-> 👉 **Review tooling and command usage details**
-> See `tool-usage-notes.md` for detailed explanations of Volatility, Linux command-line utilities, plugin usage, and artifact interpretation.
-
-> 👉 **See what each execution file contains in full detail**
-> Review the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how memory analysis investigations are commonly documented.
 
-If you want to follow the investigation step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the structured walkthrough showing how memory images were identified, how the correct Volatility profile was selected, how processes were enumerated, how suspicious process relationships were identified, and how network artifacts and executable processes were analyzed.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind memory profiles, process enumeration, process trees, command-line artifacts, network artifacts, process dumping, and memory-based evidence correlation.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how each Volatility plugin and supporting Linux utility was used, why it was selected, and what evidence it helped uncover.
 
 ---
@@ -95,7 +78,9 @@ All execution outputs are separated into focused documents to reflect operationa
 
 The execution focuses on Windows memory analysis using Volatility and supporting Linux command-line utilities.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area                   | Details                                                 |
 | ---------------------- | ------------------------------------------------------- |
@@ -105,6 +90,12 @@ The execution focuses on Windows memory analysis using Volatility and supporting
 | **Execution Platform** | Linux                                                   |
 | **Primary Tools**      | Volatility Framework 2.6.1, Bash, grep, wc, md5sum      |
 | **Operational Focus**  | Memory artifact analysis and volatile evidence recovery |
+
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 #### Data Sources, Evidence, and Analysis Techniques
 
@@ -123,13 +114,17 @@ The execution focuses on Windows memory analysis using Volatility and supporting
 | **Suspicious Network Activity**      | `WINWORD.EXE` communicating with a public IP address |
 | **Recovered Executable**             | `executable.2940.exe`                                |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational memory forensic methodology involving memory image analysis and volatile artifact investigation.
+This execution is intended to demonstrate foundational memory forensic methodology involving memory image analysis and volatile artifact investigation. This process supports later forensic work involving malware investigations, incident response, memory-based threat hunting, evidence preservation, forensic reporting, and advanced memory analysis.
 
-The workflow reflects how analysts may answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 * What operating system profile should be used?
 * What processes were running at the time memory was captured?
@@ -140,17 +135,17 @@ The workflow reflects how analysts may answer questions such as:
 * Can executable processes be recovered from memory?
 * How can multiple memory artifacts be correlated to reconstruct activity?
 
-This process supports later forensic work involving malware investigations, incident response, memory-based threat hunting, evidence preservation, forensic reporting, and advanced memory analysis.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Memory images provide a snapshot of system activity at a specific moment in time.
+Memory images provide a snapshot of system activity at a specific moment in time. Unlike disk-based artifacts, memory can contain evidence that only exists while a system is running. Volatility allows investigators to extract and interpret these artifacts in a structured and repeatable manner. This workflow demonstrates how multiple memory-based artifacts can be combined to produce a more complete understanding of activity occurring on a system.
 
-Unlike disk-based artifacts, memory can contain evidence that only exists while a system is running.
-
-Examples include:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 * active processes,
 * command-line arguments,
@@ -159,8 +154,6 @@ Examples include:
 * loaded modules,
 * injected code,
 * volatile runtime artifacts.
-
-Volatility allows investigators to extract and interpret these artifacts in a structured and repeatable manner.
 
 Together, these artifacts support:
 
@@ -173,7 +166,7 @@ Together, these artifacts support:
 * forensic reporting,
 * activity reconstruction.
 
-This workflow demonstrates how multiple memory-based artifacts can be combined to produce a more complete understanding of activity occurring on a system.
+</details>
 
 ---
 
