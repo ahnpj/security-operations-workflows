@@ -1,5 +1,36 @@
 # Windows Endpoint Triage and System Inspection Using PowerShell
 
+### Overview
+
+This execution documents the practical performance of Windows endpoint triage and system validation using PowerShell to collect, analyze, and validate host telemetry. The objective is to rapidly evaluate system integrity, identify suspicious activity, and validate host behavior using advanced scripting capabilities and native Windows management utilities.
+
+The execution focuses on validating running processes, reviewing service configurations, inspecting network activity, analyzing user session data, and evaluating system artifacts that may indicate compromise, misconfiguration, or unauthorized persistence. Emphasis is placed on how PowerShell-based triage techniques support rapid alert validation, investigative scoping, and endpoint threat identification within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>  
+Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using PowerShell commands and automation techniques.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
+
+> 👉 **Review tooling and scripting implementation details**</br> 
+See `tool-usage-notes.md` to understand PowerShell command usage, scripting techniques, and host inspection methods used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+  
 - **Category:** Endpoint Triage and Host Analysis  
 - **Primary Operational Focus:** Host state validation, system artifact inspection, and endpoint triage automation using PowerShell  
 - **Operational Objectives Demonstrated:** Process Inspection, Service Validation, Network Activity Analysis, Suspicious Artifact Identification, Rapid Host Integrity Assessment  
@@ -10,35 +41,22 @@
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real datasets.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
-
-### Overview
-
-This execution documents the practical performance of Windows endpoint triage and system validation using PowerShell to collect, analyze, and validate host telemetry. The objective is to rapidly evaluate system integrity, identify suspicious activity, and validate host behavior using advanced scripting capabilities and native Windows management utilities.
-
-The execution focuses on validating running processes, reviewing service configurations, inspecting network activity, analyzing user session data, and evaluating system artifacts that may indicate compromise, misconfiguration, or unauthorized persistence. Emphasis is placed on how PowerShell-based triage techniques support rapid alert validation, investigative scoping, and endpoint threat identification within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using PowerShell commands and automation techniques.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
-
-> 👉 **Review tooling and scripting implementation details**  
-See `tool-usage-notes.md` to understand PowerShell command usage, scripting techniques, and host inspection methods used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how endpoint triage and host validation tasks are documented within SOC and incident response operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how PowerShell was used to enumerate files, processes, services, network connections, registry artifacts, and system configuration data, and how evidence was correlated across multiple endpoint telemetry sources to support triage decisions.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind PowerShell-driven endpoint investigations, object-based analysis, process and network correlation, persistence identification, registry inspection, file integrity validation, and host-based triage methodologies.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how native PowerShell cmdlets, pipelines, object filtering, sorting, property selection, hashing functions, service inspection, registry analysis, and remote execution techniques were used, why specific approaches were selected, and what evidence each technique helped uncover.
 
 ---
 
@@ -59,10 +77,13 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on automated and manual inspection of Windows host telemetry using PowerShell to support endpoint triage and investigative validation workflows.
+The execution focuses on automated and manual inspection of Windows host telemetry using PowerShell to support endpoint triage and investigative validation workflows. The execution demonstrates how PowerShell-based triage scripting supports scalable endpoint validation and improves reliability of early-stage investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
 
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Environment Type** | Windows endpoint triage and host validation environment |
@@ -71,9 +92,12 @@ The execution focuses on automated and manual inspection of Windows host telemet
 | **Primary Platforms / Services** | Windows operating system inspection tools and PowerShell-based host telemetry collection utilities |
 | **Operational Focus** | Validate Windows host integrity and identify indicators of compromise using automated and manual PowerShell triage techniques |
 
+</details>
 
-#### Data Sources, Evidence, and Analysis Techniques
-
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Primary Telemetry Sources** | Windows process metadata, service configuration data, network connection telemetry, user session records, system artifact metadata, and command execution context |
@@ -86,7 +110,7 @@ The execution focuses on automated and manual inspection of Windows host telemet
 | **Threat Detection Heuristics** | Behavioral evaluation of process execution, service activity, network communication, and persistence artifacts to identify indicators consistent with compromise or policy violations |
 | **Operational Workflow Context** | Demonstrates rapid Windows endpoint triage procedures used by SOC analysts to validate alerts and determine whether escalation to full incident response is required |
 
-The execution demonstrates how PowerShell-based triage scripting supports scalable endpoint validation and improves reliability of early-stage investigative workflows.
+</details>
 
 ---
 
@@ -98,7 +122,11 @@ The documented execution demonstrates Windows endpoint triage, host telemetry va
 
 ### Relevance to Security Operations
 
-Endpoint triage remains a critical component of incident response and alert validation.
+Endpoint triage remains a critical component of incident response and alert validation. PowerShell provides enhanced visibility and automation capabilities compared to traditional command-line utilities, allowing analysts to efficiently collect structured telemetry and perform deeper investigative validation.
+
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 The execution demonstrates how PowerShell automation enables analysts to:
 
@@ -107,7 +135,7 @@ The execution demonstrates how PowerShell automation enables analysts to:
 - Support rapid incident scoping and investigative prioritization  
 - Improve repeatability and efficiency of endpoint validation workflows  
 
-PowerShell provides enhanced visibility and automation capabilities compared to traditional command-line utilities, allowing analysts to efficiently collect structured telemetry and perform deeper investigative validation.
+</details>
 
 ---
 
