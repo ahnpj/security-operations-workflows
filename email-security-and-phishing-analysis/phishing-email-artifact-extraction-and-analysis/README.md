@@ -1,5 +1,35 @@
 # Manual Phishing Email Artifact Extraction and Analysis
 
+### Overview
+
+This execution documents the practical performance of manual phishing email analysis using Outlook, raw email message inspection, and supporting enrichment tools to extract and validate suspicious email artifacts. The objective is to review suspicious messages, identify indicators of phishing, manually extract key email, web, and file artifacts, and determine whether the message represents malicious or deceptive activity.
+
+The execution focuses on manually reviewing visible email fields, inspecting raw message content through `.eml` or `.msg` files in a text editor, identifying sender infrastructure details, extracting embedded URLs and root domains, and validating suspicious artifacts with supporting tools such as WHOIS, VirusTotal, and PhishTool. Emphasis is placed on understanding what each field means, why each artifact matters, and how a SOC analyst can move from a suspicious email to a defensible phishing determination.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>  
+Begin with `workflow-execution.md` inside this folder to see how suspicious email artifacts were identified, extracted, and validated step by step using Outlook, text-based header review, and enrichment tools.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why specific fields were reviewed, how suspicious indicators were prioritized, and how findings influence phishing triage and escalation decisions.
+
+> 👉 **Review tooling and artifact extraction reference details**</br>  
+See `tool-usage-notes.md` to understand how Outlook, Sublime Text, PhishTool, WHOIS, PowerShell, and VirusTotal were used during execution and why each tool matters during phishing investigations.
+
+> 👉 **See what each execution file contains in full detail**</br>  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Email Security and Phishing Analysis  
 - **Primary Operational Focus:** Manual extraction and validation of email, web, and file artifacts from suspicious phishing emails  
 - **Operational Objectives Demonstrated:** Email Header Review, Artifact Extraction, Sender Infrastructure Validation, URL and Domain Analysis, Attachment Hashing, Reputation Checking  
@@ -10,35 +40,22 @@
 > **Executions** refer to the hands-on performance of those tasks using real email artifacts, analysis tools, and supporting investigation utilities.  
 > **Writeups** document how the task was performed and how outputs were validated, interpreted, and documented.
 
----
-
-### Overview
-
-This execution documents the practical performance of manual phishing email analysis using Outlook, raw email message inspection, and supporting enrichment tools to extract and validate suspicious email artifacts. The objective is to review suspicious messages, identify indicators of phishing, manually extract key email, web, and file artifacts, and determine whether the message represents malicious or deceptive activity.
-
-The execution focuses on manually reviewing visible email fields, inspecting raw message content through `.eml` or `.msg` files in a text editor, identifying sender infrastructure details, extracting embedded URLs and root domains, and validating suspicious artifacts with supporting tools such as WHOIS, VirusTotal, and PhishTool. Emphasis is placed on understanding what each field means, why each artifact matters, and how a SOC analyst can move from a suspicious email to a defensible phishing determination.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how suspicious email artifacts were identified, extracted, and validated step by step using Outlook, text-based header review, and enrichment tools.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific fields were reviewed, how suspicious indicators were prioritized, and how findings influence phishing triage and escalation decisions.
-
-> 👉 **Review tooling and artifact extraction reference details**  
-See `tool-usage-notes.md` to understand how Outlook, Sublime Text, PhishTool, WHOIS, PowerShell, and VirusTotal were used during execution and why each tool matters during phishing investigations.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how phishing email investigations and artifact extraction tasks are documented within SOC and email security operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how a suspicious phishing email was reviewed, how sender-related artifacts were extracted, how embedded URLs and domains were analyzed, how infrastructure was validated, and how attachments were assessed through hashing and reputation checks.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind phishing email analysis, sender validation, reply behavior, sending infrastructure, URL investigation, domain enrichment, attachment validation, and evidence-driven phishing assessment.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how Outlook, Sublime Text, PhishTool, WHOIS, PowerShell, and VirusTotal were used, why specific enrichment and validation techniques were selected, and what evidence each tool helped uncover during phishing email investigations.
 
 ---
 
@@ -61,9 +78,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on inspection and validation of suspicious email artifacts to support phishing triage and investigative workflows.
+The execution focuses on inspection and validation of suspicious email artifacts to support phishing triage and investigative workflows. The execution demonstrates how manual artifact extraction supports scalable phishing validation and improves reliability of investigative email triage workflows.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -73,8 +92,12 @@ The execution focuses on inspection and validation of suspicious email artifacts
 | **Primary Platforms / Services** | Outlook, Sublime Text, PhishTool, WHOIS lookups, VirusTotal, and PowerShell |
 | **Operational Focus** | Analyze suspicious email communications, extract artifacts, validate sender infrastructure, and identify phishing indicators |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
 
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Primary Telemetry Sources** | Suspicious email messages, visible email metadata, raw message headers, embedded URLs, and attached files |
@@ -86,7 +109,7 @@ The execution focuses on inspection and validation of suspicious email artifacts
 | **Threat Detection Heuristics** | Brand mismatch, sender-domain inconsistency, suspicious reply paths, third-party sending service abuse, URL mismatch, and malicious attachment indicators |
 | **Operational Workflow Context** | Demonstrates phishing triage procedures used by SOC analysts and email security teams to investigate suspicious emails, validate deceptive infrastructure, and scope possible compromise |
 
-The execution demonstrates how manual artifact extraction supports scalable phishing validation and improves reliability of investigative email triage workflows.
+</details>
 
 ---
 
@@ -98,16 +121,20 @@ The documented execution demonstrates manual phishing email triage, artifact ext
 
 ### Relevance to Security Operations
 
-Manual phishing analysis remains a critical capability for email threat investigation and alert validation.
+Manual phishing analysis remains a critical capability for email threat investigation and alert validation. Even environments with secure email gateways and automated phishing controls still rely on manual email review to validate borderline cases, analyze targeted messages, and understand how deceptive messages bypass automated defenses.
+
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 The execution demonstrates how phishing artifact extraction enables analysts to:
 
 - Validate whether a suspicious email is impersonating a legitimate brand or service  
 - Identify sender infrastructure and distinguish claimed identity from actual sending systems  
 - Extract malicious URLs, suspicious domains, and file-based indicators for further investigation  
-- Support investigative scoping, user notification, and containment decision-making  
+- Support investigative scoping, user notification, and containment decision-making
 
-Even environments with secure email gateways and automated phishing controls still rely on manual email review to validate borderline cases, analyze targeted messages, and understand how deceptive messages bypass automated defenses.
+</details>
 
 ---
 
