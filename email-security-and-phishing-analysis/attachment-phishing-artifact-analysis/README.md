@@ -12,16 +12,16 @@ Unlike phishing workflows that begin with visible email message content and raw 
 <summary><strong>▶ Recommended Reading Order</strong><br>
 </summary><br>
 
-> 👉 **Follow the execution walkthrough first**</br>  
+> 👉 **Follow the execution walkthrough first**</br>
 Begin with `workflow-execution.md` inside this folder to see how the phishing attachment was identified, reviewed, decoded, and validated step by step using PowerShell, CyberChef, and browser inspection tools.
 
-> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+> 👉 **Review analytical reasoning and investigative decision-making**</br>
 Move to `analyst-notes.md` to understand why file metadata, rendered page behavior, decoded source code, and network requests were reviewed in that order and how those findings support phishing determination.
 
-> 👉 **Review tooling and implementation details**</br>  
+> 👉 **Review tooling and implementation details**</br>
 See `tool-usage-notes.md` to understand how PowerShell, CyberChef, Chrome Developer Tools, Windows file properties, and browser source inspection contributed to the workflow and why each tool matters during attachment-based phishing analysis.
 
-> 👉 **See what each execution file contains in full detail**</br>  
+> 👉 **See what each execution file contains in full detail**</br>
 For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 </details>
