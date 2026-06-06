@@ -1,5 +1,35 @@
 # Metadata Analysis and File Carving Using ExifTool and Scalpel
 
+### Overview
+
+This execution documents the practical use of ExifTool and Scalpel to perform metadata analysis and deleted file recovery from forensic evidence files. The workflow focused on two primary forensic techniques: extracting embedded metadata from files and recovering deleted content through file carving. Metadata analysis was performed against `dummy.pdf` and `picture.jpg` using ExifTool, while Scalpel was used to recover a deleted image from the `carve1.img` disk image. Following recovery, the carved file was validated through MD5 hash generation to help verify its integrity.
+
+The workflow demonstrates that valuable forensic evidence is not limited to files that are visible through normal operating system interfaces. Investigators frequently encounter useful information embedded within file metadata, deleted file remnants, unallocated storage space, and artifacts recovered directly from raw disk data. Together, these techniques reinforce foundational concepts in metadata analysis, file carving, deleted file recovery, evidence validation, artifact recovery, and forensic examination of storage media.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how metadata was extracted, how Scalpel was configured, how the deleted image was carved, and how the recovered file was hashed.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand why metadata matters, how file carving works, why deleted files may still be recoverable, and how this workflow connects to the previous file system identification workflow.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` to understand how ExifTool, Scalpel, nano, grep, and md5sum were used during execution.
+
+> 👉 **See what each execution file contains in full detail**  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis  
 - **Primary Operational Focus:** Metadata analysis, file carving, deleted file recovery, and forensic artifact validation  
 - **Operational Objectives Demonstrated:** Metadata Extraction, EXIF Analysis, PDF Metadata Review, File Carving, Deleted Image Recovery, Hash Validation, Terminal-Based Forensic Workflow Execution  
@@ -10,64 +40,21 @@
 > **Executions** refer to the hands-on analysis performed using ExifTool, Scalpel, md5sum, and Linux terminal commands.  
 > **Writeups** document how forensic workflows were performed, how tool outputs were interpreted, and how evidence findings were validated.
 
----
-
-### Overview
-
-This execution documents the practical use of ExifTool and Scalpel to perform metadata analysis and deleted file recovery from provided forensic evidence files.
-
-The workflow includes two primary forensic techniques:
-
-- metadata extraction from files,
-- file carving from a disk image.
-
-The metadata analysis portion focuses on using ExifTool to extract embedded metadata from:
-
-- `dummy.pdf`
-- `picture.jpg`
-
-The file carving portion focuses on using Scalpel to recover a deleted image from:
-
-- `carve1.img`
-
-After the deleted image is carved, the recovered file is validated by generating its MD5 hash using `md5sum`.
-
-This execution is designed to demonstrate that forensic evidence is not limited to files visible through normal browsing. Useful evidence may exist inside file metadata, deleted file remnants, unallocated storage regions, or recovered artifacts carved from raw disk data.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how metadata was extracted, how Scalpel was configured, how the deleted image was carved, and how the recovered file was hashed.
-
-> 👉 **Review analytical reasoning and conceptual notes**  
-Move to `analyst-notes.md` to understand why metadata matters, how file carving works, why deleted files may still be recoverable, and how this workflow connects to the previous file system identification workflow.
-
-> 👉 **Review tooling and command usage details**  
-See `tool-usage-notes.md` to understand how ExifTool, Scalpel, nano, grep, and md5sum were used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic workflows are commonly documented.
 
-If you want to follow the execution step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the hands-on walkthrough showing how ExifTool was used to extract metadata, how Scalpel was configured to carve files, and how the recovered image was hashed.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind metadata, EXIF data, file carving, deleted file recovery, file signatures, and hash validation.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how each tool was used and why specific commands were run.
 
 ---
@@ -90,7 +77,9 @@ All execution outputs are separated into focused documents to reflect operationa
 
 The execution focuses on terminal-based forensic analysis using metadata extraction and file carving tools.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -101,7 +90,11 @@ The execution focuses on terminal-based forensic analysis using metadata extract
 | **Primary Tools** | ExifTool, Scalpel, nano, grep, md5sum |
 | **Operational Focus** | Extract metadata from files and recover a deleted image from a disk image using file carving techniques |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -114,13 +107,17 @@ The execution focuses on terminal-based forensic analysis using metadata extract
 | **Carving Technique** | Scalpel file signature carving |
 | **Validation Technique** | MD5 hashing using `md5sum` |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational digital forensic methodology involving metadata analysis and file carving.
+This execution is intended to demonstrate foundational digital forensic methodology involving metadata analysis and file carving. This process supports later forensic work involving document analysis, image attribution, deleted file recovery, evidence validation, and artifact handling.
 
-The workflow reflects how analysts may answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - What metadata is embedded in this document?
 - Who authored this file?
@@ -129,19 +126,18 @@ The workflow reflects how analysts may answer questions such as:
 - What is the hash of the recovered artifact?
 - How does file carving differ from normal file browsing or file system-based recovery?
 
-This process supports later forensic work involving document analysis, image attribution, deleted file recovery, evidence validation, and artifact handling.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Metadata analysis and file carving are relevant to digital forensics because they expose evidence that may not be visible through normal file browsing.
+Metadata analysis and file carving are relevant to digital forensics because they expose evidence that may not be visible through normal file browsing. Metadata analysis can help identify hidden contextual information inside files, such as author names, device models, timestamps, and software details. File carving can recover deleted files or file fragments from raw storage when the file system no longer presents the file as active. This workflow demonstrates that digital evidence may exist in visible content, embedded metadata, file system structures, and raw storage remnants.
 
-Metadata analysis can help identify hidden contextual information inside files, such as author names, device models, timestamps, and software details.
 
-File carving can recover deleted files or file fragments from raw storage when the file system no longer presents the file as active.
-
-Together, these methods support:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - evidence triage,
 - document attribution,
@@ -151,7 +147,7 @@ Together, these methods support:
 - incident response evidence review,
 - forensic reporting.
 
-This workflow demonstrates that digital evidence may exist in visible content, embedded metadata, file system structures, and raw storage remnants.
+</details>
 
 ---
 
