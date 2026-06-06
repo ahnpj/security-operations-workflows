@@ -48,9 +48,14 @@ For a complete breakdown of every standard file in this folder, explaining the c
 
 Documentation is separated into focused components to reflect how attachment-based phishing investigations are documented within SOC, email security, and incident response environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — If you want to follow the investigation step by step</br>
+This file contains the structured walkthrough showing how a suspicious HTML attachment was analyzed, how file metadata and hashes were collected, how the rendered phishing page was reviewed, how encoded source code was decoded, and how browser network activity was validated to confirm credential harvesting behavior.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — If you want to understand the reasoning behind the process</br>
+This file explains the major learning points behind phishing attachment analysis, HTML-based credential harvesting, file metadata validation, source-code inspection, decoding techniques, brand impersonation, victim targeting, and credential theft verification.
+
+**`tool-usage-notes.md`** — If you want to understand tool usage</br>
+This file explains how PowerShell, CyberChef, browser source inspection, and Chrome Developer Tools were used, why specific analysis techniques were selected, and what evidence each tool helped uncover during phishing attachment validation.
 
 ---
 
@@ -72,9 +77,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on validating a suspicious attachment that acts as a credential harvesting webpage rather than a traditional document or executable.
+The execution focuses on validating a suspicious attachment that acts as a credential harvesting webpage rather than a traditional document or executable. The execution demonstrates how manual attachment analysis supports phishing validation and improves confidence when determining whether an artifact is merely suspicious or actively malicious.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -84,7 +91,11 @@ The execution focuses on validating a suspicious attachment that acts as a crede
 | **Primary Platforms / Services** | Windows file properties, PowerShell, CyberChef, Chrome browser, Chrome Developer Tools |
 | **Operational Focus** | Analyze suspicious attachment behavior, validate impersonation, decode hidden content, and confirm how credentials are transmitted |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -97,7 +108,7 @@ The execution focuses on validating a suspicious attachment that acts as a crede
 | **Threat Detection Heuristics** | HTML attachment delivery, Microsoft brand impersonation, targeted victim prepopulation, encoded page content, suspicious credential submission path, and external attacker-controlled endpoint communication |
 | **Operational Workflow Context** | Demonstrates how analysts validate phishing attachments that function as web-based credential theft mechanisms rather than relying only on email metadata or reputation tools |
 
-The execution demonstrates how manual attachment analysis supports phishing validation and improves confidence when determining whether an artifact is merely suspicious or actively malicious.
+</details>
 
 ---
 
@@ -109,8 +120,12 @@ The documented execution demonstrates attachment-based phishing analysis, creden
 
 ### Relevance to Security Operations
 
-Attachment-based phishing remains a relevant credential theft technique, especially when attackers want to bypass user suspicion around direct links by embedding the phishing experience inside a local HTML file.
+Attachment-based phishing remains a relevant credential theft technique, especially when attackers want to bypass user suspicion around direct links by embedding the phishing experience inside a local HTML file. Even when an attachment appears simple, the rendered page, underlying source code, and outbound network behavior together may reveal a complete credential harvesting workflow.
 
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
+  
 The execution demonstrates how attachment analysis enables analysts to:
 
 - Validate whether a suspicious file is actually a rendered phishing interface rather than a normal document  
@@ -119,7 +134,7 @@ The execution demonstrates how attachment analysis enables analysts to:
 - Decode embedded or obfuscated content to understand how the page is structured  
 - Confirm whether entered credentials are transmitted to attacker infrastructure and how that transmission occurs  
 
-Even when an attachment appears simple, the rendered page, underlying source code, and outbound network behavior together may reveal a complete credential harvesting workflow.
+</details>
 
 ---
 
