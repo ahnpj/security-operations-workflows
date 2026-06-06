@@ -1,5 +1,35 @@
 # Windows Artifact Analysis Using WFA, PECmd, and JumpList Explorer
 
+### Overview
+
+This execution documents the practical analysis of several common Windows forensic artifacts used to reconstruct activity on a Windows system. The workflow focused on examining Windows Shortcut (`.LNK`) files, Windows Prefetch (`.pf`) files, and Windows Jump List artifacts to identify evidence related to file access, application execution, and user activity. Throughout the investigation, shortcut artifacts were analyzed to determine the origin of a suspicious file, Prefetch artifacts were reviewed to identify applications that interacted with the file and provide execution evidence, and Jump List artifacts were examined to uncover browser-related activity and identify websites accessed by the user.
+
+The workflow demonstrates how multiple Windows artifacts provide complementary perspectives during an investigation. Shortcut files help identify file locations and access patterns, Prefetch artifacts reveal application execution activity, and Jump Lists provide insight into recently accessed files and user interactions. Rather than relying on a single artifact source, investigators correlate findings across multiple evidence types to reconstruct events and develop a more complete understanding of user and application behavior. Together, these techniques reinforce foundational concepts in Windows artifact analysis, execution evidence identification, user activity reconstruction, artifact correlation, timeline development, and forensic investigations.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how shortcut files, Prefetch artifacts, and Jump Lists were analyzed throughout the investigation.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand why these artifacts exist, what they reveal, how they differ from one another, and how they can be correlated during an investigation.
+
+> 👉 **Review tooling and command usage details**</br>
+> See `tool-usage-notes.md` for detailed explanations of WFA, PECmd, JumpList Explorer, Windows artifact types, and command usage.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis
 - **Primary Operational Focus:** Windows artifact analysis, activity reconstruction, execution evidence identification, and user activity analysis
 - **Operational Objectives Demonstrated:** Shortcut Analysis, Prefetch Analysis, Execution Artifact Review, PowerShell Script Investigation, Jump List Analysis, Browser Activity Identification, Multi-Artifact Correlation
@@ -10,60 +40,21 @@
 > **Executions** refer to the hands-on analysis performed using Windows File Analyzer (WFA), PECmd, JumpList Explorer, and Windows command-line tools.
 > **Writeups** document how artifacts were analyzed, how evidence was interpreted, and how findings were correlated across multiple artifact sources.
 
----
-
-### Overview
-
-This execution documents the practical analysis of several common Windows forensic artifacts to reconstruct activity that occurred on a Windows system.
-
-The workflow focuses on three primary artifact sources:
-
-- Windows Shortcut (`.LNK`) files,
-- Windows Prefetch (`.pf`) files,
-- Windows Jump List artifacts.
-
-The investigation begins with shortcut analysis to identify a suspicious file and determine its origin.
-
-The workflow then moves into Prefetch analysis to identify applications that interacted with the suspicious file and to locate execution-related evidence.
-
-Finally, Jump List analysis is performed to identify browser-related user activity and determine which website was accessed and which browser was used.
-
-This execution is designed to demonstrate how different Windows artifacts answer different investigative questions. No single artifact provides a complete picture of activity. Instead, investigators correlate findings across multiple sources to reconstruct events and develop a more complete understanding of user and application behavior.
-
-> 👉 **Follow the execution walkthrough first**
-> Begin with `workflow-execution.md` to see how shortcut files, Prefetch artifacts, and Jump Lists were analyzed throughout the investigation.
-
-> 👉 **Review analytical reasoning and conceptual notes**
-> Move to `analyst-notes.md` to understand why these artifacts exist, what they reveal, how they differ from one another, and how they can be correlated during an investigation.
-
-> 👉 **Review tooling and command usage details**
-> See `tool-usage-notes.md` for detailed explanations of WFA, PECmd, JumpList Explorer, Windows artifact types, and command usage.
-
-> 👉 **See what each execution file contains in full detail**
-> Review the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
-If you want to follow the investigation step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the structured walkthrough showing how shortcut artifacts were analyzed, how Prefetch files were examined, how application associations were identified, and how browser activity was recovered through Jump List analysis.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind Windows shortcuts, Prefetch files, Jump Lists, execution artifacts, user activity reconstruction, and artifact correlation.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how each tool was used, why it was selected, and what evidence it helped uncover.
 
 ---
@@ -71,6 +62,10 @@ This file explains how each tool was used, why it was selected, and what evidenc
 ### Repository Structure & Supporting Documents
 
 All execution outputs are separated into focused documents to reflect operational digital forensic documentation practices.
+
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | File / Folder | Purpose | Contents and Focus |
 |-------------|--------|--------------------|
@@ -80,14 +75,18 @@ All execution outputs are separated into focused documents to reflect operationa
 | `analyst-notes.md` | Analyst observations, conceptual explanations, and learning notes. | Documents artifact behavior, investigative reasoning, execution concepts, and evidence interpretation. |
 | `tool-usage-notes.md` | Technical reference for tools and artifacts used throughout the workflow. | Covers WFA, PECmd, JumpList Explorer, Windows artifacts, command syntax, operational relevance, and common mistakes. |
 
+</details>
+
 ---
 
 ### Environment, Data Sources, and Tools
 
 The execution focuses on Windows artifact analysis using forensic utilities designed to examine operating system artifacts and execution traces.
 
-#### Environment and Execution Scope (At a Glance)
-
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Environment Type** | Windows forensic training environment |
@@ -97,6 +96,12 @@ The execution focuses on Windows artifact analysis using forensic utilities desi
 | **Primary Tools** | Windows File Analyzer (WFA), PECmd, JumpList Explorer, Command Prompt |
 | **Operational Focus** | Identify suspicious files, execution-related activity, and browser-based user activity |
 
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -113,13 +118,17 @@ The execution focuses on Windows artifact analysis using forensic utilities desi
 | **Browser Identified** | Microsoft Edge |
 | **Domain Identified** | `discordapp.com` |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational Windows forensic methodology involving artifact analysis and activity reconstruction.
+This execution is intended to demonstrate foundational Windows forensic methodology involving artifact analysis and activity reconstruction. This process supports later forensic work involving malware investigations, user activity reconstruction, incident response, execution analysis, evidence triage, and forensic reporting.
 
-The workflow reflects how analysts may answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - What suspicious files existed on the system?
 - Where did those files originate?
@@ -129,21 +138,17 @@ The workflow reflects how analysts may answer questions such as:
 - Which website was accessed?
 - How can multiple artifact sources be correlated to reconstruct activity?
 
-This process supports later forensic work involving malware investigations, user activity reconstruction, incident response, execution analysis, evidence triage, and forensic reporting.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Windows systems continuously generate artifacts that record evidence of user and application activity.
+Windows systems continuously generate artifacts that record evidence of user and application activity. Shortcut files can reveal information about files that existed on the system and where those files originated. Prefetch files can reveal execution-related evidence, application usage, referenced files, and historical execution activity. Jump Lists can reveal resources accessed through specific applications, including files, folders, documents, and websites. This workflow demonstrates how multiple Windows artifact sources can be combined to produce a more complete understanding of activity occurring on a system.
 
-Shortcut files can reveal information about files that existed on the system and where those files originated.
-
-Prefetch files can reveal execution-related evidence, application usage, referenced files, and historical execution activity.
-
-Jump Lists can reveal resources accessed through specific applications, including files, folders, documents, and websites.
-
-Together, these artifacts support:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - evidence triage,
 - user activity reconstruction,
@@ -154,7 +159,7 @@ Together, these artifacts support:
 - artifact correlation,
 - timeline development.
 
-This workflow demonstrates how multiple Windows artifact sources can be combined to produce a more complete understanding of activity occurring on a system.
+</details>
 
 ---
 
