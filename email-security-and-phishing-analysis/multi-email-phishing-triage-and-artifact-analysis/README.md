@@ -1,5 +1,35 @@
 # Multi-Email Phishing Triage and Artifact Analysis Using Thunderbird, Sublime Text, WHOIS, and Email Header Review
 
+### Overview
+
+This execution documents the practical performance of triaging five suspicious emails to determine which messages are malicious, which messages are spam or scam-themed, and which messages do not meet the threshold for malicious phishing classification. The objective is to move beyond simply flagging anything unusual and instead apply analyst judgment to determine which emails contain malicious intent, actionable indicators, and escalation-worthy artifacts.
+
+The workflow begins with visible email review to understand each message’s theme, sender presentation, formatting, call-to-action, and user-facing intent. It then moves into raw message inspection using a text editor to extract sender addresses, subject lines, recipients, dates, reply-to behavior, sending server IPs, reverse DNS context, embedded URLs, and attachment-related artifacts. This project is intentionally useful because it requires comparative judgment across multiple emails. Email One and Email Three were identified as malicious, while Email Two, Email Four, and Email Five were treated as spam, scam, newsletter, or suspicious-but-not-malicious content based on the evidence available during triage.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+Begin with `workflow-execution.md` inside this folder to see how the five emails were reviewed, classified, and investigated step by step using visible message review, raw header inspection, URL extraction, WHOIS/reverse DNS context, and attachment artifact validation.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why only two emails were classified as malicious, how spam/scam messages were separated from phishing, and why specific artifacts were prioritized during the investigation.
+
+> 👉 **Review tooling and implementation details**</br>  
+See `tool-usage-notes.md` to understand how Thunderbird, Sublime Text, WHOIS/DomainTools-style lookup, raw header search, and safe attachment review contributed to the workflow.
+
+> 👉 **See what each execution file contains in full detail**</br> 
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Email Security Analysis and Phishing Triage  
 - **Primary Operational Focus:** Manual triage of multiple suspicious emails to distinguish malicious phishing from spam, scams, newsletters, and non-malicious suspicious content  
 - **Operational Objectives Demonstrated:** Multi-Email Triage, Malicious Email Identification, Spam vs Phishing Differentiation, Raw Header Review, Sender Artifact Extraction, URL Extraction, Attachment Artifact Review, Double-Extension Detection  
@@ -10,37 +40,25 @@
 > **Executions** refer to the hands-on performance of those tasks using real email messages, analyst tooling, and supporting investigative utilities.  
 > **Writeups** document how the task was performed and how outputs were validated, interpreted, and documented.
 
----
-
-### Overview
-
-This execution documents the practical performance of triaging five suspicious emails to determine which messages are malicious, which messages are spam or scam-themed, and which messages do not meet the threshold for malicious phishing classification. The objective is to move beyond simply flagging anything unusual and instead apply analyst judgment to determine which emails contain malicious intent, actionable indicators, and escalation-worthy artifacts.
-
-The workflow begins with visible email review to understand each message’s theme, sender presentation, formatting, call-to-action, and user-facing intent. It then moves into raw message inspection using a text editor to extract sender addresses, subject lines, recipients, dates, reply-to behavior, sending server IPs, reverse DNS context, embedded URLs, and attachment-related artifacts.
-
-This lab is intentionally useful because it requires comparative judgment across multiple emails. Email One and Email Three were identified as malicious, while Email Two, Email Four, and Email Five were treated as spam, scam, newsletter, or suspicious-but-not-malicious content based on the evidence available during triage.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how the five emails were reviewed, classified, and investigated step by step using visible message review, raw header inspection, URL extraction, WHOIS/reverse DNS context, and attachment artifact validation.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why only two emails were classified as malicious, how spam/scam messages were separated from phishing, and why specific artifacts were prioritized during the investigation.
-
-> 👉 **Review tooling and implementation details**  
-See `tool-usage-notes.md` to understand how Thunderbird, Sublime Text, WHOIS/DomainTools-style lookup, raw header search, and safe attachment review contributed to the workflow.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how multi-email phishing triage and email artifact extraction are documented within SOC, email security, and incident response environments.
 
 If you want to follow the execution step by step, start with:
 
-**`workflow-execution.md`**
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how multiple suspicious emails were reviewed, how malicious messages were distinguished from spam, scam, and newsletter content, how sender and infrastructure artifacts were extracted, and how URLs and attachment evidence were analyzed to support final classifications.
+
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind phishing triage, email classification, sender validation, header analysis, social engineering indicators, URL assessment, malicious attachment identification, and evidence-based email investigations.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how email clients, raw message inspection, text-based searching, infrastructure lookups, and attachment analysis techniques were used, why specific review methods were selected, and what evidence each approach helped uncover during phishing triage.
+
 
 ---
 
@@ -61,9 +79,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on validating five suspicious emails and extracting artifacts from the two messages determined to be malicious.
+The execution focuses on validating five suspicious emails and extracting artifacts from the two messages determined to be malicious. The execution demonstrates how manual triage supports phishing validation and helps analysts avoid treating every suspicious email as malicious without evidence.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -73,7 +93,11 @@ The execution focuses on validating five suspicious emails and extracting artifa
 | **Primary Platforms / Services** | Thunderbird or comparable email client, Sublime Text, WHOIS/DomainTools-style lookup, local attachment review, and file/hash evidence supplied by the lab |
 | **Operational Focus** | Identify malicious emails, distinguish phishing from spam/scam content, extract IOCs, and document sender, URL, and attachment artifacts |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -85,7 +109,7 @@ The execution focuses on validating five suspicious emails and extracting artifa
 | **Threat Detection Heuristics** | Brand impersonation, suspicious sender mismatch, generic greetings, urgency, credential-harvesting style links, executable disguised as PDF, email gateway attachment replacement, and mismatched infrastructure |
 | **Operational Workflow Context** | Demonstrates how analysts triage multiple emails without over-flagging spam, while extracting actionable artifacts from confirmed phishing messages |
 
-The execution demonstrates how manual triage supports phishing validation and helps analysts avoid treating every suspicious email as malicious without evidence.
+</details>
 
 ---
 
@@ -97,8 +121,12 @@ The documented execution demonstrates multi-email phishing triage, malicious ema
 
 ### Relevance to Security Operations
 
-Security teams regularly receive suspicious emails that range from clearly malicious phishing to low-quality spam, scam attempts, newsletters, marketing content, and suspicious-but-non-malicious messages. This execution is useful because it demonstrates that phishing analysis is not only about finding bad indicators; it is also about making defensible classification decisions.
+Security teams regularly receive suspicious emails that range from clearly malicious phishing to low-quality spam, scam attempts, newsletters, marketing content, and suspicious-but-non-malicious messages. This execution is useful because it demonstrates that phishing analysis is not only about finding bad indicators; it is also about making defensible classification decisions. Even when several emails appear suspicious, only some may represent malicious phishing requiring immediate containment. That distinction is central to practical SOC triage.
 
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
+  
 The execution demonstrates how multi-email triage enables analysts to:
 
 - Identify truly malicious messages without over-escalating every spam or scam email  
@@ -108,7 +136,7 @@ The execution demonstrates how multi-email triage enables analysts to:
 - Recognize attachment replacement behavior from an email gateway  
 - Document why specific messages should be treated as phishing and others should not  
 
-Even when several emails appear suspicious, only some may represent malicious phishing requiring immediate containment. That distinction is central to practical SOC triage.
+</details>
 
 ---
 
