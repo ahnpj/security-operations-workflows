@@ -6,6 +6,8 @@ This execution documents the practical analysis of a Windows memory image using 
 
 The workflow demonstrates how different memory artifacts contribute unique perspectives during an investigation. Process listings reveal what was running on the system, operating system metadata provides environmental context, process trees establish execution lineage, privilege artifacts expose security-relevant capabilities, and command-line arguments help reconstruct process behavior. Rather than relying on a single artifact source, investigators correlate information across multiple memory structures to develop a more complete understanding of host activity. Together, these techniques reinforce foundational concepts in memory forensics, process analysis, artifact correlation, host-based investigations, and evidence interpretation using volatile data.
 
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
 <details>
 <summary><strong>▶ Recommended Reading Order</strong><br>
 </summary><br>
