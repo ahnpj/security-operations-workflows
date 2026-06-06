@@ -1,5 +1,33 @@
 # Log Parsing and Threat Detection Automation Using Python
 
+### Overview
+
+This execution documents the practical performance of automated log parsing and normalization using Python to transform raw authentication telemetry into structured, detection-ready datasets. The objective is to convert inconsistent or unstructured authentication events into standardized records that support detection engineering, threat monitoring, and investigative analysis. The execution focuses on validating parsing accuracy, extracting authentication activity indicators, and preparing enriched telemetry that can be consumed by SIEM detections, monitoring queries, and investigative pivoting workflows. Emphasis is placed on how parsing decisions affect detection reliability, telemetry consistency, and investigative efficiency in operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+Begin with `workflow-execution.md` inside this folder to see how raw log data was parsed, normalized, and validated step by step using Python scripting and regex extraction logic.
+
+> 👉 **Review analytical reasoning and design decisions**</br> 
+Move to `analyst-notes.md` to understand why specific parsing approaches were selected, how extracted telemetry supports detection use cases, and how data quality influences monitoring reliability.
+
+> 👉 **Review tooling and implementation reference details**</br>
+See `tool-usage-notes.md` to understand Python libraries, regex construction strategies, and parsing implementation techniques used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Detection Automation and Log Processing  
 - **Primary Operational Focus:** Log parsing, field extraction, and detection dataset preparation  
 - **Operational Objectives Demonstrated:** Telemetry Normalization, Detection Preparation, Data Quality Validation, Threat Pattern Identification  
@@ -10,35 +38,16 @@
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real datasets.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
-
-### Overview
-
-This execution documents the practical performance of automated log parsing and normalization using Python to transform raw authentication telemetry into structured, detection-ready datasets. The objective is to convert inconsistent or unstructured authentication events into standardized records that support detection engineering, threat monitoring, and investigative analysis.
-
-The execution focuses on validating parsing accuracy, extracting authentication activity indicators, and preparing enriched telemetry that can be consumed by SIEM detections, monitoring queries, and investigative pivoting workflows. Emphasis is placed on how parsing decisions affect detection reliability, telemetry consistency, and investigative efficiency in operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how raw log data was parsed, normalized, and validated step by step using Python scripting and regex extraction logic.
-
-> 👉 **Review analytical reasoning and design decisions**  
-Move to `analyst-notes.md` to understand why specific parsing approaches were selected, how extracted telemetry supports detection use cases, and how data quality influences monitoring reliability.
-
-> 👉 **Review tooling and implementation reference details**  
-See `tool-usage-notes.md` to understand Python libraries, regex construction strategies, and parsing implementation techniques used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how telemetry automation and detection preparation activities are documented within detection engineering and SOC operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 
-**`workflow-execution.md`**
 
 ---
 
