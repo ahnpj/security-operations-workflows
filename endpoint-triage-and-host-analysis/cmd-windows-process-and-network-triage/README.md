@@ -1,5 +1,35 @@
 # Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell
 
+### Overview
+
+This execution documents the practical performance of Windows endpoint triage using native Command Prompt utilities to collect and analyze host telemetry. The objective is to rapidly assess system integrity, validate running processes, and identify suspicious network communication using built-in Windows command-line tools commonly available in restricted or limited-access environments.
+
+The execution focuses on validating active processes, reviewing service execution states, inspecting network connections, and analyzing host artifacts that may indicate compromise, misconfiguration, or unauthorized activity. Emphasis is placed on how native command-line utilities support rapid alert validation, investigative scoping, and endpoint threat identification within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>  
+Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using Windows command-line utilities.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why specific triage commands were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
+
+> 👉 **Review tooling and command reference details**</br>  
+See `tool-usage-notes.md` to understand Command Prompt utilities, command syntax, and output interpretation techniques used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Endpoint Triage and Host Analysis  
 - **Primary Operational Focus:** Host process validation, network connection inspection, and endpoint triage using native Windows command-line utilities  
 - **Operational Objectives Demonstrated:** Process Enumeration, Network Activity Validation, Suspicious Execution Identification, Rapid Host Integrity Assessment  
@@ -10,35 +40,22 @@
 > **Executions** refer to the hands-on performance of those tasks using scripts, tools, and real datasets.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
-
-### Overview
-
-This execution documents the practical performance of Windows endpoint triage using native Command Prompt utilities to collect and analyze host telemetry. The objective is to rapidly assess system integrity, validate running processes, and identify suspicious network communication using built-in Windows command-line tools commonly available in restricted or limited-access environments.
-
-The execution focuses on validating active processes, reviewing service execution states, inspecting network connections, and analyzing host artifacts that may indicate compromise, misconfiguration, or unauthorized activity. Emphasis is placed on how native command-line utilities support rapid alert validation, investigative scoping, and endpoint threat identification within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using Windows command-line utilities.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific triage commands were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
-
-> 👉 **Review tooling and command reference details**  
-See `tool-usage-notes.md` to understand Command Prompt utilities, command syntax, and output interpretation techniques used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how endpoint triage and host validation tasks are documented within SOC and incident response operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how suspicious files were identified, how running processes were enumerated and correlated to PIDs, how listening ports and network services were mapped to processes, and how containment actions were validated through post-remediation analysis.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind Windows endpoint triage, filesystem artifact discovery, process investigation, PID correlation, network exposure analysis, service validation, containment decision-making, and evidence correlation across multiple host data sources.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how CMD utilities, PowerShell, tasklist, netstat, taskkill, and other native Windows tools were used, why specific investigative techniques were selected, and what evidence each command helped uncover during endpoint triage and containment validation.
 
 ---
 
@@ -59,9 +76,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on manual and scripted inspection of Windows host telemetry using built-in command-line utilities to support endpoint triage and investigative validation workflows.
+The execution focuses on manual and scripted inspection of Windows host telemetry using built-in command-line utilities to support endpoint triage and investigative validation workflows. The execution demonstrates how native command-line triage techniques support scalable endpoint validation and improve reliability of early-stage investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -71,9 +90,12 @@ The execution focuses on manual and scripted inspection of Windows host telemetr
 | **Primary Platforms / Services** | Windows operating system inspection tools and host-based telemetry collection utilities |
 | **Operational Focus** | Validate Windows host integrity and identify indicators of compromise using native command-line triage techniques |
 
+</details>
 
-#### Data Sources, Evidence, and Analysis Techniques
-
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 | Area | Details |
 |--------|---------|
 | **Primary Telemetry Sources** | Windows process listings, network connection tables, service execution data, system configuration artifacts, and session context telemetry |
@@ -85,7 +107,7 @@ The execution focuses on manual and scripted inspection of Windows host telemetr
 | **Threat Detection Heuristics** | Behavioral evaluation of process execution, service activity, and network communication patterns to identify indicators consistent with compromise or policy violations |
 | **Operational Workflow Context** | Demonstrates rapid Windows endpoint triage procedures used by SOC analysts to validate alerts and determine whether escalation to full incident response is required |
 
-The execution demonstrates how native command-line triage techniques support scalable endpoint validation and improve reliability of early-stage investigative workflows.
+</details>
 
 ---
 
@@ -97,8 +119,12 @@ The documented execution demonstrates Windows endpoint triage, host telemetry va
 
 ### Relevance to Security Operations
 
-Endpoint triage remains a critical component of incident response and alert validation.
+Endpoint triage remains a critical component of incident response and alert validation. Even environments with centralized monitoring rely on host-level inspection to confirm compromise and validate detection accuracy, particularly when PowerShell or advanced tooling may be restricted.
 
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
+  
 The execution demonstrates how native command-line utilities enable analysts to:
 
 - Validate host integrity and system state  
@@ -106,7 +132,7 @@ The execution demonstrates how native command-line utilities enable analysts to:
 - Support rapid incident scoping and investigative prioritization  
 - Improve repeatability and efficiency of endpoint validation workflows  
 
-Even environments with centralized monitoring rely on host-level inspection to confirm compromise and validate detection accuracy, particularly when PowerShell or advanced tooling may be restricted.
+</details>
 
 ---
 
