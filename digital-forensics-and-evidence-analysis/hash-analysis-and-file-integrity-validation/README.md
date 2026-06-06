@@ -1,5 +1,35 @@
 # Hash Analysis and File Integrity Validation
 
+### Overview
+
+This execution documents the use of common cryptographic hashing utilities to generate, compare, and analyze hash values. The workflow focused on creating MD5, SHA1, and SHA256 hashes from both text strings and files, validating evidence integrity, identifying artifacts through their hash values, and understanding how public hash databases are used during investigations. Activities performed throughout the workflow included hashing text strings, generating file hashes on both Windows and Linux systems, performing multi-algorithm hashing, and identifying files through hash lookups.
+
+Although the individual exercises were relatively straightforward, the concepts demonstrated are foundational to digital forensics, incident response, malware analysis, threat intelligence, and evidence handling. Hashes are routinely used to validate evidence integrity, verify forensic acquisitions, identify known files, compare artifacts, correlate malware samples, support chain-of-custody documentation, and share indicators of compromise. The workflow also reinforced several key concepts, including cryptographic hashing, one-way functions, file fingerprinting, integrity verification, hash comparison, algorithm selection, hash databases, and the distinction between hashing and encryption. Because hashing is widely available through built-in operating system utilities and specialized forensic tools alike, it remains one of the most frequently used techniques across digital forensic and security operations workflows.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` for the step-by-step execution walkthrough.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` for learning notes, analyst observations, hashing concepts, and integrity validation discussions.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` for command explanations, utility usage, operational relevance, and tool limitations.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis  
 - **Primary Operational Focus:** Cryptographic hashing, evidence integrity validation, file identification, and hash analysis  
 - **Operational Objectives Demonstrated:** Hash Generation, File Integrity Verification, Algorithm Comparison, Evidence Validation, Hash Lookup Analysis  
@@ -10,59 +40,21 @@
 > **Executions** refer to the hands-on activities performed using Linux and Windows hashing utilities to generate, compare, and analyze cryptographic hashes.  
 > **Writeups** document how hashes were generated, how integrity was validated, how findings were interpreted, and why hashing is important within digital forensic investigations.
 
----
-
-### Overview
-
-This execution documents the use of common cryptographic hashing utilities to generate, compare, and analyze hash values. The workflow focused on creating MD5, SHA1, and SHA256 hashes from both text strings and files, validating evidence integrity, identifying artifacts through their hash values, and understanding how public hash databases are used during investigations.
-
-The workflow included:
-
-- MD5 hashing of text strings
-- SHA256 hashing of text strings
-- Windows-based file hashing using PowerShell
-- Linux-based file hashing
-- Multi-algorithm file hashing
-- Hash lookup and identification
-
-Although the individual exercises are relatively straightforward, the concepts demonstrated are foundational to digital forensics, incident response, malware analysis, threat intelligence, and evidence handling.
-
-Hashes are frequently used to:
-
-- validate evidence integrity,
-- verify forensic acquisitions,
-- identify known files,
-- compare artifacts,
-- correlate malware samples,
-- support chain-of-custody documentation,
-- share indicators of compromise,
-- confirm that evidence has not been altered.
-
-A forensic examiner may generate a hash before collecting evidence, again immediately after collection, and again during later analysis. Matching values help demonstrate that the evidence remained unchanged throughout the investigative process.
-
-The workflow also reinforces several important concepts:
-
-- cryptographic hashing,
-- one-way functions,
-- file fingerprinting,
-- integrity verification,
-- hash comparison,
-- algorithm selection,
-- hash databases,
-- the distinction between hashing and encryption.
-
-Unlike many forensic techniques that require specialized tools, hashing is widely accessible through built-in operating system utilities. As a result, it is one of the most frequently used techniques across both digital forensic and security operations workflows.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic workflows are commonly documented.
 
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 Start with **workflow-execution.md** for the step-by-step execution walkthrough.
 
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 Review **analyst-notes.md** for learning notes, analyst observations, hashing concepts, and integrity validation discussions.
 
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 Review **tool-usage-notes.md** for command explanations, utility usage, operational relevance, and tool limitations.
 
 ---
@@ -81,7 +73,9 @@ Review **tool-usage-notes.md** for command explanations, utility usage, operatio
 
 ### Environment, Data Sources, and Tools
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -91,6 +85,12 @@ Review **tool-usage-notes.md** for command explanations, utility usage, operatio
 | **Primary Tools** | md5sum, sha1sum, sha256sum, Get-FileHash |
 | **Operational Focus** | Generate, compare, validate, and analyze cryptographic hashes |
 
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
+  
 #### Data Sources, Evidence, and Analysis Techniques
 
 | Area | Details |
@@ -102,13 +102,17 @@ Review **tool-usage-notes.md** for command explanations, utility usage, operatio
 | **Algorithms Examined** | MD5, SHA1, SHA256 |
 | **Operational Workflow Context** | Demonstrates evidence validation fundamentals and file identification techniques |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate practical digital forensic fundamentals by documenting how cryptographic hashing supports evidence validation and artifact identification.
+This execution is intended to demonstrate practical digital forensic fundamentals by documenting how cryptographic hashing supports evidence validation and artifact identification. The workflow reflects how forensic examiners and incident responders may answer questions. This process supports later forensic work such as malware analysis, forensic imaging, evidence validation, artifact correlation, threat intelligence sharing, and incident response investigations.
 
-The workflow reflects how forensic examiners and incident responders may answer questions such as:
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - Has this file changed?
 - Is this evidence still intact?
@@ -117,20 +121,18 @@ The workflow reflects how forensic examiners and incident responders may answer 
 - Can this hash be associated with a known artifact?
 - What algorithm generated this hash?
 
-This process supports later forensic work such as malware analysis, forensic imaging, evidence validation, artifact correlation, threat intelligence sharing, and incident response investigations.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Hashing is relevant to digital forensics because it provides a reliable mechanism for validating and identifying data.
+Hashing is relevant to digital forensics because it provides a reliable mechanism for validating and identifying data. A forensic examiner who generates a hash can quickly determine whether a file has changed. An incident responder may compare hashes across systems to identify the spread of malware. A threat intelligence analyst may distribute hashes rather than entire files when sharing indicators of compromise. Hashes also support chain-of-custody processes by providing a repeatable mechanism for validating evidence throughout an investigation.
 
-A forensic examiner who generates a hash can quickly determine whether a file has changed. An incident responder may compare hashes across systems to identify the spread of malware. A threat intelligence analyst may distribute hashes rather than entire files when sharing indicators of compromise.
-
-Hashes also support chain-of-custody processes by providing a repeatable mechanism for validating evidence throughout an investigation.
-
-This execution demonstrates how foundational hashing knowledge supports:
-
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
+  
 - evidence validation,
 - forensic acquisition verification,
 - malware identification,
@@ -139,20 +141,7 @@ This execution demonstrates how foundational hashing knowledge supports:
 - threat intelligence sharing,
 - chain-of-custody documentation.
 
----
-
-### What This Workflow Does Not Cover
-
-This workflow focuses on practical hash generation and integrity validation. It does not cover:
-
-- password cracking,
-- rainbow table creation,
-- cryptographic implementation analysis,
-- collision attacks,
-- malware reverse engineering,
-- advanced cryptographic theory.
-
-The objective is to establish a practical understanding of how hashes are generated, interpreted, and used within forensic investigations rather than exploring cryptography at a mathematical level.
+</details>
 
 ---
 
