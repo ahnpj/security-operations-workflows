@@ -1,5 +1,35 @@
 # Attachment-Based Phishing Artifact Analysis Using PowerShell, CyberChef, and Browser Developer Tools
 
+### Overview
+
+This execution documents the practical performance of analyzing a phishing email attachment that presents itself as a Microsoft Outlook / Office365 login page. The objective is to determine what the attachment actually is, how it behaves when rendered, what user or service it attempts to impersonate, and how entered credentials are ultimately transmitted to attacker-controlled infrastructure.
+
+Unlike phishing workflows that begin with visible email message content and raw email header review, this execution begins with a suspicious attachment that must be treated as both a file artifact and an active credential harvesting interface. The workflow moves from safe file handling and metadata collection into HTML page inspection, source-code review, obfuscation decoding, and browser-based network validation. Emphasis is placed on understanding how the file works, what evidence it contains, and how an analyst can move from a suspicious attachment to a defensible phishing conclusion.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>  
+Begin with `workflow-execution.md` inside this folder to see how the phishing attachment was identified, reviewed, decoded, and validated step by step using PowerShell, CyberChef, and browser inspection tools.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+Move to `analyst-notes.md` to understand why file metadata, rendered page behavior, decoded source code, and network requests were reviewed in that order and how those findings support phishing determination.
+
+> 👉 **Review tooling and implementation details**</br>  
+See `tool-usage-notes.md` to understand how PowerShell, CyberChef, Chrome Developer Tools, Windows file properties, and browser source inspection contributed to the workflow and why each tool matters during attachment-based phishing analysis.
+
+> 👉 **See what each execution file contains in full detail**</br>  
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Email Security Analysis and Phishing Triage  
 - **Primary Operational Focus:** Manual analysis of phishing attachments that impersonate legitimate login portals and harvest user credentials  
 - **Operational Objectives Demonstrated:** File Metadata Validation, Attachment Hashing, HTML Phishing Page Review, Obfuscated Source Decoding, Victim Target Identification, Credential Exfiltration Validation  
@@ -10,29 +40,11 @@
 > **Executions** refer to the hands-on performance of those tasks using real artifacts, analyst tooling, and supporting investigative utilities.  
 > **Writeups** document how the task was performed and how outputs were validated, interpreted, and documented.
 
----
-
-### Overview
-
-This execution documents the practical performance of analyzing a phishing email attachment that presents itself as a Microsoft Outlook / Office365 login page. The objective is to determine what the attachment actually is, how it behaves when rendered, what user or service it attempts to impersonate, and how entered credentials are ultimately transmitted to attacker-controlled infrastructure.
-
-Unlike phishing workflows that begin with visible email message content and raw email header review, this execution begins with a suspicious attachment that must be treated as both a file artifact and an active credential harvesting interface. The workflow moves from safe file handling and metadata collection into HTML page inspection, source-code review, obfuscation decoding, and browser-based network validation. Emphasis is placed on understanding how the file works, what evidence it contains, and how an analyst can move from a suspicious attachment to a defensible phishing conclusion.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how the phishing attachment was identified, reviewed, decoded, and validated step by step using PowerShell, CyberChef, and browser inspection tools.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why file metadata, rendered page behavior, decoded source code, and network requests were reviewed in that order and how those findings support phishing determination.
-
-> 👉 **Review tooling and implementation details**  
-See `tool-usage-notes.md` to understand how PowerShell, CyberChef, Chrome Developer Tools, Windows file properties, and browser source inspection contributed to the workflow and why each tool matters during attachment-based phishing analysis.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how attachment-based phishing investigations are documented within SOC, email security, and incident response environments.
 
