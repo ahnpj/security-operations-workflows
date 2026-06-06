@@ -12,16 +12,16 @@ The execution focuses on manually reviewing visible email fields, inspecting raw
 <summary><strong>▶ Recommended Reading Order</strong><br>
 </summary><br>
 
-> 👉 **Follow the execution walkthrough first**</br>  
+> 👉 **Follow the execution walkthrough first**</br>
 Begin with `workflow-execution.md` inside this folder to see how suspicious email artifacts were identified, extracted, and validated step by step using Outlook, text-based header review, and enrichment tools.
 
-> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+> 👉 **Review analytical reasoning and investigative decision-making**</br>
 Move to `analyst-notes.md` to understand why specific fields were reviewed, how suspicious indicators were prioritized, and how findings influence phishing triage and escalation decisions.
 
-> 👉 **Review tooling and artifact extraction reference details**</br>  
+> 👉 **Review tooling and artifact extraction reference details**</br>
 See `tool-usage-notes.md` to understand how Outlook, Sublime Text, PhishTool, WHOIS, PowerShell, and VirusTotal were used during execution and why each tool matters during phishing investigations.
 
-> 👉 **See what each execution file contains in full detail**</br>  
+> 👉 **See what each execution file contains in full detail**</br>
 For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 </details>
