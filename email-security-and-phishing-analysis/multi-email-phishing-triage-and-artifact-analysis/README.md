@@ -15,13 +15,13 @@ The workflow begins with visible email review to understand each message’s the
 > 👉 **Follow the execution walkthrough first**</br>
 Begin with `workflow-execution.md` inside this folder to see how the five emails were reviewed, classified, and investigated step by step using visible message review, raw header inspection, URL extraction, WHOIS/reverse DNS context, and attachment artifact validation.
 
-> 👉 **Review analytical reasoning and investigative decision-making**</br>  
+> 👉 **Review analytical reasoning and investigative decision-making**</br>
 Move to `analyst-notes.md` to understand why only two emails were classified as malicious, how spam/scam messages were separated from phishing, and why specific artifacts were prioritized during the investigation.
 
-> 👉 **Review tooling and implementation details**</br>  
+> 👉 **Review tooling and implementation details**</br>
 See `tool-usage-notes.md` to understand how Thunderbird, Sublime Text, WHOIS/DomainTools-style lookup, raw header search, and safe attachment review contributed to the workflow.
 
-> 👉 **See what each execution file contains in full detail**</br> 
+> 👉 **See what each execution file contains in full detail**</br>
 For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 </details>
