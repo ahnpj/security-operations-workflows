@@ -1,5 +1,35 @@
 # File System Identification and Evidence Structure Analysis Using FTK Imager
 
+### Overview
+
+This execution documents the use of FTK Imager to identify file systems from acquired forensic disk images. The workflow focused on importing and examining three image files (`carve1.img`, `carve2.img`, and `disk1.img`), reviewing their partition structures, identifying the file systems present, and understanding the significance of those findings from a digital forensics perspective. The analysis determined that `carve1.img` contained an NTFS file system, `carve2.img` contained a FAT32 file system, and `disk1.img` contained an EXT3 file system.
+
+Although the task itself was straightforward, file system identification represents one of the earliest and most important stages of a forensic examination. Before investigators can recover deleted files, interpret metadata, analyze timestamps, examine user artifacts, or reconstruct timelines, they must first understand how data is organized within the evidence source. The workflow also reinforced several foundational storage and forensic concepts, including partitions, clusters, Logical Block Addresses (LBAs), SSD controllers, Flash Translation Layers (FTLs), TRIM, garbage collection, and wear leveling. Together, these concepts help explain the relationship between how file systems organize evidence logically and how storage devices manage data physically behind the scenes.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+  
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how each image was imported into FTK Imager, how the partition structure was reviewed, and how each file system was identified.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand the key learning points, confusion areas, and storage architecture concepts that became clearer during execution.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` to understand how FTK Imager was used to import evidence images, review partitions, and identify file systems from the Evidence Tree.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis  
 - **Primary Operational Focus:** File system identification, forensic image examination, partition review, and storage organization analysis  
 - **Operational Objectives Demonstrated:** Evidence Image Review, Partition Analysis, File System Identification, Digital Storage Fundamentals, Forensic Context Development  
@@ -10,74 +40,21 @@
 > **Executions** refer to the hands-on examination performed in FTK Imager against provided forensic image files.  
 > **Writeups** document how the examination was performed, how file system findings were identified, and why those findings matter during forensic analysis.
 
----
-
-### Overview
-
-This execution documents the use of FTK Imager to identify file systems from acquired forensic disk images. The workflow focused on importing three image files, reviewing their partition structures, identifying the file system displayed by FTK Imager, and documenting what those findings mean from a digital forensics perspective.
-
-The examined images were:
-
-- `carve1.img`
-- `carve2.img`
-- `disk1.img`
-
-The file systems identified were:
-
-- `carve1.img` — NTFS
-- `carve2.img` — FAT32
-- `disk1.img` — EXT3
-
-Although this appears to be a simple evidence review task, file system identification is one of the earliest and most important steps in a forensic examination. Before an examiner can meaningfully recover deleted files, interpret metadata, analyze timestamps, review user artifacts, or build a timeline, they must first understand how the evidence is organized.
-
-The workflow also reinforces several foundational storage concepts, including:
-
-- file systems,
-- partitions,
-- clusters,
-- Logical Block Addresses (LBAs),
-- SSD controllers,
-- Flash Translation Layers (FTLs),
-- TRIM,
-- garbage collection,
-- wear leveling.
-
-These concepts are important because file systems organize evidence logically, while the underlying storage device manages how data is physically stored.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how each image was imported into FTK Imager, how the partition structure was reviewed, and how each file system was identified.
-
-> 👉 **Review analyst reasoning and conceptual notes**  
-Move to `analyst-notes.md` to understand the key learning points, confusion areas, and storage architecture concepts that became clearer during execution.
-
-> 👉 **Review tool-specific usage details**  
-See `tool-usage-notes.md` to understand how FTK Imager was used to import evidence images, review partitions, and identify file systems from the Evidence Tree.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic workflows are commonly documented.
 
-If you want to follow the execution step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the hands-on walkthrough showing how the forensic images were imported and how FTK Imager displayed the file system labels.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains why file system identification matters, what the confusing parts were, and how concepts such as NTFS, FAT32, EXT3, partitions, clusters, LBAs, and SSD behavior relate to the workflow.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how FTK Imager was used, what parts of the interface mattered, and how the Evidence Tree helped identify each file system.
 
 ---
@@ -100,7 +77,9 @@ All execution outputs are separated into focused documents to reflect operationa
 
 The execution focuses on foundational digital forensic image review using FTK Imager.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -110,7 +89,11 @@ The execution focuses on foundational digital forensic image review using FTK Im
 | **Primary Tool** | AccessData FTK Imager |
 | **Operational Focus** | Identify file systems from imported forensic images by reviewing partition information and Evidence Tree labels |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -121,13 +104,18 @@ The execution focuses on foundational digital forensic image review using FTK Im
 | **Identified File Systems** | NTFS, FAT32, EXT3 |
 | **Operational Workflow Context** | Demonstrates how forensic examiners establish the organizational structure of evidence before deeper artifact analysis |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate practical digital forensic fundamentals by documenting how to identify file systems from forensic disk images.
+This execution is intended to demonstrate practical digital forensic fundamentals by documenting how to identify file systems from forensic disk images. The workflow reflects how forensic examiners and incident responders may begin evidence review. This process supports later forensic work such as deleted file recovery, timeline analysis, metadata review, operating system artifact analysis, and user activity reconstruction.
 
-The workflow reflects how forensic examiners and incident responders may begin evidence review by answering:
+
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 - What image am I examining?
 - What partition exists within the image?
@@ -135,17 +123,18 @@ The workflow reflects how forensic examiners and incident responders may begin e
 - What does that file system suggest about the evidence?
 - What should I expect during future analysis?
 
-This process supports later forensic work such as deleted file recovery, timeline analysis, metadata review, operating system artifact analysis, and user activity reconstruction.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-File system identification is relevant to digital forensics because the file system determines how evidence is organized.
+File system identification is relevant to digital forensics because the file system determines how evidence is organized. A forensic examiner who identifies NTFS can begin thinking in terms of Windows artifacts and NTFS metadata structures. An examiner who identifies FAT32 may consider removable media context and simpler allocation structures. An examiner who identifies EXT3 may begin thinking about Linux artifacts, journaling, and Linux directory structures. Even though this workflow is technically short, the underlying concepts are important. File systems are the layer that make stored data understandable to the operating system and to forensic tools. Without first identifying the file system, later analysis can lack the necessary context to interpret evidence correctly.
 
-A forensic examiner who identifies NTFS can begin thinking in terms of Windows artifacts and NTFS metadata structures. An examiner who identifies FAT32 may consider removable media context and simpler allocation structures. An examiner who identifies EXT3 may begin thinking about Linux artifacts, journaling, and Linux directory structures.
 
-This execution demonstrates how foundational storage knowledge supports:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - digital evidence triage,
 - forensic image review,
@@ -155,7 +144,7 @@ This execution demonstrates how foundational storage knowledge supports:
 - artifact analysis planning,
 - storage behavior interpretation.
 
-Even though this workflow is technically short, the underlying concepts are important. File systems are the layer that make stored data understandable to the operating system and to forensic tools. Without first identifying the file system, later analysis can lack the necessary context to interpret evidence correctly.
+</details>
 
 ---
 
