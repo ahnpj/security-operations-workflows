@@ -1,5 +1,35 @@
 # Targeted Packet Capture and Traffic Filtering Using tcpdump
 
+### Overview
+
+This execution documents the practical performance of targeted packet capture and network traffic filtering using tcpdump to inspect network communications and validate host or service behavior. The objective is to isolate relevant traffic, capture protocol-level telemetry, and analyze communication patterns that may indicate suspicious activity, misconfiguration, or unauthorized system interactions.
+
+The execution focuses on applying capture filters to isolate traffic by host, port, and protocol, reviewing packet streams to validate communication intent, and interpreting packet-level evidence to support alert validation and investigative scoping. Emphasis is placed on how targeted packet capture supports rapid network threat validation, reduces noise during analysis, and enables precise inspection of suspicious communication within operational security environments.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+Begin with `workflow-execution.md` inside this folder to see how packet capture filters were constructed, traffic was captured, and network behavior was analyzed step by step using tcpdump.
+
+> 👉 **Review analytical reasoning and investigative decision-making**</br>
+Move to `analyst-notes.md` to understand why specific capture strategies were selected, how suspicious communication indicators were evaluated, and how results influence investigative escalation or containment decisions.
+
+> 👉 **Review tooling and command reference details**</br>
+See `tool-usage-notes.md` to understand tcpdump syntax, capture filter construction, and packet inspection techniques used during execution.
+
+> 👉 **See what each execution file contains in full detail**</br>
+For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Network Monitoring and Traffic Analysis  
 - **Primary Operational Focus:** Targeted packet capture, traffic filtering, and network communication validation  
 - **Operational Objectives Demonstrated:** Packet Capture Strategy, Traffic Isolation, Protocol Behavior Inspection, Suspicious Communication Identification  
@@ -10,35 +40,22 @@
 > **Executions** refer to the hands-on performance of those tasks using packet capture tools and real network traffic data.  
 > **Writeups** document how the task was performed and how outputs were validated and interpreted.
 
----
-
-### Overview
-
-This execution documents the practical performance of targeted packet capture and network traffic filtering using tcpdump to inspect network communications and validate host or service behavior. The objective is to isolate relevant traffic, capture protocol-level telemetry, and analyze communication patterns that may indicate suspicious activity, misconfiguration, or unauthorized system interactions.
-
-The execution focuses on applying capture filters to isolate traffic by host, port, and protocol, reviewing packet streams to validate communication intent, and interpreting packet-level evidence to support alert validation and investigative scoping. Emphasis is placed on how targeted packet capture supports rapid network threat validation, reduces noise during analysis, and enables precise inspection of suspicious communication within operational security environments.
-
-> 👉 **Follow the execution walkthrough first**  
-Begin with `workflow-execution.md` inside this folder to see how packet capture filters were constructed, traffic was captured, and network behavior was analyzed step by step using tcpdump.
-
-> 👉 **Review analytical reasoning and investigative decision-making**  
-Move to `analyst-notes.md` to understand why specific capture strategies were selected, how suspicious communication indicators were evaluated, and how results influence investigative escalation or containment decisions.
-
-> 👉 **Review tooling and command reference details**  
-See `tool-usage-notes.md` to understand tcpdump syntax, capture filter construction, and packet inspection techniques used during execution.
-
-> 👉 **See what each execution file contains in full detail**  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how network traffic capture and communication analysis tasks are documented within SOC and network security operational environments.
 
-If you want to follow the execution step by step, start with:
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
+This file contains the structured walkthrough showing how tcpdump was used to capture live network traffic, identify active interfaces, apply protocol, host, and port filters, analyze packet captures, inspect network communications, and perform targeted packet-level investigations using both live traffic and previously captured PCAP files.
 
-**`workflow-execution.md`**
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
+This file explains the major learning points behind packet capture methodology, Berkeley Packet Filter (BPF) logic, protocol analysis, network traffic visibility, packet filtering strategies, TCP flag analysis, packet size filtering, DNS investigation, ARP analysis, and packet-level network investigations.
+
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
+This file explains how tcpdump was used to perform packet captures, apply advanced filtering expressions, inspect packet contents, analyze protocol behavior, read and write PCAP files, interpret capture statistics, and support network triage and investigative workflows.
 
 ---
 
@@ -59,9 +76,11 @@ All execution outputs are separated into focused documents to reflect operationa
 
 ### Environment, Data Sources, and Tools
 
-The execution focuses on targeted network traffic capture and packet-level inspection to support communication validation and investigative workflows.
+The execution focuses on targeted network traffic capture and packet-level inspection to support communication validation and investigative workflows. The execution demonstrates how targeted packet capture supports scalable network validation and improves reliability of early-stage investigative workflows.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -71,8 +90,11 @@ The execution focuses on targeted network traffic capture and packet-level inspe
 | **Primary Platforms / Services** | Network interface capture points, protocol inspection tools, and packet-level telemetry analysis utilities |
 | **Operational Focus** | Capture and analyze targeted network communications to validate traffic behavior and identify suspicious activity |
 
+</details>
 
-#### Data Sources, Evidence, and Analysis Techniques
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -85,7 +107,7 @@ The execution focuses on targeted network traffic capture and packet-level inspe
 | **Threat Detection Heuristics** | Behavioral evaluation of communication patterns, external connection attempts, protocol misuse, and anomalous traffic flows to identify indicators consistent with compromise or policy violations |
 | **Operational Workflow Context** | Demonstrates targeted packet capture procedures used by SOC analysts and network security teams to validate alerts, investigate suspicious communication, and scope potential network-based threats |
 
-The execution demonstrates how targeted packet capture supports scalable network validation and improves reliability of early-stage investigative workflows.
+</details>
 
 ---
 
@@ -97,7 +119,11 @@ The documented execution demonstrates targeted packet capture, network communica
 
 ### Relevance to Security Operations
 
-Network communication monitoring remains a critical component of threat detection and incident response.
+Network communication monitoring remains a critical component of threat detection and incident response. Even environments with centralized network monitoring rely on targeted packet capture to validate alerts and inspect traffic at protocol-level detail.
+
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 The execution demonstrates how targeted packet capture enables analysts to:
 
@@ -106,7 +132,8 @@ The execution demonstrates how targeted packet capture enables analysts to:
 - Support rapid investigative scoping and containment decision-making  
 - Improve precision and efficiency of network monitoring workflows  
 
-Even environments with centralized network monitoring rely on targeted packet capture to validate alerts and inspect traffic at protocol-level detail.
+</details>
+
 
 ---
 
