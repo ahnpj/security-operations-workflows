@@ -13,16 +13,16 @@ The execution focuses on validating running processes, reviewing service configu
 </summary><br>
 
 > 👉 **Follow the execution walkthrough first**</br>  
-Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using PowerShell commands and automation techniques.
+> Begin with `workflow-execution.md` inside this folder to see how host telemetry was collected, analyzed, and validated step by step using PowerShell commands and automation techniques.
 
 > 👉 **Review analytical reasoning and investigative decision-making**</br>  
-Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
+> Move to `analyst-notes.md` to understand why specific triage techniques were selected, how host indicators were evaluated, and how results influence investigative escalation decisions.
 
 > 👉 **Review tooling and scripting implementation details**</br> 
-See `tool-usage-notes.md` to understand PowerShell command usage, scripting techniques, and host inspection methods used during execution.
+> See `tool-usage-notes.md` to understand PowerShell command usage, scripting techniques, and host inspection methods used during execution.
 
 > 👉 **See what each execution file contains in full detail**</br>  
-For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
+> For a complete breakdown of every standard file in this folder, explaining the contents, intent, and role of each document in the overall execution, see the **[Repository Structure & Supporting Documents](#repository-structure--supporting-documents)** section below.
 
 </details>
 
