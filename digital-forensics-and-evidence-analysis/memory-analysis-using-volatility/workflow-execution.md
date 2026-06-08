@@ -418,6 +418,7 @@ The first suggested profile was:
 
 ```text
 Win7SP1x64
+```
 
 I selected this profile for subsequent analysis because it was the highest-confidence profile suggested by Volatility and closely matched the operating system characteristics identified during image analysis.
 
