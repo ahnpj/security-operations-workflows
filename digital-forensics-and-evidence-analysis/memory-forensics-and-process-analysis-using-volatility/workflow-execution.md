@@ -898,7 +898,7 @@ In an investigation, command-line values like this may be useful for identifying
 
 ##### 🔷 Phase 6.6 — Phase 6 findings
 
-The server name the executable is parsing in its command was `HX.IPC.Server`.
+The server name the executable is parsing in its command was `HX.IPC.Server`. `HX.IPC.Server` was a value referenced by the process and recovered from its command-line arguments. It provides runtime context about how the process was configured or what resource it was interacting with. Command-line analysis identified the value `HX.IPC.Server` referenced by `HxTsr.exe`. Based on the naming convention, this appears to represent an inter-process communication (IPC) endpoint or internal service reference used by the application rather than a traditional remote network server.
 
 <blockquote>
 This phase demonstrated why command-line analysis is valuable. The process name identified the executable, but the command-line arguments revealed the specific server value being parsed during execution.
