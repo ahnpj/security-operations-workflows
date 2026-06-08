@@ -1,5 +1,35 @@
 # Disk Image Forensics and Artifact Analysis Using Autopsy
 
+### Overview
+
+This execution documents the practical analysis of a Windows forensic disk image using Autopsy to recover operating system information, browser download activity, recent document artifacts, filesystem metadata, and local account information. The workflow focused on several key artifact categories, including operating system information, host identification, web download records, recent document and shortcut artifacts, virtual filesystem data, and operating system account information. Throughout the investigation, Autopsy was used to ingest and process a forensic disk image, organize recovered artifacts, and provide structured access to evidence sources distributed throughout the operating system.
+
+The workflow demonstrates how multiple disk-based artifacts can be correlated to answer different investigative questions. Operating system metadata provides system context, browser artifacts reveal internet activity and downloaded content, shortcut files preserve evidence of file access, filesystem structures expose underlying storage organization, and account records help identify user-related activity. Rather than relying on a single artifact source, investigators correlate findings across multiple categories to develop a more complete understanding of activity occurring on the system. Together, these techniques reinforce foundational concepts in disk forensics, artifact correlation, browser forensics, filesystem analysis, user activity reconstruction, and forensic examination of Windows operating system evidence.
+
+> **Click the ▶ arrow to expand or collapse hidden sections and view additional information.**
+
+<details>
+<summary><strong>▶ Recommended Reading Order</strong><br>
+</summary><br>
+
+> 👉 **Follow the execution walkthrough first**</br>
+> Begin with `workflow-execution.md` to see how the Autopsy case was created, how the disk image was processed, how artifacts were reviewed, and how findings were developed throughout the investigation.
+
+> 👉 **Review analytical reasoning and conceptual notes**</br>
+> Move to `analyst-notes.md` to understand disk forensic concepts, artifact interpretation, LNK analysis, browser artifact relevance, filesystem navigation concepts, and account activity analysis.
+
+> 👉 **Review tooling and feature usage details**</br>
+> See `tool-usage-notes.md` for detailed explanations of Autopsy, ingest modules, artifact categories, filesystem analysis techniques, and common investigation considerations.
+
+> 👉 **See what each execution file contains in full detail**</br>
+> Review the **Repository Structure & Supporting Documents** section below.
+
+</details>
+
+<details>
+<summary><strong>▶ Workflow Scope & Terminology</strong><br>
+</summary><br>
+
 - **Category:** Digital Forensics and Evidence Analysis
 - **Primary Operational Focus:** Disk image forensics, artifact analysis, operating system identification, browser download analysis, Recent Documents analysis, virtual filesystem examination, and OS account review
 - **Operational Objectives Demonstrated:** Forensic Case Creation, Disk Image Ingestion, Ingest Module Configuration, Operating System Identification, Hostname Identification, Web Download Analysis, URL Recovery, LNK Artifact Analysis, Filesystem Navigation, Directory Metadata Review, OS Account Analysis, Artifact Correlation
@@ -10,71 +40,21 @@
 > **Executions** refer to the hands-on analysis performed using Autopsy against a forensic disk image.
 > **Writeups** document how artifacts were reviewed, how findings were interpreted, and how evidence was correlated to support investigative conclusions.
 
----
-
-### Overview
-
-This execution documents the practical analysis of a Windows forensic disk image using Autopsy to recover operating system information, browser download activity, recent document artifacts, filesystem metadata, and local account information.
-
-The workflow focuses on six primary artifact categories:
-
-- Operating System Information artifacts,
-- Hostname artifacts,
-- Web Download artifacts,
-- Recent Documents and LNK artifacts,
-- Virtual Filesystem artifacts,
-- OS Account artifacts.
-
-The investigation begins by creating a new Autopsy case and importing a forensic disk image into the analysis environment.
-
-The workflow then moves into ingest module selection and evidence processing so Autopsy can identify and organize useful artifacts recovered from the disk image.
-
-Next, operating system information is reviewed to identify both the installed Windows version and the hostname associated with the system.
-
-Browser download artifacts are then examined to identify downloaded files, download timestamps, and source URLs associated with internet-based activity.
-
-The workflow continues with Recent Documents analysis to demonstrate how Windows shortcut files can preserve evidence of file access and original file paths.
-
-Virtual filesystem navigation is then performed to examine the underlying filesystem structure directly and review directory metadata within an installed application folder.
-
-Finally, OS Account artifacts are reviewed to identify account activity metadata associated with the local Administrator account.
-
-This execution is designed to demonstrate how multiple disk-based artifacts answer different investigative questions. No single artifact provides a complete understanding of system activity. Instead, analysts correlate operating system metadata, browser artifacts, shortcut artifacts, filesystem metadata, and account records to develop a more complete picture of activity occurring on the system.
-
-> 👉 **Follow the execution walkthrough first**
-> Begin with `workflow-execution.md` to see how the Autopsy case was created, how the disk image was processed, how artifacts were reviewed, and how findings were developed throughout the investigation.
-
-> 👉 **Review analytical reasoning and conceptual notes**
-> Move to `analyst-notes.md` to understand disk forensic concepts, artifact interpretation, LNK analysis, browser artifact relevance, filesystem navigation concepts, and account activity analysis.
-
-> 👉 **Review tooling and feature usage details**
-> See `tool-usage-notes.md` for detailed explanations of Autopsy, ingest modules, artifact categories, filesystem analysis techniques, and common investigation considerations.
-
-> 👉 **See what each execution file contains in full detail**
-> Review the **Repository Structure & Supporting Documents** section below.
+</details>
 
 ---
 
-### How to Navigate This Execution
+### How to Navigate This Current Folder
 
 Documentation is separated into focused components to reflect how digital forensic investigations are commonly documented.
 
-If you want to follow the investigation step by step, start with:
-
-**`workflow-execution.md`**
-
+**`workflow-execution.md`** — **If you want to follow the investigation step by step**</br>
 This file contains the structured walkthrough showing how the disk image was imported, how ingest modules were selected, how artifacts were reviewed, and how findings were correlated throughout the investigation.
 
-If you want to understand the reasoning behind the process, review:
-
-**`analyst-notes.md`**
-
+**`analyst-notes.md`** — **If you want to understand the reasoning behind the process**</br>
 This file explains the major learning points behind disk forensics, forensic imaging, browser artifacts, Recent Documents analysis, LNK files, filesystem navigation, account analysis, and evidence correlation.
 
-If you want to understand tool usage, review:
-
-**`tool-usage-notes.md`**
-
+**`tool-usage-notes.md`** — **If you want to understand tool usage**</br>
 This file explains how Autopsy and its artifact views were used, why specific features were selected, and what evidence each analysis technique helped uncover.
 
 ---
@@ -95,7 +75,9 @@ This file explains how Autopsy and its artifact views were used, why specific fe
 
 The execution focuses on forensic disk image analysis using Autopsy to recover host-based artifacts and investigate user and system activity preserved on storage media.
 
-#### Environment and Execution Scope (At a Glance)
+<details>
+<summary><strong>▶ Environment and Execution Scope (At a Glance)</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -106,7 +88,11 @@ The execution focuses on forensic disk image analysis using Autopsy to recover h
 | **Primary Tool** | Autopsy |
 | **Operational Focus** | Disk image forensics and artifact analysis |
 
-#### Data Sources, Evidence, and Analysis Techniques
+</details>
+
+<details>
+<summary><strong>▶ Data Sources, Evidence, and Analysis Techniques</strong><br>
+</summary><br>
 
 | Area | Details |
 |--------|---------|
@@ -122,11 +108,17 @@ The execution focuses on forensic disk image analysis using Autopsy to recover h
 | **Operating System Identified** | `Windows 8.1 Pro` |
 | **Hostname Identified** | `WIN-BK336TFMHLL` |
 
+</details>
+
 ---
 
 ### Intended Use
 
-This execution is intended to demonstrate foundational disk forensic methodology involving forensic image analysis and host artifact investigation.
+This execution is intended to demonstrate foundational disk forensic methodology involving forensic image analysis and host artifact investigation. This process supports later forensic work involving disk analysis, incident response, endpoint investigations, evidence triage, user activity reconstruction, threat hunting, and forensic reporting.
+
+<details>
+<summary><strong>▶ Investigative Questions Addressed</strong><br>
+</summary><br>
 
 The workflow reflects how analysts may answer questions such as:
 
@@ -142,25 +134,17 @@ The workflow reflects how analysts may answer questions such as:
 - When was the Administrator account last accessed?
 - How can multiple disk artifacts be correlated to reconstruct activity?
 
-This process supports later forensic work involving disk analysis, incident response, endpoint investigations, evidence triage, user activity reconstruction, threat hunting, and forensic reporting.
+</details>
 
 ---
 
 ### Relevance to Security Operations and Digital Forensics
 
-Disk images preserve evidence that remains stored on a device after activity occurs.
+Disk images preserve evidence that remains stored on a device after activity occurs. Operating system artifacts can establish system identity and environment context. Browser download artifacts can reveal downloaded content, source URLs, and internet-based activity. Recent Documents and LNK artifacts can preserve evidence of file access and original file locations. Filesystem metadata can reveal directory structures, installed applications, and storage-related information. OS Account artifacts can provide user and account activity context that supports timeline development and attribution efforts. This workflow demonstrates how multiple disk artifact sources can be combined to produce a more complete understanding of activity occurring on a Windows system.
 
-Operating system artifacts can establish system identity and environment context.
-
-Browser download artifacts can reveal downloaded content, source URLs, and internet-based activity.
-
-Recent Documents and LNK artifacts can preserve evidence of file access and original file locations.
-
-Filesystem metadata can reveal directory structures, installed applications, and storage-related information.
-
-OS Account artifacts can provide user and account activity context that supports timeline development and attribution efforts.
-
-Together, these artifacts support:
+<details>
+<summary><strong>▶ Analyst Use Cases</strong><br>
+</summary><br>
 
 - disk forensics,
 - endpoint investigations,
@@ -173,7 +157,7 @@ Together, these artifacts support:
 - artifact correlation,
 - forensic reporting.
 
-This workflow demonstrates how multiple disk artifact sources can be combined to produce a more complete understanding of activity occurring on a Windows system.
+</details>
 
 ---
 
