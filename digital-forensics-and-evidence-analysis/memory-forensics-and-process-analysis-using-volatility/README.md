@@ -1,4 +1,4 @@
-# Memory Forensics and Process Analysis Using Volatility
+# Memory Forensics and Process Analysis Using Volatility Workbench
 
 ### Overview
 
