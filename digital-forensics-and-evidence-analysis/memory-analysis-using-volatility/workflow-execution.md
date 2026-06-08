@@ -770,7 +770,7 @@ The command can be broken down as follows:
 | `memdump1.mem` | Memory image being analyzed |
 
 <p align="left">
-  <img src="images/memory-analysis-using-volatility-011.png"
+  <img src="images/memory-analysis-using-volatility-11.png"
        alt="Using cmdline to review PID 2352"
        style="border: 2px solid #444; border-radius: 6px;"
        width="900"><br>
