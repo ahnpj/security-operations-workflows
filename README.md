@@ -15,7 +15,9 @@ These writeups emphasize evidence-based validation, repeatable analyst processes
  > 👉 **[Category Folders and Current Workflows](#category-folders-and-current-workflows)**</br>
  **To understand what you will find in the repositories**
 
-> 👉 **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**, **[How These Workflows Are Designed](#how-these-workflows-are-designed)** and **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)**</br>
+> 👉 **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**,</br>
+👉 **[How These Workflows Are Designed](#how-these-workflows-are-designed)**, and</br>
+👉 **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)**</br>
 **For details on how individual workflow folders are structured, including standard files and documentation flow**
 
 ---
