@@ -1,58 +1,73 @@
 ## Security Operations Workflows
 
-This repository contains **hands-on security operations workflows** modeled after real SOC and blue-team execution. Each workflow captures how a common operational task is performed end-to-end — including the commands, pivots, validation logic, and analyst reasoning used to reach defensible conclusions.
+This repository contains hands-on security operations projects focused on digital forensics, threat intelligence, email security, SIEM analysis, endpoint investigations, network traffic analysis, identity and access management, detection engineering, and security automation.
 
-Workflows are organized into category folders based on **primary operational domain** (endpoint triage, SIEM detections, network traffic analysis, identity and access, automation/log processing, and vulnerability management). Each workflow folder is self-contained and designed to be read like an internal runbook execution: *what you did, why you did it, what you saw, and what it means*.
+Projects are organized into category folders representing major security domains. Within each category, individual project folders contain complete, self-contained exercises documenting a specific task, investigation, analysis, or operational scenario from start to finish.
 
-These writeups emphasize evidence-based validation, repeatable analyst processes, and practical execution patterns — not just tool features.
+The emphasis is not simply on using tools, but on understanding how evidence is collected, validated, analyzed, and transformed into defensible findings. Each project documents the technical execution, supporting evidence, analytical reasoning, and conclusions behind the work performed.
 
-> 👉 **[Start Here: How to Navigate This Repository](#start-here-how-to-navigate-this-repository)**</br>
-**For guidance on how workflows are grouped by operational domain and how to navigate the repository**.
+> 👉 **[Category Folders and Current Projects](#category-folders-and-current-projects)**</br>
+> **Browse all projects organized by security domain**
 
 > 👉 **[How This Repository Is Organized](#how-this-repository-is-organized)**</br>
-**To understand how this entire GitHub portfolio, repositories, and sub folder structures are defined**
+> **Understand how categories, projects, and supporting documentation are structured**
 
- > 👉 **[Category Folders and Current Workflows](#category-folders-and-current-workflows)**</br>
- **To understand what you will find in the repositories**
-
-> 👉 **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**,</br>
-👉 **[How These Workflows Are Designed](#how-these-workflows-are-designed)**, and</br>
-👉 **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)**</br>
-**For details on how individual workflow folders are structured, including standard files and documentation flow**
+> 👉 **[Project Structure and Documentation](#project-structure-and-documentation)**</br>
+> **Review the standard files and documentation approach used throughout the repository**
 
 ---
 
 ### Start Here: How to Navigate This Repository
-👉 **Browse by category folders**  
-At the top level of this repository, you’ll see folders organized by **primary operational domain** (for example: endpoint triage, SIEM detections, network traffic analysis, identity and access). Start by choosing the category that best matches the type of task you want to practice or reference.
 
-👉 **Each subfolder is one complete workflow execution**  
-Inside each category, every workflow folder is a **self-contained operational task** documented end-to-end, including the execution steps and supporting notes.
+Projects are grouped by security domain and organized into self-contained project folders. Each folder documents a complete technical exercise, investigation, analysis, or operational scenario and includes the supporting documentation needed to understand both the execution process and resulting findings.
 
-👉 **Follow the workflow execution first**  
-Begin with `workflow-execution.md` inside a workflow folder to see the step-by-step command execution, pivots, and validation logic.
+If you're new to the repository, start with **[Category Folders and Current Projects](#category-folders-and-current-projects)** to quickly see the types of security work represented throughout the portfolio.
 
-👉 **Use analyst notes to understand decisions**  
-Read `analyst-notes.md` to see assumptions, interpretation, edge cases, and why certain pivots or checks matter in real investigations.
+<details>
+<summary><strong>▶️ Project Documentation Structure</strong></summary></br>
 
-👉 **Reference tool usage notes for syntax and patterns**  
-Use `tool-usage-notes.md` as a reusable reference for command syntax, flags, parsing patterns, and “gotchas” you’ll want handy during real triage.
+Most project folders include the following supporting files:
 
-👉 **Check automation design notes when present**  
-Some workflows include `automation-design-notes.md` to show how the workflow can be translated into repeatable scripts, parsing logic, or detection automation.
+| File | Purpose |
+|---|---|
+| `README.md` | Project overview, scope, assumptions, and objectives |
+| `workflow-execution.md` | Step-by-step execution and analysis |
+| `analyst-notes.md` | Reasoning, interpretation, and investigative thought process |
+| `tool-usage-notes.md` | Tool-specific observations, syntax, and references |
+| `images/` | Screenshots and supporting evidence |
+| `automation-design-notes.md` | Automation concepts and implementation notes (when applicable) |
 
-👉 **Use this repository as execution-based learning**  
-These workflows are designed to be read like **SOC runbook executions**, showing not just *what* to run, but *how* an analyst validates results and avoids false conclusions.
+The documentation is intentionally separated so execution, analysis, and reference material can be reviewed independently while remaining tied to the same project.
+
+</details>
 
 ---
 
 ### How This Repository Is Organized
-This repository is organized into **category folders**, which are the top-level folders you see at the top when browsing the repository.
+This repository is organized into category folders, which represent major security operations domains. Projects are placed into categories based on the primary security function being performed rather than solely by the tools used during analysis.
 
-Each category represents a major security operations domain used to group related workflows. Workflows are placed into a category based on **what the analyst is primarily doing** (the operational job-to-be-done), not solely by which tools appear in the workflow.
+Each project lives in its own folder and contains the documentation, notes, screenshots, and supporting evidence required to understand and repeat the work.
 
-Each workflow lives in its own folder inside a category and includes the documentation, notes, and supporting evidence needed to understand and repeat the task.
+<details>
+<summary><strong>▶️ Category Folders</strong></summary></br>
 
+| Category Folder | Security Domain | Focus Area | What You Will Find Inside |
+|---|---|---|---|
+| **endpoint-triage-and-host-analysis/** | Security Operations | Endpoint Triage & Host Analysis | Windows and Linux host triage, process and service inspection, filesystem artifact checks, network exposure validation, and quick health/persistence checks. |
+| **siem-detections-and-log-analysis/** | Security Operations | SIEM Detection & Log Analysis | SPL-driven investigations, field extraction and normalization, ingestion corrections, and detection-ready data shaping, including VPN remote-access anomaly analysis. |
+| **network-monitoring-and-traffic-analysis/** | Security Operations | Network Monitoring & Traffic Analysis | Bounded packet capture with tcpdump and deeper PCAP analysis in Wireshark, including filtering, session reconstruction, and evidence extraction. |
+| **identity-and-access-management/** | Identity & Access Security | Identity & Access Management | Active Directory user and group administration, delegation, OU management, and access control validation using standard enterprise tooling. |
+| **detection-automation-and-log-processing/** | Detection Engineering | Detection Automation & Log Processing | Python-based parsing and analysis, transforming logs into structured signals, and prototyping behavior-based detections. |
+| **digital-forensics-and-evidence-analysis/** | Digital Forensics & Incident Response | Digital Forensics & Evidence Analysis | Evidence acquisition, forensic imaging, disk image analysis, memory forensics, browser artifact analysis, Windows artifact analysis, deleted-file investigations, Recycle Bin analysis, filesystem examination, metadata analysis, file carving, hash validation, process analysis, user activity reconstruction, timeline development, artifact correlation, and host-based forensic investigations using FTK Imager, KAPE, ProcDump, ExifTool, Scalpel, Browser History Viewer, WFA, PECmd, JumpList Explorer, RBCmd, Volatility, Volatility Workbench, and Autopsy. |
+| **email-security-and-phishing-analysis/** | Email Security | Email Security & Phishing Analysis | Manual email header analysis, sender spoofing detection, URL investigation, attachment analysis, and phishing artifact enrichment. |
+| **threat-intelligence-and-enrichment/** | Threat Intelligence | Threat Intelligence & Enrichment | IOC analysis, ATT&CK mapping, threat actor profiling, malware research, intelligence enrichment, and operational threat intelligence workflows. |
+| **vulnerability-management-and-exposure-analysis/** | Vulnerability Management | Vulnerability Management & Exposure Analysis | Vulnerability prioritization, exposure analysis, remediation validation, and risk-based vulnerability management activities. |
+
+</details>
+
+
+
+<!--
 #### Category Folders (Top-Level Directories)
 | Category Folder | Workflow Focus | What You Will Find Inside |
 |---|---|---|
@@ -64,192 +79,230 @@ Each workflow lives in its own folder inside a category and includes the documen
 | **vulnerability-management-and-exposure-analysis/** | Vulnerability management workflows focused on exposure analysis, prioritization, and remediation tracking. | Category scaffold for future workflows (currently no workflow folders in this category). | **threat-intelligence-and-enrichment** | Threat intelligence workflows focused on collecting, validating, enriching, and operationalizing indicators and adversary intelligence. | Workflows for MISP-based intelligence analysis, ATT&CK mapping, IOC investigation, threat actor profiling, malware and campaign research, indicator enrichment, intelligence sharing concepts (ISACs, TAXII, TLP, PAP), and operational threat intelligence workflows. |
 | **email-security-and-phising-analysis/** | Phishing email analysis workflows focused on extracting, validating, and analyzing email-based attack artifacts. | Workflows for manual email header analysis, sender spoofing detection, reply-to validation, URL and domain investigation, attachment hashing, and artifact enrichment using tools like PhishTool, WHOIS, and VirusTotal. |
 | - **digital-forensics-and-evidence-analysis** | Digital forensics and evidence analysis workflows focused on acquiring, validating, examining, interpreting, and correlating digital evidence from storage media, memory, files, operating systems, browser artifacts, and forensic artifacts. Workflows include forensic disk image analysis, forensic imaging, file system identification, partition analysis, metadata examination, file carving, hash validation, browser artifact collection, browser history analysis, cached content analysis, download artifact investigation, operating system identification, hostname attribution, Recent Documents analysis, Windows shortcut (.LNK) analysis, Prefetch analysis, Jump List analysis, Recycle Bin analysis, deleted-file metadata examination, SID attribution analysis, deletion timestamp analysis, execution evidence review, filesystem navigation, account activity analysis, user activity reconstruction, timeline development, artifact correlation, memory acquisition, memory image analysis, Volatility-based memory forensics, process enumeration, process tree analysis, parent-child process analysis, privilege analysis, command-line artifact recovery, PID-based investigation, and volatile evidence examination using Volatility Workbench and the Volatility Framework. Workflows cover identifying deleted files, recovering deleted-file metadata, attributing deleted activity to specific users, analyzing Security Identifiers (SIDs), reviewing deletion timestamps, correlating original file paths, validating deleted-file ownership, reconstructing deleted-file activity using RBCmd, CSVQuickViewer, and Windows Recycle Bin artifacts, as well as analyzing forensic disk images using Autopsy to recover operating system information, browser download artifacts, source URLs, Recent Documents artifacts, filesystem metadata, local account activity, and host-based evidence. |
----
-
-### How Workflows Are Structured & Organized
-Workflows are organized using a two-level hierarchy:
-
-1. **Category folders** — group related tasks by primary operational domain  
-2. **Workflow folders** — each individual operational task lives in its own folder inside a category
-
-Each workflow folder is self-contained and represents **one complete execution writeup**.
-
-**Naming convention:** workflow folders use a **tool-first naming convention** followed by the operational focus (for example: `powershell-windows-endpoint-triage-and-system-inspection`, `tcpdump-targeted-packet-capture-and-filtering`, or `splunk-vpn-remote-access-anomaly-detection`). This makes it easy to scan the repo and immediately understand both the platform/tool and the task.
+-->
 
 ---
 
-### How These Workflows Are Designed
-This repository is **task-first**, not tool-documentation-first.
+### Project Structure and Documentation
 
-You will find:
+Projects are organized using a two-level hierarchy:
 
-- Step-by-step operational executions (`workflow-execution.md`) with commands and pivots
-- Analyst reasoning and interpretation notes (`analyst-notes.md`)
-- Tool/reference notes you can reuse in future work (`tool-usage-notes.md`)
-- Supporting screenshots and evidence (`images/`)
-- Where relevant, design notes for turning the workflow into automation (`automation-design-notes.md`)
+| Level | Purpose |
+|---|---|
+| **Category Folders** | Group related projects by primary security domain |
+| **Project Folders** | Contain one complete technical exercise, investigation, analysis, or operational scenario |
 
-The goal is to capture what a capable SOC analyst would record while executing a runbook: what was checked, why it was checked, how results were validated, and what conclusions can (and cannot) be drawn from the evidence.
+Project folders use descriptive naming conventions that typically combine the primary tool, platform, or artifact type with the security task being performed.
+
+<details>
+<summary><strong>▶️ How These Projects Are Designed</strong></summary></br>
+
+This repository is task-first rather than tool-documentation-first.
+
+Projects focus on demonstrating how practical security work is performed, validated, documented, and interpreted. The emphasis is on investigative methodology, evidence validation, analytical reasoning, and operational decision-making.
+
+Common project components include:
+
+- Step-by-step execution documentation
+- Analyst reasoning and interpretation
+- Tool-specific reference material
+- Supporting screenshots and evidence
+- Automation concepts where applicable
+
+The goal is to capture what a capable SOC, DFIR, threat intelligence, or blue-team analyst would document while performing the work.
+
+</details>
 
 ---
 
-### Standard Files in Each Workflow Folder
-While not every workflow requires every file, workflow folders typically include the following supporting documents:
-
+### Standard Files in Each Project Folder
 | File / Folder | Purpose | Contents and Focus |
 |---|---|---|
-| **Workflow README** (`README.md`) | Quick orientation for the workflow. | Defines the operational purpose, scope, assumptions, tooling, and what the workflow is meant to demonstrate. |
+| **Project README** (`README.md`) | Quick orientation for the project. | Defines the operational purpose, scope, assumptions, tooling, and what the project is meant to demonstrate. |
 | **Workflow Execution** (`workflow-execution.md`) | Step-by-step hands-on execution. | The actual command flow and analyst pivots, including what to run, what to look for, and how to validate results. |
 | **Analyst Notes** (`analyst-notes.md`) | Reasoning, interpretation, and edge cases. | Why specific checks are performed, how to avoid common mistakes, and how to interpret ambiguous outputs. |
 | **Tool Usage Notes** (`tool-usage-notes.md`) | Reusable tool reference. | Flags, syntax patterns, parsing tips, and operational “gotchas” you can apply across multiple scenarios. |
-| **Automation Design Notes** (`automation-design-notes.md`) | Turning execution into repeatable automation (when present). | Notes on parsing logic, data structures, detection logic shaping, and how to operationalize the workflow with scripts or scheduled jobs. |
-| **Screenshots and Supporting Evidence** (`images/`) | Visual validation artifacts. | Screenshots referenced throughout the workflow execution and notes to support the documented conclusions. |
+| **Automation Design Notes** (`automation-design-notes.md`) | Turning execution into repeatable automation (when present). | Notes on parsing logic, data structures, detection logic shaping, and how to operationalize the project with scripts or scheduled jobs. |
+| **Screenshots and Supporting Evidence** (`images/`) | Visual validation artifacts. | Screenshots referenced throughout the project execution and notes to support the documented conclusions. |
 
-Together, these files separate **execution**, **reasoning**, and **reference material** into clear, reviewable components while keeping everything tied to the same operational task.
+Together, these files separate execution, reasoning, and reference material into clear, reviewable components while keeping everything tied to the same operational task.
+
+<details>
+<summary><strong>▶️ Category Overlap and Repository Scope</strong></summary></br>
+
+A single project may touch endpoint artifacts, identity context, network indicators, SIEM analysis, threat intelligence, forensic artifacts, or automation logic.
+
+Projects are grouped according to the primary operational objective rather than duplicated across multiple categories.
+
+This repository focuses on reusable technical projects and operational analysis patterns. Full incident narratives, case reports, timelines, and investigation deliverables are maintained separately within the incident-response-and-investigations repository.
+
+</details>
 
 ---
 
-### Category Folders and Current Workflows
-#### ▶️ Endpoint Triage and Host Analysis Workflows  
+### Category Folders and Current Projects
+
+<details>
+<summary><strong>▶️ Endpoint Triage and Host Analysis Workflows</strong></summary></br>
+ 
 `endpoint-triage-and-host-analysis/`
 
-Current workflows:
+- **Linux Endpoint Triage and Script-Based Validation Logic Using Bash**</br>
+  - **Folder:** `endpoint-triage-and-host-analysis` **>** `bash-linux-endpoint-triage-and-validation-scripting`
+  - **Summary:** Live host enumeration, filesystem inspection, shell environment awareness, and basic automation using Bash.
+  - **Tools:** Linux (Ubuntu), Bash shell, native command-line utilities, SSH-based access.
 
-- **Linux Endpoint Triage and Script-Based Validation Logic Using Bash — Operational Execution**  
-  Live host enumeration, filesystem inspection, shell environment awareness, and basic automation using Bash. Tools: Linux (Ubuntu), Bash shell, native command-line utilities, SSH-based access.  
-  Folder: `endpoint-triage-and-host-analysis/bash-linux-endpoint-triage-and-validation-scripting/`
+- **Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell**</br>
+  - **Folder:** `endpoint-triage-and-host-analysis` **>** `cmd-windows-process-and-network-triage`</br>
+  - **Summary:** Filesystem inspection, process enumeration, network correlation, and targeted containment using native Windows CLI tools.</br>
+  - **Tools:** Windows CMD, PowerShell, native Windows system utilities.
 
-- **Windows Endpoint Triage and Network Exposure Validation Using CMD and PowerShell — Operational Execution**  
-  Filesystem inspection, process enumeration, network correlation, and targeted containment using native Windows CLI tools. Tools: Windows CMD, PowerShell, native Windows system utilities.</br>
-  Folder: `endpoint-triage-and-host-analysis/cmd-windows-process-and-network-triage/`
+- **Windows Endpoint Triage and System Inspection Using PowerShell**</br>
+  - **Folder:** `endpoint-triage-and-host-analysis` **>** `powershell-windows-endpoint-triage-and-system-inspection`</br>
+  - **Summary:** Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell.</br>
+  - **Tools:** Windows PowerShell, native Windows telemetry and services.
 
-- **Windows Endpoint Triage and System Inspection Using PowerShell — Operational Execution**  
-  Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell. Tools: Windows PowerShell, native Windows telemetry and services.</br>
-  Folder: `endpoint-triage-and-host-analysis/powershell-windows-endpoint-triage-and-system-inspection/`
+</details>
 
-#### ▶️ SIEM Detections and Log Analysis Workflows  
+<details>
+<summary><strong>▶️ SIEM Detections and Log Analysis Workflows</strong></summary></br>  
+ 
 `siem-detections-and-log-analysis/`
 
-Current workflows:
+- **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk**</br>
+  - **Folder:** `siem-detections-and-log-analysis` **>** `splunk-log-parsing-and-field-extraction`</br>
+  - **Summary:** Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry.</br>
+  - **Tools:** Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`).
 
-- **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk — Operational Execution**  
-  Ingestion pipeline design, event boundary correction, sensitive data masking, and structured field extraction for detection-ready telemetry. Tools: Splunk Enterprise, Linux command line, Splunk configuration files (`inputs.conf`, `props.conf`, `transforms.conf`, `fields.conf`).
-  Folder: `siem-detections-and-log-analysis/splunk-log-parsing-and-field-extraction/`
+- **VPN Authentication and Remote Access Anomaly Analysis Using Splunk**</br>
+  - **Folder:** `siem-detections-and-log-analysis` **>** `splunk-vpn-remote-access-anomaly-detection`</br>
+  - **Summary:** Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry.</br>
+  - **Tools:** Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`.
 
-- **VPN Authentication and Remote Access Anomaly Analysis Using Splunk — Operational Execution**  
-  Authentication analysis, geographic anomaly detection, session outcome analysis, and baseline development using VPN telemetry. Tools: Splunk Enterprise, SPL (Search Processing Language), JSON field extraction using `spath`.</br>
-  Folder: `siem-detections-and-log-analysis/splunk-vpn-remote-access-anomaly-detection/`
+</details>
 
-#### ▶️ Network Monitoring and Traffic Analysis Workflows  
+<details>
+<summary><strong>▶️ Network Monitoring and Traffic Analysis Workflows</strong></summary></br>  
+ 
 `network-monitoring-and-traffic-analysis/`
 
-Current workflows:
+- **Targeted Packet Capture and Traffic Filtering Using tcpdump**</br>
+  - **Folder:** `network-monitoring-and-traffic-analysis` **>** `tcpdump-targeted-packet-capture-and-filtering`</br>
+  - **Summary:** Interface validation, bounded packet capture, protocol filtering, and offline analysis preparation.</br>
+  - **Tools:** Linux, tcpdump, native networking utilities.
 
-- **Targeted Packet Capture and Traffic Filtering Using tcpdump — Operational Execution**  
-  Interface validation, bounded packet capture, protocol filtering, and offline analysis preparation. Tools: Linux, tcpdump, native networking utilities.</br>
-  Folder: `network-monitoring-and-traffic-analysis/tcpdump-targeted-packet-capture-and-filtering/`
+- **Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark**</br>
+  - **Folder:** `network-monitoring-and-traffic-analysis` **>** `wireshark-traffic-analysis-and-session-reconstruction`</br>
+  - **Summary:** Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures.</br>
+  - **Tools:** Wireshark, stored PCAP and PCAPNG capture files.
 
-- **Traffic Filtering, Protocol Dissection, and Session Reconstruction Using Wireshark — Operational Execution**  
-  Protocol inspection, OSI-layer dissection, session reconstruction, and evidence extraction from packet captures. Tools: Wireshark, stored PCAP and PCAPNG capture files.</br>
-  Folder: `network-monitoring-and-traffic-analysis/wireshark-traffic-analysis-and-session-reconstruction/`
+</details>
 
-#### ▶️ Identity and Access Management Workflows  
+
+<details>
+<summary><strong>▶️ Identity and Access Management Workflows</strong></summary></br>
+ 
 `identity-and-access-management/`
 
-Current workflows:
+- **Identity and Access Management Operations Using Active Directory**</br>
+  - **Folder:** `identity-and-access-management` **>** `active-directory-iam-operations-and-permission-validation`</br>
+  - **Summary:** User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory.</br>
+  - **Tools:** Windows Server, Active Directory Domain Services (AD DS), Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).
 
-- **Identity and Access Management Operations Using Active Directory — Operational Execution**  
-  User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory. Tools: Windows Server, Active Directory Domain Services, Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).</br> 
-  Folder: `identity-and-access-management/active-directory-iam-operations-and-permission-validation/`
+</details>
 
-#### ▶️ Detection Automation and Log Processing Workflows  
+<details>
+<summary><strong>▶️ Detection Automation and Log Processing Workflows</strong></summary></br>
+ 
 `detection-automation-and-log-processing/`
 
-Current workflows:
+- **Log Parsing and Threat Detection Automation Using Python**</br>
+  - **Folder:** `detection-automation-and-log-processing` **>** `python-log-parsing-and-threat-detection`</br>
+  - **Summary:** Behavior-based detection logic prototyping from raw security telemetry across multiple environments using Python automation.</br>
+  - **Tools:** Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.
 
-- **Log Parsing and Threat Detection Automation Using Python — Operational Execution**  
-  Behavior-based detection logic prototyping from raw security telemetry across multiple environments. Tools: Python (standard library only), Linux shell environment (Google Cloud Shell), multi-format log datasets.</br>
-  Folder: `detection-automation-and-log-processing/python-log-parsing-and-threat-detection/`
+</details>
 
-#### ▶️ Email Security and Phishing Analysis Workflows
+<details>
+<summary><strong>▶️ Email Security and Phishing Analysis Workflows</strong></summary></br>
+ 
 `email-security-and-phishing-analysis/`
 
-Current workflows:
+- **File System Identification and Evidence Structure Analysis Using FTK Imager**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `filesystem-identification-and-evidence-structure-analysis-using-ftk-imager`</br>
+  - **Summary:** Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling.</br>
+  - **Tools:** FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`).
 
-- **Manual Phishing Email Artifact Extraction and Analysis — Operational Execution**  
-  Manual extraction and analysis of phishing email artifacts including header inspection, sender validation, URL analysis, and file hash collection. Focuses on identifying spoofing indicators, tracing email origin, and validating malicious intent using both native tools and external analysis platforms. Tools: Microsoft Outlook (.eml export), Sublime Text, PhishTool, WHOIS lookup, VirusTotal</br>
-  Folder: `email-security-and-phishing-analysis/phishing-email-artifact-extraction-and-anslysis/`
+- **Metadata Analysis and File Carving Using ExifTool and Scalpel**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `metadata-analysis-and-file-carving-using-exiftool-and-scalpel`</br>
+  - **Summary:** Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing.</br>
+  - **Tools:** ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum.
 
-- **Manual Attachment-Based Email Phising Artifact Analysis — Operational Execution**  
-  Manual analysis of a phishing attachment designed to impersonate a Microsoft login portal and harvest credentials. It highlights how analysts inspect file metadata, review rendered HTML behavior, decode obfuscated source content, and validate credential exfiltration through browser-based network analysis.</br>
-  Folder: `email-security-and-phishing-analysis/attachment-phishing-artifact-analysis/`
+- **Hash Analysis and File Integrity Validation**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `hash-analysis-and-file-integrity-validation`</br>
+  - **Summary:** Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing.</br>
+  - **Tools:** md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases.
 
-- **Multiple Email Phising Triage and Artifact Analysis — Operational Execution**  
-  Structured triage of multiple email samples to distinguish between phishing, spam, and legitimate communications. It highlights how analysts evaluate sender identity, inspect raw message headers, identify deceptive attachments, and correlate artifacts across messages to make accurate classification decisions and extract actionable indicators of compromise.</br>
-  Folder: `email-security-and-phishing-analysis/multi-email-phishing-triage-and-artifact-analysis`
+- **Data Acquisition Using FTK Imager, ProcDump, and KAPE**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `data-acquisition-using-ftk-imager-procdump-and-kape`</br>
+  - **Summary:** Evidence acquisition workflow focused on preserving volatile memory, process memory, forensic disk images, and browser-related artifacts from local and remote Windows systems. Demonstrates practical acquisition methodologies used throughout digital forensic and incident response investigations, including physical memory capture, process-specific memory dumping, forensic disk imaging, evidence integrity validation through hash generation, remote evidence collection, and targeted artifact acquisition. Reinforces foundational DFIR concepts including volatile versus persistent data, evidence preservation, process identification, forensic imaging workflows, browser artifact collection, remote acquisition operations, and the relationship between acquisition and later forensic analysis. Covers practical use of FTK Imager, ProcDump, PowerShell, Remote Desktop Protocol (RDP), and KAPE while highlighting how different acquisition methods support memory forensics, malware investigations, browser forensics, incident response activities, and digital evidence preservation.</br>
+  - **Tools:** FTK Imager, ProcDump, PowerShell, RDP, KAPE, gkape, Windows File Explorer, forensic disk image files (`.E01`), memory dump files (`.mem`), process dump files (`.dmp`).
 
+- **Windows Artifact Analysis Using WFA, PECmd, and JumpList Explorer**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `windows-artifact-analysis-using-wfa-pecmd-and-jumplistexplorer`</br>
+  - **Summary:** Windows artifact analysis workflow focused on identifying suspicious files, reconstructing user activity, and reviewing execution-related evidence through Windows forensic artifacts. Demonstrates practical analysis of Shortcut (.LNK) files, Prefetch (.pf) files, and Jump List artifacts to identify file origins, archive relationships, application interactions, execution traces, browser activity, and user behavior. Reinforces foundational DFIR concepts including artifact correlation, execution evidence review, application attribution, user activity reconstruction, and the distinction between file existence, file access, and execution-related activity. Covers practical use of Windows File Analyzer (WFA), PECmd, JumpList Explorer, Command Prompt, and Windows artifact analysis methodologies while highlighting how multiple independent artifact sources can be combined to reconstruct investigative timelines and support forensic conclusions.</br>
+  - **Tools:** Windows File Analyzer (WFA), PECmd, JumpList Explorer, Command Prompt, Windows Shortcut Artifacts (.LNK), Windows Prefetch Artifacts (.pf), Windows Jump Lists.
 
-#### ▶️ Digital Forensics and Evidence Analysis Workflows
-`digital-forensics-and-evidence-analysis/`
+- **Browser History Analysis Using Browser History Viewer**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `browser-history-analysis-with-browser-history-viewer`</br>
+  - **Summary:** Browser artifact analysis workflow focused on reconstructing user activity, examining cached browser content, identifying downloaded files, and correlating browser-based evidence. Demonstrates practical analysis of Website History records, Cached Images, browser profiles, keyword filtering, download artifact identification, timeline reconstruction, and source attribution using Browser History Viewer (BHV). Reinforces foundational DFIR concepts including browser artifact analysis, user activity reconstruction, evidence correlation, cached content examination, download investigation, delivery source versus hosting source attribution, timeline analysis, and browser-based forensic methodologies while highlighting how multiple browser artifacts can be combined to reconstruct investigative narratives and support forensic conclusions.</br>
+  - **Tools:** Browser History Viewer (BHV), Website History, Cached Images, Browser Profiles, Download Records, Local File References, URL Records.
 
-Current workflows:
+- **Recycle Bin Analysis Using RBCmd and CSVQuickViewer**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `recycle-bin-analysis-using-rbcmd-and-csvquickviewer`</br>
+  - **Summary:** Recycle Bin analysis workflow focused on identifying deleted files, reconstructing deleted-file activity, attributing deleted artifacts to specific users, and reviewing deletion-related evidence through Windows Recycle Bin artifacts. Demonstrates practical examination of Recycle Bin metadata, Security Identifier (SID) attribution, deletion timestamps, original file path analysis, file size correlation, and deleted-file investigation using RBCmd and CSVQuickViewer. Reinforces foundational DFIR concepts including deleted-file recovery methodologies, metadata interpretation, user attribution, evidence correlation, artifact persistence, and the distinction between file deletion and evidence removal. Covers practical use of RBCmd, CSVQuickViewer, Command Prompt, and Windows Recycle Bin artifacts while highlighting how multiple metadata fields can be combined to support investigative findings and reconstruct deleted-file activity.</br>
+  - **Tools:** RBCmd, CSVQuickViewer, Command Prompt, Windows Recycle Bin Artifacts, SID-Based Recycle Bin Folders, Deleted-File Metadata Records.
 
-- **File System Identification and Evidence Structure Analysis Using FTK Imager — Operational Execution**  
-  Forensic image examination, partition analysis, file system identification, and evidence structure interpretation using acquired disk images. Focuses on identifying NTFS (NT File System), FAT32 (File Allocation Table 32), and EXT3 (Third Extended Filesystem) volumes while establishing investigative context for future artifact analysis, metadata examination, deleted file recovery, and timeline reconstruction. Reinforces foundational digital forensic concepts including partitions, clusters, file allocation structures, Logical Block Addresses (LBAs), Flash Translation Layers (FTLs), SSD storage behavior, TRIM operations, garbage collection, and wear leveling. Tools: FTK Imager, forensic disk image files (`carve1.img`, `carve2.img`, `disk1.img`)</br>
-  Folder: `digital-forensics-and-evidence-analysis/filesystem-identification-and-evidence-structure-analysis-using-ftk-imager/`
+- **Memory Analysis Using Volatility**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `memory-analysis-using-volatility`</br>
+  - **Summary:** Memory analysis workflow focused on identifying operating system profiles, analyzing running processes, investigating process relationships, reviewing command-line execution artifacts, identifying suspicious network communications, and extracting executable processes from memory. Demonstrates practical examination of Windows memory images using Volatility Framework 2.6.1 and Linux command-line utilities. Covers image identification, profile selection, process enumeration, process tree analysis, command-line recovery, network connection analysis, process dumping, executable hashing, and volatile evidence correlation. Reinforces foundational DFIR concepts including memory forensics methodology, volatile versus persistent evidence, process attribution, parent-child process analysis, command execution investigation, network artifact interpretation, evidence preservation, and multi-artifact correlation used to reconstruct activity occurring at the time of memory acquisition.</br>
+  - **Tools:** Volatility Framework 2.6.1, Bash, grep, wc, md5sum, Linux Terminal, Process Lists, Process Trees, Command-Line Arguments, Network Connections, Process Memory Dumps, Memory Image Metadata.
 
-- **Metadata Analysis and File Carving Using ExifTool and Scalpel — Operational Execution**  
-  Metadata extraction and deleted file recovery workflow focused on identifying embedded document and image metadata, recovering deleted image artifacts from a forensic disk image, and validating recovered evidence using cryptographic hashing. Demonstrates PDF author identification, EXIF camera metadata analysis, file signature-based carving, deleted file recovery methodology, and evidence validation through MD5 hashing. Tools: ExifTool, Scalpel, Linux Terminal, nano, grep, md5sum.</br>
-  Folder: `digital-forensics-and-evidence-analysis/metadata-analysis-and-file-carving-using-exiftool-and-scalpel/`
+- **Memory Forensics and Process Analysis Using Volatility 3 Workbench**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `memory-forensics-and-process-analysis-using-volatility`</br>
+  - **Summary:** Memory forensics workflow focused on analyzing Windows memory images, identifying operating system metadata, enumerating active processes, investigating process relationships, reviewing process privileges, and examining command-line execution artifacts using Volatility Workbench and the Volatility Framework. Demonstrates practical examination of volatile memory evidence through process enumeration, operating system identification, process tree analysis, privilege analysis, PID-based investigation, and command-line artifact recovery. Reinforces foundational DFIR concepts including memory artifact interpretation, process lineage analysis, parent-child process relationships, privilege attribution, execution context analysis, evidence correlation, and the distinction between process presence and process behavior. Covers practical use of Volatility Workbench, Volatility Framework plugins, Process ID filtering, and memory-based host investigation methodologies.</br>
+  - **Tools:** Volatility Workbench, Volatility Framework 3, Windows Memory Images, Process Lists, Operating System Metadata, Process Trees, Process Privileges, Command-Line Arguments.
 
-- **Hash Analysis and File Integrity Validation — Operational Execution**  
-  Cryptographic hashing workflow focused on generating, comparing, and validating MD5 (Message Digest Algorithm 5), SHA1 (Secure Hash Algorithm 1), and SHA256 (Secure Hash Algorithm 256-bit) hash values from both text strings and file-based artifacts. Demonstrates evidence integrity verification, file fingerprinting, algorithm comparison, artifact identification, and hash lookup methodologies used throughout digital forensic investigations and incident response operations. Reinforces foundational concepts including one-way hashing functions, evidence validation, chain-of-custody support, file-content hashing versus filename hashing, and the distinction between hashing and encryption. Covers practical use of Linux hashing utilities, Windows PowerShell hashing, and public hash databases while highlighting the role of hashes in forensic acquisitions, malware identification, artifact correlation, and threat intelligence sharing. Tools: md5sum, sha1sum, sha256sum, echo, PowerShell Get-FileHash, Linux Terminal, Public Hash Lookup Databases</br>
-  Folder: `digital-forensics-and-evidence-analysis/hash-analysis-and-file-integrity-validation/`
-
-- **Data Acquisition Using FTK Imager, ProcDump, and KAPE — Operational Execution**</br>
-  Evidence acquisition workflow focused on preserving volatile memory, process memory, forensic disk images, and browser-related artifacts from local and remote Windows systems. Demonstrates practical acquisition methodologies used throughout digital forensic and incident response investigations, including physical memory capture, process-specific memory dumping, forensic disk imaging, evidence integrity validation through hash generation, remote evidence collection, and targeted artifact acquisition. Reinforces foundational DFIR concepts including volatile versus persistent data, evidence preservation, process identification, forensic imaging workflows, browser artifact collection, remote acquisition operations, and the relationship between acquisition and later forensic analysis. Covers practical use of FTK Imager, ProcDump, PowerShell, Remote Desktop Protocol (RDP), and KAPE while highlighting how different acquisition methods support memory forensics, malware investigations, browser forensics, incident response activities, and digital evidence preservation. Tools: FTK Imager, ProcDump, PowerShell, RDP, KAPE, gkape, Windows File Explorer, forensic disk image files (`.E01`), memory dump files (`.mem`), process dump files (`.dmp`).</br>
-  Folder: `digital-forensics-and-evidence-analysis/data-acquisition-using-ftk-imager-procdump-and-kape/`
-
-- **Windows Artifact Analysis Using WFA, PECmd, and JumpList Explorer – Operational Execution**</br>
-  Windows artifact analysis workflow focused on identifying suspicious files, reconstructing user activity, and reviewing execution-related evidence through Windows forensic artifacts. Demonstrates practical analysis of Shortcut (.LNK) files, Prefetch (.pf) files, and Jump List artifacts to identify file origins, archive relationships, application interactions, execution traces, browser activity, and user behavior. Reinforces foundational DFIR concepts including artifact correlation, execution evidence review, application attribution, user activity reconstruction, and the distinction between file existence, file access, and execution-related activity. Covers practical use of Windows File Analyzer (WFA), PECmd, JumpList Explorer, Command Prompt, and Windows artifact analysis methodologies while highlighting how multiple independent artifact sources can be combined to reconstruct investigative timelines and support forensic conclusions. Tools: Windows File Analyzer (WFA), PECmd, JumpList Explorer, Command Prompt, Windows Shortcut Artifacts (.LNK), Windows Prefetch Artifacts (.pf), Windows Jump Lists.</br>
-    Folder: `digital-forensics-and-evidence-analysis/windows-artifact-analysis-using-wfa-pecmd-and-jumplistexplorer/`
-
-- **Browser History Analysis Using Browser History Viewer — Operational Execution**</br>
-  Browser artifact analysis workflow focused on reconstructing user activity, examining cached browser content, identifying downloaded files, and correlating browser-based evidence. Demonstrates practical analysis of Website History records, Cached Images, browser profiles, keyword filtering, download artifact identification, timeline reconstruction, and source attribution using Browser History Viewer (BHV). Reinforces foundational DFIR concepts including browser artifact analysis, user activity reconstruction, evidence correlation, cached content examination, download investigation, delivery source versus hosting source attribution, timeline analysis, and browser-based forensic methodologies while highlighting how multiple browser artifacts can be combined to reconstruct investigative narratives and support forensic conclusions. Tools: Browser History Viewer (BHV). Browser Artifacts: Website History, Cached Images, Browser Profiles, Download Records, Local File References, URL Records.</br>
-    Folder: `digital-forensics-and-evidence-analysis/browser-history-analysis-with-browser-history-viewer/`
-
-- **Recycle Bin Analysis Using RBCmd and CSVQuickViewer – Operational Execution**</br>
-    Recycle Bin analysis workflow focused on identifying deleted files, reconstructing deleted-file activity, attributing deleted artifacts to specific users, and reviewing deletion-related evidence through Windows Recycle Bin artifacts. Demonstrates practical examination of Recycle Bin metadata, Security Identifier (SID) attribution, deletion timestamps, original file path analysis, file size correlation, and deleted-file investigation using RBCmd and CSVQuickViewer. Reinforces foundational DFIR concepts including deleted-file recovery methodologies, metadata interpretation, user attribution, evidence correlation, artifact persistence, and the distinction between file deletion and evidence removal. Covers practical use of RBCmd, CSVQuickViewer, Command Prompt, and Windows Recycle Bin artifacts while highlighting how multiple metadata fields can be combined to support investigative findings and reconstruct deleted-file activity. Tools: RBCmd, CSVQuickViewer, Command Prompt, Windows Recycle Bin Artifacts, SID-Based Recycle Bin Folders, Deleted-File Metadata Records.</br>
-    Folder: `digital-forensics-and-evidence-analysis/recycle-bin-analysis-using-rbcmd-and-csvquickviewer/`
-
-- **Memory Analysis Using Volatility — Operational Execution**</br>
-  Memory analysis workflow focused on identifying operating system profiles, analyzing running processes, investigating process relationships, reviewing command-line execution artifacts, identifying suspicious network communications, and extracting executable processes from memory. Demonstrates practical examination of Windows memory images using Volatility Framework 2.6.1 and Linux command-line utilities. Covers image identification, profile selection, process enumeration, process tree analysis, command-line recovery, network connection analysis, process dumping, executable hashing, and volatile evidence correlation. Reinforces foundational DFIR concepts including memory forensics methodology, volatile versus persistent evidence, process attribution, parent-child process analysis, command execution investigation, network artifact interpretation, evidence preservation, and multi-artifact correlation used to reconstruct activity occurring at the time of memory acquisition. Tools: Volatility Framework 2.6.1, Bash, grep, wc, md5sum, Linux Terminal. Memory Artifacts: Process Lists, Process Trees, Command-Line Arguments, Network Connections, Process Memory Dumps, Memory Image Metadata.</br>
-  Folder: `digital-forensics-and-evidence-analysis/memory-analysis-using-volatility/`
-
-- **Memory Forensics and Process Analysis Using Volatility 3 Workbench – Operational Execution**</br>
-Memory forensics workflow focused on analyzing Windows memory images, identifying operating system metadata, enumerating active processes, investigating process relationships, reviewing process privileges, and examining command-line execution artifacts using Volatility Workbench and the Volatility Framework. Demonstrates practical examination of volatile memory evidence through process enumeration, operating system identification, process tree analysis, privilege analysis, PID-based investigation, and command-line artifact recovery. Reinforces foundational DFIR concepts including memory artifact interpretation, process lineage analysis, parent-child process relationships, privilege attribution, execution context analysis, evidence correlation, and the distinction between process presence and process behavior. Covers practical use of Volatility Workbench, Volatility Framework plugins, Process ID filtering, and memory-based host investigation methodologies. Tools: Volatility Workbench, Volatility Framework 3, Windows Memory Images. Memory Artifacts: Process Lists, Operating System Metadata, Process Trees, Process Privileges, Command-Line Arguments.</br>
-Folder: `digital-forensics-and-evidence-analysis/memory-forensics-and-process-analysis-using-volatility/`
-
-- **Disk Image Forensics and Artifact Analysis Using Autopsy — Operational Execution**</br>
-Disk image forensic workflow focused on examining a forensic disk image to identify operating system information, hostname metadata, browser download artifacts, source URLs, Recent Documents evidence, virtual filesystem metadata, and local operating system account activity. Demonstrates practical use of Autopsy for case creation, evidence ingestion, ingest module configuration, artifact review, filesystem navigation, download investigation, shortcut artifact analysis, account analysis, and evidence correlation. Covers operating system identification, hostname attribution, browser download reconstruction, URL recovery, Recent Documents analysis, Windows shortcut (.LNK) interpretation, filesystem examination, directory metadata analysis, and local account activity review. Reinforces foundational DFIR concepts including disk image examination, persistent evidence analysis, artifact interpretation, filesystem navigation, user activity reconstruction, account attribution, browser artifact analysis, host-based evidence correlation, and forensic workflow methodology. Tools: Autopsy, E01 Disk Images. Disk Artifacts: Operating System Information, Hostname Metadata, Web Downloads, Source URLs, Recent Documents, Windows Shortcut (.LNK) Artifacts, Virtual Filesystem Metadata, Directory Metadata, OS Accounts.</br>
-Folder: `digital-forensics-and-evidence-analysis/disk-image-forensics-and-artifact-analysis-using-autopsy/`
+- **Disk Image Forensics and Artifact Analysis Using Autopsy**</br>
+  - **Folder:** `digital-forensics-and-evidence-analysis` **>** `disk-image-forensics-and-artifact-analysis-using-autopsy`</br>
+  - **Summary:** Disk image forensic workflow focused on examining a forensic disk image to identify operating system information, hostname metadata, browser download artifacts, source URLs, Recent Documents evidence, virtual filesystem metadata, and local operating system account activity. Demonstrates practical use of Autopsy for case creation, evidence ingestion, ingest module configuration, artifact review, filesystem navigation, download investigation, shortcut artifact analysis, account analysis, and evidence correlation. Covers operating system identification, hostname attribution, browser download reconstruction, URL recovery, Recent Documents analysis, Windows shortcut (.LNK) interpretation, filesystem examination, directory metadata analysis, and local account activity review. Reinforces foundational DFIR concepts including disk image examination, persistent evidence analysis, artifact interpretation, filesystem navigation, user activity reconstruction, account attribution, browser artifact analysis, host-based evidence correlation, and forensic workflow methodology.</br>
+  - **Tools:** Autopsy, E01 Disk Images, Operating System Information, Hostname Metadata, Web Downloads, Source URLs, Recent Documents, Windows Shortcut (.LNK) Artifacts, Virtual Filesystem Metadata, Directory Metadata, OS Accounts.
 
 
-#### ▶️ Threat Intelligence Enrichment and Correlation Workflows  
+</details>
+
+<details>
+<summary><strong>▶️ Threat Intelligence Enrichment and Correlation Workflows</strong></summary></br>
+ 
 `threat-intelligence-enrichment-and-correlation/`
 
-Current workflows:
+- **Threat Intelligence Research and Analysis Using MISP**</br>
+  - **Folder:** `threat-intelligence-enrichment-and-correlation` **>** `misp-ioc-enrichment-and-correlation`</br>
+  - **Summary:** Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources.</br>
+  - **Tools:** MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research.
 
-- **Threat Intelligence Research and Analysis Using MISP — Operational Execution**  
-  Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources. Tools: MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research</br>
-  Folder: `threat-intelligence-enrichment-and-correlation/misp-ioc-enrichment-and-correlation/`
+</details>
 
-#### ▶️ Vulnerability Management and Exposure Analysis Workflows  
+<details>
+<summary><strong>▶️ Vulnerability Management and Exposure Analysis Workflows</strong></summary></br>
+ 
 `vulnerability-management-and-exposure-analysis/`
 
 Current workflows:
 
 - *(No workflow folders in this category yet — planned for future additions.)*
+
+</details>
 
 ---
 
