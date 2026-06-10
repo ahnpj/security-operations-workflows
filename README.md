@@ -6,11 +6,17 @@ Workflows are organized into category folders based on **primary operational dom
 
 These writeups emphasize evidence-based validation, repeatable analyst processes, and practical execution patterns — not just tool features.
 
-> 👉 For **guidance on how workflows are grouped by operational domain and how to navigate the repository**, start with the **[Start Here: How to Navigate This Repository](#start-here-how-to-navigate-this-repository)** section below.
+> 👉 **[Start Here: How to Navigate This Repository](#start-here-how-to-navigate-this-repository)**</br>
+**For guidance on how workflows are grouped by operational domain and how to navigate the repository**.
 
-> 👉 To **understand how category folders are defined and what types of workflows belong in each**, see **[How This Repository Is Organized](#how-this-repository-is-organized)** and **[Category Folders and Current Workflows](#category-folders-and-current-workflows)** sections below
+> 👉 **[How This Repository Is Organized](#how-this-repository-is-organized)**</br>
+**To understand how this entire GitHub portfolio, repositories, and sub folder structures are defined**
 
-> 👉 For **details on how individual workflow folders are structured, including standard files and documentation flow**, see **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**, **[How These Workflows Are Designed](#how-these-workflows-are-designed)** and **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)** sections below.
+ > 👉 **[Category Folders and Current Workflows](#category-folders-and-current-workflows)**</br>
+ **To understand what you will find in the repositories**
+
+> 👉 **[How Workflows Are Structured & Organized](#how-workflows-are-structured--organized)**, **[How These Workflows Are Designed](#how-these-workflows-are-designed)** and **[Standard Files in Each Workflow Folder](#standard-files-in-each-workflow-folder)**</br>
+**For details on how individual workflow folders are structured, including standard files and documentation flow**
 
 ---
 
