@@ -309,6 +309,7 @@ This repository focuses on reusable technical projects and operational analysis 
 
 ---
 
+<!--
 ### Overlap Between Categories
 
 Overlap between operational domains is expected and intentional.
@@ -322,8 +323,9 @@ A single workflow may touch:
 
 Rather than duplicating workflows across multiple categories, each workflow is grouped by the **primary operational job-to-be-done**, while the workflow documentation can include supporting context from other domains where it is necessary to validate results.
 
----
+-->
 
+<!--
 ### Relationship to Investigations and Case Work
 
 This repository documents **how common SOC tasks are executed**.
@@ -331,8 +333,7 @@ This repository documents **how common SOC tasks are executed**.
 Case-based incident writeups (full incident narratives, timelines, and findings) are maintained separately in the investigations repository so that this repo can remain focused on reusable operational execution patterns.
 
 Where relevant, workflows can be used as building blocks inside investigations to demonstrate how repeatable operational procedures translate into real investigative decisions.
-
----
+-->
 
 ### Ongoing Development
 
