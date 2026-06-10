@@ -303,7 +303,7 @@ This repository focuses on reusable technical projects and operational analysis 
  
 `vulnerability-management-and-exposure-analysis/`
 
-- Ongoing development ... In progress ... Loading ...
+- Ongoing development
 
 </details>
 
