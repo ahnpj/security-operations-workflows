@@ -152,6 +152,8 @@ This repository focuses on reusable technical projects and operational analysis 
  
 `endpoint-triage-and-host-analysis/`
 
+Projects focused on validating host state, identifying suspicious activity, and assessing system exposure through direct examination of Windows and Linux endpoints. Work commonly includes process analysis, service inspection, filesystem review, network validation, and host-based investigation using native operating system tools.
+
 - **Linux Endpoint Triage and Script-Based Validation Logic Using Bash**</br>
   - **Folder:** `endpoint-triage-and-host-analysis` **➜** `bash-linux-endpoint-triage-and-validation-scripting`
   - **Summary:** Live host enumeration, filesystem inspection, shell environment awareness, and basic automation using Bash.
@@ -170,9 +172,11 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ SIEM Detections and Log Analysis</strong></summary></br>  
+<summary><strong>▶️ SIEM Detections and Log Analysis</strong></summary></br>
  
 `siem-detections-and-log-analysis/`
+
+Projects focused on analyzing, normalizing, enriching, and investigating security telemetry within SIEM platforms. Work includes log parsing, field extraction, detection development, authentication analysis, anomaly identification, and transforming raw events into actionable security insights.
 
 - **Log Parsing, Event Normalization, and Field Extraction for Detection Queries Using Splunk**</br>
   - **Folder:** `siem-detections-and-log-analysis` **➜** `splunk-log-parsing-and-field-extraction`</br>
@@ -190,6 +194,8 @@ This repository focuses on reusable technical projects and operational analysis 
 <summary><strong>▶️ Network Monitoring and Traffic Analysis</strong></summary></br>  
  
 `network-monitoring-and-traffic-analysis/`
+
+Projects focused on collecting, filtering, inspecting, and interpreting network traffic to identify communication patterns, protocol behavior, and evidence of suspicious activity. Work includes packet capture, protocol analysis, session reconstruction, traffic filtering, and network-based investigation techniques.
 
 - **Targeted Packet Capture and Traffic Filtering Using tcpdump**</br>
   - **Folder:** `network-monitoring-and-traffic-analysis` **➜** `tcpdump-targeted-packet-capture-and-filtering`</br>
@@ -209,6 +215,8 @@ This repository focuses on reusable technical projects and operational analysis 
  
 `identity-and-access-management/`
 
+Projects focused on managing identities, validating permissions, and administering directory-based access controls within enterprise environments. Work includes user and group administration, delegation, organizational unit management, policy application, and access validation using Active Directory technologies.
+
 - **Identity and Access Management Operations Using Active Directory**</br>
   - **Folder:** `identity-and-access-management` **➜** `active-directory-iam-operations-and-permission-validation`</br>
   - **Summary:** User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory.</br>
@@ -221,6 +229,8 @@ This repository focuses on reusable technical projects and operational analysis 
  
 `detection-automation-and-log-processing/`
 
+Projects focused on transforming raw security telemetry into repeatable detection logic through automation, parsing, normalization, and enrichment. Work includes Python-based log analysis, structured data extraction, behavioral detection development, and automation of common security operations tasks.
+
 - **Log Parsing and Threat Detection Automation Using Python**</br>
   - **Folder:** `detection-automation-and-log-processing` **➜** `python-log-parsing-and-threat-detection`</br>
   - **Summary:** Behavior-based detection logic prototyping from raw security telemetry across multiple environments using Python automation.</br>
@@ -232,6 +242,8 @@ This repository focuses on reusable technical projects and operational analysis 
 <summary><strong>▶️ Email Security and Phishing Analysis</strong></summary></br>
  
 `email-security-and-phishing-analysis/`
+
+Projects focused on acquiring, validating, examining, and correlating digital evidence from storage media, memory, operating systems, browser artifacts, and forensic artifacts. Work includes forensic imaging, disk and memory analysis, browser forensics, Windows artifact analysis, deleted-file investigations, evidence validation, user activity reconstruction, timeline development, and host-based forensic investigations using industry-standard DFIR tools and methodologies.
 
 - **File System Identification and Evidence Structure Analysis Using FTK Imager**</br>
   - **Folder:** `digital-forensics-and-evidence-analysis` **➜** `filesystem-identification-and-evidence-structure-analysis-using-ftk-imager`</br>
@@ -291,6 +303,8 @@ This repository focuses on reusable technical projects and operational analysis 
  
 `threat-intelligence-enrichment-and-correlation/`
 
+Projects focused on collecting, validating, enriching, and operationalizing threat intelligence to better understand adversaries, infrastructure, malware activity, and attack techniques. Work includes IOC analysis, ATT&CK mapping, threat actor research, malware infrastructure investigation, intelligence enrichment, campaign analysis, and contextual correlation using structured threat intelligence platforms and external research sources.
+
 - **Threat Intelligence Research and Analysis Using MISP**</br>
   - **Folder:** `threat-intelligence-enrichment-and-correlation` **➜** `misp-ioc-enrichment-and-correlation`</br>
   - **Summary:** Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources.</br>
@@ -302,6 +316,8 @@ This repository focuses on reusable technical projects and operational analysis 
 <summary><strong>▶️ Vulnerability Management and Exposure Analysis</strong></summary></br>
  
 `vulnerability-management-and-exposure-analysis/`
+
+Projects focused on identifying, prioritizing, validating, and reducing security exposures across systems and applications. Work includes vulnerability assessment, risk prioritization, remediation validation, exposure analysis, and supporting activities designed to reduce attack surface and improve defensive posture.
 
 - Ongoing development
 
