@@ -218,6 +218,7 @@ Projects focused on collecting, filtering, inspecting, and interpreting network 
 Projects focused on managing identities, validating permissions, and administering directory-based access controls within enterprise environments. Work includes user and group administration, delegation, organizational unit management, policy application, and access validation using Active Directory technologies.
 
 - **Identity and Access Management Operations Using Active Directory**</br>
+
   - **Folder:** `identity-and-access-management` **➜** `active-directory-iam-operations-and-permission-validation`</br>
   - **Summary:** User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory.</br>
   - **Tools:** Windows Server, Active Directory Domain Services (AD DS), Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).
@@ -306,6 +307,7 @@ Projects focused on acquiring, validating, examining, and correlating digital ev
 Projects focused on collecting, validating, enriching, and operationalizing threat intelligence to better understand adversaries, infrastructure, malware activity, and attack techniques. Work includes IOC analysis, ATT&CK mapping, threat actor research, malware infrastructure investigation, intelligence enrichment, campaign analysis, and contextual correlation using structured threat intelligence platforms and external research sources.
 
 - **Threat Intelligence Research and Analysis Using MISP**</br>
+
   - **Folder:** `threat-intelligence-enrichment-and-correlation` **➜** `misp-ioc-enrichment-and-correlation`</br>
   - **Summary:** Investigation and enrichment of ransomware campaigns, malware infrastructure, DDoS botnet activity, persistence mechanisms, and vulnerability exploitation using MISP (Malware Information Sharing Platform). Focuses on operational IOC analysis, ATT&CK mapping interpretation, Galaxy intelligence review, malware infrastructure correlation, external threat reporting pivoting, and contextual adversary analysis using both structured threat intelligence platforms and external research sources.</br>
   - **Tools:** MISP, VirusTotal, Arctic Wolf Reporting, Reddit Technical Malware Analysis, CVE/Vulnerability Intelligence Research.
