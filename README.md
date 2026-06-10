@@ -113,9 +113,9 @@ The goal is to capture what a capable SOC, DFIR, threat intelligence, or blue-te
 
 </details>
 
----
-
-### Standard Files in Each Project Folder
+<details>
+<summary><strong>▶️ Standard Files in Each Project Folder</strong></summary></br>
+ 
 | File / Folder | Purpose | Contents and Focus |
 |---|---|---|
 | **Project README** (`README.md`) | Quick orientation for the project. | Defines the operational purpose, scope, assumptions, tooling, and what the project is meant to demonstrate. |
@@ -127,7 +127,11 @@ The goal is to capture what a capable SOC, DFIR, threat intelligence, or blue-te
 
 Together, these files separate execution, reasoning, and reference material into clear, reviewable components while keeping everything tied to the same operational task.
 
+</details>
+
+
 <details>
+ 
 <summary><strong>▶️ Category Overlap and Repository Scope</strong></summary></br>
 
 A single project may touch endpoint artifacts, identity context, network indicators, SIEM analysis, threat intelligence, forensic artifacts, or automation logic.
@@ -137,6 +141,7 @@ Projects are grouped according to the primary operational objective rather than 
 This repository focuses on reusable technical projects and operational analysis patterns. Full incident narratives, case reports, timelines, and investigation deliverables are maintained separately within the incident-response-and-investigations repository.
 
 </details>
+
 
 ---
 
