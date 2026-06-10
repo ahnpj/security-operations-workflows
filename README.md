@@ -148,7 +148,7 @@ This repository focuses on reusable technical projects and operational analysis 
 ### Category Folders and Current Projects
 
 <details>
-<summary><strong>▶️ Endpoint Triage and Host Analysis Workflows</strong></summary></br>
+<summary><strong>▶️ Endpoint Triage and Host Analysis</strong></summary></br>
  
 `endpoint-triage-and-host-analysis/`
 
@@ -170,7 +170,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ SIEM Detections and Log Analysis Workflows</strong></summary></br>  
+<summary><strong>▶️ SIEM Detections and Log Analysis</strong></summary></br>  
  
 `siem-detections-and-log-analysis/`
 
@@ -187,7 +187,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ Network Monitoring and Traffic Analysis Workflows</strong></summary></br>  
+<summary><strong>▶️ Network Monitoring and Traffic Analysis</strong></summary></br>  
  
 `network-monitoring-and-traffic-analysis/`
 
@@ -205,7 +205,7 @@ This repository focuses on reusable technical projects and operational analysis 
 
 
 <details>
-<summary><strong>▶️ Identity and Access Management Workflows</strong></summary></br>
+<summary><strong>▶️ Identity and Access Management</strong></summary></br>
  
 `identity-and-access-management/`
 
@@ -217,7 +217,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ Detection Automation and Log Processing Workflows</strong></summary></br>
+<summary><strong>▶️ Detection Automation and Log Processing</strong></summary></br>
  
 `detection-automation-and-log-processing/`
 
@@ -229,7 +229,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ Email Security and Phishing Analysis Workflows</strong></summary></br>
+<summary><strong>▶️ Email Security and Phishing Analysis</strong></summary></br>
  
 `email-security-and-phishing-analysis/`
 
@@ -287,7 +287,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ Threat Intelligence Enrichment and Correlation Workflows</strong></summary></br>
+<summary><strong>▶️ Threat Intelligence Enrichment and Correlation</strong></summary></br>
  
 `threat-intelligence-enrichment-and-correlation/`
 
@@ -299,7 +299,7 @@ This repository focuses on reusable technical projects and operational analysis 
 </details>
 
 <details>
-<summary><strong>▶️ Vulnerability Management and Exposure Analysis Workflows</strong></summary></br>
+<summary><strong>▶️ Vulnerability Management and Exposure Analysis</strong></summary></br>
  
 `vulnerability-management-and-exposure-analysis/`
 
