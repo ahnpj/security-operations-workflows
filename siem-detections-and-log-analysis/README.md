@@ -71,6 +71,10 @@ Current workflow executions include:
   (`splunk-vpn-remote-access-anomaly-detection`)  
   Examines authentication and VPN activity to identify abnormal login behavior, geographic anomalies, and unusual access patterns that may indicate compromised credentials or unauthorized access attempts.
 
+- **Detection Engineering and Sigma Rule Development for DNS Tunneling Activity**  
+  (`sigma-rule-development-for-dns-tunneling-detection`)  
+  Demonstrates threat-informed detection engineering through the review, modification, and validation of a Sigma rule designed to detect DNS tunneling activity. Tasks include analyzing threat intelligence, identifying detection gaps, modifying detection logic, tuning thresholds, updating ATT&CK mappings, and validating coverage against known malicious infrastructure associated with the fictional TRANSPORTER malware family.
+
 Additional workflow executions will be added as monitoring coverage expands across telemetry sources, detection strategies, and investigation use cases.
 
 ---
@@ -86,6 +90,7 @@ Each workflow execution is fully self-contained and uses documentation aligned w
 | **`analyst-notes.md`** | Analytical reasoning and operational considerations | Documents why specific detection or analysis approaches were selected and how log patterns support investigative conclusions |
 | **`tool-usage-notes.md`** | Tool and query reference documentation | Explains SIEM query syntax, search optimization techniques, field usage, and analysis strategies applicable to similar detection workflows |
 | **`automation-design-notes.md`** *(when present)* | Automation and scalability planning | Documents scripted data extraction, parsing strategies, and design considerations for integrating log analysis into automated detection pipelines |
+| **`supporting-files/`** *(when present)* | Project-specific detection artifacts and supporting resources | Contains Sigma rules, sample logs, datasets, exports, scripts, configuration files, reference material, generated outputs, and other workflow-specific artifacts used throughout the execution |
 | **`images/` or `screenshots/`** | Validation and evidence artifacts | Contains search results, event visualizations, field extraction validation, and visual confirmation of detection analysis findings |
 
 Together, these files separate **SIEM detection execution**, **analytical reasoning**, **tool reference**, and **automation planning** into clearly reviewable components while remaining tied to the same operational workflow.
