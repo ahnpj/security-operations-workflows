@@ -36,6 +36,7 @@ Most project folders include the following supporting files:
 | `tool-usage-notes.md` | Tool-specific observations, syntax, and references |
 | `images/` | Screenshots and supporting evidence |
 | `automation-design-notes.md` | Automation concepts and implementation notes (when applicable) |
+| `supporting-files/` | Supporting artifacts such as Sigma rules, sample logs, scripts, configuration files, exports, datasets, reference material, or other project-specific resources used throughout the workflow. |
 
 The documentation is intentionally separated so execution, analysis, and reference material can be reviewed independently while remaining tied to the same project.
 
@@ -122,6 +123,7 @@ The goal is to capture what a capable SOC, DFIR, threat intelligence, or blue-te
 | **Workflow Execution** (`workflow-execution.md`) | Step-by-step hands-on execution. | The actual command flow and analyst pivots, including what to run, what to look for, and how to validate results. |
 | **Analyst Notes** (`analyst-notes.md`) | Reasoning, interpretation, and edge cases. | Why specific checks are performed, how to avoid common mistakes, and how to interpret ambiguous outputs. |
 | **Tool Usage Notes** (`tool-usage-notes.md`) | Reusable tool reference. | Flags, syntax patterns, parsing tips, and operational “gotchas” you can apply across multiple scenarios. |
+| **Supporting Files** (`supporting-files/`) | Project-specific artifacts and resources. | Sigma rules, sample logs, scripts, configuration files, datasets, exports, reference material, generated outputs, and other supporting project artifacts. |
 | **Automation Design Notes** (`automation-design-notes.md`) | Turning execution into repeatable automation (when present). | Notes on parsing logic, data structures, detection logic shaping, and how to operationalize the project with scripts or scheduled jobs. |
 | **Screenshots and Supporting Evidence** (`images/`) | Visual validation artifacts. | Screenshots referenced throughout the project execution and notes to support the documented conclusions. |
 
