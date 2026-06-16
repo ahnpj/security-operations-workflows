@@ -1,0 +1,20 @@
+title: TRANSPORTER Malware DNS Tunneling Detection
+status: unsupported
+description: Detects potential DNS tunneling command-and-control activity associated with TRANSPORTER malware by monitoring DNS requests to known malicious infrastructure.
+author: Patrick Bareiss (Original Rule), Peter ahn (Modified Version)
+date: 2019/04/07
+modified: 2026/06/16
+tags:
+    - attack.command_and_control
+    - attack.t1071.004
+    - attack.exfiltration
+    - attack.t1048.003
+logsource:
+    category: dns
+detection:
+    selection:
+        parent_domain: 'redhunt.net'
+    condition: selection | count(dns_query) by parent_domain > 400
+falsepositives:
+    - Legitimate testing or research activity involving the monitored domain
+level: high
