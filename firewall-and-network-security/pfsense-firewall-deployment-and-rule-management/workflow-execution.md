@@ -1,6 +1,6 @@
 # pfSense Firewall Rule Management and Traffic Filtering
 
-## Overview
+### Overview
 
 This workflow demonstrates the deployment, configuration, and administration of a pfSense firewall within a virtualized environment. The objective was to gain practical experience with firewall concepts including interface configuration, gateway management, traffic filtering, aliases, rule processing order, packet forwarding, and network traffic validation.
 
@@ -10,9 +10,9 @@ The exercise culminated in the creation of custom firewall rules that selectivel
 
 ---
 
-## Purpose and Analyst Focus
+### Purpose and Analyst Focus
 
-### Purpose
+#### Purpose
 
 The purpose of this workflow was to better understand how firewalls operate within a network environment and how administrators use them to control traffic flow between trusted and untrusted networks.
 
@@ -27,7 +27,7 @@ While many modern security controls operate directly on endpoints, network firew
 
 This workflow focused on understanding the operational side of firewall administration rather than simply deploying a virtual appliance.
 
-### Analyst Focus
+#### Analyst Focus
 
 This workflow focused on:
 
@@ -44,7 +44,7 @@ This workflow focused on:
 
 ---
 
-## What This Workflow Demonstrates
+### What This Workflow Demonstrates
 
 This workflow demonstrates how to:
 
@@ -62,7 +62,7 @@ This workflow demonstrates how to:
 
 ---
 
-## Network Security Relevance
+### Network Security Relevance
 
 Firewalls are one of the most widely deployed security controls in enterprise environments.
 
@@ -81,21 +81,21 @@ Understanding these concepts provides a foundation for working with enterprise f
 
 ---
 
-## Environment and Execution Context
+### Environment and Execution Context
 
 <details>
 <summary><strong>▶ Environment & Platform</strong></summary>
 
-### Host Platform
+#### Host Platform
 
 - Windows Host System
 - Oracle VirtualBox
 
-### Firewall Platform
+#### Firewall Platform
 
 - pfSense Community Edition
 
-### Virtualization Configuration
+#### Virtualization Configuration
 
 - BSD
 - FreeBSD (64-bit)
@@ -108,7 +108,7 @@ Understanding these concepts provides a foundation for working with enterprise f
 <details>
 <summary><strong>▶ Tooling Used</strong></summary>
 
-### Primary Tool
+#### Primary Tool
 
 **pfSense**
 
@@ -121,7 +121,7 @@ Used to:
 - Monitor traffic
 - Enforce network policy
 
-### Supporting Tools
+#### Supporting Tools
 
 - VirtualBox
 - Windows Command Prompt
@@ -149,7 +149,7 @@ Used to:
 
 ---
 
-# Step-by-Step Execution
+## Step-by-Step Execution
 
 <details>
 <summary><strong>▶ Phase 1 — Deploy pfSense Firewall Appliance</strong></summary>
