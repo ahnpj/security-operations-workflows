@@ -12,7 +12,7 @@ The exercise culminated in the creation of custom firewall rules that selectivel
 
 ### Purpose and Analyst Focus
 
-#### Purpose
+#### ▶ Purpose
 
 The purpose of this workflow was to better understand how firewalls operate within a network environment and how administrators use them to control traffic flow between trusted and untrusted networks.
 
@@ -27,7 +27,7 @@ While many modern security controls operate directly on endpoints, network firew
 
 This workflow focused on understanding the operational side of firewall administration rather than simply deploying a virtual appliance.
 
-#### Analyst Focus
+#### ▶ Analyst Focus
 
 This workflow focused on:
 
@@ -149,7 +149,7 @@ Used to:
 
 ---
 
-## Step-by-Step Execution
+### Step-by-Step Execution
 
 This section documents the pfSense firewall workflow in the same order I performed it. The goal was to deploy a firewall appliance, configure it as a traffic control point, create filtering policies, route workstation traffic through the firewall, and validate that the rule behavior worked as expected.
 
@@ -1499,8 +1499,6 @@ Allowed
 ```
 
 The workflow reinforced several foundational network security concepts, including firewall deployment, interface assignment, gateway routing, alias management, traffic filtering, rule evaluation order, and policy enforcement. Together, these components demonstrated how a firewall can function as a centralized control point responsible for governing communication between systems and external networks.
-
----
 
 ---
 
