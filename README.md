@@ -63,6 +63,7 @@ Each project lives in its own folder and contains the documentation, notes, scre
 | **email-security-and-phishing-analysis/** | Email Security | Email Security & Phishing Analysis | Manual email header analysis, sender spoofing detection, URL investigation, attachment analysis, and phishing artifact enrichment. |
 | **threat-intelligence-and-enrichment/** | Threat Intelligence | Threat Intelligence & Enrichment | IOC analysis, ATT&CK mapping, threat actor profiling, malware research, intelligence enrichment, and operational threat intelligence workflows. |
 | **vulnerability-management-and-exposure-analysis/** | Vulnerability Management | Vulnerability Management & Exposure Analysis | Vulnerability prioritization, exposure analysis, remediation validation, and risk-based vulnerability management activities. |
+| **firewall-and-network-security/** | Network Security | Firewall Administration & Network Security | Firewall deployment, traffic filtering, routing and gateway management, network segmentation fundamentals, policy enforcement, traffic flow analysis, firewall rule administration, centralized security controls, and network security validation using pfSense and future firewall platforms. |
 
 </details>
 
@@ -324,6 +325,20 @@ Projects focused on collecting, validating, enriching, and operationalizing thre
 Projects focused on identifying, prioritizing, validating, and reducing security exposures across systems and applications. Work includes vulnerability assessment, risk prioritization, remediation validation, exposure analysis, and supporting activities designed to reduce attack surface and improve defensive posture.
 
 - Ongoing development
+
+</details>
+
+<details>
+<summary><strong>▶ Firewall and Network Security</strong></summary></br>
+
+`firewall-and-network-security/`
+
+Projects focused on deploying, configuring, validating, and administering network security controls that regulate traffic flow between systems and networks. Work commonly includes firewall deployment, routing and gateway management, traffic filtering, policy enforcement, network segmentation fundamentals, and centralized security control validation.
+
+- **pfSense Firewall Rule Management and Traffic Filtering**</br>
+  - **Folder:** `firewall-and-network-security` ➜ `pfsense-firewall-rule-management`</br>
+  - **Summary:** Deploy a pfSense firewall within a virtualized environment, configure interfaces and gateways, create aliases and firewall policies, redirect workstation traffic through the firewall, and validate traffic filtering behavior through controlled testing. Demonstrates firewall administration, routing analysis, rule evaluation order, policy enforcement, and centralized network security controls.</br>
+  - **Tools:** pfSense, VirtualBox, Bridged Networking, Firewall Rules, Aliases, Gateway Configuration.
 
 </details>
 
