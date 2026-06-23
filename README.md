@@ -329,7 +329,7 @@ Projects focused on identifying, prioritizing, validating, and reducing security
 </details>
 
 <details>
-<summary><strong>▶ Firewall and Network Security</strong></summary></br>
+<summary><strong>▶️ Firewall and Network Security</strong></summary></br>
 
 `firewall-and-network-security/`
 
