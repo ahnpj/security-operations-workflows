@@ -75,6 +75,10 @@ Current workflow executions include:
   (`bash-linux-endpoint-triage-and-validation-scripting`)  
   Demonstrates host-based triage on Linux systems using native shell utilities. Tasks include reviewing running processes, scheduled jobs, active network connections, file system artifacts, and user activity to validate system integrity and detect anomalies.
 
+- **Windows Event Log Triage Using DeepBlueCLI**  
+  (`deepbluecli-windows-event-log-triage`)  
+  Uses DeepBlueCLI, a purpose-built PowerShell log analysis tool, to triage Windows Security and PowerShell Operational event logs. Tasks include detecting and scoping a password spray attack, identifying unauthorized local account creation and privileged group assignment, identifying PowerShell-based download cradle activity, and performing bulk log processing across multiple `.evtx` files to surface known indicators.
+
 Additional workflow executions will be added as endpoint triage techniques expand across operating systems, tooling, and detection support use cases.
 
 ---
@@ -135,5 +139,3 @@ Workflows in this category are continuously expanded as new triage techniques, o
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production security environments, triage procedures evolve as telemetry sources, operating systems, and detection strategies change.
 
 The focus is on building a growing library of reusable endpoint validation and host analysis techniques rather than static one-time demonstrations.
-
-
