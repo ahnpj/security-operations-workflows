@@ -171,6 +171,11 @@ Projects focused on validating host state, identifying suspicious activity, and 
   - **Folder:** `endpoint-triage-and-host-analysis` **➜** `powershell-windows-endpoint-triage-and-system-inspection`</br>
   - **Summary:** Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell.</br>
   - **Tools:** Windows PowerShell, native Windows telemetry and services.
+ 
+- **Windows Event Log Triage Using DeepBlueCLI**</br>
+  - **Folder:** `endpoint-triage-and-host-analysis` **➜** `deepbluecli-windows-event-log-triage`</br>
+  - **Summary:** Windows event log triage using DeepBlueCLI to identify password spraying, unauthorized local account creation, privileged group membership changes, PowerShell download cradle activity, and offensive tooling across Windows Security and PowerShell Operational event logs. Demonstrates isolated `.evtx` analysis, bulk event log processing, investigative validation, and MITRE ATT&CK technique and software mapping.</br>
+  - **Tools:** DeepBlueCLI (`DeepBlue.ps1`), Windows PowerShell, Windows Security Event Logs (`.evtx`), PowerShell Operational Logs, MITRE ATT&CK.
 
 </details>
 
