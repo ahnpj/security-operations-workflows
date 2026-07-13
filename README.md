@@ -54,7 +54,7 @@ Each project lives in its own folder and contains the documentation, notes, scre
 
 | Category Folder | Security Domain | Focus Area | What You Will Find Inside |
 |---|---|---|---|
-| **endpoint-triage-and-host-analysis/** | Security Operations | Endpoint Triage & Host Analysis | Windows and Linux host triage, process and service inspection, filesystem artifact checks, network exposure validation, and quick health/persistence checks. |
+| **endpoint-triage-and-host-analysis/** | Security Operations | Endpoint Triage & Host Analysis | Windows and Linux host triage, process and service inspection, filesystem artifact checks, network exposure validation, Windows event log triage, and quick health/persistence checks. |
 | **siem-detections-and-log-analysis/** | Security Operations | SIEM Detection & Log Analysis | SPL-driven investigations, field extraction and normalization, ingestion corrections, and detection-ready data shaping, including VPN remote-access anomaly analysis. |
 | **network-monitoring-and-traffic-analysis/** | Security Operations | Network Monitoring & Traffic Analysis | Bounded packet capture with tcpdump and deeper PCAP analysis in Wireshark, including filtering, session reconstruction, and evidence extraction. |
 | **identity-and-access-management/** | Identity & Access Security | Identity & Access Management | Active Directory user and group administration, delegation, OU management, and access control validation using standard enterprise tooling. |
@@ -171,11 +171,11 @@ Projects focused on validating host state, identifying suspicious activity, and 
   - **Folder:** `endpoint-triage-and-host-analysis` **➜** `powershell-windows-endpoint-triage-and-system-inspection`</br>
   - **Summary:** Process inspection, filesystem validation, service analysis, network inspection, integrity validation, and remote execution using PowerShell.</br>
   - **Tools:** Windows PowerShell, native Windows telemetry and services.
- 
+
 - **Windows Event Log Triage Using DeepBlueCLI**</br>
   - **Folder:** `endpoint-triage-and-host-analysis` **➜** `deepbluecli-windows-event-log-triage`</br>
-  - **Summary:** Windows event log triage using DeepBlueCLI to identify password spraying, unauthorized local account creation, privileged group membership changes, PowerShell download cradle activity, and offensive tooling across Windows Security and PowerShell Operational event logs. Demonstrates isolated `.evtx` analysis, bulk event log processing, investigative validation, and MITRE ATT&CK technique and software mapping.</br>
-  - **Tools:** DeepBlueCLI (`DeepBlue.ps1`), Windows PowerShell, Windows Security Event Logs (`.evtx`), PowerShell Operational Logs, MITRE ATT&CK.
+  - **Summary:** Password spray detection and MITRE ATT&CK technique attribution, unauthorized local account creation and privileged group assignment detection, PowerShell `Net.WebClient` download cradle identification, and bulk `.evtx` log processing with keyword search to identify and attribute a downloaded offensive tool.</br>
+  - **Tools:** DeepBlueCLI, Windows PowerShell, MITRE ATT&CK (research reference).
 
 </details>
 
@@ -230,6 +230,12 @@ Projects focused on managing identities, validating permissions, and administeri
   - **Folder:** `identity-and-access-management` **➜** `active-directory-iam-operations-and-permission-validation`</br>
   - **Summary:** User and group administration, organizational unit management, delegation, and access control validation in an enterprise directory.</br>
   - **Tools:** Windows Server, Active Directory Domain Services (AD DS), Active Directory Users and Computers (ADUC), Group Policy Management Console (GPMC).
+
+- **Active Directory Domain Services Administration — Domain Controller Operations, User Management, Password Policies, and Security Configuration**</br>
+
+  - **Folder:** `identity-and-access-management` **➜** `active-directory-domain-services-administration`</br>
+  - **Summary:** Hyper-V lab environment setup, domain controller promotion and FSMO role transfer, Active Directory site/subnet configuration, organizational unit and user account management, Protected Users and delegation of control, domain and fine-grained password policy configuration, AD Recycle Bin enablement, NTLM restriction, advanced audit policy configuration, and user rights assignment.</br>
+  - **Tools:** Hyper-V, Windows Server 2022, Server Manager, Active Directory Domain Services Configuration Wizard, Active Directory Users and Computers (ADUC), Active Directory Administrative Center (ADAC), Active Directory Sites and Services, Group Policy Management Console (GPMC).
 
 </details>
 
