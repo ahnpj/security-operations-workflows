@@ -4,7 +4,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Server Manager
+### Server Manager
 
 **Used for:** Installing the Active Directory Domain Services server role on `DC2` and launching the domain-controller promotion wizard.
 
@@ -18,7 +18,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Active Directory Domain Services Configuration Wizard
+### Active Directory Domain Services Configuration Wizard
 
 **Used for:** Promoting `DC2` as an additional writable domain controller in the existing `contoso.com` domain.
 
@@ -33,7 +33,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Active Directory Sites and Services
+### Active Directory Sites and Services
 
 **Used for:** Creating the Paris AD site, associating the `172.16.1.0/24` subnet, and validating `DC2`'s site assignment.
 
@@ -46,7 +46,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Active Directory Users and Computers (ADUC)
+### Active Directory Users and Computers (ADUC)
 
 **Used for:** Creating the Paris OU, `Paris Admins` group, and `ParisContractor` account; managing group membership; configuring account expiration and non-delegation flag; delegating control; and accessing the Operations Masters dialog for the initial FSMO transfer attempt.
 
@@ -63,7 +63,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Active Directory Administrative Center (ADAC)
+### Active Directory Administrative Center (ADAC)
 
 **Used for:** Creating the Fine-Grained Password Policy for Domain Admins and enabling the Active Directory Recycle Bin.
 
@@ -76,7 +76,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Group Policy Management Console (GPMC)
+### Group Policy Management Console (GPMC)
 
 **Used for:** Editing the Default Domain Policy (password length), editing the Default Domain Controllers Policy (NTLM restriction), and creating and linking `GPO1` to the Paris OU.
 
@@ -90,7 +90,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Group Policy Management Editor
+### Group Policy Management Editor
 
 **Used for:** Configuring the audit policy and user-right assignment inside `GPO1`.
 
@@ -105,7 +105,7 @@ This document covers how each tool was used during this workflow, what function 
 
 ---
 
-## Windows PowerShell
+### Windows PowerShell
 
 **Used for:** Bulk Paris user operations (query, move, disable, flag for password change, verify), FSMO role transfer, and replication and domain-controller validation.
 
@@ -152,7 +152,7 @@ Get-ADOptionalFeature "Recycle Bin Feature" | Select-Object -ExpandProperty Enab
 
 ---
 
-## repadmin
+### repadmin
 
 **Used for:** Checking replication health between `DC1` and `DC2` after promotion, and forcing synchronization when needed.
 
@@ -167,7 +167,7 @@ repadmin /syncall /AdeP  # push synchronization across all naming contexts and s
 
 ---
 
-## netdom
+### netdom
 
 **Used for:** Verifying FSMO role holders after the RID Master transfer.
 
