@@ -237,6 +237,12 @@ Projects focused on managing identities, validating permissions, and administeri
   - **Summary:** Hyper-V lab environment setup, domain controller promotion and FSMO role transfer, Active Directory site/subnet configuration, organizational unit and user account management, Protected Users and delegation of control, domain and fine-grained password policy configuration, AD Recycle Bin enablement, NTLM restriction, advanced audit policy configuration, and user rights assignment.</br>
   - **Tools:** Hyper-V, Windows Server 2022, Server Manager, Active Directory Domain Services Configuration Wizard, Active Directory Users and Computers (ADUC), Active Directory Administrative Center (ADAC), Active Directory Sites and Services, Group Policy Management Console (GPMC).
 
+- **Active Directory Branch Office Deployment and Security Hardening**</br>
+
+  - **Folder:** `identity-and-access-management` **➜** `active-directory-branch-office-deployment-and-security-hardening`</br>
+  - **Summary:** Branch office domain extension including second domain controller deployment, AD site and subnet topology configuration, FSMO role transfer, Paris OU structure creation, scoped delegation of administrative rights, bulk PowerShell user lifecycle management, domain and fine-grained password policy configuration, AD Recycle Bin enablement, NTLM restriction, failed-logon auditing, and user rights assignment via Group Policy.</br>
+  - **Tools:** Windows Server, Server Manager, Active Directory Domain Services Configuration Wizard, Active Directory Users and Computers (ADUC), Active Directory Administrative Center (ADAC), Active Directory Sites and Services, Group Policy Management Console (GPMC), Windows PowerShell, repadmin, netdom.
+
 </details>
 
 <details>
