@@ -69,6 +69,10 @@ Current workflow executions include:
   (`active-directory-iam-operations-and-permission-validation`)  
   Focuses on validating user authentication events, group memberships, and effective permissions within an Active Directory environment. Tasks include reviewing logon activity, inspecting group assignments, and testing access to protected resources to identify excessive privileges or configuration weaknesses.
 
+- **Active Directory Domain Services Administration — Domain Controller Operations, User Management, Password Policies, and Security Configuration**  
+  (`active-directory-domain-services-administration`)  
+  Focuses on building and administering a two-domain-controller Active Directory environment from scratch. Tasks include preparing the Hyper-V lab environment, promoting a domain controller and transferring a FSMO role, configuring AD site/subnet topology, managing organizational units and user accounts, configuring Protected Users and delegation of control, applying domain and fine-grained password policies, enabling the AD Recycle Bin, restricting NTLM authentication, and configuring advanced audit policy and user rights assignment via Group Policy.
+
 Additional workflow executions will be added as identity coverage expands across authentication methods, directory services, and access control scenarios.
 
 ---
@@ -129,5 +133,3 @@ Workflows in this category are continuously expanded as authentication technolog
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production environments, identity systems are frequently reconfigured, integrated with new services, and targeted by evolving attack techniques, requiring ongoing validation and monitoring.
 
 The focus is on building a growing library of reusable identity validation and access control testing techniques rather than static one-time demonstrations.
-
-
