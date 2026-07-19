@@ -249,6 +249,12 @@ Projects focused on managing identities, validating permissions, and administeri
   - **Summary:** Cloud identity provisioning in Microsoft Entra ID, Security and Microsoft 365 group creation and administration, group-based and individual license assignment, and user lifecycle operations including deletion and restoration within the 30-day recovery window.</br>
   - **Tools:** Microsoft Entra admin center (`entra.microsoft.com`), Microsoft 365 admin center (`admin.microsoft.com`).
 
+- **Microsoft Entra ID — Identity Administration, Role-Assignable Groups, Security Configuration Documentation, and Conditional Access Analysis**</br>
+
+  - **Folder:** `identity-and-access-management` **➜** `entra-id-identity-administration-role-groups-and-conditional-access`</br>
+  - **Summary:** Cloud identity provisioning with disabled-account creation, individual license assignment, directory role assignment, business-to-business guest invitation, role-assignable security group creation and group-based directory role assignment, group owner and member management, password protection and self-service password reset documentation, Conditional Access named location review, and Conditional Access What If analysis and policy scope documentation.</br>
+  - **Tools:** Microsoft Entra admin center (`entra.microsoft.com`), Microsoft 365 admin center (`admin.microsoft.com`), Configuration Data Editor (lab-provided desktop application).
+
 </details>
 
 <details>
