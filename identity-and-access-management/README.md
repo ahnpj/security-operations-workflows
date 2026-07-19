@@ -2,7 +2,7 @@
 
 (`identity-and-access-management/README.md`)
 
-This folder contains workflow executions where the **primary focus is validating authentication behavior, access controls, and permission enforcement across identity systems, as well as hands-on administration of Active Directory Domain Services environments**. These workflows simulate how SOC analysts, IAM engineers, and systems administrators verify identity service behavior, administer directory infrastructure, and investigate suspicious or unexpected authentication and authorization activity using repeatable, tool-driven methods.
+This folder contains workflow executions where the **primary focus is validating authentication behavior, access controls, and permission enforcement across identity systems, as well as hands-on administration of Active Directory Domain Services environments and Microsoft Entra ID cloud identity operations**. These workflows simulate how SOC analysts, IAM engineers, and systems administrators verify identity service behavior, administer directory infrastructure, provision and manage cloud identities, and investigate suspicious or unexpected authentication and authorization activity using repeatable, tool-driven methods.
 
 Rather than presenting abstract identity concepts, each folder documents practical execution of identity validation, access control testing, and directory administration activities, including commands and queries used, analyst reasoning behind each verification step, and interpretation of results within an investigative or administrative context. The emphasis is on operational process and analyst decision-making, similar to internal SOC runbooks and identity operations working notes.
 
@@ -29,9 +29,9 @@ For a list of all identity and access management executions currently included i
 
 ### How Workflows Are Categorized
 
-Workflows are grouped here when **authentication validation, identity behavior analysis, access control verification, and Active Directory administration are the primary operational objectives**, rather than alert triage or full incident reconstruction.
+Workflows are grouped here when **authentication validation, identity behavior analysis, access control verification, Active Directory administration, and cloud identity management are the primary operational objectives**, rather than alert triage or full incident reconstruction.
 
-Although these activities frequently support investigations and incident response, they are categorized separately because their primary purpose is verifying identity security posture, administering directory infrastructure, and enforcing authentication and authorization controls before deeper investigative or containment actions occur.
+Although these activities frequently support investigations and incident response, they are categorized separately because their primary purpose is verifying identity security posture, administering directory infrastructure, provisioning and managing cloud identities, and enforcing authentication and authorization controls before deeper investigative or containment actions occur.
 
 Workflows in this category typically focus on:
 
@@ -51,13 +51,15 @@ Workflows in this category typically focus on:
 
 - **Directory security hardening**, configuring domain and fine-grained password policies, enabling the Active Directory Recycle Bin, restricting legacy authentication protocols, and applying Group Policy security settings.
 
+- **Cloud identity provisioning and lifecycle management**, creating and managing user accounts and groups in Microsoft Entra ID, assigning licenses at group and individual levels, and performing user lifecycle operations including deletion and restoration.
+
 Although these workflows support investigations, they are organized here when the **core work involves validating identity behavior, administering directory infrastructure, and enforcing access boundaries rather than reconstructing full incident timelines.**
 
 ---
 
 ### Operational Context and Purpose
 
-Identity validation and Active Directory administration workflows typically occur during alert investigation, insider threat analysis, lateral movement detection, routine security control validation, branch office deployments, and domain infrastructure maintenance.
+Identity validation, Active Directory administration, and cloud identity management workflows typically occur during alert investigation, insider threat analysis, lateral movement detection, routine security control validation, branch office deployments, domain infrastructure maintenance, and cloud identity provisioning and deprovisioning operations.
 
 At this stage of security operations, the objective is to determine whether observed authentication or authorization behavior represents legitimate usage, misconfiguration, or malicious activity — and to administer and harden the directory infrastructure that governs identity and access across the environment. Analysts and administrators focus on how accounts authenticate, what resources they can access, how directory infrastructure is deployed and maintained, and whether those configurations align with organizational policy.
 
@@ -82,6 +84,10 @@ Current workflow executions include:
 - **Active Directory Branch Office Deployment and Security Hardening**  
   (`active-directory-branch-office-deployment-and-security-hardening`)  
   Focuses on extending an existing Active Directory domain to support a new branch office. Tasks include deploying a second domain controller and configuring site and subnet topology, creating the branch office OU structure and delegating scoped administrative rights, performing bulk user lifecycle management using PowerShell, configuring domain and fine-grained password policies, enabling the Active Directory Recycle Bin, restricting NTLM authentication domain-wide, and applying Group Policy security settings including failed-logon auditing and user rights assignment.
+
+- **Microsoft Entra ID — User and Group Management, License Assignment, and User Lifecycle Operations**  
+  (`entra-id-user-group-license-management`)  
+  Focuses on foundational Microsoft Entra ID identity administration. Tasks include creating cloud identity user accounts, creating Security and Microsoft 365 groups with Assigned membership, assigning licenses at both the group and individual user level, and performing user lifecycle operations including deletion and restoration within the 30-day recovery window.
 
 Additional workflow executions will be added as identity coverage expands across authentication methods, directory services, and access control scenarios.
 
@@ -118,6 +124,8 @@ You will find:
 - Validation checkpoints and investigative interpretation of authentication behavior
 - Detection support and identity monitoring improvements tied to validation outcomes
 - Operational decision-making behind identity verification methodology and investigative pivots
+- Cloud identity provisioning, group administration, and license lifecycle management in Microsoft Entra ID
+- User account deletion and restoration workflows and the 30-day recovery window
 
 Each workflow demonstrates not just how identity validation and administration are performed, but why access boundary testing, directory security hardening, and authentication monitoring are critical for early detection of credential abuse, privilege escalation, and policy violations.
 
@@ -145,4 +153,4 @@ Workflows in this category are continuously expanded as authentication technolog
 
 Some workflow directories may appear iterative or incomplete. This reflects active development and refinement rather than unfinished work. In production environments, identity systems are frequently reconfigured, integrated with new services, and targeted by evolving attack techniques, requiring ongoing validation and monitoring.
 
-The focus is on building a growing library of reusable identity validation, Active Directory administration, and access control testing techniques rather than static one-time demonstrations.
+The focus is on building a growing library of reusable identity validation, Active Directory administration, cloud identity management, and access control testing techniques rather than static one-time demonstrations.
