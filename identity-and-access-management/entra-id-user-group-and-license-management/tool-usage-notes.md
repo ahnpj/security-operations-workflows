@@ -4,7 +4,7 @@ This document covers how each portal and feature was used during this workflow, 
 
 ---
 
-## Microsoft Entra Admin Center (`entra.microsoft.com`)
+### Microsoft Entra Admin Center (`entra.microsoft.com`)
 
 **Primary purpose:** Identity object management — creating, viewing, modifying, and deleting users, groups, applications, service principals, and directory roles within a Microsoft Entra ID tenant.
 
