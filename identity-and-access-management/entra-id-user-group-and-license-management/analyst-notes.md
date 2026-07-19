@@ -2,11 +2,10 @@
 
 This document captures administrative reasoning, conceptual explanations, decisions made during the workflow, and observations about how each operation fits into real-world identity and access management practices.
 
----
 
-## Phase 1 — User and Group Creation, Group License Assignment
+### Phase 1 — User and Group Creation, Group License Assignment
 
-### The three types of user identities in Microsoft Entra ID
+#### The three types of user identities in Microsoft Entra ID
 
 Before creating any user, it's worth understanding that Entra ID recognizes three distinct identity types — and knowing which type a user account is has implications for how it's managed and what happens to it if the source it came from changes.
 
@@ -18,13 +17,13 @@ Before creating any user, it's worth understanding that Entra ID recognizes thre
 
 This distinction matters because the *source* of an identity determines where you have to go to manage it. You can't change a synced user's attributes directly in Entra — you have to change them in on-premises AD and let synchronization propagate the change. Knowing which type of account you're dealing with before attempting to make changes prevents confusion and wasted effort.
 
-### Why usage location is required before license assignment
+#### Why usage location is required before license assignment
 
 The usage location field might seem like optional metadata, but it's actually a prerequisite for license assignment. Microsoft 365 services are subject to data sovereignty and availability regulations that vary by country — certain features and service plans are available in some regions but not others. Microsoft requires the usage location to be set on a user account before assigning any license, because the location determines which service plan components are legally permitted to be provisioned for that account.
 
 If you attempt to assign a license to a user without a usage location set, the assignment will fail. This is a common source of confusion when administrators provision accounts quickly without setting all required attributes — the license assignment appears to work in the interface but doesn't complete, or it produces an error. Setting usage location at account creation time (rather than treating it as something to configure later) avoids this failure mode.
 
-### Security groups vs. Microsoft 365 groups
+#### Security groups vs. Microsoft 365 groups
 
 Both group types can contain users and both can be used to manage access to resources, but they serve different primary purposes and provision different things when created.
 
@@ -34,7 +33,7 @@ A **Microsoft 365 group** is a collaboration container. When created, it automat
 
 The practical guidance is: use a Security group when the primary purpose is access control or license assignment; use a Microsoft 365 group when the primary purpose is enabling a team to collaborate with shared tools.
 
-### Membership type: Assigned vs. Dynamic
+#### Membership type: Assigned vs. Dynamic
 
 **Assigned** membership is the simplest and most common type: an administrator manually adds and removes members. Every member in the group is there because someone explicitly added them.
 
@@ -44,7 +43,7 @@ Dynamic membership requires a Microsoft Entra ID P1 license and is most valuable
 
 **Dynamic Device** membership is similar but evaluates device attributes instead of user attributes, and is only available for Security groups (not Microsoft 365 groups).
 
-### Why group-based licensing is preferred over individual assignment
+#### Why group-based licensing is preferred over individual assignment
 
 Individual license assignment is straightforward for a handful of users but doesn't scale. An organization with 500 users who all need the same license would have to perform 500 separate assignment operations individually — and then repeat a similar process any time someone joins, leaves, or changes role.
 
@@ -54,9 +53,9 @@ The administrative model shifts from "manage individual license assignments" to 
 
 ---
 
-## Phase 2 — User Lifecycle Operations (Deletion and Restoration)
+### Phase 2 — User Lifecycle Operations (Deletion and Restoration)
 
-### The 30-day suspended state
+#### The 30-day suspended state
 
 When a user account is deleted from Microsoft Entra ID, it does not immediately and permanently disappear. Instead, it enters a **suspended state** where it remains for up to 30 days. During this period:
 
@@ -67,17 +66,17 @@ When a user account is deleted from Microsoft Entra ID, it does not immediately 
 
 This suspended state exists specifically to allow for recovery from accidental deletions — a mistake that happens regularly in real environments, whether from a misidentified bulk operation, a helpdesk error, or an automation script with an incorrect filter.
 
-### The hard limit on permanent deletion
+#### The hard limit on permanent deletion
 
 Once the 30-day window expires and the account is permanently deleted, **restoration is not possible**. Not through the portal, not through PowerShell, not through a Microsoft support request. The identity data — the SID, the attribute history, the group membership history — is gone.
 
 This is worth internalizing for two reasons. First, it means the Deleted Users list needs to be monitored with some regularity in environments where accidental deletions are a real risk — if a deletion goes unnoticed for more than 30 days, the recovery window is gone. Second, it means that re-creating an account with the same username is possible (from a technical standpoint) but will produce a brand-new identity object with a new SID — it will not inherit any of the original account's permissions, group memberships, or history. From an access control perspective, a new account with the same username is a completely different identity.
 
-### Who can restore deleted users
+#### Who can restore deleted users
 
 The ability to restore or permanently delete user accounts from the Deleted Users list requires one of the following Entra ID roles: Global Administrator, User Administrator, Partner Tier-1 Support, or Partner Tier-2 Support. Users without one of these roles can view the Deleted Users list but cannot take action on it.
 
-### Deletion vs. disablement
+#### Deletion vs. disablement
 
 Deleting an account and disabling an account are different operations with different operational implications.
 
@@ -89,9 +88,9 @@ In practice, the standard lifecycle for an employee departure in a well-run envi
 
 ---
 
-## Phase 3 — Microsoft 365 Group Creation
+### Phase 3 — Microsoft 365 Group Creation
 
-### What a Microsoft 365 group actually creates
+#### What a Microsoft 365 group actually creates
 
 Creating a Microsoft 365 group does more than create a membership list. Behind the scenes, Microsoft automatically provisions a set of collaboration resources tied to the group:
 
@@ -105,21 +104,21 @@ These resources are created automatically at group creation time and require no 
 
 This is fundamentally different from a Security group, which creates only the group object itself with no associated collaboration infrastructure.
 
-### The Owner role in Microsoft 365 groups
+#### The Owner role in Microsoft 365 groups
 
 Assigning an owner to a Microsoft 365 group is a delegation decision. Group owners can manage membership, change group settings, and in some cases manage the associated SharePoint site and mailbox — without needing Global Administrator or User Administrator rights in the tenant. This allows business unit leaders or team leads to manage their own group membership without involving IT for every change.
 
 A group without an owner is still functional, but it becomes IT-dependent for all membership changes. Best practice is to assign at least one owner (and often two, to avoid single points of failure) so that routine group management can be self-service.
 
-### Why the All Groups list may require a refresh
+#### Why the All Groups list may require a refresh
 
 Newly created Microsoft 365 groups can take slightly longer to appear in the All Groups list than Security groups, because the backend provisioning of shared resources (the mailbox, SharePoint site, etc.) adds processing time. This is normal behavior — refreshing the list one or more times will eventually surface the group once provisioning completes. It is not an error.
 
 ---
 
-## Phase 4 — Individual License Assignment
+### Phase 4 — Individual License Assignment
 
-### When individual assignment is still appropriate
+#### When individual assignment is still appropriate
 
 While group-based licensing is the preferred approach at scale, there are scenarios where individual license assignment is the right choice:
 
@@ -130,13 +129,13 @@ While group-based licensing is the preferred approach at scale, there are scenar
 
 The key operational consideration is that individual license assignments require individual revocation. If the goal is scalable, low-maintenance license administration, group-based assignment is almost always the better answer.
 
-### Why cross-portal verification matters
+#### Why cross-portal verification matters
 
 After assigning a license in the Microsoft 365 admin center, the final verification step returns to the Microsoft Entra admin center to confirm the license appears on the user's profile. This cross-portal verification reflects a real operational practice: confirming that an action completed in one system has propagated correctly to the connected system.
 
 In a production environment, licensing operations can occasionally fail silently — an assignment appears to succeed in the M365 admin center but doesn't fully propagate to the Entra directory object due to a transient error or a conflict (like a missing usage location). Verifying the outcome in a second portal before considering the task complete is how administrators catch these edge cases rather than assuming success.
 
-### The relationship between the two portals
+#### The relationship between the two portals
 
 A point of confusion for administrators new to Microsoft cloud environments is understanding which portal is responsible for which operations.
 
