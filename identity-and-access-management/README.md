@@ -89,6 +89,10 @@ Current workflow executions include:
   (`entra-id-user-group-license-management`)  
   Focuses on foundational Microsoft Entra ID identity administration. Tasks include creating cloud identity user accounts, creating Security and Microsoft 365 groups with Assigned membership, assigning licenses at both the group and individual user level, and performing user lifecycle operations including deletion and restoration within the 30-day recovery window.
 
+- **Microsoft Entra ID — Identity Administration, Role-Assignable Groups, Security Configuration Documentation, and Conditional Access Analysis**  
+  (`entra-id-identity-administration-role-groups-and-conditional-access`)  
+  Focuses on advanced Microsoft Entra ID identity and access management operations. Tasks include creating a disabled internal user account, assigning a Microsoft 365 license, assigning a directory role, inviting a business-to-business guest, creating a role-assignable security group and assigning a directory role to it, managing group owners and members, reviewing password protection and self-service password reset configuration, reviewing Conditional Access named locations, and running and documenting Conditional Access What If analysis and policy user scope.
+
 Additional workflow executions will be added as identity coverage expands across authentication methods, directory services, and access control scenarios.
 
 ---
