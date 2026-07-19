@@ -57,7 +57,7 @@ Each project lives in its own folder and contains the documentation, notes, scre
 | **endpoint-triage-and-host-analysis/** | Security Operations | Endpoint Triage & Host Analysis | Windows and Linux host triage, process and service inspection, filesystem artifact checks, network exposure validation, Windows event log triage, and quick health/persistence checks. |
 | **siem-detections-and-log-analysis/** | Security Operations | SIEM Detection & Log Analysis | SPL-driven investigations, field extraction and normalization, ingestion corrections, and detection-ready data shaping, including VPN remote-access anomaly analysis. |
 | **network-monitoring-and-traffic-analysis/** | Security Operations | Network Monitoring & Traffic Analysis | Bounded packet capture with tcpdump and deeper PCAP analysis in Wireshark, including filtering, session reconstruction, and evidence extraction. |
-| **identity-and-access-management/** | Identity & Access Security | Identity & Access Management | Active Directory user and group administration, delegation, OU management, and access control validation using standard enterprise tooling. |
+| **identity-and-access-management/** | Identity & Access Security | Identity & Access Management | Active Directory administration, domain controller operations, cloud identity provisioning, user and group lifecycle management, license assignment, delegation, OU management, access control validation, and directory security hardening using Active Directory and Microsoft Entra ID. |
 | **detection-automation-and-log-processing/** | Detection Engineering | Detection Automation & Log Processing | Python-based parsing and analysis, transforming logs into structured signals, and prototyping behavior-based detections. |
 | **digital-forensics-and-evidence-analysis/** | Digital Forensics & Incident Response | Digital Forensics & Evidence Analysis | Evidence acquisition, forensic imaging, disk image analysis, memory forensics, browser artifact analysis, Windows artifact analysis, deleted-file investigations, Recycle Bin analysis, filesystem examination, metadata analysis, file carving, hash validation, process analysis, user activity reconstruction, timeline development, artifact correlation, and host-based forensic investigations using FTK Imager, KAPE, ProcDump, ExifTool, Scalpel, Browser History Viewer, WFA, PECmd, JumpList Explorer, RBCmd, Volatility, Volatility Workbench, and Autopsy. |
 | **email-security-and-phishing-analysis/** | Email Security | Email Security & Phishing Analysis | Manual email header analysis, sender spoofing detection, URL investigation, attachment analysis, and phishing artifact enrichment. |
@@ -223,7 +223,7 @@ Projects focused on collecting, filtering, inspecting, and interpreting network 
  
 `identity-and-access-management/`
 
-Projects focused on managing identities, validating permissions, and administering directory-based access controls within enterprise environments. Work includes user and group administration, delegation, organizational unit management, policy application, and access validation using Active Directory technologies.
+Projects focused on managing identities, validating permissions, and administering directory-based access controls within enterprise and cloud environments. Work includes Active Directory domain controller operations, cloud identity provisioning in Microsoft Entra ID, user and group lifecycle management, license assignment, delegation, organizational unit management, policy application, and access validation using Active Directory and Microsoft Entra ID.
 
 - **Identity and Access Management Operations Using Active Directory**</br>
 
@@ -242,6 +242,12 @@ Projects focused on managing identities, validating permissions, and administeri
   - **Folder:** `identity-and-access-management` **➜** `active-directory-branch-office-deployment-and-security-hardening`</br>
   - **Summary:** Branch office domain extension including second domain controller deployment, AD site and subnet topology configuration, FSMO role transfer, Paris OU structure creation, scoped delegation of administrative rights, bulk PowerShell user lifecycle management, domain and fine-grained password policy configuration, AD Recycle Bin enablement, NTLM restriction, failed-logon auditing, and user rights assignment via Group Policy.</br>
   - **Tools:** Windows Server, Server Manager, Active Directory Domain Services Configuration Wizard, Active Directory Users and Computers (ADUC), Active Directory Administrative Center (ADAC), Active Directory Sites and Services, Group Policy Management Console (GPMC), Windows PowerShell, repadmin, netdom.
+
+- **Microsoft Entra ID — User and Group Management, License Assignment, and User Lifecycle Operations**</br>
+
+  - **Folder:** `identity-and-access-management` **➜** `entra-id-user-group-license-management`</br>
+  - **Summary:** Cloud identity provisioning in Microsoft Entra ID, Security and Microsoft 365 group creation and administration, group-based and individual license assignment, and user lifecycle operations including deletion and restoration within the 30-day recovery window.</br>
+  - **Tools:** Microsoft Entra admin center (`entra.microsoft.com`), Microsoft 365 admin center (`admin.microsoft.com`).
 
 </details>
 
